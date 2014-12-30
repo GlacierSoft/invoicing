@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.system.AuthorityMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.system.Authority" >
+    <id column="temp_auth_menu_id" property="menuId" jdbcType="VARCHAR" />
+    <id column="temp_auth_role_id" property="roleId" jdbcType="VARCHAR" />
+    <result column="temp_auth_actions" property="actions" jdbcType="VARCHAR" />
+    <result column="temp_auth_menuEnName" property="menuEnName"/> <!-- 自定义扩展字段 -->
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_auth.menu_id as temp_auth_menu_id, temp_auth.role_id as temp_auth_role_id, temp_auth.actions as temp_auth_actions,temp_menu.menu_en_name as temp_auth_menuEnName
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.system.AuthorityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_authority temp_auth
+    INNER JOIN t_menu temp_menu ON temp_auth.menu_id = temp_menu.menu_id
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.system.AuthorityKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_authority temp_auth
+    INNER JOIN t_menu temp_menu ON temp_auth.menu_id = temp_menu.menu_id
+    where temp_auth.menu_id = #{menuId,jdbcType=VARCHAR}
+      and temp_auth.role_id = #{roleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.glacier.frame.entity.system.AuthorityKey" >
+    delete from t_authority
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+      and role_id = #{roleId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.system.AuthorityExample" >
+    delete temp_auth from t_authority temp_auth
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.system.Authority" >
+    insert into t_authority (menu_id, role_id, actions
+      )
+    values (#{menuId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{actions,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.system.Authority" >
+    insert into t_authority
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        menu_id,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="actions != null" >
+        actions,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        #{menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="actions != null" >
+        #{actions,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.system.AuthorityExample" resultType="java.lang.Integer" >
+    select count(*) from t_authority temp_auth
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_authority temp_auth
+    <set >
+      <if test="record.menuId != null" >
+        temp_auth.menu_id = #{record.menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleId != null" >
+        temp_auth.role_id = #{record.roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actions != null" >
+        temp_auth.actions = #{record.actions,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_authority temp_auth
+    set temp_auth.menu_id = #{record.menuId,jdbcType=VARCHAR},
+      temp_auth.role_id = #{record.roleId,jdbcType=VARCHAR},
+      temp_auth.actions = #{record.actions,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.system.Authority" >
+    update t_authority
+    <set >
+      <if test="actions != null" >
+        actions = #{actions,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+      and role_id = #{roleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.system.Authority" >
+    update t_authority
+    set actions = #{actions,jdbcType=VARCHAR}
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+      and role_id = #{roleId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+	  	SELECT <include refid="Base_Column_List" /> FROM t_authority temp_auth
+		INNER JOIN t_menu temp_menu ON temp_auth.menu_id = temp_menu.menu_id 
+		WHERE temp_auth.role_id IN
+		(
+			SELECT temp_role.role_id FROM t_role temp_role
+			INNER JOIN t_user_role temp_user_role ON temp_role.role_id = temp_user_role.role_id
+			WHERE temp_user_role.user_id = #{userId}
+		)
+  </select>
+</mapper>

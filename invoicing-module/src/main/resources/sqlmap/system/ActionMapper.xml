@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.system.ActionMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.system.Action" >
+    <id column="temp_action_action_id" property="actionId" jdbcType="VARCHAR" />
+    <result column="temp_action_menu_id" property="menuId" jdbcType="VARCHAR" />
+    <result column="temp_action_panel_id" property="panelId" jdbcType="VARCHAR" />
+    <result column="temp_action_action_cn_name" property="actionCnName" jdbcType="VARCHAR" />
+    <result column="temp_action_action_en_name" property="actionEnName" jdbcType="VARCHAR" />
+    <result column="temp_action_icon_cls" property="iconCls" jdbcType="VARCHAR" />
+    <result column="temp_action_type" property="type" jdbcType="CHAR" />
+    <result column="temp_action_disabled" property="disabled" jdbcType="CHAR" />
+    <result column="temp_action_method" property="method" jdbcType="VARCHAR" />
+    <result column="temp_action_order_num" property="orderNum" jdbcType="INTEGER" />
+    <result column="temp_action_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_action_menuEnName" property="menuEnName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_action_menuCnName" property="menuCnName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_action_panel_cn_name" property="panelCnName" jdbcType="VARCHAR" /><!-- 自定义扩展字段 -->
+    <result column="temp_action_panel_en_name" property="panelEnName" jdbcType="VARCHAR" /><!-- 自定义扩展字段 -->
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_action.action_id as temp_action_action_id, temp_action.menu_id as temp_action_menu_id, 
+    temp_action.panel_id as temp_action_panel_id, temp_action.action_cn_name as temp_action_action_cn_name, 
+    temp_action.action_en_name as temp_action_action_en_name, temp_action.icon_cls as temp_action_icon_cls, 
+    temp_action.type as temp_action_type, temp_action.disabled as temp_action_disabled, 
+    temp_action.method as temp_action_method, temp_action.order_num as temp_action_order_num, 
+    temp_action.remark as temp_action_remark
+    <!-- 以下字段属于扩展 -->
+    ,temp_menu.menu_en_name as temp_action_menuEnName
+    ,temp_menu.menu_cn_name as temp_action_menuCnName
+    ,temp_panel.panel_cn_name as temp_action_panel_cn_name
+    ,temp_panel.panel_en_name as temp_action_panel_en_name
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_menu temp_menu ON temp_action.menu_id = temp_menu.menu_id <!-- 扩展 -->
+	LEFT JOIN t_panel temp_panel ON temp_action.panel_id = temp_panel.panel_id <!-- 扩展 -->
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.system.ActionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_action temp_action
+    <include refid="Base_extend"/>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_action temp_action
+    <include refid="Base_extend"/>
+    where temp_action.action_id = #{actionId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_action
+    where action_id = #{actionId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.system.ActionExample" >
+    delete temp_action from t_action temp_action
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.system.Action" >
+    insert into t_action (action_id, menu_id, panel_id, 
+      action_cn_name, action_en_name, icon_cls, 
+      type, disabled, method, order_num, 
+      remark)
+    values (#{actionId,jdbcType=VARCHAR}, #{menuId,jdbcType=VARCHAR}, #{panelId,jdbcType=VARCHAR}, 
+      #{actionCnName,jdbcType=VARCHAR}, #{actionEnName,jdbcType=VARCHAR}, #{iconCls,jdbcType=VARCHAR}, 
+      #{type,jdbcType=CHAR}, #{disabled,jdbcType=CHAR}, #{method,jdbcType=VARCHAR}, #{orderNum,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.system.Action" >
+    insert into t_action
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="actionId != null" >
+        action_id,
+      </if>
+      <if test="menuId != null" >
+        menu_id,
+      </if>
+      <if test="panelId != null" >
+        panel_id,
+      </if>
+      <if test="actionCnName != null" >
+        action_cn_name,
+      </if>
+      <if test="actionEnName != null" >
+        action_en_name,
+      </if>
+      <if test="iconCls != null" >
+        icon_cls,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="disabled != null" >
+        disabled,
+      </if>
+      <if test="method != null" >
+        method,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="actionId != null" >
+        #{actionId,jdbcType=VARCHAR},
+      </if>
+      <if test="menuId != null" >
+        #{menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="panelId != null" >
+        #{panelId,jdbcType=VARCHAR},
+      </if>
+      <if test="actionCnName != null" >
+        #{actionCnName,jdbcType=VARCHAR},
+      </if>
+      <if test="actionEnName != null" >
+        #{actionEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="iconCls != null" >
+        #{iconCls,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="disabled != null" >
+        #{disabled,jdbcType=CHAR},
+      </if>
+      <if test="method != null" >
+        #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.system.ActionExample" resultType="java.lang.Integer" >
+    select count(*) from t_action temp_action
+    <include refid="Base_extend"/>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_action temp_action
+    <set >
+      <if test="record.actionId != null" >
+        temp_action.action_id = #{record.actionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuId != null" >
+        temp_action.menu_id = #{record.menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.panelId != null" >
+        temp_action.panel_id = #{record.panelId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actionCnName != null" >
+        temp_action.action_cn_name = #{record.actionCnName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actionEnName != null" >
+        temp_action.action_en_name = #{record.actionEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iconCls != null" >
+        temp_action.icon_cls = #{record.iconCls,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        temp_action.type = #{record.type,jdbcType=CHAR},
+      </if>
+      <if test="record.disabled != null" >
+        temp_action.disabled = #{record.disabled,jdbcType=CHAR},
+      </if>
+      <if test="record.method != null" >
+        temp_action.method = #{record.method,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNum != null" >
+        temp_action.order_num = #{record.orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        temp_action.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_action temp_action
+    set temp_action.action_id = #{record.actionId,jdbcType=VARCHAR},
+      temp_action.menu_id = #{record.menuId,jdbcType=VARCHAR},
+      temp_action.panel_id = #{record.panelId,jdbcType=VARCHAR},
+      temp_action.action_cn_name = #{record.actionCnName,jdbcType=VARCHAR},
+      temp_action.action_en_name = #{record.actionEnName,jdbcType=VARCHAR},
+      temp_action.icon_cls = #{record.iconCls,jdbcType=VARCHAR},
+      temp_action.type = #{record.type,jdbcType=CHAR},
+      temp_action.disabled = #{record.disabled,jdbcType=CHAR},
+      temp_action.method = #{record.method,jdbcType=VARCHAR},
+      temp_action.order_num = #{record.orderNum,jdbcType=INTEGER},
+      temp_action.remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.system.Action" >
+    update t_action
+    <set >
+      <if test="menuId != null" >
+        menu_id = #{menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="panelId != null" >
+        panel_id = #{panelId,jdbcType=VARCHAR},
+      </if>
+      <if test="actionCnName != null" >
+        action_cn_name = #{actionCnName,jdbcType=VARCHAR},
+      </if>
+      <if test="actionEnName != null" >
+        action_en_name = #{actionEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="iconCls != null" >
+        icon_cls = #{iconCls,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="disabled != null" >
+        disabled = #{disabled,jdbcType=CHAR},
+      </if>
+      <if test="method != null" >
+        method = #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where action_id = #{actionId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.system.Action" >
+    update t_action
+    set menu_id = #{menuId,jdbcType=VARCHAR},
+      panel_id = #{panelId,jdbcType=VARCHAR},
+      action_cn_name = #{actionCnName,jdbcType=VARCHAR},
+      action_en_name = #{actionEnName,jdbcType=VARCHAR},
+      icon_cls = #{iconCls,jdbcType=VARCHAR},
+      type = #{type,jdbcType=CHAR},
+      disabled = #{disabled,jdbcType=CHAR},
+      method = #{method,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where action_id = #{actionId,jdbcType=VARCHAR}
+  </update>
+</mapper>

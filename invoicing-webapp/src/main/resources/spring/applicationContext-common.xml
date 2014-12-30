@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+       http://www.springframework.org/schema/cache 
+	   http://www.springframework.org/schema/cache/spring-cache.xsd
+       ">
+       
+	<!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
+	<context:component-scan base-package="com.glacier">
+		<!-- 排除SpringMVC的Controller注解，防止事务失效 -->
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<!-- 国际化的消息资源文件 -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<!-- 在web环境中一定要定位到classpath 否则默认到当前web应用下找 -->
+				<value>classpath:message/messages</value>
+			</list>
+		</property>
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="cacheSeconds" value="60" />
+	</bean>
+
+	<!--事务管理 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager"
+		proxy-target-class="true" />
+
+	<!-- 定义aspectj -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<!--spring和mybatis整合，直接使用mapper作为dao-->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath*:sqlmap/**/*Mapper.xml" />
+	</bean>
+	
+	<!--mybatis的xxxxmapper.java文件扫描路径配置-->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.glacier" />
+	</bean>
+
+    <!-- produce环境 -->
+	<beans profile="produce">
+
+		<!-- 读取已加密的资源文件 -->
+		<bean id="propertyConfigurer"
+			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<property name="locations">
+				<list>
+					<value>classpath:spring/config.properties</value>
+				</list>
+			</property>
+			<property name="fileEncoding" value="UTF-8" />
+		</bean>
+
+		<!-- BoneCP配置 -->
+		<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource"
+			destroy-method="close">
+			<property name="driverClass" value="${connection.driver}" />
+			<property name="jdbcUrl" value="${connection.url}" />
+			<property name="username" value="${connection.username}" />
+			<property name="password" value="${connection.password}" />
+			<!-- 检查数据库连接池中空闲连接的间隔时间，单位是分，默认值：240，如果要取消则设置为0 -->
+			<property name="idleConnectionTestPeriodInMinutes" value="10" />
+			<!-- 连接池中未使用的链接最大存活时间，单位是分，默认值：60，如果要永远存活设置为0 -->
+			<property name="idleMaxAgeInMinutes" value="1" />
+			<!-- 每个分区最大的连接数 -->
+			<property name="maxConnectionsPerPartition" value="60" />
+			<!-- 每个分区最小的连接数 -->
+			<property name="minConnectionsPerPartition" value="10" />
+			<!-- 分区数 ，默认值2，最小1，推荐3-4，视应用而定 -->
+			<property name="partitionCount" value="3" />
+			<!-- 每次去拿数据库连接的时候一次性要拿几个,默认值：2 -->
+			<property name="acquireIncrement" value="5" />
+			<!-- 缓存prepared statements的大小，默认值：0 -->
+			<property name="statementsCacheSize" value="100" />
+			<!-- 每个分区释放链接助理进程的数量，默认值：3，除非你的一个数据库连接的时间内做了很多工作，不然过多的助理进程会影响你的性能 -->
+			<property name="releaseHelperThreads" value="3" />
+			<!-- 保持数据库连接不断开的测试语句 -->
+			<property name="connectionTestStatement" value="SELECT CURRENT_DATE" />
+		</bean>
+
+	</beans>
+
+	<!-- test环境 ，使用更加快的连接池-->
+	<beans profile="test">
+
+		<!-- 读取已加密的资源文件 -->
+		<bean id="propertyConfigurer"
+			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<property name="locations">
+				<list>
+					<value>classpath:spring/config.properties</value>
+				</list>
+			</property>
+			<property name="fileEncoding" value="UTF-8" />
+		</bean>
+
+		<!-- Simple连接池 -->
+		<bean id="dataSource"
+			class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+			<property name="driverClass" value="${connection.driver}" />
+			<property name="url" value="${connection.url}" />
+			<property name="username" value="${connection.username}" />
+			<property name="password" value="${connection.password}" />
+		</bean>
+	</beans>
+
+</beans>

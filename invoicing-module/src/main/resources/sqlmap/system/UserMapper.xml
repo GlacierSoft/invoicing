@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.system.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.system.User" >
+    <id column="temp_user_user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="temp_user_username" property="username" jdbcType="VARCHAR" />
+    <result column="temp_user_user_cn_name" property="userCnName" jdbcType="VARCHAR" />
+    <result column="temp_user_password" property="password" jdbcType="VARCHAR" />
+    <result column="temp_user_salt" property="salt" jdbcType="VARCHAR" />
+    <result column="temp_user_status" property="status" jdbcType="VARCHAR" />
+    <result column="temp_user_builtin" property="builtin" jdbcType="VARCHAR" />
+    <result column="temp_user_email" property="email" jdbcType="VARCHAR" />
+    <result column="temp_user_user_image" property="userImage" jdbcType="VARCHAR" />
+    <result column="temp_user_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_user_last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="temp_user_last_login_ip_address" property="lastLoginIpAddress" jdbcType="VARCHAR" />
+    <result column="temp_user_login_count" property="loginCount" jdbcType="INTEGER" />
+    <result column="temp_user_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_user_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_user_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_user.user_id as temp_user_user_id, temp_user.username as temp_user_username, 
+    temp_user.user_cn_name as temp_user_user_cn_name, temp_user.password as temp_user_password, 
+    temp_user.salt as temp_user_salt, temp_user.status as temp_user_status, temp_user.builtin as temp_user_builtin, 
+    temp_user.email as temp_user_email, temp_user.user_image as temp_user_user_image, 
+    temp_user.remark as temp_user_remark, temp_user.last_login_time as temp_user_last_login_time, 
+    temp_user.last_login_ip_address as temp_user_last_login_ip_address, temp_user.login_count as temp_user_login_count, 
+    temp_user.creater as temp_user_creater, temp_user.create_time as temp_user_create_time
+    <!-- 以下字段属于扩展 -->
+    ,temp_createrDisplay.user_cn_name as temp_user_creater_display
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_user temp_createrDisplay ON temp_createrDisplay.user_id = temp_user.creater <!-- 扩展 -->
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.system.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_user temp_user
+    <include refid="Base_extend"/>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user temp_user
+    <include refid="Base_extend"/>
+    where temp_user.user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_user
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.system.UserExample" >
+    delete temp_user from t_user temp_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.system.User" >
+    insert into t_user (user_id, username, user_cn_name, 
+      password, salt, status, 
+      builtin, email, user_image, 
+      remark, last_login_time, last_login_ip_address, 
+      login_count, creater, create_time
+      )
+    values (#{userId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{userCnName,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{builtin,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{userImage,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{lastLoginIpAddress,jdbcType=VARCHAR}, 
+      #{loginCount,jdbcType=INTEGER}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.system.User" >
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="userCnName != null" >
+        user_cn_name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="builtin != null" >
+        builtin,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="userImage != null" >
+        user_image,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+      <if test="lastLoginIpAddress != null" >
+        last_login_ip_address,
+      </if>
+      <if test="loginCount != null" >
+        login_count,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userCnName != null" >
+        #{userCnName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="builtin != null" >
+        #{builtin,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="userImage != null" >
+        #{userImage,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginIpAddress != null" >
+        #{lastLoginIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="loginCount != null" >
+        #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.system.UserExample" resultType="java.lang.Integer" >
+    select count(*) from t_user temp_user
+    <include refid="Base_extend"/>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_user temp_user
+    <set >
+      <if test="record.userId != null" >
+        temp_user.user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        temp_user.username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userCnName != null" >
+        temp_user.user_cn_name = #{record.userCnName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        temp_user.password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salt != null" >
+        temp_user.salt = #{record.salt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        temp_user.status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.builtin != null" >
+        temp_user.builtin = #{record.builtin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        temp_user.email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userImage != null" >
+        temp_user.user_image = #{record.userImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_user.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastLoginTime != null" >
+        temp_user.last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastLoginIpAddress != null" >
+        temp_user.last_login_ip_address = #{record.lastLoginIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginCount != null" >
+        temp_user.login_count = #{record.loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.creater != null" >
+        temp_user.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_user.create_time = #{record.createTime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_user temp_user
+    set temp_user.user_id = #{record.userId,jdbcType=VARCHAR},
+      temp_user.username = #{record.username,jdbcType=VARCHAR},
+      temp_user.user_cn_name = #{record.userCnName,jdbcType=VARCHAR},
+      temp_user.password = #{record.password,jdbcType=VARCHAR},
+      temp_user.salt = #{record.salt,jdbcType=VARCHAR},
+      temp_user.status = #{record.status,jdbcType=VARCHAR},
+      temp_user.builtin = #{record.builtin,jdbcType=VARCHAR},
+      temp_user.email = #{record.email,jdbcType=VARCHAR},
+      temp_user.user_image = #{record.userImage,jdbcType=VARCHAR},
+      temp_user.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_user.last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      temp_user.last_login_ip_address = #{record.lastLoginIpAddress,jdbcType=VARCHAR},
+      temp_user.login_count = #{record.loginCount,jdbcType=INTEGER},
+      temp_user.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_user.create_time = #{record.createTime,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.system.User" >
+    update t_user
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userCnName != null" >
+        user_cn_name = #{userCnName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="builtin != null" >
+        builtin = #{builtin,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="userImage != null" >
+        user_image = #{userImage,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginIpAddress != null" >
+        last_login_ip_address = #{lastLoginIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="loginCount != null" >
+        login_count = #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=DATE},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.system.User" >
+    update t_user
+    set username = #{username,jdbcType=VARCHAR},
+      user_cn_name = #{userCnName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      builtin = #{builtin,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      user_image = #{userImage,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      last_login_ip_address = #{lastLoginIpAddress,jdbcType=VARCHAR},
+      login_count = #{loginCount,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=DATE}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+</mapper>

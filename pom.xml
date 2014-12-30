@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.glacier.project.invoicing</groupId>
+  <artifactId>invoicing-project</artifactId>
+  <version>0.0.1</version>
+  <packaging>pom</packaging>
+  <modules>
+  	<module>invoicing-core</module>
+  	<module>invoicing-module</module>
+    <module>invoicing-webapp</module>
+    <module>invoicing-webapp</module>
+  </modules>
+  
+	<!-- 管理jar版本 -->
+	<properties>
+		<!-- 编译源时候默认的编码 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- quartz begin -->
+		<quartz.version>2.2.1</quartz.version>
+		<!-- quartz end -->
+		<!-- jackson begin -->
+		<jackson.core.asl.version>1.9.8</jackson.core.asl.version>
+		<jackson.mapper.asl.version>1.9.8</jackson.mapper.asl.version>
+		<!-- jackson end -->
+		<!-- avax.mail begin -->
+		<javax.mail.version>1.4.7</javax.mail.version>
+		<!-- avax.mail end -->
+		<!-- apache common begin -->
+		<commons.io.version>2.4</commons.io.version>
+		<commons.email.version>1.2</commons.email.version>
+		<commons.collections.version>3.2</commons.collections.version>
+		<commons.lang3.version>3.1</commons.lang3.version>
+		<commons.fileupload.version>1.2.2</commons.fileupload.version>
+		<commons.codec.version>1.7</commons.codec.version>
+		<!-- apache common end -->
+		<!-- Aop begin -->
+		<org.aspectj.version>1.7.0</org.aspectj.version>
+		<cglib.version>2.2.2</cglib.version>
+		<asm.version>3.3.1</asm.version>
+		<aopalliance.version>1.0</aopalliance.version>
+		<!-- aspectj end -->
+		<!--log begin -->
+		<slf4j.version>1.6.4</slf4j.version>
+		<ch.qos.logback.version>1.0.7</ch.qos.logback.version>
+		<!--log end -->
+		<!--Spring begin -->
+		<spring.version>3.2.0.RELEASE</spring.version>
+		<!--Spring end -->
+		<!-- dao begin -->
+		<hibernate.version>4.1.8.Final</hibernate.version>
+		<hibernate-validator.version>4.3.1.Final</hibernate-validator.version>
+		<spring-data-jpa.version>1.2.0.RELEASE</spring-data-jpa.version>
+		<mybatis.core.version>3.1.1</mybatis.core.version>
+		<mybatis.spring.version>1.1.1</mybatis.spring.version>
+		<com.jolbox.version>0.7.1.RELEASE</com.jolbox.version>
+		<mysql.connector>5.1.9</mysql.connector>
+		<!-- dao end -->
+		<!-- shiro begin -->
+		<org.apache.shiro.version>1.2.2</org.apache.shiro.version>
+		<!-- shiro end -->
+		<!-- compent begin -->
+		<com.fasterxml.jackson.core.version>2.3.0</com.fasterxml.jackson.core.version>
+		<com.alibaba.fastjson.version>1.1.36</com.alibaba.fastjson.version>
+		<com.google.code.kaptcha>2.3</com.google.code.kaptcha>
+		<!-- compent end -->
+		<!-- provided begin -->
+		<junit.version>4.10</junit.version>
+		<mockito.version>1.9.0</mockito.version>
+		<javax.servlet.version>2.5</javax.servlet.version>
+		<javax.servlet.jsp.version>2.2</javax.servlet.jsp.version>
+		<!-- provided end -->
+		<org.apache.poi.version>3.10-FINAL</org.apache.poi.version>
+	</properties>
+
+	<!-- 管理jar的依赖，在此处相当于生命各种jar的版本和作用域，那么在子POM中就可以不用重复定义该jar的版本和作用,默认的scope为compile,默认的type为jar -->
+	<dependencyManagement>
+		<dependencies>
+			<!-- quartz begin -->
+			<dependency>
+				<groupId>org.quartz-scheduler</groupId>
+				<artifactId>quartz</artifactId>
+				<version>${quartz.version}</version>
+			</dependency>
+			<!-- quartz end -->
+			<!-- jackson begin -->
+			<dependency>  
+				<groupId>org.codehaus.jackson</groupId>  
+				<artifactId>jackson-core-asl</artifactId>  
+				<version>${jackson.core.asl.version}</version>
+			</dependency>  
+			<dependency>  
+				<groupId>org.codehaus.jackson</groupId>  
+				<artifactId>jackson-mapper-asl</artifactId>
+				<version>${jackson.mapper.asl.version}</version>  
+			</dependency> 
+			<!-- jackson end --> 
+			<!-- avax.mail begin -->
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>${javax.mail.version}</version>
+			</dependency>
+            <!-- avax.mail end -->
+			<!-- apache common begin -->
+			<dependency>
+			  <groupId>org.apache.commons</groupId>
+			  <artifactId>commons-email</artifactId>
+			  <version>${commons.email.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons.io.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-collections</groupId>
+				<artifactId>commons-collections</artifactId>
+				<version>${commons.collections.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>${commons.lang3.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-fileupload</groupId>
+				<artifactId>commons-fileupload</artifactId>
+				<version>${commons.fileupload.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-codec</groupId>
+				<artifactId>commons-codec</artifactId>
+				<version>${commons.codec.version}</version>
+			</dependency>
+			<!-- apache common end -->
+
+			<!-- Aop begin -->
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjrt</artifactId>
+				<version>${org.aspectj.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjweaver</artifactId>
+				<version>${org.aspectj.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>cglib</groupId>
+				<artifactId>cglib-nodep</artifactId>
+				<version>${cglib.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>asm</groupId>
+				<artifactId>asm</artifactId>
+				<version>${asm.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>aopalliance</groupId>
+				<artifactId>aopalliance</artifactId>
+				<version>${aopalliance.version}</version>
+			</dependency>
+			<!-- aspectj end -->
+
+
+			<!--log begin -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-core</artifactId>
+				<version>${ch.qos.logback.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>${ch.qos.logback.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-access</artifactId>
+				<version>${ch.qos.logback.version}</version>
+			</dependency>
+			<!--log end -->
+
+			<!--Spring begin -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${spring.version}</version>
+				<exclusions><!-- 排除commons-logging对项目的影响 -->
+					<exclusion>
+						<artifactId>commons-logging</artifactId>
+						<groupId>commons-logging</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-expression</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-beans</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context-support</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-oxm</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-asm</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!--Spring begin -->
+
+			<!-- dao begin -->
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-ehcache</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<version>${hibernate-validator.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis</artifactId>
+				<version>${mybatis.core.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-spring</artifactId>
+				<version>${mybatis.spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jolbox</groupId>
+				<artifactId>bonecp</artifactId>
+				<version>${com.jolbox.version}</version>
+				<scope>runtime</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.jolbox</groupId>
+				<artifactId>bonecp-spring</artifactId>
+				<version>${com.jolbox.version}</version>
+				<scope>runtime</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql.connector}</version>
+				<scope>runtime</scope>
+			</dependency>
+			<!-- dao end -->
+
+			<!-- shiro begin -->
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-core</artifactId>
+				<version>${org.apache.shiro.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-web</artifactId>
+				<version>${org.apache.shiro.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-spring</artifactId>
+				<version>${org.apache.shiro.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-ehcache</artifactId>
+				<version>${org.apache.shiro.version}</version>
+			</dependency>
+			<!-- shiro end -->
+
+			<!-- compent begin -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${com.fasterxml.jackson.core.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${com.alibaba.fastjson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.code.kaptcha</groupId>
+				<artifactId>kaptcha</artifactId>
+				<classifier>jdk15</classifier>
+				<version>${com.google.code.kaptcha}</version>
+			</dependency>
+			<!-- compent end -->
+
+			<!-- provided begin -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>${mockito.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+				<version>${javax.servlet.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.servlet.jsp</groupId>
+				<artifactId>jsp-api</artifactId>
+				<version>${javax.servlet.jsp.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<!-- provided end -->
+
+			<!-- poi begin -->
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi</artifactId>
+				<version>${org.apache.poi.version}</version>
+			</dependency>
+			<!-- poi end -->
+			
+		</dependencies>
+	</dependencyManagement>
+
+
+	<build>
+		<finalName>yhglobal-build</finalName>
+		<!-- 当项目变化的时自动编译-->
+		<defaultGoal>compiler</defaultGoal>
+		<!-- pluginManagement 中定义的plugin，所有子项目都会继承 -->
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.1</version>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+						<encoding>UTF-8</encoding>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

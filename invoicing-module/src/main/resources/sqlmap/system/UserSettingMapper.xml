@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.system.UserSettingMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.system.UserSetting" >
+    <id column="temp_user_setting_user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="temp_user_setting_set_key" property="setKey" jdbcType="VARCHAR" />
+    <result column="temp_user_setting_set_name" property="setName" jdbcType="VARCHAR" />
+    <result column="temp_user_setting_set_value" property="setValue" jdbcType="VARCHAR" />
+    <result column="temp_user_setting_set_description" property="setDescription" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_user_setting.user_id as temp_user_setting_user_id, temp_user_setting.set_key as temp_user_setting_set_key, 
+    temp_user_setting.set_name as temp_user_setting_set_name, temp_user_setting.set_value as temp_user_setting_set_value, 
+    temp_user_setting.set_description as temp_user_setting_set_description
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.system.UserSettingExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_user_setting temp_user_setting
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_setting temp_user_setting
+    where temp_user_setting.user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_user_setting
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.system.UserSettingExample" >
+    delete temp_user_setting from t_user_setting temp_user_setting
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.system.UserSetting" >
+    insert into t_user_setting (user_id, set_key, set_name, 
+      set_value, set_description)
+    values (#{userId,jdbcType=VARCHAR}, #{setKey,jdbcType=VARCHAR}, #{setName,jdbcType=VARCHAR}, 
+      #{setValue,jdbcType=VARCHAR}, #{setDescription,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.system.UserSetting" >
+    insert into t_user_setting
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="setKey != null" >
+        set_key,
+      </if>
+      <if test="setName != null" >
+        set_name,
+      </if>
+      <if test="setValue != null" >
+        set_value,
+      </if>
+      <if test="setDescription != null" >
+        set_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="setKey != null" >
+        #{setKey,jdbcType=VARCHAR},
+      </if>
+      <if test="setName != null" >
+        #{setName,jdbcType=VARCHAR},
+      </if>
+      <if test="setValue != null" >
+        #{setValue,jdbcType=VARCHAR},
+      </if>
+      <if test="setDescription != null" >
+        #{setDescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.system.UserSettingExample" resultType="java.lang.Integer" >
+    select count(*) from t_user_setting temp_user_setting
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_user_setting temp_user_setting
+    <set >
+      <if test="record.userId != null" >
+        temp_user_setting.user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.setKey != null" >
+        temp_user_setting.set_key = #{record.setKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.setName != null" >
+        temp_user_setting.set_name = #{record.setName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.setValue != null" >
+        temp_user_setting.set_value = #{record.setValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.setDescription != null" >
+        temp_user_setting.set_description = #{record.setDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_user_setting temp_user_setting
+    set temp_user_setting.user_id = #{record.userId,jdbcType=VARCHAR},
+      temp_user_setting.set_key = #{record.setKey,jdbcType=VARCHAR},
+      temp_user_setting.set_name = #{record.setName,jdbcType=VARCHAR},
+      temp_user_setting.set_value = #{record.setValue,jdbcType=VARCHAR},
+      temp_user_setting.set_description = #{record.setDescription,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.system.UserSetting" >
+    update t_user_setting
+    <set >
+      <if test="setKey != null" >
+        set_key = #{setKey,jdbcType=VARCHAR},
+      </if>
+      <if test="setName != null" >
+        set_name = #{setName,jdbcType=VARCHAR},
+      </if>
+      <if test="setValue != null" >
+        set_value = #{setValue,jdbcType=VARCHAR},
+      </if>
+      <if test="setDescription != null" >
+        set_description = #{setDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.system.UserSetting" >
+    update t_user_setting
+    set set_key = #{setKey,jdbcType=VARCHAR},
+      set_name = #{setName,jdbcType=VARCHAR},
+      set_value = #{setValue,jdbcType=VARCHAR},
+      set_description = #{setDescription,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+</mapper>

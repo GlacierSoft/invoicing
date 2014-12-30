@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.system.LoginLogMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.system.LoginLog" >
+    <id column="temp_loginlog_loginlog_id" property="loginlogId" jdbcType="VARCHAR" />
+    <result column="temp_loginlog_user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="temp_loginlog_login_user" property="loginUser" jdbcType="VARCHAR" />
+    <result column="temp_loginlog_login_time" property="loginTime" jdbcType="TIMESTAMP" />
+    <result column="temp_loginlog_login_ip" property="loginIp" jdbcType="VARCHAR" />
+    <result column="temp_loginlog_browser_version" property="browserVersion" jdbcType="VARCHAR" />
+    <result column="temp_loginlog_screen_size" property="screenSize" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_loginlog.loginlog_id as temp_loginlog_loginlog_id, temp_loginlog.user_id as temp_loginlog_user_id, 
+    temp_loginlog.login_user as temp_loginlog_login_user, temp_loginlog.login_time as temp_loginlog_login_time, 
+    temp_loginlog.login_ip as temp_loginlog_login_ip, temp_loginlog.browser_version as temp_loginlog_browser_version, 
+    temp_loginlog.screen_size as temp_loginlog_screen_size
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.system.LoginLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_loginlog temp_loginlog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_loginlog temp_loginlog
+    where temp_loginlog.loginlog_id = #{loginlogId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_loginlog
+    where loginlog_id = #{loginlogId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.system.LoginLogExample" >
+    delete temp_loginlog from t_loginlog temp_loginlog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.system.LoginLog" >
+    insert into t_loginlog (loginlog_id, user_id, login_user, 
+      login_time, login_ip, browser_version, 
+      screen_size)
+    values (#{loginlogId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{loginUser,jdbcType=VARCHAR}, 
+      #{loginTime,jdbcType=TIMESTAMP}, #{loginIp,jdbcType=VARCHAR}, #{browserVersion,jdbcType=VARCHAR}, 
+      #{screenSize,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.system.LoginLog" >
+    insert into t_loginlog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="loginlogId != null" >
+        loginlog_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="loginUser != null" >
+        login_user,
+      </if>
+      <if test="loginTime != null" >
+        login_time,
+      </if>
+      <if test="loginIp != null" >
+        login_ip,
+      </if>
+      <if test="browserVersion != null" >
+        browser_version,
+      </if>
+      <if test="screenSize != null" >
+        screen_size,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="loginlogId != null" >
+        #{loginlogId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginUser != null" >
+        #{loginUser,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null" >
+        #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginIp != null" >
+        #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="browserVersion != null" >
+        #{browserVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="screenSize != null" >
+        #{screenSize,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.system.LoginLogExample" resultType="java.lang.Integer" >
+    select count(*) from t_loginlog temp_loginlog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_loginlog temp_loginlog
+    <set >
+      <if test="record.loginlogId != null" >
+        temp_loginlog.loginlog_id = #{record.loginlogId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        temp_loginlog.user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginUser != null" >
+        temp_loginlog.login_user = #{record.loginUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginTime != null" >
+        temp_loginlog.login_time = #{record.loginTime,jdbcType=DATE},
+      </if>
+      <if test="record.loginIp != null" >
+        temp_loginlog.login_ip = #{record.loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.browserVersion != null" >
+        temp_loginlog.browser_version = #{record.browserVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.screenSize != null" >
+        temp_loginlog.screen_size = #{record.screenSize,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_loginlog temp_loginlog
+    set temp_loginlog.loginlog_id = #{record.loginlogId,jdbcType=VARCHAR},
+      temp_loginlog.user_id = #{record.userId,jdbcType=VARCHAR},
+      temp_loginlog.login_user = #{record.loginUser,jdbcType=VARCHAR},
+      temp_loginlog.login_time = #{record.loginTime,jdbcType=DATE},
+      temp_loginlog.login_ip = #{record.loginIp,jdbcType=VARCHAR},
+      temp_loginlog.browser_version = #{record.browserVersion,jdbcType=VARCHAR},
+      temp_loginlog.screen_size = #{record.screenSize,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.system.LoginLog" >
+    update t_loginlog
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginUser != null" >
+        login_user = #{loginUser,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null" >
+        login_time = #{loginTime,jdbcType=DATE},
+      </if>
+      <if test="loginIp != null" >
+        login_ip = #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="browserVersion != null" >
+        browser_version = #{browserVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="screenSize != null" >
+        screen_size = #{screenSize,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where loginlog_id = #{loginlogId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.system.LoginLog" >
+    update t_loginlog
+    set user_id = #{userId,jdbcType=VARCHAR},
+      login_user = #{loginUser,jdbcType=VARCHAR},
+      login_time = #{loginTime,jdbcType=DATE},
+      login_ip = #{loginIp,jdbcType=VARCHAR},
+      browser_version = #{browserVersion,jdbcType=VARCHAR},
+      screen_size = #{screenSize,jdbcType=VARCHAR}
+    where loginlog_id = #{loginlogId,jdbcType=VARCHAR}
+  </update>
+</mapper>

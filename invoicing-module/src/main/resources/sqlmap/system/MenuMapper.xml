@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.system.MenuMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.system.Menu" >
+    <id column="temp_menu_menu_id" property="menuId" jdbcType="VARCHAR" />
+    <result column="temp_menu_pid" property="pid" jdbcType="VARCHAR" />
+    <result column="temp_menu_menu_en_name" property="menuEnName" jdbcType="VARCHAR" />
+    <result column="temp_menu_menu_cn_name" property="menuCnName" jdbcType="VARCHAR" />
+    <result column="temp_menu_icon_cls" property="iconCls" jdbcType="VARCHAR" />
+    <result column="temp_menu_url" property="url" jdbcType="VARCHAR" />
+    <result column="temp_menu_order_num" property="orderNum" jdbcType="INTEGER" />
+    <result column="temp_menu_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_action_parentMenuCnName" property="parentMenuCnName" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_menu.menu_id as temp_menu_menu_id, temp_menu.pid as temp_menu_pid, temp_menu.menu_en_name as temp_menu_menu_en_name, 
+    temp_menu.menu_cn_name as temp_menu_menu_cn_name, temp_menu.icon_cls as temp_menu_icon_cls, 
+    temp_menu.url as temp_menu_url, temp_menu.order_num as temp_menu_order_num, temp_menu.remark as temp_menu_remark
+    <!-- 以下字段属于扩展 -->
+    ,temp_parentmenu.menu_cn_name as temp_action_parentMenuCnName
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_menu temp_parentmenu ON temp_parentmenu.menu_id = temp_menu.pid <!-- 扩展 -->
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.system.MenuExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_menu temp_menu
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_menu temp_menu
+    <include refid="Base_extend" />
+    where temp_menu.menu_id = #{menuId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_menu
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.system.MenuExample" >
+    delete temp_menu from t_menu temp_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.system.Menu" >
+    insert into t_menu (menu_id, pid, menu_en_name, 
+      menu_cn_name, icon_cls, url, 
+      order_num, remark)
+    values (#{menuId,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{menuEnName,jdbcType=VARCHAR}, 
+      #{menuCnName,jdbcType=VARCHAR}, #{iconCls,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{orderNum,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.system.Menu" >
+    insert into t_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        menu_id,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="menuEnName != null" >
+        menu_en_name,
+      </if>
+      <if test="menuCnName != null" >
+        menu_cn_name,
+      </if>
+      <if test="iconCls != null" >
+        icon_cls,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        #{menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="menuEnName != null" >
+        #{menuEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuCnName != null" >
+        #{menuCnName,jdbcType=VARCHAR},
+      </if>
+      <if test="iconCls != null" >
+        #{iconCls,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.system.MenuExample" resultType="java.lang.Integer" >
+    select count(*) from t_menu temp_menu
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_menu temp_menu
+    <set >
+      <if test="record.menuId != null" >
+        temp_menu.menu_id = #{record.menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pid != null" >
+        temp_menu.pid = #{record.pid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuEnName != null" >
+        temp_menu.menu_en_name = #{record.menuEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuCnName != null" >
+        temp_menu.menu_cn_name = #{record.menuCnName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iconCls != null" >
+        temp_menu.icon_cls = #{record.iconCls,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null" >
+        temp_menu.url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNum != null" >
+        temp_menu.order_num = #{record.orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        temp_menu.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_menu temp_menu
+    set temp_menu.menu_id = #{record.menuId,jdbcType=VARCHAR},
+      temp_menu.pid = #{record.pid,jdbcType=VARCHAR},
+      temp_menu.menu_en_name = #{record.menuEnName,jdbcType=VARCHAR},
+      temp_menu.menu_cn_name = #{record.menuCnName,jdbcType=VARCHAR},
+      temp_menu.icon_cls = #{record.iconCls,jdbcType=VARCHAR},
+      temp_menu.url = #{record.url,jdbcType=VARCHAR},
+      temp_menu.order_num = #{record.orderNum,jdbcType=INTEGER},
+      temp_menu.remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.system.Menu" >
+    update t_menu
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="menuEnName != null" >
+        menu_en_name = #{menuEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuCnName != null" >
+        menu_cn_name = #{menuCnName,jdbcType=VARCHAR},
+      </if>
+      <if test="iconCls != null" >
+        icon_cls = #{iconCls,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.system.Menu" >
+    update t_menu
+    set pid = #{pid,jdbcType=VARCHAR},
+      menu_en_name = #{menuEnName,jdbcType=VARCHAR},
+      menu_cn_name = #{menuCnName,jdbcType=VARCHAR},
+      icon_cls = #{iconCls,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+	  	SELECT DISTINCT<include refid="Base_Column_List" /> FROM t_menu temp_menu 
+		INNER JOIN t_authority temp_auth ON  temp_menu.menu_id = temp_auth.menu_id
+		LEFT JOIN t_menu temp_parentMenu ON temp_menu.pid = temp_parentMenu.menu_id
+		WHERE temp_auth.role_id IN
+		(
+			SELECT temp_role.role_id FROM t_role temp_role
+			INNER JOIN t_user_role temp_user_role ON temp_role.role_id = temp_user_role.role_id
+			WHERE temp_user_role.user_id = #{userId}
+		) ORDER BY temp_menu.order_num asc
+  </select>
+</mapper>
