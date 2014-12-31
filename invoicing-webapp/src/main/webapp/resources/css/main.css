@@ -1,0 +1,193 @@
+/*全局样式*/
+body, h1, h2, h3, h4, h5, h6,input,textarea{
+	font-family: verdana, arial, tahoma, helvetica, sans-serif;
+	font-size: 12px;
+	margin: 0;
+	padding: 0;
+}
+
+/*input,span文字居中*/
+input,textarea {
+	vertical-align: middle;
+}
+
+/*textarea通用表单样式*/
+textarea.formta {
+	height: 80px;
+	overflow: auto;
+	white-space: normal;
+	margin-top: 5px
+}
+
+/*横线水平hr样式*/
+hr {
+	height: 1px;
+	border: none;
+	border-top: 1px dashed #C9C7C7;
+}
+
+/*input下划线样式*/
+.botton_link {
+	border-bottom: #C9C7C7 1px dotted;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+}
+
+/*图标显示样式*/
+.img_iconCls {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+}
+
+/*logo样式*/
+.logo {
+	height: 65px;
+	overflow: hidden;
+	background: url('../images/logo.png') no-repeat;
+}
+
+/*登录用户超链接*/
+.user {
+	color: #5D4381;
+	padding:0px 5px;
+	text-decoration:none;
+}
+.user: hover {
+	text-decoration: none;
+}
+
+/*登录信息高亮*/
+.login_name {
+	background-color: #D9D9D9;
+	border-color: #D9D9D9;
+	font-weight: bold;
+	line-height: 14px;
+	padding: 10px;
+}
+
+/*主题样式*/
+.icon_custom_acquiesce {
+	background: url('../images/icons/acquiesce.png') no-repeat center center;
+}
+.icon_custom_blue {
+	background: url('../images/icons/blue.png') no-repeat center center;
+}
+.icon_custom_buff {
+	background: url('../images/icons/buff.png') no-repeat center center;
+}
+.icon_custom_gray {
+	background: url('../images/icons/gray.png') no-repeat center center;
+}
+.icon_custom_green {
+	background: url('../images/icons/green.png') no-repeat center center;
+}
+.icon_custom_pink {
+	background: url('../images/icons/pink.png') no-repeat center center;
+}
+.icon_custom_wathet {
+	background: url('../images/icons/wathet.png') no-repeat center center;
+}
+
+/*授权表格样式*/
+table.auth_table {
+	text-align: right;
+	border-collapse: collapse;
+}
+
+
+table.auth_table td {
+	border-width: 0px;
+	padding: 5px;
+}
+.auth_span{
+	padding-left: 3px;
+	vertical-align: middle;
+		
+}
+
+/*普通录入表格样式*/
+table.formtable {
+	border-collapse: collapse;
+}
+
+table.formtable td {
+	height: 25px;
+}
+
+td.forminputtable {
+	padding-right: 15px;
+}
+
+
+/*展示详细表格样式*/
+table.detailtable {
+	border-collapse: collapse;
+}
+
+table.detailtable td {
+	height: 25px;
+}
+table.detailtable input{
+	border-top:0px; 
+	border-left:0px; 
+	border-right:0px; 
+	background-color:transparent; /* 背景色透明 */ 
+}
+table.detailtable textarea{
+	resize: none;
+	overflow: auto;
+	white-space: normal;
+	border-top-style:none;
+	border-left-style:none;
+	border-right-style:none;
+	border-bottom-style:1px solid #84909C;
+}
+
+/*toorbar 右对齐*/
+.toorbar_right {
+	float: right;
+	margin: 3px 3px;
+	overflow: hidden;
+}
+
+/*提示*/
+.tip_info {
+	background: none repeat scroll 0 0 #FFFEE6;
+	color: #8F5700;
+	padding: 8px;
+}
+.tip_text {
+	float: left;
+	height: 16px;
+	margin-right: 8px;
+	width: 16px;
+}
+
+.label-warning {
+    background-color: #F0AD4E;
+}
+.label-danger {
+    background-color: #D9534F;
+}
+.label-primary {
+    background-color: #428BCA;
+}
+.label-success {
+    background-color: #5CB85C;
+}
+.label-info {
+    background-color: #5BC0DE;
+}
+.label {
+    border-radius: 0.25em;
+    color: #FFFFFF;
+    display: inline;
+    font-weight: bold;
+    line-height: 1;
+    padding: 0.2em 0.6em 0.3em;
+    text-align: center;
+    vertical-align: baseline;
+    white-space: nowrap;
+}

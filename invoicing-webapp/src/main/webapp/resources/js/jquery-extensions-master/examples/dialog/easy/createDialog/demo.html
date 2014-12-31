@@ -1,0 +1,23 @@
+﻿<div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#Button1").click(function () {
+            $.easyui.showDialog({
+                title: "快速创建的 Dialog",
+                top: 130, left: 170, width: "auto", height: "auto",
+                minWidth: 150, minHeight: 100,
+                maxWidth: 500, maxHeight: 500,
+                content: "这是通过 $.easyui.showDialog 方法创建的 Dialog",
+                topMost: false
+            });
+        });
+    });
+</script>
+
+<h2>jEasyUI Dialog Extensions - 快速创建 Dialog</h2>
+<p>该部分扩展由文件 jeasyui.extensions.dialog.js 实现。</p>
+<hr />
+<input id="Button1" type="button" value="创建Dialog" />
+
+</div>

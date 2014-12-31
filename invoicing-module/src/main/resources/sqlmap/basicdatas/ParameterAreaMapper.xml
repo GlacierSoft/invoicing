@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.basicdatas.ParameterAreaMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.basicdatas.ParameterArea" >
+    <id column="temp_parameter_area_area_id" property="areaId" jdbcType="VARCHAR" />
+    <result column="temp_parameter_area_area_pid" property="areaPid" jdbcType="VARCHAR" />
+    <result column="temp_parameter_area_area_name" property="areaName" jdbcType="VARCHAR" />
+    <result column="temp_parameter_area_area_subsite" property="areaSubsite" jdbcType="CHAR" />
+    <result column="temp_parameter_area_accessory" property="accessory" jdbcType="VARCHAR" />
+    <result column="temp_parameter_area_area_num" property="areaNum" jdbcType="INTEGER" />
+    <result column="temp_parameter_area_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_parameter_area_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_parameter_area_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_parameter_area_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_parameter_area_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_parameter_area_Pname" property="areaPname" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_parameter_area_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_parameter_area_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_parameter_area.area_id as temp_parameter_area_area_id, temp_parameter_area.area_pid as temp_parameter_area_area_pid, 
+    temp_parameter_area.area_name as temp_parameter_area_area_name, temp_parameter_area.area_subsite as temp_parameter_area_area_subsite, 
+    temp_parameter_area.accessory as temp_parameter_area_accessory, temp_parameter_area.area_num as temp_parameter_area_area_num, 
+    temp_parameter_area.remark as temp_parameter_area_remark, temp_parameter_area.creater as temp_parameter_area_creater, 
+    temp_parameter_area.create_time as temp_parameter_area_create_time, temp_parameter_area.updater as temp_parameter_area_updater, 
+    temp_parameter_area.update_time as temp_parameter_area_update_time
+    <!-- 以下字段属于扩展 -->
+    ,temp_parameter_parea.area_name as temp_parameter_area_Pname
+    ,temp_creater.user_cn_name as temp_parameter_area_creater_display
+    ,temp_updater.user_cn_name as temp_parameter_area_updater_display
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_parameter_area temp_parameter_parea ON temp_parameter_parea.area_id = temp_parameter_area.area_pid <!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_parameter_area.creater =  temp_creater.user_id<!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_parameter_area.updater =  temp_updater.user_id<!-- 扩展 -->
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.basicdatas.ParameterAreaExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_parameter_area temp_parameter_area
+    <include refid="Base_extend"/>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_parameter_area temp_parameter_area
+    <include refid="Base_extend"/>
+    where temp_parameter_area.area_id = #{areaId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_parameter_area
+    where area_id = #{areaId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.ParameterAreaExample" >
+    delete from t_parameter_area temp_parameter_area
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.basicdatas.ParameterArea" >
+    insert into t_parameter_area (area_id, area_pid, area_name, 
+      area_subsite, accessory, area_num, 
+      remark, creater, create_time, 
+      updater, update_time)
+    values (#{areaId,jdbcType=VARCHAR}, #{areaPid,jdbcType=VARCHAR}, #{areaName,jdbcType=VARCHAR}, 
+      #{areaSubsite,jdbcType=CHAR}, #{accessory,jdbcType=VARCHAR}, #{areaNum,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.basicdatas.ParameterArea" >
+    insert into t_parameter_area
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="areaId != null" >
+        area_id,
+      </if>
+      <if test="areaPid != null" >
+        area_pid,
+      </if>
+      <if test="areaName != null" >
+        area_name,
+      </if>
+      <if test="areaSubsite != null" >
+        area_subsite,
+      </if>
+      <if test="accessory != null" >
+        accessory,
+      </if>
+      <if test="areaNum != null" >
+        area_num,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="areaId != null" >
+        #{areaId,jdbcType=VARCHAR},
+      </if>
+      <if test="areaPid != null" >
+        #{areaPid,jdbcType=VARCHAR},
+      </if>
+      <if test="areaName != null" >
+        #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaSubsite != null" >
+        #{areaSubsite,jdbcType=CHAR},
+      </if>
+      <if test="accessory != null" >
+        #{accessory,jdbcType=VARCHAR},
+      </if>
+      <if test="areaNum != null" >
+        #{areaNum,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.basicdatas.ParameterAreaExample" resultType="java.lang.Integer" >
+    select count(*) from t_parameter_area temp_parameter_area
+    <include refid="Base_extend"/>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_parameter_area temp_parameter_area
+    <set >
+      <if test="record.areaId != null" >
+        temp_parameter_area.area_id = #{record.areaId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaPid != null" >
+        temp_parameter_area.area_pid = #{record.areaPid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaName != null" >
+        temp_parameter_area.area_name = #{record.areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaSubsite != null" >
+        temp_parameter_area.area_subsite = #{record.areaSubsite,jdbcType=CHAR},
+      </if>
+      <if test="record.accessory != null" >
+        temp_parameter_area.accessory = #{record.accessory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaNum != null" >
+        temp_parameter_area.area_num = #{record.areaNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        temp_parameter_area.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_parameter_area.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_parameter_area.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_parameter_area.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_parameter_area.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_parameter_area temp_parameter_area
+    set temp_parameter_area.area_id = #{record.areaId,jdbcType=VARCHAR},
+      temp_parameter_area.area_pid = #{record.areaPid,jdbcType=VARCHAR},
+      temp_parameter_area.area_name = #{record.areaName,jdbcType=VARCHAR},
+      temp_parameter_area.area_subsite = #{record.areaSubsite,jdbcType=CHAR},
+      temp_parameter_area.accessory = #{record.accessory,jdbcType=VARCHAR},
+      temp_parameter_area.area_num = #{record.areaNum,jdbcType=INTEGER},
+      temp_parameter_area.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_parameter_area.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_parameter_area.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_parameter_area.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_parameter_area.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.basicdatas.ParameterArea" >
+    update t_parameter_area
+    <set >
+      <if test="areaPid != null" >
+        area_pid = #{areaPid,jdbcType=VARCHAR},
+      </if>
+      <if test="areaName != null" >
+        area_name = #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaSubsite != null" >
+        area_subsite = #{areaSubsite,jdbcType=CHAR},
+      </if>
+      <if test="accessory != null" >
+        accessory = #{accessory,jdbcType=VARCHAR},
+      </if>
+      <if test="areaNum != null" >
+        area_num = #{areaNum,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where area_id = #{areaId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.basicdatas.ParameterArea" >
+    update t_parameter_area
+    set area_pid = #{areaPid,jdbcType=VARCHAR},
+      area_name = #{areaName,jdbcType=VARCHAR},
+      area_subsite = #{areaSubsite,jdbcType=CHAR},
+      accessory = #{accessory,jdbcType=VARCHAR},
+      area_num = #{areaNum,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where area_id = #{areaId,jdbcType=VARCHAR}
+  </update>
+</mapper>

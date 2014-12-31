@@ -1,0 +1,501 @@
+/* container */
+.ke-container-qq {
+	display: block;
+	border: 1px solid #c3c3c3;
+	background-color: #FFF;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+/* toolbar */
+.ke-container-qq .ke-toolbar {
+	border-bottom: 1px solid #c3c3c3;
+	background-color: #FFFFFF;
+	padding: 2px 5px;
+	text-align: left;
+	overflow: hidden;
+	zoom: 1;
+}
+.ke-toolbar-icon-url {
+	background-image: url(editor.gif);
+	width:18px;
+	*xwidth:20px;
+	height:18px;
+	*xheight:20px;
+}
+.ke-icon-checked{
+	background-image: url(../default/default.png);
+	width:16px;
+	height:16px;
+}
+/* icons */
+.ke-icon-source {
+	background-position: 0px 0px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-preview {
+	background-position: 0px -16px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-print {
+	background-position: 0px -32px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-undo {
+	background-position: 0px -48px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-redo {
+	background-position: 0px -64px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-cut {
+	background-position: 0px -80px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-copy {
+	background-position: 0px -96px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-paste {
+	background-position: 0px -112px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-selectall {
+	background-position: 0px -128px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-justifyleft {
+	background-position: 0px -144px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-justifycenter {
+	background-position: 0px -160px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-justifyright {
+	background-position: 0px -176px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-justifyfull {
+	background-position: 0px -192px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-insertorderedlist {
+	background-position: 0px -208px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-insertunorderedlist {
+	background-position: 0px -224px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-indent {
+	background-position: 0px -240px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-outdent {
+	background-position: 0px -256px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-subscript {
+	background-position: 0px -272px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-superscript {
+	background-position: 0px -288px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-date {
+	background-position: 0px -304px;
+	width: 25px;
+	height: 16px;
+}
+.ke-icon-time {
+	background-position: 0px -320px;
+	width: 25px;
+	height: 16px;
+}
+.ke-icon-formatblock {
+	background-position: 0px -336px;
+	width: 25px;
+	height: 16px;
+}
+.ke-icon-fontname {
+	background-position: 0px -352px;
+	width: 21px;
+	height: 16px;
+}
+.ke-icon-fontsize {
+	background-position: 0px -368px;
+	width: 23px;
+	height: 16px;
+}
+.ke-icon-forecolor {
+	background-position: 0px -384px;
+	width: 20px;
+	height: 16px;
+}
+.ke-icon-hilitecolor {
+	background-position: 0px -400px;
+	width: 23px;
+	height: 16px;
+}
+
+/* add icons */
+.ke-container-qq .ke-icon-plug-align{
+	background-position: 0px -144px;
+}
+.plug-align-justifyleft{
+	background-position: 0px -144px;
+}
+.plug-align-justifycenter{
+	background-position: 0px -160px;
+}
+.plug-align-justifyright{
+	background-position: 0px -176px;
+}
+.ke-container-qq .ke-icon-plug-order{
+	background-position: 0px -224px;
+}
+.plug-order-insertorderedlist{
+	background-position: 0px -208px;
+}
+.plug-order-insertunorderedlist{
+	background-position: 0px -224px;
+}
+.ke-container-qq .ke-icon-plug-indent{
+	background-position: 0px -256px;
+}
+.plug-indent-indent{
+	background-position: 0px -256px;
+}
+.plug-indent-outdent{
+	background-position: 0px -240px;
+}
+
+.ke-icon-bold {
+	background-position: 0px -416px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-italic {
+	background-position: 0px -432px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-underline {
+	background-position: 0px -448px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-strikethrough {
+	background-position: 0px -464px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-removeformat {
+	background-position: 0px -480px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-image {
+	background-position: 0px -496px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-flash {
+	background-position: 0px -512px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-media {
+	background-position: 0px -528px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-div {
+	background-position: 0px -544px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-formula {
+	background-position: 0px -576px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-hr {
+	background-position: 0px -592px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-emoticons {
+	background-position: 0px -608px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-link {
+	background-position: 0px -624px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-unlink {
+	background-position: 0px -640px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-fullscreen {
+	background-position: 0px -656px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-about {
+	background-position: 0px -672px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-plainpaste {
+	background-position: 0px -704px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-wordpaste {
+	background-position: 0px -720px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-table {
+	background-position: 0px -784px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-tablemenu {
+	background-position: 0px -768px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-tableinsert {
+	background-position: 0px -784px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-tabledelete {
+	background-position: 0px -800px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-tablecolinsertleft {
+	background-position: 0px -816px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-tablecolinsertright {
+	background-position: 0px -832px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-tablerowinsertabove {
+	background-position: 0px -848px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-tablerowinsertbelow {
+	background-position: 0px -864px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-tablecoldelete {
+	background-position: 0px -880px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-tablerowdelete {
+	background-position: 0px -896px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-tablecellprop {
+	background-position: 0px -912px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-tableprop {
+	background-position: 0px -928px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-checked {
+	background-position: 0px -944px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-code {
+	background-position: 0px -960px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-map {
+	background-position: 0px -976px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-baidumap {
+	background-position: 0px -976px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-lineheight {
+	background-position: 0px -992px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-clearhtml {
+	background-position: 0px -1008px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-pagebreak {
+	background-position: 0px -1024px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-insertfile {
+	background-position: 0px -1040px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-quickformat {
+	background-position: 0px -1056px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-template {
+	background-position: 0px -1072px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-tablecellsplit {
+	background-position: 0px -1088px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-tablerowmerge {
+	background-position: 0px -1104px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-tablerowsplit {
+	background-position: 0px -1120px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-tablecolmerge {
+	background-position: 0px -1136px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-tablecolsplit {
+	background-position: 0px -1152px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-anchor {
+	background-position: 0px -1168px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-search {
+	background-position: 0px -1184px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-new {
+	background-position: 0px -1200px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-specialchar {
+	background-position: 0px -1216px;
+	width: 16px;
+	height: 16px;
+}
+.ke-icon-multiimage {
+	background-position: 0px -1232px;
+	width: 16px;
+	height: 16px;
+}
+
+
+.ke-container-qq .ke-toolbar .ke-outline {
+	cursor: default;
+	padding:0px;
+	border:1px solid #fff;
+}
+.ke-container-qq .ke-toolbar .ke-on {
+	border-left:1px solid white;
+	border-top:1px solid white;
+	border-right:1px solid gray;
+	border-bottom:1px solid gray;
+	background-color: #FFFFFF;
+}
+.ke-container-qq .ke-toolbar .ke-selected {
+	border-left:1px solid gray;
+	border-top:1px solid gray;
+	border-right:1px solid white;
+	border-bottom:1px solid white;
+	background-color: #FFFFFF;
+}
+.ke-container-qq .ke-toolbar  .ke-disabled {
+	cursor: default;
+}
+
+.ke-colorpicker-qq{
+	background:#fff;
+}
+/* statusbar */
+.ke-container-qq .ke-statusbar {
+	display:none;
+}
+/* menu */
+.ke-menu-qq {
+	border:1px solid #a6a6a6;
+	position:absolute;
+	background:#fff;
+	-moz-box-shadow:2px 2px 4px #DDDDDD;
+	z-index:999;
+	left:-400px;
+	top:-386px;
+	right:218px;
+	width:130px;
+}
+.ke-menu-qq .ke-menu-item {
+	padding:0px;
+	background:#fff;
+}
+.ke-menu-qq .ke-menu-item-on {
+	border:1px solid #000080;background:#FFEEC2;color:#036;
+}
+.ke-menu-qq .ke-toolbar .ke-selected {
+	border:1px solid #9a9afb;
+}
+.ke-menu-qq .ke-menu-item-left{
+	width:auto;
+}

@@ -7,7 +7,7 @@
  * @version V1.0
  * @modify (修改) : 2014-8-15 上午8:50:38  xichao.dong 
  * @Review (审核人) ：xichao.dong 
- *//*
+ */
 package com.glacier.frame.web.listener;
 
 import java.sql.ResultSet;
@@ -25,13 +25,13 @@ import com.glacier.basic.util.DBHelper;
 import com.glacier.basic.util.JackJson;
 import com.glacier.frame.dto.service.basicdatas.FieldDTO;
 
-*//**
+/**
  * @ClassName: SystemInitListener 
  * @Description: TODO(加载基础数据下拉项到容器session,进行字段映射) 
- * @author xichao.dong	
+ * @author xichao.dong  
  * @email 406592176@qq.com
  * @date 2014-8-28 下午5:35:09
- *//*
+ */
 public class SystemInitListener implements ServletContextListener {
 
     private static final Logger logger = LoggerFactory.getLogger(SystemInitListener.class);
@@ -73,4 +73,3 @@ public class SystemInitListener implements ServletContextListener {
         }
     }
 }
-*/

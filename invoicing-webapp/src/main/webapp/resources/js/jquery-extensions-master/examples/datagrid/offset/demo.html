@@ -1,0 +1,40 @@
+﻿<div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#t1").datagrid({
+            title: 'test datagrid',
+            width: 1200,
+            height: 400,
+            method: "get",
+            url: "datagrid/datagrid-data.json",
+            idField: 'ID',
+            remoteSort: false,
+            frozenColumns: [[
+                { field: 'ck', checkbox: true },
+                { field: 'ID', title: 'ID', width: 80, sortable: true }
+            ]],
+            columns: [[
+                { field: 'Code', title: '编号(Code)', width: 120 },
+                { field: 'Name', title: '名称(Name)', width: 140 },
+                { field: 'Age', title: '年龄(Age)', width: 120 },
+                { field: 'Height', title: '身高(Height)', width: 140 },
+                { field: 'Weight', title: '体重(Weight)', width: 140 },
+                { field: 'CreateDate', title: '创建日期(CreateDate)', width: 180 },
+                { field: 'undefined', title: '测试(不存在的字段)', width: 150 }
+            ]],
+            enableHeaderClickMenu: false,
+            enableHeaderContextMenu: false,
+            enableRowContextMenu: false,
+            offset: { width: -250, height: -150}   //该属性属性表示当屏幕大小调整时候随屏幕大小尺寸调整而自身大小调整的偏移量，具体设置方式参见 API 文档说明
+        });
+    });
+</script>
+
+<h2>jEasyUI DataGrid Extensions - 自动适应屏幕大小(Offset)</h2>
+<p>该部分扩展由文件 jeasyui.extensions.datagrid.js 实现。</p>
+<hr />
+<p>请试着调整浏览器窗口大小，在移动时/后，可以观察到表格的大小也随之而改变</p>
+<table id="t1"></table>
+
+</div>

@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.basicdatas.ParameterOptgroupValueMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.basicdatas.ParameterOptgroupValue" >
+    <id column="temp_parameter_optgroup_value_optgroup_value_id" property="optgroupValueId" jdbcType="VARCHAR" />
+    <result column="temp_parameter_optgroup_value_optgroup_id" property="optgroupId" jdbcType="VARCHAR" />
+    <result column="temp_parameter_optgroup_value_optgroup_value_code" property="optgroupValueCode" jdbcType="VARCHAR" />
+    <result column="temp_parameter_optgroup_value_optgroup_value_name" property="optgroupValueName" jdbcType="VARCHAR" />
+    <result column="temp_parameter_optgroup_value_status" property="status" jdbcType="CHAR" />
+    <result column="temp_parameter_optgroup_value_optgroup_value_num" property="optgroupValueNum" jdbcType="INTEGER" />
+    <result column="temp_parameter_optgroup_value_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_parameter_optgroup_value_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_parameter_optgroup_value_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_parameter_optgroup_value_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_parameter_optgroup_value_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_parameter_optgroup_value_optgroupCode" property="optgroupCode" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_parameter_optgroup_value_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_parameter_optgroup_value_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_parameter_optgroup_value.optgroup_value_id as temp_parameter_optgroup_value_optgroup_value_id, 
+    temp_parameter_optgroup_value.optgroup_id as temp_parameter_optgroup_value_optgroup_id, 
+    temp_parameter_optgroup_value.optgroup_value_code as temp_parameter_optgroup_value_optgroup_value_code, 
+    temp_parameter_optgroup_value.optgroup_value_name as temp_parameter_optgroup_value_optgroup_value_name, 
+    temp_parameter_optgroup_value.status as temp_parameter_optgroup_value_status, temp_parameter_optgroup_value.optgroup_value_num as temp_parameter_optgroup_value_optgroup_value_num, 
+    temp_parameter_optgroup_value.remark as temp_parameter_optgroup_value_remark, temp_parameter_optgroup_value.creater as temp_parameter_optgroup_value_creater, 
+    temp_parameter_optgroup_value.create_time as temp_parameter_optgroup_value_create_time, 
+    temp_parameter_optgroup_value.updater as temp_parameter_optgroup_value_updater, temp_parameter_optgroup_value.update_time as temp_parameter_optgroup_value_update_time
+    <!-- 以下字段属于扩展 -->
+    ,temp_parameter_optgroup.optgroup_code as temp_parameter_optgroup_value_optgroupCode
+    ,temp_creater.user_cn_name as temp_parameter_optgroup_value_creater_display
+    ,temp_updater.user_cn_name as temp_parameter_optgroup_value_updater_display
+  </sql>
+  <sql id="Base_extend">
+  	LEFT JOIN t_parameter_optgroup temp_parameter_optgroup ON temp_parameter_optgroup_value.optgroup_id =  temp_parameter_optgroup.optgroup_id<!-- 扩展 -->
+    LEFT JOIN t_user temp_creater ON temp_parameter_optgroup_value.creater =  temp_creater.user_id<!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_parameter_optgroup_value.updater =  temp_updater.user_id<!-- 扩展 -->
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.basicdatas.ParameterOptgroupValueExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_parameter_optgroup_value temp_parameter_optgroup_value
+    <include refid="Base_extend"/>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_parameter_optgroup_value temp_parameter_optgroup_value
+    <include refid="Base_extend"/>
+    where temp_parameter_optgroup_value.optgroup_value_id = #{optgroupValueId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_parameter_optgroup_value
+    where optgroup_value_id = #{optgroupValueId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.ParameterOptgroupValueExample" >
+    delete temp_parameter_optgroup_value from t_parameter_optgroup_value temp_parameter_optgroup_value
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.basicdatas.ParameterOptgroupValue" >
+    insert into t_parameter_optgroup_value (optgroup_value_id, optgroup_id, optgroup_value_code, 
+      optgroup_value_name, status, optgroup_value_num, 
+      remark, creater, create_time, 
+      updater, update_time)
+    values (#{optgroupValueId,jdbcType=VARCHAR}, #{optgroupId,jdbcType=VARCHAR}, #{optgroupValueCode,jdbcType=VARCHAR}, 
+      #{optgroupValueName,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{optgroupValueNum,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.basicdatas.ParameterOptgroupValue" >
+    insert into t_parameter_optgroup_value
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="optgroupValueId != null" >
+        optgroup_value_id,
+      </if>
+      <if test="optgroupId != null" >
+        optgroup_id,
+      </if>
+      <if test="optgroupValueCode != null" >
+        optgroup_value_code,
+      </if>
+      <if test="optgroupValueName != null" >
+        optgroup_value_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="optgroupValueNum != null" >
+        optgroup_value_num,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="optgroupValueId != null" >
+        #{optgroupValueId,jdbcType=VARCHAR},
+      </if>
+      <if test="optgroupId != null" >
+        #{optgroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="optgroupValueCode != null" >
+        #{optgroupValueCode,jdbcType=VARCHAR},
+      </if>
+      <if test="optgroupValueName != null" >
+        #{optgroupValueName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="optgroupValueNum != null" >
+        #{optgroupValueNum,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.basicdatas.ParameterOptgroupValueExample" resultType="java.lang.Integer" >
+    select count(*) from t_parameter_optgroup_value temp_parameter_optgroup_value
+    <include refid="Base_extend"/>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_parameter_optgroup_value temp_parameter_optgroup_value
+    <set >
+      <if test="record.optgroupValueId != null" >
+        temp_parameter_optgroup_value.optgroup_value_id = #{record.optgroupValueId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optgroupId != null" >
+        temp_parameter_optgroup_value.optgroup_id = #{record.optgroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optgroupValueCode != null" >
+        temp_parameter_optgroup_value.optgroup_value_code = #{record.optgroupValueCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optgroupValueName != null" >
+        temp_parameter_optgroup_value.optgroup_value_name = #{record.optgroupValueName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        temp_parameter_optgroup_value.status = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.optgroupValueNum != null" >
+        temp_parameter_optgroup_value.optgroup_value_num = #{record.optgroupValueNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        temp_parameter_optgroup_value.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_parameter_optgroup_value.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_parameter_optgroup_value.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_parameter_optgroup_value.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_parameter_optgroup_value.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_parameter_optgroup_value temp_parameter_optgroup_value
+    set temp_parameter_optgroup_value.optgroup_value_id = #{record.optgroupValueId,jdbcType=VARCHAR},
+      temp_parameter_optgroup_value.optgroup_id = #{record.optgroupId,jdbcType=VARCHAR},
+      temp_parameter_optgroup_value.optgroup_value_code = #{record.optgroupValueCode,jdbcType=VARCHAR},
+      temp_parameter_optgroup_value.optgroup_value_name = #{record.optgroupValueName,jdbcType=VARCHAR},
+      temp_parameter_optgroup_value.status = #{record.status,jdbcType=CHAR},
+      temp_parameter_optgroup_value.optgroup_value_num = #{record.optgroupValueNum,jdbcType=INTEGER},
+      temp_parameter_optgroup_value.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_parameter_optgroup_value.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_parameter_optgroup_value.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_parameter_optgroup_value.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_parameter_optgroup_value.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.basicdatas.ParameterOptgroupValue" >
+    update t_parameter_optgroup_value
+    <set >
+      <if test="optgroupId != null" >
+        optgroup_id = #{optgroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="optgroupValueCode != null" >
+        optgroup_value_code = #{optgroupValueCode,jdbcType=VARCHAR},
+      </if>
+      <if test="optgroupValueName != null" >
+        optgroup_value_name = #{optgroupValueName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="optgroupValueNum != null" >
+        optgroup_value_num = #{optgroupValueNum,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where optgroup_value_id = #{optgroupValueId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.basicdatas.ParameterOptgroupValue" >
+    update t_parameter_optgroup_value
+    set optgroup_id = #{optgroupId,jdbcType=VARCHAR},
+      optgroup_value_code = #{optgroupValueCode,jdbcType=VARCHAR},
+      optgroup_value_name = #{optgroupValueName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR},
+      optgroup_value_num = #{optgroupValueNum,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where optgroup_value_id = #{optgroupValueId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.basicdatas.ParameterSystemVariablesMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.basicdatas.ParameterSystemVariables" >
+    <id column="temp_parameter_system_variables_variables_id" property="variablesId" jdbcType="VARCHAR" />
+    <result column="temp_parameter_system_variables_specification" property="specification" jdbcType="VARCHAR" />
+    <result column="temp_parameter_system_variables_input_tip" property="inputTip" jdbcType="VARCHAR" />
+    <result column="temp_parameter_system_variables_parameter_values" property="parameterValues" jdbcType="VARCHAR" />
+    <result column="temp_parameter_system_variables_variable_name" property="variableName" jdbcType="VARCHAR" />
+    <result column="temp_parameter_system_variables_form_type" property="formType" jdbcType="CHAR" />
+    <result column="temp_parameter_system_variables_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_parameter_system_variables_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_parameter_system_variables_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_parameter_system_variables_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_parameter_system_variables_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_parameter_system_variables_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_parameter_system_variables_updater_display" property="updaterDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_parameter_system_variables.variables_id as temp_parameter_system_variables_variables_id, 
+    temp_parameter_system_variables.specification as temp_parameter_system_variables_specification, 
+    temp_parameter_system_variables.input_tip as temp_parameter_system_variables_input_tip, 
+    temp_parameter_system_variables.parameter_values as temp_parameter_system_variables_parameter_values, 
+    temp_parameter_system_variables.variable_name as temp_parameter_system_variables_variable_name, 
+    temp_parameter_system_variables.form_type as temp_parameter_system_variables_form_type, 
+    temp_parameter_system_variables.remark as temp_parameter_system_variables_remark, 
+    temp_parameter_system_variables.creater as temp_parameter_system_variables_creater, 
+    temp_parameter_system_variables.create_time as temp_parameter_system_variables_create_time, 
+    temp_parameter_system_variables.updater as temp_parameter_system_variables_updater, 
+    temp_parameter_system_variables.update_time as temp_parameter_system_variables_update_time
+    <!-- 以下字段属于扩展 -->
+    ,temp_creater.user_cn_name as temp_parameter_system_variables_creater_display
+    ,temp_updater.user_cn_name as temp_parameter_system_variables_updater_display
+  </sql>
+  <sql id="Base_extend">
+    LEFT JOIN t_user temp_creater ON temp_parameter_system_variables.creater =  temp_creater.user_id<!-- 扩展 -->
+    LEFT JOIN t_user temp_updater ON temp_parameter_system_variables.updater =  temp_updater.user_id<!-- 扩展 -->
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.basicdatas.ParameterSystemVariablesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_parameter_system_variables temp_parameter_system_variables
+    <include refid="Base_extend"/>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_parameter_system_variables temp_parameter_system_variables
+    <include refid="Base_extend"/>
+    where temp_parameter_system_variables.variables_id = #{variablesId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_parameter_system_variables
+    where variables_id = #{variablesId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.ParameterSystemVariablesExample" >
+    delete temp_parameter_system_variables from t_parameter_system_variables temp_parameter_system_variables
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.basicdatas.ParameterSystemVariables" >
+    insert into t_parameter_system_variables (variables_id, specification, input_tip, 
+      parameter_values, variable_name, form_type, 
+      remark, creater, create_time, 
+      updater, update_time)
+    values (#{variablesId,jdbcType=VARCHAR}, #{specification,jdbcType=VARCHAR}, #{inputTip,jdbcType=VARCHAR}, 
+      #{parameterValues,jdbcType=VARCHAR}, #{variableName,jdbcType=VARCHAR}, #{formType,jdbcType=CHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.basicdatas.ParameterSystemVariables" >
+    insert into t_parameter_system_variables
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="variablesId != null" >
+        variables_id,
+      </if>
+      <if test="specification != null" >
+        specification,
+      </if>
+      <if test="inputTip != null" >
+        input_tip,
+      </if>
+      <if test="parameterValues != null" >
+        parameter_values,
+      </if>
+      <if test="variableName != null" >
+        variable_name,
+      </if>
+      <if test="formType != null" >
+        form_type,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="variablesId != null" >
+        #{variablesId,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null" >
+        #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="inputTip != null" >
+        #{inputTip,jdbcType=VARCHAR},
+      </if>
+      <if test="parameterValues != null" >
+        #{parameterValues,jdbcType=VARCHAR},
+      </if>
+      <if test="variableName != null" >
+        #{variableName,jdbcType=VARCHAR},
+      </if>
+      <if test="formType != null" >
+        #{formType,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.basicdatas.ParameterSystemVariablesExample" resultType="java.lang.Integer" >
+    select count(*) from t_parameter_system_variables temp_parameter_system_variables
+    <include refid="Base_extend"/>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_parameter_system_variables temp_parameter_system_variables
+    <set >
+      <if test="record.variablesId != null" >
+        temp_parameter_system_variables.variables_id = #{record.variablesId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.specification != null" >
+        temp_parameter_system_variables.specification = #{record.specification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inputTip != null" >
+        temp_parameter_system_variables.input_tip = #{record.inputTip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parameterValues != null" >
+        temp_parameter_system_variables.parameter_values = #{record.parameterValues,jdbcType=VARCHAR},
+      </if>
+      <if test="record.variableName != null" >
+        temp_parameter_system_variables.variable_name = #{record.variableName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.formType != null" >
+        temp_parameter_system_variables.form_type = #{record.formType,jdbcType=CHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_parameter_system_variables.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_parameter_system_variables.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_parameter_system_variables.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_parameter_system_variables.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_parameter_system_variables.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_parameter_system_variables temp_parameter_system_variables
+    set temp_parameter_system_variables.variables_id = #{record.variablesId,jdbcType=VARCHAR},
+      temp_parameter_system_variables.specification = #{record.specification,jdbcType=VARCHAR},
+      temp_parameter_system_variables.input_tip = #{record.inputTip,jdbcType=VARCHAR},
+      temp_parameter_system_variables.parameter_values = #{record.parameterValues,jdbcType=VARCHAR},
+      temp_parameter_system_variables.variable_name = #{record.variableName,jdbcType=VARCHAR},
+      temp_parameter_system_variables.form_type = #{record.formType,jdbcType=CHAR},
+      temp_parameter_system_variables.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_parameter_system_variables.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_parameter_system_variables.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_parameter_system_variables.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_parameter_system_variables.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.basicdatas.ParameterSystemVariables" >
+    update t_parameter_system_variables
+    <set >
+      <if test="specification != null" >
+        specification = #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="inputTip != null" >
+        input_tip = #{inputTip,jdbcType=VARCHAR},
+      </if>
+      <if test="parameterValues != null" >
+        parameter_values = #{parameterValues,jdbcType=VARCHAR},
+      </if>
+      <if test="variableName != null" >
+        variable_name = #{variableName,jdbcType=VARCHAR},
+      </if>
+      <if test="formType != null" >
+        form_type = #{formType,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where variables_id = #{variablesId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.basicdatas.ParameterSystemVariables" >
+    update t_parameter_system_variables
+    set specification = #{specification,jdbcType=VARCHAR},
+      input_tip = #{inputTip,jdbcType=VARCHAR},
+      parameter_values = #{parameterValues,jdbcType=VARCHAR},
+      variable_name = #{variableName,jdbcType=VARCHAR},
+      form_type = #{formType,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where variables_id = #{variablesId,jdbcType=VARCHAR}
+  </update>
+</mapper>

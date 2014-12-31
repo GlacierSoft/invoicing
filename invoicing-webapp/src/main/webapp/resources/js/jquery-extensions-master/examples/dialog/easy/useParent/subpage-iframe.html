@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="../../../../jquery-easyui-theme/default/easyui.css" rel="stylesheet" />
+    <link href="../../../../jquery-easyui-theme/icon.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="../../../../jquery/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="../../../../jquery-easyui-1.3.4/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../../../jquery-easyui-1.3.4/locale/easyui-lang-zh_CN.js"></script>
+
+    <script type="text/javascript" type="text/javascript" src="../../../../jquery.jdirk.js"></script>
+    <script type="text/javascript" src="../../../../jeasyui-extensions/jeasyui.extensions.js"></script>
+
+    <script type="text/javascript" src="../../../../jeasyui-extensions/jeasyui.extensions.menu.js"></script>
+    <script type="text/javascript" src="../../../../jeasyui-extensions/jeasyui.extensions.panel.js"></script>
+    <script type="text/javascript" src="../../../../jeasyui-extensions/jeasyui.extensions.window.js"></script>
+    <script type="text/javascript" src="../../../../jeasyui-extensions/jeasyui.extensions.dialog.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#SubPageIframeButton1").click(function () {
+                var jq = $.easyui.parent.$;
+                jq("#Text1").val("bbbbbbbbbbbbbb from dialog2");
+            });
+        });
+    </script>
+</head>
+<body>
+    <input id="SubPageIframeButton1" type="button" value="操作父级窗口的INPUT" />
+</body>
+</html>
