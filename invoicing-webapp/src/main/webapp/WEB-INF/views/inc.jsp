@@ -17,10 +17,6 @@
 <link href="${ctx}/resources/css/main.css" rel="stylesheet" type="text/css" />
 <!-- kindeditor上传按钮样式 -->
 <link rel="stylesheet" href="${ctx}/resources/js/kindeditor/themes/default/default.css"></link>
-<!-- 增加地区选择器样式 -->
-<link href="${ctx}/resources/area/css/cityLayout.css" type="text/css" rel="stylesheet">
-<link href="${ctx}/resources/area/css/area.css" type="text/css" rel="stylesheet">
-
 
 <!-- 引入easyui-->
 <script src="${ctx}/resources/js/jquery-extensions-master/jquery/jquery-1.10.2.js" type="text/javascript"></script>
