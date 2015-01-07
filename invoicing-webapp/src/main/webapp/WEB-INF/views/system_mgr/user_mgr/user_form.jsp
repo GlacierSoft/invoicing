@@ -19,6 +19,12 @@
 			<td><input id="user_mgr_user_form_status" name="status"  class="easyui-combobox" style="height:18px;width:270px" value="${userData.status}" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/></td>
 		</tr>
 		<tr>
+			<td>所属部门：</td>
+			<td class="forminputtable">
+				<input id="user_mgr_user_form_depId" name="depId" value="${userData.depId}"/>
+			</td>
+		</tr>
+		<tr>
 			<td>电子邮箱：</td>
 			<td><input name="email" class="easyui-validatebox spinner" style="width:268px" value="${userData.email}" required="true" validType="email"/></td>
 		</tr>
@@ -28,3 +34,14 @@
 		</tr>
 	</table>
 </form>
+<script type="text/javascript">
+	//初始化上级下拉项
+	$("#user_mgr_user_form_depId").combotree({
+		data : $.parseJSON('${allDepTreeNodeData}'),
+		width:270,
+		height:18,
+	    missingMessage:'请选择上级下拉项',
+	    smooth: true,       //该属性用以启用当前 easyui-tree 控件对平滑数据格式的支持
+	    lines : true
+	});	
+</script>

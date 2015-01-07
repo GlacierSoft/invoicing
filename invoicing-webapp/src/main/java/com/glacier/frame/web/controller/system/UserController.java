@@ -1,7 +1,9 @@
 package com.glacier.frame.web.controller.system;
 
 import java.util.List;
+
 import javax.validation.Valid;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.glacier.core.controller.AbstractController;
-import com.glacier.jqueryui.util.JqPager;
 import com.glacier.frame.dto.query.system.UserQueryDTO;
 import com.glacier.frame.entity.system.User;
+import com.glacier.frame.service.system.DepService;
 import com.glacier.frame.service.system.UserService;
+import com.glacier.jqueryui.util.JqPager;
 
 /*** 
  * @ClassName:  UserController
@@ -32,6 +36,9 @@ public class UserController extends AbstractController{
 	@Autowired
 	private UserService userService;// 注入用户业务Bean
 	
+	@Autowired
+	private DepService depService;
+	
 	//进入用户业务列表展示页面
 	@RequestMapping(value = "/index.htm")
 	private Object intoIndexPage(){
@@ -43,6 +50,7 @@ public class UserController extends AbstractController{
 	@RequestMapping(value = "/intoForm.htm")
 	private Object intoUsertFormPage(String userId){
 		ModelAndView mav = new ModelAndView("system_mgr/user_mgr/user_form");
+		mav.addObject("allDepTreeNodeData", depService.getAllTreeDepNode(true));
 		if(StringUtils.isNotBlank(userId)){
 			mav.addObject("userData", userService.getUser(userId));
 		}

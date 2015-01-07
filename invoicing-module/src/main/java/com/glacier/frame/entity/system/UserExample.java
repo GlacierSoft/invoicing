@@ -2,7 +2,6 @@ package com.glacier.frame.entity.system;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 public class UserExample {
@@ -126,32 +125,6 @@ public class UserExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                dateList.add(new java.sql.Date(iter.next().getTime()));
-            }
-            addCriterion(condition, dateList, property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
-        }
-
         public Criteria andUserIdIsNull() {
             addCriterion("temp_user.user_id is null");
             return (Criteria) this;
@@ -263,7 +236,7 @@ public class UserExample {
         }
 
         public Criteria andUsernameLike(String value) {
-            addCriterion("temp_user.username like ", value, "username");
+            addCriterion("temp_user.username like", value, "username");
             return (Criteria) this;
         }
 
@@ -429,6 +402,76 @@ public class UserExample {
 
         public Criteria andPasswordNotBetween(String value1, String value2) {
             addCriterion("temp_user.password not between", value1, value2, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdIsNull() {
+            addCriterion("temp_user.dep_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdIsNotNull() {
+            addCriterion("temp_user.dep_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdEqualTo(String value) {
+            addCriterion("temp_user.dep_id =", value, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdNotEqualTo(String value) {
+            addCriterion("temp_user.dep_id <>", value, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdGreaterThan(String value) {
+            addCriterion("temp_user.dep_id >", value, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_user.dep_id >=", value, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdLessThan(String value) {
+            addCriterion("temp_user.dep_id <", value, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdLessThanOrEqualTo(String value) {
+            addCriterion("temp_user.dep_id <=", value, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdLike(String value) {
+            addCriterion("temp_user.dep_id like", value, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdNotLike(String value) {
+            addCriterion("temp_user.dep_id not like", value, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdIn(List<String> values) {
+            addCriterion("temp_user.dep_id in", values, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdNotIn(List<String> values) {
+            addCriterion("temp_user.dep_id not in", values, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdBetween(String value1, String value2) {
+            addCriterion("temp_user.dep_id between", value1, value2, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdNotBetween(String value1, String value2) {
+            addCriterion("temp_user.dep_id not between", value1, value2, "depId");
             return (Criteria) this;
         }
 
@@ -1123,52 +1166,52 @@ public class UserExample {
         }
 
         public Criteria andCreateTimeEqualTo(Date value) {
-            addCriterionForJDBCDate("temp_user.create_time =", value, "createTime");
+            addCriterion("temp_user.create_time =", value, "createTime");
             return (Criteria) this;
         }
 
         public Criteria andCreateTimeNotEqualTo(Date value) {
-            addCriterionForJDBCDate("temp_user.create_time <>", value, "createTime");
+            addCriterion("temp_user.create_time <>", value, "createTime");
             return (Criteria) this;
         }
 
         public Criteria andCreateTimeGreaterThan(Date value) {
-            addCriterionForJDBCDate("temp_user.create_time >", value, "createTime");
+            addCriterion("temp_user.create_time >", value, "createTime");
             return (Criteria) this;
         }
 
         public Criteria andCreateTimeGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("temp_user.create_time >=", value, "createTime");
+            addCriterion("temp_user.create_time >=", value, "createTime");
             return (Criteria) this;
         }
 
         public Criteria andCreateTimeLessThan(Date value) {
-            addCriterionForJDBCDate("temp_user.create_time <", value, "createTime");
+            addCriterion("temp_user.create_time <", value, "createTime");
             return (Criteria) this;
         }
 
         public Criteria andCreateTimeLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("temp_user.create_time <=", value, "createTime");
+            addCriterion("temp_user.create_time <=", value, "createTime");
             return (Criteria) this;
         }
 
         public Criteria andCreateTimeIn(List<Date> values) {
-            addCriterionForJDBCDate("temp_user.create_time in", values, "createTime");
+            addCriterion("temp_user.create_time in", values, "createTime");
             return (Criteria) this;
         }
 
         public Criteria andCreateTimeNotIn(List<Date> values) {
-            addCriterionForJDBCDate("temp_user.create_time not in", values, "createTime");
+            addCriterion("temp_user.create_time not in", values, "createTime");
             return (Criteria) this;
         }
 
         public Criteria andCreateTimeBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("temp_user.create_time between", value1, value2, "createTime");
+            addCriterion("temp_user.create_time between", value1, value2, "createTime");
             return (Criteria) this;
         }
 
         public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("temp_user.create_time not between", value1, value2, "createTime");
+            addCriterion("temp_user.create_time not between", value1, value2, "createTime");
             return (Criteria) this;
         }
     }

@@ -6,6 +6,7 @@
     <result column="temp_user_username" property="username" jdbcType="VARCHAR" />
     <result column="temp_user_user_cn_name" property="userCnName" jdbcType="VARCHAR" />
     <result column="temp_user_password" property="password" jdbcType="VARCHAR" />
+    <result column="temp_user_dep_id" property="depId" jdbcType="VARCHAR" />
     <result column="temp_user_salt" property="salt" jdbcType="VARCHAR" />
     <result column="temp_user_status" property="status" jdbcType="VARCHAR" />
     <result column="temp_user_builtin" property="builtin" jdbcType="VARCHAR" />
@@ -80,8 +81,8 @@
   <sql id="Base_Column_List" >
     temp_user.user_id as temp_user_user_id, temp_user.username as temp_user_username, 
     temp_user.user_cn_name as temp_user_user_cn_name, temp_user.password as temp_user_password, 
-    temp_user.salt as temp_user_salt, temp_user.status as temp_user_status, temp_user.builtin as temp_user_builtin, 
-    temp_user.email as temp_user_email, temp_user.user_image as temp_user_user_image, 
+    temp_user.dep_id as temp_user_dep_id, temp_user.salt as temp_user_salt, temp_user.status as temp_user_status, 
+    temp_user.builtin as temp_user_builtin, temp_user.email as temp_user_email, temp_user.user_image as temp_user_user_image, 
     temp_user.remark as temp_user_remark, temp_user.last_login_time as temp_user_last_login_time, 
     temp_user.last_login_ip_address as temp_user_last_login_ip_address, temp_user.login_count as temp_user_login_count, 
     temp_user.creater as temp_user_creater, temp_user.create_time as temp_user_create_time
@@ -128,14 +129,14 @@
   </delete>
   <insert id="insert" parameterType="com.glacier.frame.entity.system.User" >
     insert into t_user (user_id, username, user_cn_name, 
-      password, salt, status, 
-      builtin, email, user_image, 
+      password, dep_id, salt, 
+      status, builtin, email, user_image, 
       remark, last_login_time, last_login_ip_address, 
       login_count, creater, create_time
       )
     values (#{userId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{userCnName,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
-      #{builtin,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{userImage,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{depId,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, 
+      #{status,jdbcType=CHAR}, #{builtin,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{userImage,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{lastLoginIpAddress,jdbcType=VARCHAR}, 
       #{loginCount,jdbcType=INTEGER}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
       )
@@ -154,6 +155,9 @@
       </if>
       <if test="password != null" >
         password,
+      </if>
+      <if test="depId != null" >
+        dep_id,
       </if>
       <if test="salt != null" >
         salt,
@@ -201,6 +205,9 @@
       </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="depId != null" >
+        #{depId,jdbcType=VARCHAR},
       </if>
       <if test="salt != null" >
         #{salt,jdbcType=VARCHAR},
@@ -259,6 +266,9 @@
       <if test="record.password != null" >
         temp_user.password = #{record.password,jdbcType=VARCHAR},
       </if>
+      <if test="record.depId != null" >
+        temp_user.dep_id = #{record.depId,jdbcType=VARCHAR},
+      </if>
       <if test="record.salt != null" >
         temp_user.salt = #{record.salt,jdbcType=VARCHAR},
       </if>
@@ -303,9 +313,10 @@
       temp_user.username = #{record.username,jdbcType=VARCHAR},
       temp_user.user_cn_name = #{record.userCnName,jdbcType=VARCHAR},
       temp_user.password = #{record.password,jdbcType=VARCHAR},
+      temp_user.dep_id = #{record.depId,jdbcType=VARCHAR},
       temp_user.salt = #{record.salt,jdbcType=VARCHAR},
-      temp_user.status = #{record.status,jdbcType=VARCHAR},
-      temp_user.builtin = #{record.builtin,jdbcType=VARCHAR},
+      temp_user.status = #{record.status,jdbcType=CHAR},
+      temp_user.builtin = #{record.builtin,jdbcType=CHAR},
       temp_user.email = #{record.email,jdbcType=VARCHAR},
       temp_user.user_image = #{record.userImage,jdbcType=VARCHAR},
       temp_user.remark = #{record.remark,jdbcType=VARCHAR},
@@ -313,7 +324,7 @@
       temp_user.last_login_ip_address = #{record.lastLoginIpAddress,jdbcType=VARCHAR},
       temp_user.login_count = #{record.loginCount,jdbcType=INTEGER},
       temp_user.creater = #{record.creater,jdbcType=VARCHAR},
-      temp_user.create_time = #{record.createTime,jdbcType=DATE}
+      temp_user.create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -329,6 +340,9 @@
       </if>
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="depId != null" >
+        dep_id = #{depId,jdbcType=VARCHAR},
       </if>
       <if test="salt != null" >
         salt = #{salt,jdbcType=VARCHAR},
@@ -371,9 +385,10 @@
     set username = #{username,jdbcType=VARCHAR},
       user_cn_name = #{userCnName,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
+      dep_id = #{depId,jdbcType=VARCHAR},
       salt = #{salt,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
-      builtin = #{builtin,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR},
+      builtin = #{builtin,jdbcType=CHAR},
       email = #{email,jdbcType=VARCHAR},
       user_image = #{userImage,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
@@ -381,7 +396,7 @@
       last_login_ip_address = #{lastLoginIpAddress,jdbcType=VARCHAR},
       login_count = #{loginCount,jdbcType=INTEGER},
       creater = #{creater,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=DATE}
+      create_time = #{createTime,jdbcType=TIMESTAMP}
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
 </mapper>

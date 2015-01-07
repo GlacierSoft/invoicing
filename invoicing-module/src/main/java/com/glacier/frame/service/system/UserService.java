@@ -223,6 +223,9 @@ public class UserService {
         user.setPassword(user.getUsername());
         this.entryptPassword(user);// 设置加密后的密码以及盐值
         user.setBuiltin(CommonBuiltin.custom);// 新增管理员类型为自定义
+        if (user.getDepId().equals("ROOT") || user.getDepId().equals("")) {// 如果所属部门的Id为"ROOT"或为空，则将所属部门的值设置为null保存到数据库
+            user.setDepId(null);
+        }
         //构建时间字符串
         Calendar cal = Calendar.getInstance();  
         int year = cal.get(Calendar.YEAR);//获取年份  
@@ -282,7 +285,20 @@ public class UserService {
             returnResult.setMsg("管理员名称重复");
             return returnResult;
         }
-        count = userMapper.updateByPrimaryKeySelective(user);
+        User userOld = userMapper.selectByPrimaryKey(user.getUserId());
+        if (user.getDepId().equals("ROOT") || user.getDepId().equals("")) {// 如果所属部门的Id为"ROOT"或为空，则将所属部门的值设置为null保存到数据库
+            user.setDepId(null);
+        }
+        user.setPassword(userOld.getPassword());
+        user.setSalt(userOld.getSalt());
+        user.setBuiltin(userOld.getBuiltin());
+        user.setUserImage(userOld.getUserImage());
+        user.setLastLoginTime(userOld.getLastLoginTime());
+        user.setLastLoginIpAddress(userOld.getLastLoginIpAddress());
+        user.setLoginCount(userOld.getLoginCount());
+        user.setCreater(userOld.getCreater());
+        user.setCreateTime(userOld.getCreateTime());
+        count = userMapper.updateByPrimaryKey(user);
         if (count == 1) {
             returnResult.setMsg("[" + user.getUsername() + "]" + "管理员信息已修改");
             returnResult.setSuccess(true);

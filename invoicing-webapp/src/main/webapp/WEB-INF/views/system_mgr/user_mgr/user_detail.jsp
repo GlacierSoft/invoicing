@@ -35,7 +35,7 @@
 			<td>创建者：</td>
 			<td><input class="spinner" style="width:168px" value="${UserData.createrDisplay}" readonly="readonly"/></td>
 			<td>创建时间：</td>
-			<td><input class="spinner" style="width:168px" value="<fmt:formatDate value="${UserData.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:168px" value="${UserData.createrDisplay}" readonly="readonly"/></td>
 		</tr>
 		<tr>
 			<td>备注：</td>

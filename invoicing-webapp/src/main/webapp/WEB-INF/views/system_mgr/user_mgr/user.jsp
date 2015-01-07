@@ -50,6 +50,11 @@
 				width:120,
 				sortable:true
 			},{
+				field:'depId',
+				title:'所属部门',
+				width:120,
+				sortable:true
+			},{
 				field:'status',
 				title:'状态',
 				width:70,
@@ -145,7 +150,7 @@
 		glacier.basicAddOrEditDialog({
 			title : '增加管理员信息',
 			width : 400,
-			height : 300,
+			height : 350,
 			queryUrl : ctx + '/do/user/intoForm.htm',
 			submitUrl : ctx + '/do/user/add.json',
 			successFun : function (){
@@ -159,7 +164,7 @@
 		glacier.basicAddOrEditDialog({
 			title : '编辑【'+row.username+'】',
 			width : 400,
-			height : 300,
+			height : 350,
 			queryUrl : ctx + '/do/user/intoForm.htm',
 			submitUrl : ctx + '/do/user/edit.json',
 			queryParams : {
