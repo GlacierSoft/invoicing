@@ -89,7 +89,7 @@
       and role_id = #{roleId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.system.DepRoleExample" >
-    delete from t_dep_role temp_dep_role
+    delete temp_dep_role from t_dep_role temp_dep_role
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

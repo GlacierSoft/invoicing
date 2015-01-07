@@ -40,7 +40,7 @@
 		},{
 			field : 'cnName' , title : '部门名称' , width : 150
 		},{
-			field : 'enName' , title : '部门代码' , width : 150
+			field : 'enName' , title : '部门编码' , width : 150
 		}]],
 		columns : [ [{
 			field : 'orderNum' , title : '排序' , width : 150 ,sortable:true
@@ -119,7 +119,7 @@
 		//显示分配角色窗口
 		var cnName = glacier.system_mgr.dep_mgr.dep.depTreeGrid.treegrid("getSelected").cnName;
 		glacier.system_mgr.dep_mgr.dep.depRoleWin = $('#depRoleWin').dialog({ 
-			title:'为【'+cnName+'】用户分配角色',
+			title:'为【'+cnName+'】部门分配角色',
 		    width:650,  
 		    height:200,
 		    resizable:true,
@@ -152,7 +152,7 @@
 		//发送远程请求保存当前权限设置
 		$.ajax({
 			   type: "POST",
-			   url: ctx + "/do/auth/saveRolesAndRational.json",
+			   url: ctx + "/do/auth/saveRolesAndRationalByDepId.json",
 			   data: {depId:depId,roleIds:roleIds.join(',')},
 			   dataType:'json',
 			   success: function(r){

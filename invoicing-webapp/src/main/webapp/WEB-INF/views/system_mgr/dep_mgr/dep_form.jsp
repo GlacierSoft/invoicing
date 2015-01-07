@@ -5,20 +5,20 @@
 <form id="dep_mgr_dep_form" method="post" style="padding:15px">
 	<table class="formtable">
 		<tr>
-			<td>下拉项名称：</td>
+			<td>部门名称：</td>
 			<td>
 				<input id="dep_mgr_dep_form_depId" type="hidden" name="depId" value="${DepData.depId}" />
 				<input id="dep_mgr_dep_form_cnName" name="cnName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${DepData.cnName}"/>
 			</td>
 		</tr>
 		<tr>
-			<td>下拉项代码：</td>
+			<td>部门编码：</td>
 			<td>
 				<input id="dep_mgr_dep_form_enName" name="enName" class="easyui-validatebox spinner" style="width:268px" required="true" value="${DepData.enName}"/>
 			</td>
 		</tr>
 		<tr>
-			<td>父级下拉项：</td>
+			<td>上级部门：</td>
 			<td class="forminputtable">
 				<input id="dep_mgr_dep_form_parentId" name="parentId" value="${DepData.parentId}"/>
 			</td>
@@ -35,12 +35,12 @@
 </form>
 
 <script type="text/javascript">
-	//初始化上级下拉项
+	//初始化上级部门
 	$("#dep_mgr_dep_form_parentId").combotree({
 		data : $.parseJSON('${allDepTreeNodeData}'),
 		width:270,
 		height:18,
-	    missingMessage:'请选择上级下拉项',
+	    missingMessage:'请选择上级部门',
 	    smooth: true,       //该属性用以启用当前 easyui-tree 控件对平滑数据格式的支持
 	    lines : true
 	});	

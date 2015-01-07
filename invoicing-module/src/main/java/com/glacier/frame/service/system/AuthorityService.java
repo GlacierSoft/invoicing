@@ -377,4 +377,38 @@ public class AuthorityService {
         }
         return returnResult;
     }
+    
+    /**
+     * @Title: saveRolesAndRationalByDepId 
+     * @Description: TODO(为部门分配角色) 
+     * @param  @param depId
+     * @param  @param roleIds
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "RoleList_assignByDepId")
+    public Object saveRolesAndRationalByDepId(String depId, Set<String> roleIds) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        int count = 0;
+        DepRoleExample depRoleExample = new DepRoleExample();
+        depRoleExample.createCriteria().andDepIdEqualTo(depId);
+        count = depRoleMapper.deleteByExample(depRoleExample);
+        if (null != roleIds && roleIds.size() > 0) {
+            for (String roleId : roleIds) {
+                DepRoleKey depRoleKey = new DepRoleKey();
+                depRoleKey.setDepId(depId);
+                depRoleKey.setRoleId(roleId);
+                count += depRoleMapper.insert(depRoleKey);// 插入用户和角色关联表数据
+            }
+        }
+        if (count > 0) {
+            returnResult.setSuccess(true);
+            returnResult.setMsg("角色分配成功");
+        } else {
+            returnResult.setMsg("系统出现未知错误，角色分配失败");
+        }
+        return returnResult;
+    }
 }

@@ -148,7 +148,7 @@ public class DepService {
         }
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-        dep.setCreater(pricipalUser.getUsername());
+        dep.setCreater(pricipalUser.getUserCnName());
         dep.setCreateTime(new Date());
         count = depMapper.insert(dep);
         if (count == 1) {

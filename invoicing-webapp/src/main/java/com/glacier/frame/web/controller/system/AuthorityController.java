@@ -66,5 +66,10 @@ public class AuthorityController {
         return authorityService.saveRolesAndRational(userId, roleIds);
     }
     
-    
+    //保存部门角色关联
+    @RequestMapping(value = "/saveRolesAndRationalByDepId", method = RequestMethod.POST)
+    @ResponseBody
+    public Object saveRolesAndRationalByDepId(@RequestParam String depId, @RequestParam Set<String> roleIds) {
+        return authorityService.saveRolesAndRationalByDepId(depId, roleIds);
+    }
 }
