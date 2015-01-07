@@ -18,6 +18,7 @@
     <result column="temp_user_login_count" property="loginCount" jdbcType="INTEGER" />
     <result column="temp_user_creater" property="creater" jdbcType="VARCHAR" />
     <result column="temp_user_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_user_dep_display" property="depDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_user_creater_display" property="createrDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -87,9 +88,11 @@
     temp_user.last_login_ip_address as temp_user_last_login_ip_address, temp_user.login_count as temp_user_login_count, 
     temp_user.creater as temp_user_creater, temp_user.create_time as temp_user_create_time
     <!-- 以下字段属于扩展 -->
+    ,temp_dep.cn_name as temp_user_dep_display
     ,temp_createrDisplay.user_cn_name as temp_user_creater_display
   </sql>
   <sql id="Base_extend">
+  	LEFT JOIN t_dep temp_dep ON temp_dep.dep_id = temp_user.dep_id <!-- 扩展 -->
   	LEFT JOIN t_user temp_createrDisplay ON temp_createrDisplay.user_id = temp_user.creater <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.system.UserExample" >

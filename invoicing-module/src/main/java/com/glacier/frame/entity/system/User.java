@@ -38,6 +38,8 @@ public class User implements Serializable {
     private String password;
     
     private String depId;
+    
+    private String depDisplay;
 
     private String salt;
 
@@ -108,6 +110,14 @@ public class User implements Serializable {
         this.depId = depId;
     }
     
+    public String getDepDisplay() {
+        return depDisplay;
+    }
+
+    public void setDepDisplay(String depDisplay) {
+        this.depDisplay = depDisplay;
+    }
+
     public String getSalt() {
         return salt;
     }

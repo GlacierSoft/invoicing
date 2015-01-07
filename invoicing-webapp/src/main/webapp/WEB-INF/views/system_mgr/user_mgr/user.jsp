@@ -50,7 +50,7 @@
 				width:120,
 				sortable:true
 			},{
-				field:'depId',
+				field:'depDisplay',
 				title:'所属部门',
 				width:120,
 				sortable:true
