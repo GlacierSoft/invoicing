@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -33,10 +34,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import com.glacier.jqueryui.util.JqReturnJson;
-import com.glacier.jqueryui.util.Tree;
+
 import com.glacier.frame.dao.system.ActionMapper;
 import com.glacier.frame.dao.system.AuthorityMapper;
+import com.glacier.frame.dao.system.DepRoleMapper;
 import com.glacier.frame.dao.system.MenuMapper;
 import com.glacier.frame.dao.system.RoleMapper;
 import com.glacier.frame.dao.system.UserMapper;
@@ -47,6 +48,8 @@ import com.glacier.frame.entity.system.Action;
 import com.glacier.frame.entity.system.ActionExample;
 import com.glacier.frame.entity.system.Authority;
 import com.glacier.frame.entity.system.AuthorityExample;
+import com.glacier.frame.entity.system.DepRoleExample;
+import com.glacier.frame.entity.system.DepRoleKey;
 import com.glacier.frame.entity.system.Menu;
 import com.glacier.frame.entity.system.MenuExample;
 import com.glacier.frame.entity.system.Role;
@@ -55,6 +58,8 @@ import com.glacier.frame.entity.system.User;
 import com.glacier.frame.entity.system.UserRoleExample;
 import com.glacier.frame.entity.system.UserRoleKey;
 import com.glacier.frame.util.MethodLog;
+import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.jqueryui.util.Tree;
  
 /***
  * @ClassName:  AuthorityService
@@ -85,6 +90,9 @@ public class AuthorityService {
     @Autowired
     private UserRoleMapper userRoleMapper;
 
+    @Autowired
+    private DepRoleMapper depRoleMapper;
+    
     /**
      * @Title: getPrincipalUserMenu
      * @Description: TODO(获取用户可用Menu)
@@ -213,7 +221,7 @@ public class AuthorityService {
      *<p>
      */
     public Object getRolesAndRational(String userId) {
-        RoleExample roleExample = new RoleExample();// 后面做优化，需要开
+        RoleExample roleExample = new RoleExample();// 后面做优化，需要
         List<Role> roles = roleMapper.selectByExample(roleExample);
         UserRoleExample userRoleExample = new UserRoleExample();
         userRoleExample.createCriteria().andUserIdEqualTo(userId);
@@ -223,6 +231,31 @@ public class AuthorityService {
             userRoleKey.setUserId(userId);
             userRoleKey.setRoleId(role.getRoleId());
             if (userRoleList.contains(userRoleKey)) {
+                role.setChecked(true);
+            }
+        }
+        return roles;
+    }
+    
+    /**
+     * @Title: getRolesAndRationalByDepId 
+     * @Description: TODO(根据部门Id获取角色列表) 
+     * @param  @param depId
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getRolesAndRationalByDepId(String depId) {
+        RoleExample roleExample = new RoleExample();// 后面做优化，需要
+        List<Role> roles = roleMapper.selectByExample(roleExample);
+        DepRoleExample depRoleExample = new DepRoleExample();
+        depRoleExample.createCriteria().andDepIdEqualTo(depId);
+        List<DepRoleKey> depRoleList = depRoleMapper.selectByExample(depRoleExample);// 查找传入用户Id拥有的角色
+        for (Role role : roles) {
+            DepRoleKey depRoleKey = new DepRoleKey();
+            depRoleKey.setDepId(depId);
+            depRoleKey.setRoleId(role.getRoleId());
+            if (depRoleList.contains(depRoleKey)) {
                 role.setChecked(true);
             }
         }

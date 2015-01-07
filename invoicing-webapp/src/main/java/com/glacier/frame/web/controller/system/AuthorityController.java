@@ -45,6 +45,13 @@ public class AuthorityController {
         return authorityService.getRolesAndRational(userId);
     }
 
+    // 根据部门Id获取角色列表
+    @RequestMapping(value = "/getRolesAndRationalByDepId.json")
+    @ResponseBody
+    public Object getRolesAndRationalByDepId(@RequestParam String depId) {
+        return authorityService.getRolesAndRationalByDepId(depId);
+    }
+    
     //保存菜单操作关联
     @RequestMapping(value = "/saveMenuActions", method = RequestMethod.POST)
     @ResponseBody
