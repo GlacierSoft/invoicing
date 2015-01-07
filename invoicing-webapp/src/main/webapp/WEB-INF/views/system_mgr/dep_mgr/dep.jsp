@@ -83,6 +83,39 @@
 		});
 	};
 	
+	//点击删除按钮触发方法
+	glacier.system_mgr.dep_mgr.dep.delDep = function(){
+		var row = glacier.system_mgr.dep_mgr.dep.depTreeGrid.treegrid("getSelected");
+		$.messager.confirm('请确认', '是否要删除所选部门，删除后不可恢复!', function(r){
+			if (r){
+				$.ajax({
+					   type: "POST",
+					   url: ctx + '/do/dep/del.json',
+					   data: row,
+					   dataType:'json',
+					   success: function(r){
+						   if(r.success){//操作成功刷新列表
+							   $.messager.show({
+									title:'提示',
+									msg:r.msg,
+									icon:'info',
+									showType:'fade'
+								});
+							   glacier.system_mgr.dep_mgr.dep.depTreeGrid.treegrid('reload');
+						   }else{
+							   $.messager.show({
+									title:'提示',
+									msg:r.msg,
+									icon:'error',
+									showType:'fade'
+								});
+						   }
+					   }
+				});
+			}
+		});
+	};
+	
 	//显示为用户分配角色窗口
 	glacier.system_mgr.dep_mgr.dep.assignDep = function(){
 		var depId = glacier.system_mgr.dep_mgr.dep.depTreeGrid.treegrid("getSelected").depId;

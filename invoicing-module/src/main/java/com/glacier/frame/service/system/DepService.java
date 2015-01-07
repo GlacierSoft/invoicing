@@ -34,12 +34,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.system.DepMapper;
+import com.glacier.frame.dao.system.DepRoleMapper;
 import com.glacier.frame.dao.system.RoleMapper;
+import com.glacier.frame.dao.system.UserMapper;
 import com.glacier.frame.dto.query.system.DepQueryDTO;
 import com.glacier.frame.entity.system.Dep;
 import com.glacier.frame.entity.system.DepExample;
 import com.glacier.frame.entity.system.DepExample.Criteria;
+import com.glacier.frame.entity.system.DepRoleExample;
 import com.glacier.frame.entity.system.User;
+import com.glacier.frame.entity.system.UserExample;
 import com.glacier.frame.util.MethodLog;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -62,6 +66,12 @@ public class DepService {
     
     @Autowired
     private RoleMapper roleMapper;
+    
+    @Autowired
+    private UserMapper userMapper;
+    
+    @Autowired
+    private DepRoleMapper depRoleMapper;
     
     /** 
      * @Title: FineDep  
@@ -260,4 +270,49 @@ public class DepService {
         retrunDepList.add(depId);
         return retrunDepList;
     }
+    
+    /**
+     * @Title: delDep 
+     * @Description: TODO(根据部门Id删除部门操作) 
+     * @param  @param depId
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "DepTree_del")
+    public Object delDep(String depId) {
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        if (StringUtils.isBlank(depId)) {// 判断是否选择一条部门信息
+            returnResult.setMsg("请选择一条部门信息，再进行删除");
+            return returnResult;
+        }
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andDepIdEqualTo(depId);
+        if (userMapper.countByExample(userExample) > 0) {// 判断该部门是否存在所属用户，有则不能删除
+            returnResult.setMsg("该部门存在所属用户，如需删除请先删除部门下面的用户信息");
+        }else {
+            DepExample depExample = new DepExample();
+            depExample.createCriteria().andParentIdEqualTo(depId);
+            if (depMapper.countByExample(depExample) > 0) {
+                returnResult.setMsg("该部门存在子部门，如需删除请先删除部门下面的子部门信息");
+            }else {
+                DepRoleExample depRoleExample = new DepRoleExample();
+                depRoleExample.createCriteria().andDepIdEqualTo(depId);
+                if (depRoleMapper.countByExample(depRoleExample) > 0) {
+                    returnResult.setMsg("该部门已经分配角色，如需删除请先删除分配的角色信息");
+                }else {
+                    Dep dep= depMapper.selectByPrimaryKey(depId);
+                    int result = depMapper.deleteByPrimaryKey(depId);//根据部门Id，进行删除部门信息
+                    if (result == 1) {
+                        returnResult.setSuccess(true);
+                        returnResult.setMsg("[" + dep.getCnName() + "] 部门信息已删除");
+                    } else {
+                        returnResult.setMsg("发生未知错误，部门信息删除失败");
+                    } 
+                }
+            }
+        }
+        return returnResult;
+     }
 }

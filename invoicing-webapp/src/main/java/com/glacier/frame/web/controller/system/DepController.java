@@ -76,6 +76,7 @@ public class DepController extends AbstractController{
 		}
 		return depService.addDep(dep);
 	}
+	
 	//修改部门信息
 	@RequestMapping(value = "/edit.json" , method = RequestMethod.POST)
 	@ResponseBody
@@ -86,4 +87,10 @@ public class DepController extends AbstractController{
 		return depService.editDep(dep);
 	}
 	
+	// 删除下拉项
+    @RequestMapping(value = "/del.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object del(String depId) {
+        return depService.delDep(depId);
+    }
 }
