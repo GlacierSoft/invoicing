@@ -38,7 +38,6 @@ import com.glacier.frame.entity.basicdatas.ParSuppliersIndustry;
 import com.glacier.frame.service.basicdatas.ParSuppliersIndustryService;
 import com.glacier.jqueryui.util.JqPager;
 
-
 /**
  * @ClassName: ParSuppliersIndustryController 
  * @Description: TODO(行业类型信息控制层) 

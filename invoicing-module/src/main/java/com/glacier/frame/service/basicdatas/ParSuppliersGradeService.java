@@ -50,6 +50,7 @@ import com.glacier.jqueryui.util.JqReturnJson;
  * @email 1203807137@qq.com
  * @date 2015-1-8 下午2:29:20
  */
+
 @Service
 @Transactional(readOnly = true ,propagation = Propagation.REQUIRED)
 public class ParSuppliersGradeService {
@@ -117,7 +118,7 @@ public class ParSuppliersGradeService {
 		suppliersGradeExample.createCriteria().andGradeNameEqualTo(suppliersGrade.getGradeName());
 		count = suppliersGradeMapper.countByExample(suppliersGradeExample);
 		if (count > 0) {
-			returnResult.setMsg("行业类型名称重复,请重新填写!");
+			returnResult.setMsg("等级名称重复,请重新填写!");
 			returnResult.setSuccess(false);
 			return returnResult;
 		}

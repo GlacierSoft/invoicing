@@ -43,8 +43,6 @@ import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 import com.glacier.jqueryui.util.JqReturnJson;
 
-
-
 /**
  * @ClassName: ParSuppliersIndustryService 
  * @Description: TODO(供应商行业类型业务层) 
