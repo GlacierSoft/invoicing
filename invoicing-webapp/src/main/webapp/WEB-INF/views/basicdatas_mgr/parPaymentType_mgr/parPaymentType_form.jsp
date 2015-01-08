@@ -6,7 +6,7 @@
 <form id="creditType_mgr_creditType_form" method="POST" modelAttribute="parameterCredit" style="padding:15px" enctype="multipart/form-data">
 	<table class="formtable">
 		<tr>
-			<td>交货方式名称：</td>
+			<td>支付方式名称：</td>
 			<td>
 				<input type="hidden" name="paymentTypeId" value="${paymentTypeDate.paymentTypeId}" />
 				<input name="paymentTypeName"  class="easyui-validatebox spinner" style="width:168px" required="true" value="${paymentTypeDate.paymentTypeName}"/>
