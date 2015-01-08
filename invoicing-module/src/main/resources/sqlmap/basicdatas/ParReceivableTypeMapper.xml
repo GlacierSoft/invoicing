@@ -105,7 +105,7 @@
     where receivable_type_id = #{receivableTypeId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.ParReceivableTypeExample" >
-    delete from t_par_receivable_type temp_par_receivable_type
+    delete temp_par_receivable_type from t_par_receivable_type temp_par_receivable_type
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

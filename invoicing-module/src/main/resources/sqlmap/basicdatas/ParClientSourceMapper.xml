@@ -105,7 +105,7 @@
     where client_source_id = #{clientSourceId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.ParClientSourceExample" >
-    delete from t_par_client_source temp_par_client_source
+    delete temp_par_client_source from t_par_client_source temp_par_client_source
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

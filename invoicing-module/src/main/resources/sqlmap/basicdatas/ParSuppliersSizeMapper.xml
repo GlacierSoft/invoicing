@@ -105,7 +105,7 @@
     where size_id = #{sizeId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.ParSuppliersSizeExample" >
-    delete from t_par_suppliers_size temp_par_suppliers_size
+    delete temp_par_suppliers_size from t_par_suppliers_size temp_par_suppliers_size
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

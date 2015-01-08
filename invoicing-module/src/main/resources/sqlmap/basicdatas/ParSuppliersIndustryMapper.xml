@@ -106,7 +106,7 @@
     where industry_id = #{industryId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.ParSuppliersIndustryExample" >
-    delete from t_par_suppliers_industry temp_par_suppliers_industry
+    delete temp_par_suppliers_industry from t_par_suppliers_industry temp_par_suppliers_industry
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

@@ -108,7 +108,7 @@
     where return_reason_id = #{returnReasonId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.ParSellReturn_reasonIdExample" >
-    delete from t_par_sell_return_reason_id temp_par_sell_return_reason_id
+    delete temp_par_sell_return_reason_id from t_par_sell_return_reason_id temp_par_sell_return_reason_id
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

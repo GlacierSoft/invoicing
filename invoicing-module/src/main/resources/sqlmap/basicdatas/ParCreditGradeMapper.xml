@@ -111,7 +111,7 @@
     where credit_id = #{creditId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.ParCreditGradeExample" >
-    delete from t_par_credit_grade temp_par_credit_grade
+    delete temp_par_credit_grade from t_par_credit_grade temp_par_credit_grade
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

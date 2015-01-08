@@ -123,7 +123,7 @@
     where optgroup_id = #{optgroupId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.ParameterOptgroupExample" >
-    delete from t_parameter_optgroup temp_parameter_optgroup
+    delete temp_parameter_optgroup from t_parameter_optgroup temp_parameter_optgroup
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
