@@ -96,7 +96,7 @@ public class ParDeliverTypeService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "ParDeliverTypeList_add")
+    @MethodLog(opera = "DeliverTypeList_add")
     public Object addParDeliverType(ParDeliverType parDeliverType) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -135,7 +135,7 @@ public class ParDeliverTypeService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "ParDeliverTypeList_edit")
+    @MethodLog(opera = "DeliverTypeList_edit")
     public Object editParDeliverType(ParDeliverType parDeliverType) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParDeliverTypeExample parDeliverTypeExample = new ParDeliverTypeExample();
@@ -167,7 +167,7 @@ public class ParDeliverTypeService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "ParDeliverTypeList_del")
+    @MethodLog(opera = "DeliverTypeList_del")
     public Object delParDeliverType(List<String> deliverTypeIds, List<String> deliverTypeName) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
