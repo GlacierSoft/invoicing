@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.basicdatas.ParIndustryMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.basicdatas.ParIndustry" >
+    <id column="temp_par_industry_industry_id" property="industryId" jdbcType="VARCHAR" />
+    <result column="temp_par_industry_code" property="code" jdbcType="VARCHAR" />
+    <result column="temp_par_industry_industry_name" property="industryName" jdbcType="VARCHAR" />
+    <result column="temp_par_industry_sequenced" property="sequenced" jdbcType="INTEGER" />
+    <result column="temp_par_industry_enabled" property="enabled" jdbcType="CHAR" />
+    <result column="temp_par_industry_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_par_industry_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_par_industry_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_par_industry_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_par_industry.industry_id as temp_par_industry_industry_id, temp_par_industry.code as temp_par_industry_code, 
+    temp_par_industry.industry_name as temp_par_industry_industry_name, temp_par_industry.sequenced as temp_par_industry_sequenced, 
+    temp_par_industry.enabled as temp_par_industry_enabled, temp_par_industry.creater as temp_par_industry_creater, 
+    temp_par_industry.create_time as temp_par_industry_create_time, temp_par_industry.updater as temp_par_industry_updater, 
+    temp_par_industry.update_time as temp_par_industry_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.basicdatas.ParIndustryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_par_industry temp_par_industry
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_par_industry temp_par_industry
+    where temp_par_industry.industry_id = #{industryId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_par_industry
+    where industry_id = #{industryId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.ParIndustryExample" >
+    delete from t_par_industry temp_par_industry
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.basicdatas.ParIndustry" >
+    insert into t_par_industry (industry_id, code, industry_name, 
+      sequenced, enabled, creater, 
+      create_time, updater, update_time
+      )
+    values (#{industryId,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{industryName,jdbcType=VARCHAR}, 
+      #{sequenced,jdbcType=INTEGER}, #{enabled,jdbcType=CHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.basicdatas.ParIndustry" >
+    insert into t_par_industry
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="industryId != null" >
+        industry_id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="industryName != null" >
+        industry_name,
+      </if>
+      <if test="sequenced != null" >
+        sequenced,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="industryId != null" >
+        #{industryId,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="industryName != null" >
+        #{industryName,jdbcType=VARCHAR},
+      </if>
+      <if test="sequenced != null" >
+        #{sequenced,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.basicdatas.ParIndustryExample" resultType="java.lang.Integer" >
+    select count(*) from t_par_industry temp_par_industry
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_par_industry temp_par_industry
+    <set >
+      <if test="record.industryId != null" >
+        temp_par_industry.industry_id = #{record.industryId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null" >
+        temp_par_industry.code = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industryName != null" >
+        temp_par_industry.industry_name = #{record.industryName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sequenced != null" >
+        temp_par_industry.sequenced = #{record.sequenced,jdbcType=INTEGER},
+      </if>
+      <if test="record.enabled != null" >
+        temp_par_industry.enabled = #{record.enabled,jdbcType=CHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_par_industry.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_par_industry.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_par_industry.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_par_industry.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_par_industry temp_par_industry
+    set temp_par_industry.industry_id = #{record.industryId,jdbcType=VARCHAR},
+      temp_par_industry.code = #{record.code,jdbcType=VARCHAR},
+      temp_par_industry.industry_name = #{record.industryName,jdbcType=VARCHAR},
+      temp_par_industry.sequenced = #{record.sequenced,jdbcType=INTEGER},
+      temp_par_industry.enabled = #{record.enabled,jdbcType=CHAR},
+      temp_par_industry.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_par_industry.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_par_industry.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_par_industry.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.basicdatas.ParIndustry" >
+    update t_par_industry
+    <set >
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="industryName != null" >
+        industry_name = #{industryName,jdbcType=VARCHAR},
+      </if>
+      <if test="sequenced != null" >
+        sequenced = #{sequenced,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where industry_id = #{industryId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.basicdatas.ParIndustry" >
+    update t_par_industry
+    set code = #{code,jdbcType=VARCHAR},
+      industry_name = #{industryName,jdbcType=VARCHAR},
+      sequenced = #{sequenced,jdbcType=INTEGER},
+      enabled = #{enabled,jdbcType=CHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where industry_id = #{industryId,jdbcType=VARCHAR}
+  </update>
+</mapper>
