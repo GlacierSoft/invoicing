@@ -5,11 +5,11 @@
 	uri="http://com.glacier.permissions.com.cn/tag/easyui"%>
 
 <script type="text/javascript">
-	$.util.namespace('glacier.suppliersIndustry_mgr.suppliersIndustry');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
+	$.util.namespace('glacier.suppliersGrade_mgr.suppliersGrade');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 
 	//定义toolbar的操作，对操作进行控制
-	glacier.suppliersIndustry_mgr.suppliersIndustry.param = {
-		toolbarId : 'suppliersIndustryDataGrid_toolbar',
+	glacier.suppliersGrade_mgr.suppliersGrade.param = {
+		toolbarId : 'suppliersGradeDataGrid_toolbar',
 		actions : {
 	            edit:{flag:'edit',controlType:'single'},
 	            del:{flag:'del',controlType:'multiple'},
@@ -18,7 +18,7 @@
      };
 
 	//初始化DataGrid
-	glacier.suppliersIndustry_mgr.suppliersIndustry.suppliersIndustryDataGrid = $('#suppliersIndustryDataGrid').datagrid({
+	glacier.suppliersGrade_mgr.suppliersGrade.suppliersGradeDataGrid = $('#suppliersGradeDataGrid').datagrid({
 		fit : true,//控件自动resize占满窗口大小
 		iconCls : 'icon-save',//图标样式
 		border : false,//是否存在边框
@@ -29,23 +29,23 @@
 		singleSelect : true,//限制单选
 		checkOnSelect : false,//选择复选框的时候选择该行
 		selectOnCheck : false,//选择的时候复选框打勾
-		url : ctx + '/do/suppliersIndustry/list.json',
+		url : ctx + '/do/suppliersGrade/list.json',
 		sortName : 'createTime',//排序字段名称
 		sortOrder : 'DESC',//升序还是降序
 		remoteSort : true,//开启远程排序，默认为false
-		idField : 'industryId',
+		idField : 'gradeId',
 		columns : [ [ {
-			field : 'industryId',
+			field : 'gradeId',
 			title : 'ID',
 			checkbox : true
 		}, {
-			field : 'industryName',
-			title : '行业类型名称',
+			field : 'gradeName',
+			title : '等级名称',
 			width : 120,
 			sortable : true
 		},{
 			field : 'enabled',
-			title : '行业类型状态',
+			title : '等级状态',
 			width : 120,
 			sortable : true,
 			formatter : function(value, row, index) {
@@ -80,30 +80,30 @@
 		pcarrierCarTypeSize : 10,//注意，pcarrierCarTypeSize必须在pcarrierCarTypeList存在
 		pcarrierCarTypeList : [ 2, 10, 50, 100 ],//从session中获取
 		rownumbers : true,//True 就会显示行号的列
-		toolbar : '#suppliersIndustryDataGrid_toolbar',
+		toolbar : '#suppliersGradeDataGrid_toolbar',
 		onCheck : function(rowIndex, rowData) {//选择行事件触发
 			action_controller(
-					glacier.suppliersIndustry_mgr.suppliersIndustry.param,this).check();
+					glacier.suppliersGrade_mgr.suppliersGrade.param,this).check();
 		},
 		onCheckAll : function(rows) {//取消勾选行状态触发事件
 			action_controller(
-					glacier.suppliersIndustry_mgr.suppliersIndustry.param,this).check();
+					glacier.suppliersGrade_mgr.suppliersGrade.param,this).check();
 		},
 		onUncheck : function(rowIndex, rowData) {//选择行事件触发
 			action_controller(
-					glacier.suppliersIndustry_mgr.suppliersIndustry.param,this).unCheck();
+					glacier.suppliersGrade_mgr.suppliersGrade.param,this).unCheck();
 		},
 		onUncheckAll : function(rows) {//取消勾选行状态触发事件
 			action_controller(
-					glacier.suppliersIndustry_mgr.suppliersIndustry.param,this).unCheck();
+					glacier.suppliersGrade_mgr.suppliersGrade.param,this).unCheck();
 		},
 		onSelect : function(rowIndex, rowData) {//选择行事件触发
 			action_controller(
-					glacier.suppliersIndustry_mgr.suppliersIndustry.param,this).select();
+					glacier.suppliersGrade_mgr.suppliersGrade.param,this).select();
 		},
 		onUnselectAll : function(rows) {
 			action_controller(
-					glacier.suppliersIndustry_mgr.suppliersIndustry.param,this).unSelect();
+					glacier.suppliersGrade_mgr.suppliersGrade.param,this).unSelect();
 		},
 		onLoadSuccess : function(index, record) {//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
@@ -115,9 +115,9 @@
 			}
 		},
 		onDblClickRow : function(rowIndex, rowData){
-                    $.easyui.showDialog({
-				title : '【' + rowData.industryName + '】行业类型详细信息',
-				href : ctx+ '/do/suppliersIndustry/intoDetail.htm?industryId='+ rowData.industryId,//从controller请求jsp页面进行渲染
+          $.easyui.showDialog({
+				title : '【' + rowData.gradeName + '】等级详细信息',
+				href : ctx+ '/do/suppliersGrade/intoDetail.htm?gradeId='+ rowData.gradeId,//从controller请求jsp页面进行渲染
 				width : 480,
 				height : 320,
 				resizable : false,
@@ -128,45 +128,45 @@
 	});
 	
 	//点击增加按钮触发方法
-	glacier.suppliersIndustry_mgr.suppliersIndustry.addSuppliersIndustry= function(){
+	glacier.suppliersGrade_mgr.suppliersGrade.addSuppliersGrade= function(){
 		glacier.basicAddOrEditDialog({
-			title : '【行业类型】- 增加',
+			title : '【等级信息】- 增加',
 			width : 400,
 			height : 270,
-			queryUrl : ctx + '/do/suppliersIndustry/intoForm.htm',
-			submitUrl : ctx + '/do/suppliersIndustry/add.json',
+			queryUrl : ctx + '/do/suppliersGrade/intoForm.htm',
+			submitUrl : ctx + '/do/suppliersGrade/add.json',
 			successFun : function (){
-				glacier.suppliersIndustry_mgr.suppliersIndustry.suppliersIndustryDataGrid.datagrid('reload');
+				glacier.suppliersGrade_mgr.suppliersGrade.suppliersGradeDataGrid.datagrid('reload');
 			}
 		});
 	};
 	//点击编辑按钮触发方法
-	glacier.suppliersIndustry_mgr.suppliersIndustry.editSuppliersIndustry = function(){
-		var row = glacier.suppliersIndustry_mgr.suppliersIndustry.suppliersIndustryDataGrid.datagrid("getSelected");
+	glacier.suppliersGrade_mgr.suppliersGrade.editSuppliersGrade= function(){
+		var row = glacier.suppliersGrade_mgr.suppliersGrade.suppliersGradeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '【行业类型】- 编辑',
+			title : '【等级信息】- 编辑',
 			width : 400,
 			height : 270,
-			queryUrl : ctx + '/do/suppliersIndustry/intoForm.htm',
-			submitUrl : ctx + '/do/suppliersIndustry/edit.json',
+			queryUrl : ctx + '/do/suppliersGrade/intoForm.htm',
+			submitUrl : ctx + '/do/suppliersGrade/edit.json',
 			queryParams : {
-				industryId : row.industryId
+				gradeId : row.gradeId
 			},
 			successFun : function (){
-				glacier.suppliersIndustry_mgr.suppliersIndustry.suppliersIndustryDataGrid.datagrid('reload');
+				glacier.suppliersGrade_mgr.suppliersGrade.suppliersGradeDataGrid.datagrid('reload');
 			}
 		});
 	};
 	
 	//启用禁用按钮触发方法
-	glacier.suppliersIndustry_mgr.suppliersIndustry.enableSuppliersIndustry=function(){
-		var row = glacier.suppliersIndustry_mgr.suppliersIndustry.suppliersIndustryDataGrid.datagrid("getSelected");
+	glacier.suppliersGrade_mgr.suppliersGrade.enableSuppliersGrade=function(){
+		var row = glacier.suppliersGrade_mgr.suppliersGrade.suppliersGradeDataGrid.datagrid("getSelected");
 		if(row.enabled=='enable'){
 			var str='禁用';
-			var url_str=ctx + '/do/suppliersIndustry/edit.json?enabled=disable&&industryId='+row.industryId+'&&industryName='+row.industryName;
+			var url_str=ctx + '/do/suppliersGrade/edit.json?enabled=disable&&gradeId='+row.gradeId+'&&gradeName='+row.gradeName;
 		}else{
 			var str='启用';
-			var url_str=ctx + '/do/suppliersIndustry/edit.json?enabled=enable&&industryId='+row.industryId+'&&industryName='+row.industryName;
+			var url_str=ctx + '/do/suppliersGrade/edit.json?enabled=enable&&gradeId='+row.gradeId+'&&gradeName='+row.gradeName;
 		}
 		$.messager.confirm('请确认','是否要'+str+'该记录',function(r){
 			if(r){
@@ -181,7 +181,7 @@
 								timeout : 3000,
 								msg : r.msg
 							});
-							glacier.suppliersIndustry_mgr.suppliersIndustry.suppliersIndustryDataGrid.datagrid('reload');
+							glacier.suppliersGrade_mgr.suppliersGrade.suppliersGradeDataGrid.datagrid('reload');
 						} else {
 							$.messager.show({//后台验证弹出错误提示信息框
 										title : '错误提示',
@@ -199,23 +199,23 @@
 	
 	
 	//点击删除按钮触发方法
-	glacier.suppliersIndustry_mgr.suppliersIndustry.delSuppliersIndustry = function() {
-		var rows = glacier.suppliersIndustry_mgr.suppliersIndustry.suppliersIndustryDataGrid.datagrid("getChecked");
-		var industryIds = [];//删除的id标识
-		var industryNames = [];
+	glacier.suppliersGrade_mgr.suppliersGrade.delSuppliersGrade= function() {
+		var rows = glacier.suppliersGrade_mgr.suppliersGrade.suppliersGradeDataGrid.datagrid("getChecked");
+		var gradeIds = [];//删除的id标识
+		var gradeNames = [];
 		for ( var i = 0; i < rows.length; i++) {
-			industryIds.push(rows[i].industryId);
-			industryNames.push(rows[i].industryName);
+			gradeIds.push(rows[i].gradeId);
+			gradeNames.push(rows[i].gradeName);
 		}
-		if (industryIds.length > 0) {
+		if (gradeIds.length > 0) {
 			$.messager.confirm('请确认','是否要删除该记录',function(r){
                    if (r){
                    	 $.ajax({ 
                    		type: "POST",
-                   	    url : ctx+ '/do/suppliersIndustry/del.json',
+                   	    url : ctx+ '/do/suppliersGrade/del.json',
 						data : {
-							industryIds : industryIds.join(','),
-							industryNames : industryNames.join(',')
+							gradeIds : gradeIds.join(','),
+							gradeNames : gradeNames.join(',')
 						},
 						dataType : 'json',
 						success : function(r) {
@@ -225,7 +225,7 @@
 									timeout : 3000,
 									msg : r.msg
 								});
-								glacier.suppliersIndustry_mgr.suppliersIndustry.suppliersIndustryDataGrid.datagrid('reload');
+								glacier.suppliersGrade_mgr.suppliersGrade.suppliersGradeDataGrid.datagrid('reload');
 							} else {
 								$.messager.show({//后台验证弹出错误提示信息框
 											title : '错误提示',
@@ -243,7 +243,7 @@
 	};
 	
 	//下拉项的值
-	$('#suppliersIndustrySearchForm_enabled').combobox({
+	$('#suppliersGradeSearchForm_enabled').combobox({
 		valueField : 'value',
 		//height:18,
 		width : 80,
@@ -258,23 +258,23 @@
 
 <!-- 所有列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
-	<div id="suppliersIndustryPanel" data-options="region:'center',border:true">
-		<table id="suppliersIndustryDataGrid">
-			<glacierui:toolbar panelEnName="SuppliersIndustryList"
-				toolbarId="suppliersIndustryDataGrid_toolbar" menuEnName="suppliersIndustry" />
+	<div id="suppliersGradePanel" data-options="region:'center',border:true">
+		<table id="suppliersGradeDataGrid">
+			<glacierui:toolbar panelEnName="SuppliersGradeList"
+				toolbarId="suppliersGradeDataGrid_toolbar" menuEnName="suppliersGrade" />
 			<!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 	<div data-options="region:'north',split:true"
 		style="height: 40px; padding-left: 10px;">
-		<form id="suppliersIndustrySearchForm">
+		<form id="suppliersGradeSearchForm">
 			<table>
 				<tr>
-					<td>行业类型名称：</td>
-					<td><input name="industryName" style="width: 80px;"
+					<td>等级名称：</td>
+					<td><input name="gradeName" style="width: 80px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
-					<td><input id="suppliersIndustrySearchForm_enabled" name="enabled" style="width: 80px;"
+					<td><input id="suppliersGradeSearchForm_enabled" name="enabled" style="width: 80px;"
 						 /></td> 
 					<td>创建时间：</td>
 					<td><input name="createStartTime" class="easyui-datetimebox"
@@ -282,10 +282,10 @@
 						class="easyui-datetimebox" style="width: 100px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
-						onclick="glacier.suppliersIndustry_mgr.suppliersIndustry.suppliersIndustryDataGrid.datagrid('load',glacier.serializeObject($('#suppliersIndustrySearchForm')));">查询</a>
+						onclick="glacier.suppliersGrade_mgr.suppliersGrade.suppliersGradeDataGrid.datagrid('load',glacier.serializeObject($('#suppliersGradeSearchForm')));">查询</a>
 						<a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-out',plain:true"
-						onclick="$('#suppliersIndustrySearchForm input').val('');glacier.suppliersIndustry_mgr.suppliersIndustry.suppliersIndustryDataGrid.datagrid('load',{});">重置条件</a>
+						onclick="$('#suppliersGradeSearchForm input').val('');glacier.suppliersGrade_mgr.suppliersGrade.suppliersGradeDataGrid.datagrid('load',{});">重置条件</a>
 					</td>
 				</tr>
 			</table>

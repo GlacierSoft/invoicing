@@ -108,6 +108,4 @@ public class ParSuppliersIndustryController {
     public Object delGrade(@RequestParam List<String> industryIds,@RequestParam List<String> industryNames) {
     	return suppliersIndustryService.delSuppliersIndustry(industryIds, industryNames);
     }
-    
-    
-}
+ }
