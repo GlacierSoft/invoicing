@@ -32,6 +32,7 @@ import com.glacier.frame.entity.system.User;
 import com.glacier.frame.entity.basicdatas.ParDeliverType;
 import com.glacier.frame.entity.basicdatas.ParDeliverTypeExample;
 import com.glacier.frame.entity.basicdatas.ParDeliverTypeExample.Criteria;
+import com.glacier.frame.util.MethodLog;
 /*** 
  * @ClassName:  ParDeliverTypeService
  * @Description: TODO(交换方式表业务类)
@@ -66,24 +67,11 @@ public class ParDeliverTypeService {
         if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
         	parDeliverTypeExample.setOrderByClause(jqPager.getOrderBy("temp_par_deliver_type_"));
         }
-        List<ParDeliverType>  parDeliverTypeList = parDeliverTypeMapper.selectByExample(parDeliverTypeExample); // 查询所有会员列表
+        List<ParDeliverType>  parDeliverTypeList = parDeliverTypeMapper.selectByExample(parDeliverTypeExample); // 查询所有交货方式列表
         int total = parDeliverTypeMapper.countByExample(parDeliverTypeExample); // 查询总页数
         returnResult.setRows(parDeliverTypeList);
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
-    }
-    
-    /**
-	 * @Title: ParDeliverTypeList 
-	 * @Description: TODO(获取所有交货方式信息) 
-	 * @param @param
-	 * @param @return    设定文件 
-	 * @return Object    返回类型 
-	 * @throws
-	 */
-    public Object ParDeliverTypeList() {
-    	List<ParDeliverType> parDeliverType = parDeliverTypeMapper.selectByExample(new ParDeliverTypeExample());
-        return parDeliverType;
     }
     
     /**
@@ -108,13 +96,14 @@ public class ParDeliverTypeService {
      * @throws
      */
     @Transactional(readOnly = false)
+    @MethodLog(opera = "ParDeliverTypeList_add")
     public Object addParDeliverType(ParDeliverType parDeliverType) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParDeliverTypeExample parDeliverTypeExample = new ParDeliverTypeExample();
         int count = 0;
-        // 防止承运商信誉等级名称重复
+        // 防止交货方式名称重复
         parDeliverTypeExample.createCriteria().andDeliverTypeNameEqualTo(parDeliverType.getDeliverTypeName());
         count = parDeliverTypeMapper.countByExample(parDeliverTypeExample);
         if (count > 0) {
@@ -146,18 +135,19 @@ public class ParDeliverTypeService {
      * @throws
      */
     @Transactional(readOnly = false)
+    @MethodLog(opera = "ParDeliverTypeList_edit")
     public Object editParDeliverType(ParDeliverType parDeliverType) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParDeliverTypeExample parDeliverTypeExample = new ParDeliverTypeExample();
         int count = 0;
-        // 防止承运商信誉等级名称重复
+        // 防止交货方式名称重复
         parDeliverTypeExample.createCriteria().andDeliverTypeNameEqualTo(parDeliverType.getDeliverTypeName()).andDeliverTypeIdNotEqualTo(parDeliverType.getDeliverTypeId());
         count = parDeliverTypeMapper.countByExample(parDeliverTypeExample);
         if (count > 0) {
             returnResult.setMsg("交货方式名称重复");
             return returnResult;
         }
-        //根据ID获取承运商信誉等级信息
+        //根据ID获取交货方式信息
         count = parDeliverTypeMapper.updateByPrimaryKeySelective(parDeliverType);
         if (count == 1) {
             returnResult.setSuccess(true);
@@ -177,6 +167,7 @@ public class ParDeliverTypeService {
      * @throws
      */
     @Transactional(readOnly = false)
+    @MethodLog(opera = "ParDeliverTypeList_del")
     public Object delParDeliverType(List<String> deliverTypeIds, List<String> deliverTypeName) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;

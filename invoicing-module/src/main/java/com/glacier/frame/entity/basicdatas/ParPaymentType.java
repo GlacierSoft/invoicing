@@ -2,6 +2,8 @@ package com.glacier.frame.entity.basicdatas;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class ParPaymentType {
     private String paymentTypeId;
 
@@ -15,10 +17,12 @@ public class ParPaymentType {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     public String getPaymentTypeId() {

@@ -15,7 +15,7 @@
 			}
 	};
 	
-	//初始化角色DataGrid
+	//初始化交货方式DataGrid
 	glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.parDeliverTypeDataGrid = $('#parDeliverTypeDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
@@ -27,8 +27,8 @@
 		singleSelect:true,//限制单选
 		checkOnSelect:false,//选择复选框的时候选择该行
 		selectOnCheck:false,//选择的时候复选框打勾
-		url: ctx + '/do/parDeliverType/list.json',
-		sortName: 'createTime',//排序字段名称
+		url: ctx + '/do/deliverType/list.json',
+		sortName: 'sequenced',//排序字段名称
 		sortOrder: 'desc',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
 		idField:'deliverTypeId',
@@ -44,7 +44,7 @@
 				sortable:true
 			},{
 				field:'sequenced',
-				title:'顺序',
+				title:'序号',
 				width:120,
 				sortable:true
 			},{
@@ -112,7 +112,7 @@
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
 				title: "交货方式详细信息",
-				href : ctx + '/do/parDeliverType/intoDetail.htm?deliverTypeId='+rowData.deliverTypeId,//从controller请求jsp页面进行渲染
+				href : ctx + '/do/deliverType/intoDetail.htm?deliverTypeId='+rowData.deliverTypeId,//从controller请求jsp页面进行渲染
 				width : 530,
 				height : 250,
 				resizable: false,
@@ -128,8 +128,8 @@
 			title : '【交货方式】 - 增加',
 			width : 320,
 			height : 200,
-			queryUrl : ctx + '/do/parDeliverType/intoForm.htm',
-			submitUrl : ctx + '/do/parDeliverType/add.json',
+			queryUrl : ctx + '/do/deliverType/intoForm.htm',
+			submitUrl : ctx + '/do/deliverType/add.json',
 			successFun : function (){
 				glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.parDeliverTypeDataGrid.datagrid('reload');
 			}
@@ -141,10 +141,10 @@
 		var row = glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.parDeliverTypeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【交货方式】 - 编辑',
-			width : 440,
-			height : 300,
-			queryUrl : ctx + '/do/parDeliverType/intoForm.htm',
-			submitUrl : ctx + '/do/parDeliverType/edit.json',
+			width : 320,
+			height : 200,
+			queryUrl : ctx + '/do/deliverType/intoForm.htm',
+			submitUrl : ctx + '/do/deliverType/edit.json',
 			queryParams : {
 				deliverTypeId : row.deliverTypeId
 			},
@@ -167,7 +167,7 @@
 				if (r){
 					$.ajax({
 						   type: "POST",
-						   url: ctx + '/do/parDeliverType/del.json',
+						   url: ctx + '/do/deliverType/del.json',
 						   data: {parDeliverTypeIds:parDeliverTypeIds.join(','),parDeliverTypeNames:parDeliverTypes.join(',')},
 						   dataType:'json',
 						   success: function(r){
@@ -195,11 +195,11 @@
 	};
 </script>
 
-<!-- 所有角色列表面板和表格 -->
+<!-- 所有交货方式列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="creditGridPanel" data-options="region:'center',border:true" >
 		<table id="parDeliverTypeDataGrid">
-			<glacierui:toolbar panelEnName="ParDeliverTypeList" toolbarId="parDeliverTypeDataGrid_toolbar" menuEnName="deliveryType"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+			<glacierui:toolbar panelEnName="DeliverTypeList" toolbarId="parDeliverTypeDataGrid_toolbar" menuEnName="deliveryType"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 	<div data-options="region:'north',split:true"
