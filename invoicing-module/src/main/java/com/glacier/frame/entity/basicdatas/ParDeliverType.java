@@ -2,6 +2,8 @@ package com.glacier.frame.entity.basicdatas;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class ParDeliverType {
     private String deliverTypeId;
 
@@ -15,11 +17,17 @@ public class ParDeliverType {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
+    
+    private String createrDisplay;
+
+    private String updaterDisplay;
 
     public String getDeliverTypeId() {
         return deliverTypeId;
@@ -92,8 +100,24 @@ public class ParDeliverType {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+    
+    public String getCreaterDisplay() {
+		return createrDisplay;
+	}
 
-    @Override
+	public void setCreaterDisplay(String createrDisplay) {
+		this.createrDisplay = createrDisplay;
+	}
+
+	public String getUpdaterDisplay() {
+		return updaterDisplay;
+	}
+
+	public void setUpdaterDisplay(String updaterDisplay) {
+		this.updaterDisplay = updaterDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
