@@ -39,7 +39,7 @@
 		<tr>
 			<td>备注：</td>
 			<td colspan="3">
-				<textarea  name="remark" readonly="readonly" style="width:300px;" class="spinner formta">${purchaseTypeDate.remark}</textarea>
+				<textarea  name="remark" readonly="readonly" style="width:300px;" class="spinner formta"></textarea>
 			</td>
 		</tr>
 	</table>

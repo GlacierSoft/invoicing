@@ -15,13 +15,13 @@
 		<tr>
 			<td>采购状态：</td>
 			<td>
-			<input  name="enabled"  style="width:268px;" value="${suppliersGradeDate.enabled}" class="easyui-combobox"  data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/>
+			<input  name="enabled"  style="width:268px;" value="${purchaseTypeDate.enabled}" class="easyui-combobox"  data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/>
 			</td>
 		</tr>
 		<tr>
 			<td>备注：</td>
 			<td>
-				<textarea  name="remark" style="width:268px;" class="spinner formta">${suppliersGradeDate.remark}</textarea>
+				<textarea  style="width:268px;" class="spinner formta"></textarea>
 			</td>
 		</tr>
 	</table>

@@ -71,10 +71,6 @@
 			title : '更新时间',
 			sortable : true,
 			width : 200
-		},{
-			field : 'remark',
-			title : '备注',
-			sortable : true
 		} ] ],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
 		pcarrierCarTypeSize : 10,//注意，pcarrierCarTypeSize必须在pcarrierCarTypeList存在
@@ -87,23 +83,23 @@
 		},
 		onCheckAll : function(rows) {//取消勾选行状态触发事件
 			action_controller(
-					glacier.purchaseType_mgr.purchaseType,this).check();
+					glacier.purchaseType_mgr.purchaseType.param,this).check();
 		},
 		onUncheck : function(rowIndex, rowData) {//选择行事件触发
 			action_controller(
-					glacier.purchaseType_mgr.purchaseType,this).unCheck();
+					glacier.purchaseType_mgr.purchaseType.param,this).unCheck();
 		},
 		onUncheckAll : function(rows) {//取消勾选行状态触发事件
 			action_controller(
-					glacier.purchaseType_mgr.purchaseType,this).unCheck();
+					glacier.purchaseType_mgr.purchaseType.param,this).unCheck();
 		},
 		onSelect : function(rowIndex, rowData) {//选择行事件触发
 			action_controller(
-					glacier.purchaseType_mgr.purchaseType,this).select();
+					glacier.purchaseType_mgr.purchaseType.param,this).select();
 		},
 		onUnselectAll : function(rows) {
 			action_controller(
-					glacier.purchaseType_mgr.purchaseType,this).unSelect();
+					glacier.purchaseType_mgr.purchaseType.param,this).unSelect();
 		},
 		onLoadSuccess : function(index, record) {//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
