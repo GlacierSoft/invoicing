@@ -1,0 +1,749 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.basicdatas.SuppliersMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.basicdatas.Suppliers" >
+    <id column="temp_suppliers_supplier_id" property="supplierId" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_supplier_number" property="supplierNumber" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_supplier_province" property="supplierProvince" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_prepaid_balance" property="prepaidBalance" jdbcType="DECIMAL" />
+    <result column="temp_suppliers_suppliers_name" property="suppliersName" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_type_id" property="typeId" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_company_phone" property="companyPhone" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_company_fax" property="companyFax" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_company_urls" property="companyUrls" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_company_email" property="companyEmail" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_city" property="city" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_adress" property="adress" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_postcode" property="postcode" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_supplier_level" property="supplierLevel" jdbcType="CHAR" />
+    <result column="temp_suppliers_source_id" property="sourceId" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_nature_id" property="natureId" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_industry_id" property="industryId" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_main_business" property="mainBusiness" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_size_id" property="sizeId" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_opened_year" property="openedYear" jdbcType="TIMESTAMP" />
+    <result column="temp_suppliers_registered_capital" property="registeredCapital" jdbcType="DECIMAL" />
+    <result column="temp_suppliers_company_legal" property="companyLegal" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_grade_id" property="gradeId" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_bank" property="bank" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_bank_account" property="bankAccount" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_tax_id" property="taxId" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_supplier_date" property="supplierDate" jdbcType="TIMESTAMP" />
+    <result column="temp_suppliers_supplier_type" property="supplierType" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_enabled" property="enabled" jdbcType="CHAR" />
+    <result column="temp_suppliers_auditor_id" property="auditorId" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_auditor_date" property="auditorDate" jdbcType="TIMESTAMP" />
+    <result column="temp_suppliers_audit_state" property="auditState" jdbcType="CHAR" />
+    <result column="temp_suppliers_audit_remark" property="auditRemark" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_suppliers_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_suppliers.supplier_id as temp_suppliers_supplier_id, temp_suppliers.supplier_number as temp_suppliers_supplier_number, 
+    temp_suppliers.supplier_province as temp_suppliers_supplier_province, temp_suppliers.prepaid_balance as temp_suppliers_prepaid_balance, 
+    temp_suppliers.suppliers_name as temp_suppliers_suppliers_name, temp_suppliers.type_id as temp_suppliers_type_id, 
+    temp_suppliers.company_phone as temp_suppliers_company_phone, temp_suppliers.company_fax as temp_suppliers_company_fax, 
+    temp_suppliers.company_urls as temp_suppliers_company_urls, temp_suppliers.company_email as temp_suppliers_company_email, 
+    temp_suppliers.city as temp_suppliers_city, temp_suppliers.adress as temp_suppliers_adress, 
+    temp_suppliers.postcode as temp_suppliers_postcode, temp_suppliers.supplier_level as temp_suppliers_supplier_level, 
+    temp_suppliers.source_id as temp_suppliers_source_id, temp_suppliers.nature_id as temp_suppliers_nature_id, 
+    temp_suppliers.industry_id as temp_suppliers_industry_id, temp_suppliers.main_business as temp_suppliers_main_business, 
+    temp_suppliers.size_id as temp_suppliers_size_id, temp_suppliers.opened_year as temp_suppliers_opened_year, 
+    temp_suppliers.registered_capital as temp_suppliers_registered_capital, temp_suppliers.company_legal as temp_suppliers_company_legal, 
+    temp_suppliers.grade_id as temp_suppliers_grade_id, temp_suppliers.bank as temp_suppliers_bank, 
+    temp_suppliers.bank_account as temp_suppliers_bank_account, temp_suppliers.tax_id as temp_suppliers_tax_id, 
+    temp_suppliers.supplier_date as temp_suppliers_supplier_date, temp_suppliers.supplier_type as temp_suppliers_supplier_type, 
+    temp_suppliers.enabled as temp_suppliers_enabled, temp_suppliers.auditor_id as temp_suppliers_auditor_id, 
+    temp_suppliers.auditor_date as temp_suppliers_auditor_date, temp_suppliers.audit_state as temp_suppliers_audit_state, 
+    temp_suppliers.audit_remark as temp_suppliers_audit_remark, temp_suppliers.remark as temp_suppliers_remark, 
+    temp_suppliers.creater as temp_suppliers_creater, temp_suppliers.create_time as temp_suppliers_create_time, 
+    temp_suppliers.updater as temp_suppliers_updater, temp_suppliers.update_time as temp_suppliers_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.basicdatas.SuppliersExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_suppliers temp_suppliers
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_suppliers temp_suppliers
+    where temp_suppliers.supplier_id = #{supplierId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_suppliers
+    where supplier_id = #{supplierId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.SuppliersExample" >
+    delete temp_suppliers from t_suppliers temp_suppliers
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.basicdatas.Suppliers" >
+    insert into t_suppliers (supplier_id, supplier_number, supplier_province, 
+      prepaid_balance, suppliers_name, type_id, 
+      company_phone, company_fax, company_urls, 
+      company_email, city, adress, 
+      postcode, supplier_level, source_id, 
+      nature_id, industry_id, main_business, 
+      size_id, opened_year, registered_capital, 
+      company_legal, grade_id, bank, 
+      bank_account, tax_id, supplier_date, 
+      supplier_type, enabled, auditor_id, 
+      auditor_date, audit_state, audit_remark, 
+      remark, creater, create_time, 
+      updater, update_time)
+    values (#{supplierId,jdbcType=VARCHAR}, #{supplierNumber,jdbcType=VARCHAR}, #{supplierProvince,jdbcType=VARCHAR}, 
+      #{prepaidBalance,jdbcType=DECIMAL}, #{suppliersName,jdbcType=VARCHAR}, #{typeId,jdbcType=VARCHAR}, 
+      #{companyPhone,jdbcType=VARCHAR}, #{companyFax,jdbcType=VARCHAR}, #{companyUrls,jdbcType=VARCHAR}, 
+      #{companyEmail,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{adress,jdbcType=VARCHAR}, 
+      #{postcode,jdbcType=VARCHAR}, #{supplierLevel,jdbcType=CHAR}, #{sourceId,jdbcType=VARCHAR}, 
+      #{natureId,jdbcType=VARCHAR}, #{industryId,jdbcType=VARCHAR}, #{mainBusiness,jdbcType=VARCHAR}, 
+      #{sizeId,jdbcType=VARCHAR}, #{openedYear,jdbcType=TIMESTAMP}, #{registeredCapital,jdbcType=DECIMAL}, 
+      #{companyLegal,jdbcType=VARCHAR}, #{gradeId,jdbcType=VARCHAR}, #{bank,jdbcType=VARCHAR}, 
+      #{bankAccount,jdbcType=VARCHAR}, #{taxId,jdbcType=VARCHAR}, #{supplierDate,jdbcType=TIMESTAMP}, 
+      #{supplierType,jdbcType=VARCHAR}, #{enabled,jdbcType=CHAR}, #{auditorId,jdbcType=VARCHAR}, 
+      #{auditorDate,jdbcType=TIMESTAMP}, #{auditState,jdbcType=CHAR}, #{auditRemark,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.basicdatas.Suppliers" >
+    insert into t_suppliers
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supplierId != null" >
+        supplier_id,
+      </if>
+      <if test="supplierNumber != null" >
+        supplier_number,
+      </if>
+      <if test="supplierProvince != null" >
+        supplier_province,
+      </if>
+      <if test="prepaidBalance != null" >
+        prepaid_balance,
+      </if>
+      <if test="suppliersName != null" >
+        suppliers_name,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="companyPhone != null" >
+        company_phone,
+      </if>
+      <if test="companyFax != null" >
+        company_fax,
+      </if>
+      <if test="companyUrls != null" >
+        company_urls,
+      </if>
+      <if test="companyEmail != null" >
+        company_email,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="adress != null" >
+        adress,
+      </if>
+      <if test="postcode != null" >
+        postcode,
+      </if>
+      <if test="supplierLevel != null" >
+        supplier_level,
+      </if>
+      <if test="sourceId != null" >
+        source_id,
+      </if>
+      <if test="natureId != null" >
+        nature_id,
+      </if>
+      <if test="industryId != null" >
+        industry_id,
+      </if>
+      <if test="mainBusiness != null" >
+        main_business,
+      </if>
+      <if test="sizeId != null" >
+        size_id,
+      </if>
+      <if test="openedYear != null" >
+        opened_year,
+      </if>
+      <if test="registeredCapital != null" >
+        registered_capital,
+      </if>
+      <if test="companyLegal != null" >
+        company_legal,
+      </if>
+      <if test="gradeId != null" >
+        grade_id,
+      </if>
+      <if test="bank != null" >
+        bank,
+      </if>
+      <if test="bankAccount != null" >
+        bank_account,
+      </if>
+      <if test="taxId != null" >
+        tax_id,
+      </if>
+      <if test="supplierDate != null" >
+        supplier_date,
+      </if>
+      <if test="supplierType != null" >
+        supplier_type,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="auditorId != null" >
+        auditor_id,
+      </if>
+      <if test="auditorDate != null" >
+        auditor_date,
+      </if>
+      <if test="auditState != null" >
+        audit_state,
+      </if>
+      <if test="auditRemark != null" >
+        audit_remark,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierNumber != null" >
+        #{supplierNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierProvince != null" >
+        #{supplierProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="prepaidBalance != null" >
+        #{prepaidBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="suppliersName != null" >
+        #{suppliersName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyPhone != null" >
+        #{companyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="companyFax != null" >
+        #{companyFax,jdbcType=VARCHAR},
+      </if>
+      <if test="companyUrls != null" >
+        #{companyUrls,jdbcType=VARCHAR},
+      </if>
+      <if test="companyEmail != null" >
+        #{companyEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="adress != null" >
+        #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierLevel != null" >
+        #{supplierLevel,jdbcType=CHAR},
+      </if>
+      <if test="sourceId != null" >
+        #{sourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="natureId != null" >
+        #{natureId,jdbcType=VARCHAR},
+      </if>
+      <if test="industryId != null" >
+        #{industryId,jdbcType=VARCHAR},
+      </if>
+      <if test="mainBusiness != null" >
+        #{mainBusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeId != null" >
+        #{sizeId,jdbcType=VARCHAR},
+      </if>
+      <if test="openedYear != null" >
+        #{openedYear,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registeredCapital != null" >
+        #{registeredCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="companyLegal != null" >
+        #{companyLegal,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeId != null" >
+        #{gradeId,jdbcType=VARCHAR},
+      </if>
+      <if test="bank != null" >
+        #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null" >
+        #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="taxId != null" >
+        #{taxId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierDate != null" >
+        #{supplierDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supplierType != null" >
+        #{supplierType,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="auditorId != null" >
+        #{auditorId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditorDate != null" >
+        #{auditorDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditState != null" >
+        #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="auditRemark != null" >
+        #{auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.basicdatas.SuppliersExample" resultType="java.lang.Integer" >
+    select count(*) from t_suppliers temp_suppliers
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_suppliers temp_suppliers
+    <set >
+      <if test="record.supplierId != null" >
+        temp_suppliers.supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplierNumber != null" >
+        temp_suppliers.supplier_number = #{record.supplierNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplierProvince != null" >
+        temp_suppliers.supplier_province = #{record.supplierProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prepaidBalance != null" >
+        temp_suppliers.prepaid_balance = #{record.prepaidBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.suppliersName != null" >
+        temp_suppliers.suppliers_name = #{record.suppliersName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeId != null" >
+        temp_suppliers.type_id = #{record.typeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyPhone != null" >
+        temp_suppliers.company_phone = #{record.companyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyFax != null" >
+        temp_suppliers.company_fax = #{record.companyFax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyUrls != null" >
+        temp_suppliers.company_urls = #{record.companyUrls,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyEmail != null" >
+        temp_suppliers.company_email = #{record.companyEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        temp_suppliers.city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adress != null" >
+        temp_suppliers.adress = #{record.adress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postcode != null" >
+        temp_suppliers.postcode = #{record.postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplierLevel != null" >
+        temp_suppliers.supplier_level = #{record.supplierLevel,jdbcType=CHAR},
+      </if>
+      <if test="record.sourceId != null" >
+        temp_suppliers.source_id = #{record.sourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.natureId != null" >
+        temp_suppliers.nature_id = #{record.natureId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industryId != null" >
+        temp_suppliers.industry_id = #{record.industryId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainBusiness != null" >
+        temp_suppliers.main_business = #{record.mainBusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sizeId != null" >
+        temp_suppliers.size_id = #{record.sizeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openedYear != null" >
+        temp_suppliers.opened_year = #{record.openedYear,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.registeredCapital != null" >
+        temp_suppliers.registered_capital = #{record.registeredCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="record.companyLegal != null" >
+        temp_suppliers.company_legal = #{record.companyLegal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gradeId != null" >
+        temp_suppliers.grade_id = #{record.gradeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bank != null" >
+        temp_suppliers.bank = #{record.bank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankAccount != null" >
+        temp_suppliers.bank_account = #{record.bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taxId != null" >
+        temp_suppliers.tax_id = #{record.taxId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplierDate != null" >
+        temp_suppliers.supplier_date = #{record.supplierDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.supplierType != null" >
+        temp_suppliers.supplier_type = #{record.supplierType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enabled != null" >
+        temp_suppliers.enabled = #{record.enabled,jdbcType=CHAR},
+      </if>
+      <if test="record.auditorId != null" >
+        temp_suppliers.auditor_id = #{record.auditorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditorDate != null" >
+        temp_suppliers.auditor_date = #{record.auditorDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.auditState != null" >
+        temp_suppliers.audit_state = #{record.auditState,jdbcType=CHAR},
+      </if>
+      <if test="record.auditRemark != null" >
+        temp_suppliers.audit_remark = #{record.auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_suppliers.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_suppliers.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_suppliers.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_suppliers.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_suppliers.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_suppliers temp_suppliers
+    set temp_suppliers.supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      temp_suppliers.supplier_number = #{record.supplierNumber,jdbcType=VARCHAR},
+      temp_suppliers.supplier_province = #{record.supplierProvince,jdbcType=VARCHAR},
+      temp_suppliers.prepaid_balance = #{record.prepaidBalance,jdbcType=DECIMAL},
+      temp_suppliers.suppliers_name = #{record.suppliersName,jdbcType=VARCHAR},
+      temp_suppliers.type_id = #{record.typeId,jdbcType=VARCHAR},
+      temp_suppliers.company_phone = #{record.companyPhone,jdbcType=VARCHAR},
+      temp_suppliers.company_fax = #{record.companyFax,jdbcType=VARCHAR},
+      temp_suppliers.company_urls = #{record.companyUrls,jdbcType=VARCHAR},
+      temp_suppliers.company_email = #{record.companyEmail,jdbcType=VARCHAR},
+      temp_suppliers.city = #{record.city,jdbcType=VARCHAR},
+      temp_suppliers.adress = #{record.adress,jdbcType=VARCHAR},
+      temp_suppliers.postcode = #{record.postcode,jdbcType=VARCHAR},
+      temp_suppliers.supplier_level = #{record.supplierLevel,jdbcType=CHAR},
+      temp_suppliers.source_id = #{record.sourceId,jdbcType=VARCHAR},
+      temp_suppliers.nature_id = #{record.natureId,jdbcType=VARCHAR},
+      temp_suppliers.industry_id = #{record.industryId,jdbcType=VARCHAR},
+      temp_suppliers.main_business = #{record.mainBusiness,jdbcType=VARCHAR},
+      temp_suppliers.size_id = #{record.sizeId,jdbcType=VARCHAR},
+      temp_suppliers.opened_year = #{record.openedYear,jdbcType=TIMESTAMP},
+      temp_suppliers.registered_capital = #{record.registeredCapital,jdbcType=DECIMAL},
+      temp_suppliers.company_legal = #{record.companyLegal,jdbcType=VARCHAR},
+      temp_suppliers.grade_id = #{record.gradeId,jdbcType=VARCHAR},
+      temp_suppliers.bank = #{record.bank,jdbcType=VARCHAR},
+      temp_suppliers.bank_account = #{record.bankAccount,jdbcType=VARCHAR},
+      temp_suppliers.tax_id = #{record.taxId,jdbcType=VARCHAR},
+      temp_suppliers.supplier_date = #{record.supplierDate,jdbcType=TIMESTAMP},
+      temp_suppliers.supplier_type = #{record.supplierType,jdbcType=VARCHAR},
+      temp_suppliers.enabled = #{record.enabled,jdbcType=CHAR},
+      temp_suppliers.auditor_id = #{record.auditorId,jdbcType=VARCHAR},
+      temp_suppliers.auditor_date = #{record.auditorDate,jdbcType=TIMESTAMP},
+      temp_suppliers.audit_state = #{record.auditState,jdbcType=CHAR},
+      temp_suppliers.audit_remark = #{record.auditRemark,jdbcType=VARCHAR},
+      temp_suppliers.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_suppliers.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_suppliers.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_suppliers.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_suppliers.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.basicdatas.Suppliers" >
+    update t_suppliers
+    <set >
+      <if test="supplierNumber != null" >
+        supplier_number = #{supplierNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierProvince != null" >
+        supplier_province = #{supplierProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="prepaidBalance != null" >
+        prepaid_balance = #{prepaidBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="suppliersName != null" >
+        suppliers_name = #{suppliersName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyPhone != null" >
+        company_phone = #{companyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="companyFax != null" >
+        company_fax = #{companyFax,jdbcType=VARCHAR},
+      </if>
+      <if test="companyUrls != null" >
+        company_urls = #{companyUrls,jdbcType=VARCHAR},
+      </if>
+      <if test="companyEmail != null" >
+        company_email = #{companyEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="adress != null" >
+        adress = #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        postcode = #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierLevel != null" >
+        supplier_level = #{supplierLevel,jdbcType=CHAR},
+      </if>
+      <if test="sourceId != null" >
+        source_id = #{sourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="natureId != null" >
+        nature_id = #{natureId,jdbcType=VARCHAR},
+      </if>
+      <if test="industryId != null" >
+        industry_id = #{industryId,jdbcType=VARCHAR},
+      </if>
+      <if test="mainBusiness != null" >
+        main_business = #{mainBusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeId != null" >
+        size_id = #{sizeId,jdbcType=VARCHAR},
+      </if>
+      <if test="openedYear != null" >
+        opened_year = #{openedYear,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registeredCapital != null" >
+        registered_capital = #{registeredCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="companyLegal != null" >
+        company_legal = #{companyLegal,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeId != null" >
+        grade_id = #{gradeId,jdbcType=VARCHAR},
+      </if>
+      <if test="bank != null" >
+        bank = #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null" >
+        bank_account = #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="taxId != null" >
+        tax_id = #{taxId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierDate != null" >
+        supplier_date = #{supplierDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supplierType != null" >
+        supplier_type = #{supplierType,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="auditorId != null" >
+        auditor_id = #{auditorId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditorDate != null" >
+        auditor_date = #{auditorDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditState != null" >
+        audit_state = #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="auditRemark != null" >
+        audit_remark = #{auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where supplier_id = #{supplierId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.basicdatas.Suppliers" >
+    update t_suppliers
+    set supplier_number = #{supplierNumber,jdbcType=VARCHAR},
+      supplier_province = #{supplierProvince,jdbcType=VARCHAR},
+      prepaid_balance = #{prepaidBalance,jdbcType=DECIMAL},
+      suppliers_name = #{suppliersName,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=VARCHAR},
+      company_phone = #{companyPhone,jdbcType=VARCHAR},
+      company_fax = #{companyFax,jdbcType=VARCHAR},
+      company_urls = #{companyUrls,jdbcType=VARCHAR},
+      company_email = #{companyEmail,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      adress = #{adress,jdbcType=VARCHAR},
+      postcode = #{postcode,jdbcType=VARCHAR},
+      supplier_level = #{supplierLevel,jdbcType=CHAR},
+      source_id = #{sourceId,jdbcType=VARCHAR},
+      nature_id = #{natureId,jdbcType=VARCHAR},
+      industry_id = #{industryId,jdbcType=VARCHAR},
+      main_business = #{mainBusiness,jdbcType=VARCHAR},
+      size_id = #{sizeId,jdbcType=VARCHAR},
+      opened_year = #{openedYear,jdbcType=TIMESTAMP},
+      registered_capital = #{registeredCapital,jdbcType=DECIMAL},
+      company_legal = #{companyLegal,jdbcType=VARCHAR},
+      grade_id = #{gradeId,jdbcType=VARCHAR},
+      bank = #{bank,jdbcType=VARCHAR},
+      bank_account = #{bankAccount,jdbcType=VARCHAR},
+      tax_id = #{taxId,jdbcType=VARCHAR},
+      supplier_date = #{supplierDate,jdbcType=TIMESTAMP},
+      supplier_type = #{supplierType,jdbcType=VARCHAR},
+      enabled = #{enabled,jdbcType=CHAR},
+      auditor_id = #{auditorId,jdbcType=VARCHAR},
+      auditor_date = #{auditorDate,jdbcType=TIMESTAMP},
+      audit_state = #{auditState,jdbcType=CHAR},
+      audit_remark = #{auditRemark,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where supplier_id = #{supplierId,jdbcType=VARCHAR}
+  </update>
+</mapper>

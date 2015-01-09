@@ -1,0 +1,961 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.basicdatas.BasisClientMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.basicdatas.BasisClient" >
+    <id column="temp_basis_client_client_id" property="clientId" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_client_code" property="clientCode" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_client_type_id" property="clientTypeId" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_client_name" property="clientName" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_client_grade" property="clientGrade" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_client_source" property="clientSource" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_province_manager" property="provinceManager" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_service_manager" property="serviceManager" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_company_scale" property="companyScale" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_marketing_department" property="marketingDepartment" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_company_phone" property="companyPhone" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_company_fax" property="companyFax" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_company_website" property="companyWebsite" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_company_email" property="companyEmail" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_province" property="province" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_city" property="city" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_adress" property="adress" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_zip_code" property="zipCode" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_price_policy" property="pricePolicy" jdbcType="CHAR" />
+    <result column="temp_basis_client_contact_cycle" property="contactCycle" jdbcType="INTEGER" />
+    <result column="temp_basis_client_company_nature_id" property="companyNatureId" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_main_business" property="mainBusiness" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_opened_year" property="openedYear" jdbcType="TIMESTAMP" />
+    <result column="temp_basis_client_registered_capital" property="registeredCapital" jdbcType="DECIMAL" />
+    <result column="temp_basis_client_corporate" property="corporate" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_credit_level_id" property="creditLevelId" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_client_integral" property="clientIntegral" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_bank" property="bank" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_bank_account" property="bankAccount" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_tariff" property="tariff" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_control_credit" property="controlCredit" jdbcType="CHAR" />
+    <result column="temp_basis_client_limit_credit" property="limitCredit" jdbcType="DECIMAL" />
+    <result column="temp_basis_client_present_credit" property="presentCredit" jdbcType="DECIMAL" />
+    <result column="temp_basis_client_present_debt" property="presentDebt" jdbcType="DECIMAL" />
+    <result column="temp_basis_client_advances_received" property="advancesReceived" jdbcType="DECIMAL" />
+    <result column="temp_basis_client_setup_person" property="setupPerson" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_setup_time" property="setupTime" jdbcType="TIMESTAMP" />
+    <result column="temp_basis_client_client_create" property="clientCreate" jdbcType="TIMESTAMP" />
+    <result column="temp_basis_client_superior_client_id" property="superiorClientId" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_accessory" property="accessory" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_staff_id" property="staffId" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_enabled" property="enabled" jdbcType="CHAR" />
+    <result column="temp_basis_client_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_audit_state" property="auditState" jdbcType="CHAR" />
+    <result column="temp_basis_client_auditor" property="auditor" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_audit_date" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="temp_basis_client_audit_remark" property="auditRemark" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_basis_client_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_basis_client_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_basis_client.client_id as temp_basis_client_client_id, temp_basis_client.client_code as temp_basis_client_client_code, 
+    temp_basis_client.client_type_id as temp_basis_client_client_type_id, temp_basis_client.client_name as temp_basis_client_client_name, 
+    temp_basis_client.client_grade as temp_basis_client_client_grade, temp_basis_client.client_source as temp_basis_client_client_source, 
+    temp_basis_client.province_manager as temp_basis_client_province_manager, temp_basis_client.service_manager as temp_basis_client_service_manager, 
+    temp_basis_client.company_scale as temp_basis_client_company_scale, temp_basis_client.marketing_department as temp_basis_client_marketing_department, 
+    temp_basis_client.company_phone as temp_basis_client_company_phone, temp_basis_client.company_fax as temp_basis_client_company_fax, 
+    temp_basis_client.company_website as temp_basis_client_company_website, temp_basis_client.company_email as temp_basis_client_company_email, 
+    temp_basis_client.province as temp_basis_client_province, temp_basis_client.city as temp_basis_client_city, 
+    temp_basis_client.adress as temp_basis_client_adress, temp_basis_client.zip_code as temp_basis_client_zip_code, 
+    temp_basis_client.price_policy as temp_basis_client_price_policy, temp_basis_client.contact_cycle as temp_basis_client_contact_cycle, 
+    temp_basis_client.company_nature_id as temp_basis_client_company_nature_id, temp_basis_client.main_business as temp_basis_client_main_business, 
+    temp_basis_client.opened_year as temp_basis_client_opened_year, temp_basis_client.registered_capital as temp_basis_client_registered_capital, 
+    temp_basis_client.corporate as temp_basis_client_corporate, temp_basis_client.credit_level_id as temp_basis_client_credit_level_id, 
+    temp_basis_client.client_integral as temp_basis_client_client_integral, temp_basis_client.bank as temp_basis_client_bank, 
+    temp_basis_client.bank_account as temp_basis_client_bank_account, temp_basis_client.tariff as temp_basis_client_tariff, 
+    temp_basis_client.control_credit as temp_basis_client_control_credit, temp_basis_client.limit_credit as temp_basis_client_limit_credit, 
+    temp_basis_client.present_credit as temp_basis_client_present_credit, temp_basis_client.present_debt as temp_basis_client_present_debt, 
+    temp_basis_client.advances_received as temp_basis_client_advances_received, temp_basis_client.setup_person as temp_basis_client_setup_person, 
+    temp_basis_client.setup_time as temp_basis_client_setup_time, temp_basis_client.client_create as temp_basis_client_client_create, 
+    temp_basis_client.superior_client_id as temp_basis_client_superior_client_id, temp_basis_client.accessory as temp_basis_client_accessory, 
+    temp_basis_client.staff_id as temp_basis_client_staff_id, temp_basis_client.enabled as temp_basis_client_enabled, 
+    temp_basis_client.remark as temp_basis_client_remark, temp_basis_client.audit_state as temp_basis_client_audit_state, 
+    temp_basis_client.auditor as temp_basis_client_auditor, temp_basis_client.audit_date as temp_basis_client_audit_date, 
+    temp_basis_client.audit_remark as temp_basis_client_audit_remark, temp_basis_client.creater as temp_basis_client_creater, 
+    temp_basis_client.create_time as temp_basis_client_create_time, temp_basis_client.updater as temp_basis_client_updater, 
+    temp_basis_client.update_time as temp_basis_client_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.basicdatas.BasisClientExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_basis_client temp_basis_client
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_basis_client temp_basis_client
+    where temp_basis_client.client_id = #{clientId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_basis_client
+    where client_id = #{clientId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.BasisClientExample" >
+    delete temp_basis_client from t_basis_client temp_basis_client
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.basicdatas.BasisClient" >
+    insert into t_basis_client (client_id, client_code, client_type_id, 
+      client_name, client_grade, client_source, 
+      province_manager, service_manager, company_scale, 
+      marketing_department, company_phone, company_fax, 
+      company_website, company_email, province, 
+      city, adress, zip_code, 
+      price_policy, contact_cycle, company_nature_id, 
+      main_business, opened_year, registered_capital, 
+      corporate, credit_level_id, client_integral, 
+      bank, bank_account, tariff, 
+      control_credit, limit_credit, present_credit, 
+      present_debt, advances_received, setup_person, 
+      setup_time, client_create, superior_client_id, 
+      accessory, staff_id, enabled, 
+      remark, audit_state, auditor, 
+      audit_date, audit_remark, creater, 
+      create_time, updater, update_time
+      )
+    values (#{clientId,jdbcType=VARCHAR}, #{clientCode,jdbcType=VARCHAR}, #{clientTypeId,jdbcType=VARCHAR}, 
+      #{clientName,jdbcType=VARCHAR}, #{clientGrade,jdbcType=VARCHAR}, #{clientSource,jdbcType=VARCHAR}, 
+      #{provinceManager,jdbcType=VARCHAR}, #{serviceManager,jdbcType=VARCHAR}, #{companyScale,jdbcType=VARCHAR}, 
+      #{marketingDepartment,jdbcType=VARCHAR}, #{companyPhone,jdbcType=VARCHAR}, #{companyFax,jdbcType=VARCHAR}, 
+      #{companyWebsite,jdbcType=VARCHAR}, #{companyEmail,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{adress,jdbcType=VARCHAR}, #{zipCode,jdbcType=VARCHAR}, 
+      #{pricePolicy,jdbcType=CHAR}, #{contactCycle,jdbcType=INTEGER}, #{companyNatureId,jdbcType=VARCHAR}, 
+      #{mainBusiness,jdbcType=VARCHAR}, #{openedYear,jdbcType=TIMESTAMP}, #{registeredCapital,jdbcType=DECIMAL}, 
+      #{corporate,jdbcType=VARCHAR}, #{creditLevelId,jdbcType=VARCHAR}, #{clientIntegral,jdbcType=VARCHAR}, 
+      #{bank,jdbcType=VARCHAR}, #{bankAccount,jdbcType=VARCHAR}, #{tariff,jdbcType=VARCHAR}, 
+      #{controlCredit,jdbcType=CHAR}, #{limitCredit,jdbcType=DECIMAL}, #{presentCredit,jdbcType=DECIMAL}, 
+      #{presentDebt,jdbcType=DECIMAL}, #{advancesReceived,jdbcType=DECIMAL}, #{setupPerson,jdbcType=VARCHAR}, 
+      #{setupTime,jdbcType=TIMESTAMP}, #{clientCreate,jdbcType=TIMESTAMP}, #{superiorClientId,jdbcType=VARCHAR}, 
+      #{accessory,jdbcType=VARCHAR}, #{staffId,jdbcType=VARCHAR}, #{enabled,jdbcType=CHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{auditState,jdbcType=CHAR}, #{auditor,jdbcType=VARCHAR}, 
+      #{auditDate,jdbcType=TIMESTAMP}, #{auditRemark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.basicdatas.BasisClient" >
+    insert into t_basis_client
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="clientId != null" >
+        client_id,
+      </if>
+      <if test="clientCode != null" >
+        client_code,
+      </if>
+      <if test="clientTypeId != null" >
+        client_type_id,
+      </if>
+      <if test="clientName != null" >
+        client_name,
+      </if>
+      <if test="clientGrade != null" >
+        client_grade,
+      </if>
+      <if test="clientSource != null" >
+        client_source,
+      </if>
+      <if test="provinceManager != null" >
+        province_manager,
+      </if>
+      <if test="serviceManager != null" >
+        service_manager,
+      </if>
+      <if test="companyScale != null" >
+        company_scale,
+      </if>
+      <if test="marketingDepartment != null" >
+        marketing_department,
+      </if>
+      <if test="companyPhone != null" >
+        company_phone,
+      </if>
+      <if test="companyFax != null" >
+        company_fax,
+      </if>
+      <if test="companyWebsite != null" >
+        company_website,
+      </if>
+      <if test="companyEmail != null" >
+        company_email,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="adress != null" >
+        adress,
+      </if>
+      <if test="zipCode != null" >
+        zip_code,
+      </if>
+      <if test="pricePolicy != null" >
+        price_policy,
+      </if>
+      <if test="contactCycle != null" >
+        contact_cycle,
+      </if>
+      <if test="companyNatureId != null" >
+        company_nature_id,
+      </if>
+      <if test="mainBusiness != null" >
+        main_business,
+      </if>
+      <if test="openedYear != null" >
+        opened_year,
+      </if>
+      <if test="registeredCapital != null" >
+        registered_capital,
+      </if>
+      <if test="corporate != null" >
+        corporate,
+      </if>
+      <if test="creditLevelId != null" >
+        credit_level_id,
+      </if>
+      <if test="clientIntegral != null" >
+        client_integral,
+      </if>
+      <if test="bank != null" >
+        bank,
+      </if>
+      <if test="bankAccount != null" >
+        bank_account,
+      </if>
+      <if test="tariff != null" >
+        tariff,
+      </if>
+      <if test="controlCredit != null" >
+        control_credit,
+      </if>
+      <if test="limitCredit != null" >
+        limit_credit,
+      </if>
+      <if test="presentCredit != null" >
+        present_credit,
+      </if>
+      <if test="presentDebt != null" >
+        present_debt,
+      </if>
+      <if test="advancesReceived != null" >
+        advances_received,
+      </if>
+      <if test="setupPerson != null" >
+        setup_person,
+      </if>
+      <if test="setupTime != null" >
+        setup_time,
+      </if>
+      <if test="clientCreate != null" >
+        client_create,
+      </if>
+      <if test="superiorClientId != null" >
+        superior_client_id,
+      </if>
+      <if test="accessory != null" >
+        accessory,
+      </if>
+      <if test="staffId != null" >
+        staff_id,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="auditState != null" >
+        audit_state,
+      </if>
+      <if test="auditor != null" >
+        auditor,
+      </if>
+      <if test="auditDate != null" >
+        audit_date,
+      </if>
+      <if test="auditRemark != null" >
+        audit_remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="clientId != null" >
+        #{clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="clientCode != null" >
+        #{clientCode,jdbcType=VARCHAR},
+      </if>
+      <if test="clientTypeId != null" >
+        #{clientTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="clientName != null" >
+        #{clientName,jdbcType=VARCHAR},
+      </if>
+      <if test="clientGrade != null" >
+        #{clientGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="clientSource != null" >
+        #{clientSource,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceManager != null" >
+        #{provinceManager,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceManager != null" >
+        #{serviceManager,jdbcType=VARCHAR},
+      </if>
+      <if test="companyScale != null" >
+        #{companyScale,jdbcType=VARCHAR},
+      </if>
+      <if test="marketingDepartment != null" >
+        #{marketingDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="companyPhone != null" >
+        #{companyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="companyFax != null" >
+        #{companyFax,jdbcType=VARCHAR},
+      </if>
+      <if test="companyWebsite != null" >
+        #{companyWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="companyEmail != null" >
+        #{companyEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="adress != null" >
+        #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="zipCode != null" >
+        #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pricePolicy != null" >
+        #{pricePolicy,jdbcType=CHAR},
+      </if>
+      <if test="contactCycle != null" >
+        #{contactCycle,jdbcType=INTEGER},
+      </if>
+      <if test="companyNatureId != null" >
+        #{companyNatureId,jdbcType=VARCHAR},
+      </if>
+      <if test="mainBusiness != null" >
+        #{mainBusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="openedYear != null" >
+        #{openedYear,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registeredCapital != null" >
+        #{registeredCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="corporate != null" >
+        #{corporate,jdbcType=VARCHAR},
+      </if>
+      <if test="creditLevelId != null" >
+        #{creditLevelId,jdbcType=VARCHAR},
+      </if>
+      <if test="clientIntegral != null" >
+        #{clientIntegral,jdbcType=VARCHAR},
+      </if>
+      <if test="bank != null" >
+        #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null" >
+        #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="tariff != null" >
+        #{tariff,jdbcType=VARCHAR},
+      </if>
+      <if test="controlCredit != null" >
+        #{controlCredit,jdbcType=CHAR},
+      </if>
+      <if test="limitCredit != null" >
+        #{limitCredit,jdbcType=DECIMAL},
+      </if>
+      <if test="presentCredit != null" >
+        #{presentCredit,jdbcType=DECIMAL},
+      </if>
+      <if test="presentDebt != null" >
+        #{presentDebt,jdbcType=DECIMAL},
+      </if>
+      <if test="advancesReceived != null" >
+        #{advancesReceived,jdbcType=DECIMAL},
+      </if>
+      <if test="setupPerson != null" >
+        #{setupPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="setupTime != null" >
+        #{setupTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientCreate != null" >
+        #{clientCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="superiorClientId != null" >
+        #{superiorClientId,jdbcType=VARCHAR},
+      </if>
+      <if test="accessory != null" >
+        #{accessory,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null" >
+        #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null" >
+        #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="auditor != null" >
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditRemark != null" >
+        #{auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.basicdatas.BasisClientExample" resultType="java.lang.Integer" >
+    select count(*) from t_basis_client temp_basis_client
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_basis_client temp_basis_client
+    <set >
+      <if test="record.clientId != null" >
+        temp_basis_client.client_id = #{record.clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clientCode != null" >
+        temp_basis_client.client_code = #{record.clientCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clientTypeId != null" >
+        temp_basis_client.client_type_id = #{record.clientTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clientName != null" >
+        temp_basis_client.client_name = #{record.clientName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clientGrade != null" >
+        temp_basis_client.client_grade = #{record.clientGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clientSource != null" >
+        temp_basis_client.client_source = #{record.clientSource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.provinceManager != null" >
+        temp_basis_client.province_manager = #{record.provinceManager,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceManager != null" >
+        temp_basis_client.service_manager = #{record.serviceManager,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyScale != null" >
+        temp_basis_client.company_scale = #{record.companyScale,jdbcType=VARCHAR},
+      </if>
+      <if test="record.marketingDepartment != null" >
+        temp_basis_client.marketing_department = #{record.marketingDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyPhone != null" >
+        temp_basis_client.company_phone = #{record.companyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyFax != null" >
+        temp_basis_client.company_fax = #{record.companyFax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyWebsite != null" >
+        temp_basis_client.company_website = #{record.companyWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyEmail != null" >
+        temp_basis_client.company_email = #{record.companyEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null" >
+        temp_basis_client.province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        temp_basis_client.city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adress != null" >
+        temp_basis_client.adress = #{record.adress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zipCode != null" >
+        temp_basis_client.zip_code = #{record.zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pricePolicy != null" >
+        temp_basis_client.price_policy = #{record.pricePolicy,jdbcType=CHAR},
+      </if>
+      <if test="record.contactCycle != null" >
+        temp_basis_client.contact_cycle = #{record.contactCycle,jdbcType=INTEGER},
+      </if>
+      <if test="record.companyNatureId != null" >
+        temp_basis_client.company_nature_id = #{record.companyNatureId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainBusiness != null" >
+        temp_basis_client.main_business = #{record.mainBusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openedYear != null" >
+        temp_basis_client.opened_year = #{record.openedYear,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.registeredCapital != null" >
+        temp_basis_client.registered_capital = #{record.registeredCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="record.corporate != null" >
+        temp_basis_client.corporate = #{record.corporate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creditLevelId != null" >
+        temp_basis_client.credit_level_id = #{record.creditLevelId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clientIntegral != null" >
+        temp_basis_client.client_integral = #{record.clientIntegral,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bank != null" >
+        temp_basis_client.bank = #{record.bank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankAccount != null" >
+        temp_basis_client.bank_account = #{record.bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tariff != null" >
+        temp_basis_client.tariff = #{record.tariff,jdbcType=VARCHAR},
+      </if>
+      <if test="record.controlCredit != null" >
+        temp_basis_client.control_credit = #{record.controlCredit,jdbcType=CHAR},
+      </if>
+      <if test="record.limitCredit != null" >
+        temp_basis_client.limit_credit = #{record.limitCredit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.presentCredit != null" >
+        temp_basis_client.present_credit = #{record.presentCredit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.presentDebt != null" >
+        temp_basis_client.present_debt = #{record.presentDebt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.advancesReceived != null" >
+        temp_basis_client.advances_received = #{record.advancesReceived,jdbcType=DECIMAL},
+      </if>
+      <if test="record.setupPerson != null" >
+        temp_basis_client.setup_person = #{record.setupPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.setupTime != null" >
+        temp_basis_client.setup_time = #{record.setupTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.clientCreate != null" >
+        temp_basis_client.client_create = #{record.clientCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.superiorClientId != null" >
+        temp_basis_client.superior_client_id = #{record.superiorClientId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessory != null" >
+        temp_basis_client.accessory = #{record.accessory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffId != null" >
+        temp_basis_client.staff_id = #{record.staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enabled != null" >
+        temp_basis_client.enabled = #{record.enabled,jdbcType=CHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_basis_client.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditState != null" >
+        temp_basis_client.audit_state = #{record.auditState,jdbcType=CHAR},
+      </if>
+      <if test="record.auditor != null" >
+        temp_basis_client.auditor = #{record.auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditDate != null" >
+        temp_basis_client.audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.auditRemark != null" >
+        temp_basis_client.audit_remark = #{record.auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_basis_client.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_basis_client.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_basis_client.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_basis_client.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_basis_client temp_basis_client
+    set temp_basis_client.client_id = #{record.clientId,jdbcType=VARCHAR},
+      temp_basis_client.client_code = #{record.clientCode,jdbcType=VARCHAR},
+      temp_basis_client.client_type_id = #{record.clientTypeId,jdbcType=VARCHAR},
+      temp_basis_client.client_name = #{record.clientName,jdbcType=VARCHAR},
+      temp_basis_client.client_grade = #{record.clientGrade,jdbcType=VARCHAR},
+      temp_basis_client.client_source = #{record.clientSource,jdbcType=VARCHAR},
+      temp_basis_client.province_manager = #{record.provinceManager,jdbcType=VARCHAR},
+      temp_basis_client.service_manager = #{record.serviceManager,jdbcType=VARCHAR},
+      temp_basis_client.company_scale = #{record.companyScale,jdbcType=VARCHAR},
+      temp_basis_client.marketing_department = #{record.marketingDepartment,jdbcType=VARCHAR},
+      temp_basis_client.company_phone = #{record.companyPhone,jdbcType=VARCHAR},
+      temp_basis_client.company_fax = #{record.companyFax,jdbcType=VARCHAR},
+      temp_basis_client.company_website = #{record.companyWebsite,jdbcType=VARCHAR},
+      temp_basis_client.company_email = #{record.companyEmail,jdbcType=VARCHAR},
+      temp_basis_client.province = #{record.province,jdbcType=VARCHAR},
+      temp_basis_client.city = #{record.city,jdbcType=VARCHAR},
+      temp_basis_client.adress = #{record.adress,jdbcType=VARCHAR},
+      temp_basis_client.zip_code = #{record.zipCode,jdbcType=VARCHAR},
+      temp_basis_client.price_policy = #{record.pricePolicy,jdbcType=CHAR},
+      temp_basis_client.contact_cycle = #{record.contactCycle,jdbcType=INTEGER},
+      temp_basis_client.company_nature_id = #{record.companyNatureId,jdbcType=VARCHAR},
+      temp_basis_client.main_business = #{record.mainBusiness,jdbcType=VARCHAR},
+      temp_basis_client.opened_year = #{record.openedYear,jdbcType=TIMESTAMP},
+      temp_basis_client.registered_capital = #{record.registeredCapital,jdbcType=DECIMAL},
+      temp_basis_client.corporate = #{record.corporate,jdbcType=VARCHAR},
+      temp_basis_client.credit_level_id = #{record.creditLevelId,jdbcType=VARCHAR},
+      temp_basis_client.client_integral = #{record.clientIntegral,jdbcType=VARCHAR},
+      temp_basis_client.bank = #{record.bank,jdbcType=VARCHAR},
+      temp_basis_client.bank_account = #{record.bankAccount,jdbcType=VARCHAR},
+      temp_basis_client.tariff = #{record.tariff,jdbcType=VARCHAR},
+      temp_basis_client.control_credit = #{record.controlCredit,jdbcType=CHAR},
+      temp_basis_client.limit_credit = #{record.limitCredit,jdbcType=DECIMAL},
+      temp_basis_client.present_credit = #{record.presentCredit,jdbcType=DECIMAL},
+      temp_basis_client.present_debt = #{record.presentDebt,jdbcType=DECIMAL},
+      temp_basis_client.advances_received = #{record.advancesReceived,jdbcType=DECIMAL},
+      temp_basis_client.setup_person = #{record.setupPerson,jdbcType=VARCHAR},
+      temp_basis_client.setup_time = #{record.setupTime,jdbcType=TIMESTAMP},
+      temp_basis_client.client_create = #{record.clientCreate,jdbcType=TIMESTAMP},
+      temp_basis_client.superior_client_id = #{record.superiorClientId,jdbcType=VARCHAR},
+      temp_basis_client.accessory = #{record.accessory,jdbcType=VARCHAR},
+      temp_basis_client.staff_id = #{record.staffId,jdbcType=VARCHAR},
+      temp_basis_client.enabled = #{record.enabled,jdbcType=CHAR},
+      temp_basis_client.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_basis_client.audit_state = #{record.auditState,jdbcType=CHAR},
+      temp_basis_client.auditor = #{record.auditor,jdbcType=VARCHAR},
+      temp_basis_client.audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
+      temp_basis_client.audit_remark = #{record.auditRemark,jdbcType=VARCHAR},
+      temp_basis_client.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_basis_client.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_basis_client.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_basis_client.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.basicdatas.BasisClient" >
+    update t_basis_client
+    <set >
+      <if test="clientCode != null" >
+        client_code = #{clientCode,jdbcType=VARCHAR},
+      </if>
+      <if test="clientTypeId != null" >
+        client_type_id = #{clientTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="clientName != null" >
+        client_name = #{clientName,jdbcType=VARCHAR},
+      </if>
+      <if test="clientGrade != null" >
+        client_grade = #{clientGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="clientSource != null" >
+        client_source = #{clientSource,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceManager != null" >
+        province_manager = #{provinceManager,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceManager != null" >
+        service_manager = #{serviceManager,jdbcType=VARCHAR},
+      </if>
+      <if test="companyScale != null" >
+        company_scale = #{companyScale,jdbcType=VARCHAR},
+      </if>
+      <if test="marketingDepartment != null" >
+        marketing_department = #{marketingDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="companyPhone != null" >
+        company_phone = #{companyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="companyFax != null" >
+        company_fax = #{companyFax,jdbcType=VARCHAR},
+      </if>
+      <if test="companyWebsite != null" >
+        company_website = #{companyWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="companyEmail != null" >
+        company_email = #{companyEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="adress != null" >
+        adress = #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="zipCode != null" >
+        zip_code = #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pricePolicy != null" >
+        price_policy = #{pricePolicy,jdbcType=CHAR},
+      </if>
+      <if test="contactCycle != null" >
+        contact_cycle = #{contactCycle,jdbcType=INTEGER},
+      </if>
+      <if test="companyNatureId != null" >
+        company_nature_id = #{companyNatureId,jdbcType=VARCHAR},
+      </if>
+      <if test="mainBusiness != null" >
+        main_business = #{mainBusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="openedYear != null" >
+        opened_year = #{openedYear,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registeredCapital != null" >
+        registered_capital = #{registeredCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="corporate != null" >
+        corporate = #{corporate,jdbcType=VARCHAR},
+      </if>
+      <if test="creditLevelId != null" >
+        credit_level_id = #{creditLevelId,jdbcType=VARCHAR},
+      </if>
+      <if test="clientIntegral != null" >
+        client_integral = #{clientIntegral,jdbcType=VARCHAR},
+      </if>
+      <if test="bank != null" >
+        bank = #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null" >
+        bank_account = #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="tariff != null" >
+        tariff = #{tariff,jdbcType=VARCHAR},
+      </if>
+      <if test="controlCredit != null" >
+        control_credit = #{controlCredit,jdbcType=CHAR},
+      </if>
+      <if test="limitCredit != null" >
+        limit_credit = #{limitCredit,jdbcType=DECIMAL},
+      </if>
+      <if test="presentCredit != null" >
+        present_credit = #{presentCredit,jdbcType=DECIMAL},
+      </if>
+      <if test="presentDebt != null" >
+        present_debt = #{presentDebt,jdbcType=DECIMAL},
+      </if>
+      <if test="advancesReceived != null" >
+        advances_received = #{advancesReceived,jdbcType=DECIMAL},
+      </if>
+      <if test="setupPerson != null" >
+        setup_person = #{setupPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="setupTime != null" >
+        setup_time = #{setupTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientCreate != null" >
+        client_create = #{clientCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="superiorClientId != null" >
+        superior_client_id = #{superiorClientId,jdbcType=VARCHAR},
+      </if>
+      <if test="accessory != null" >
+        accessory = #{accessory,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null" >
+        staff_id = #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null" >
+        audit_state = #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="auditor != null" >
+        auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditRemark != null" >
+        audit_remark = #{auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where client_id = #{clientId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.basicdatas.BasisClient" >
+    update t_basis_client
+    set client_code = #{clientCode,jdbcType=VARCHAR},
+      client_type_id = #{clientTypeId,jdbcType=VARCHAR},
+      client_name = #{clientName,jdbcType=VARCHAR},
+      client_grade = #{clientGrade,jdbcType=VARCHAR},
+      client_source = #{clientSource,jdbcType=VARCHAR},
+      province_manager = #{provinceManager,jdbcType=VARCHAR},
+      service_manager = #{serviceManager,jdbcType=VARCHAR},
+      company_scale = #{companyScale,jdbcType=VARCHAR},
+      marketing_department = #{marketingDepartment,jdbcType=VARCHAR},
+      company_phone = #{companyPhone,jdbcType=VARCHAR},
+      company_fax = #{companyFax,jdbcType=VARCHAR},
+      company_website = #{companyWebsite,jdbcType=VARCHAR},
+      company_email = #{companyEmail,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      adress = #{adress,jdbcType=VARCHAR},
+      zip_code = #{zipCode,jdbcType=VARCHAR},
+      price_policy = #{pricePolicy,jdbcType=CHAR},
+      contact_cycle = #{contactCycle,jdbcType=INTEGER},
+      company_nature_id = #{companyNatureId,jdbcType=VARCHAR},
+      main_business = #{mainBusiness,jdbcType=VARCHAR},
+      opened_year = #{openedYear,jdbcType=TIMESTAMP},
+      registered_capital = #{registeredCapital,jdbcType=DECIMAL},
+      corporate = #{corporate,jdbcType=VARCHAR},
+      credit_level_id = #{creditLevelId,jdbcType=VARCHAR},
+      client_integral = #{clientIntegral,jdbcType=VARCHAR},
+      bank = #{bank,jdbcType=VARCHAR},
+      bank_account = #{bankAccount,jdbcType=VARCHAR},
+      tariff = #{tariff,jdbcType=VARCHAR},
+      control_credit = #{controlCredit,jdbcType=CHAR},
+      limit_credit = #{limitCredit,jdbcType=DECIMAL},
+      present_credit = #{presentCredit,jdbcType=DECIMAL},
+      present_debt = #{presentDebt,jdbcType=DECIMAL},
+      advances_received = #{advancesReceived,jdbcType=DECIMAL},
+      setup_person = #{setupPerson,jdbcType=VARCHAR},
+      setup_time = #{setupTime,jdbcType=TIMESTAMP},
+      client_create = #{clientCreate,jdbcType=TIMESTAMP},
+      superior_client_id = #{superiorClientId,jdbcType=VARCHAR},
+      accessory = #{accessory,jdbcType=VARCHAR},
+      staff_id = #{staffId,jdbcType=VARCHAR},
+      enabled = #{enabled,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      audit_state = #{auditState,jdbcType=CHAR},
+      auditor = #{auditor,jdbcType=VARCHAR},
+      audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      audit_remark = #{auditRemark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where client_id = #{clientId,jdbcType=VARCHAR}
+  </update>
+</mapper>
