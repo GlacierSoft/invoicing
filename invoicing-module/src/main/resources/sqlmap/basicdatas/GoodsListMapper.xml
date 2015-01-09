@@ -1,0 +1,879 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.basicdatas.GoodsListMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.basicdatas.GoodsList" >
+    <id column="temp_goods_list_goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="temp_goods_list_goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="temp_goods_list_goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="temp_goods_list_goods_type_id" property="goodsTypeId" jdbcType="VARCHAR" />
+    <result column="temp_goods_list_goods_sort_id" property="goodsSortId" jdbcType="VARCHAR" />
+    <result column="temp_goods_list_warehouse_type_id" property="warehouseTypeId" jdbcType="VARCHAR" />
+    <result column="temp_goods_list_original_code" property="originalCode" jdbcType="VARCHAR" />
+    <result column="temp_goods_list_specification" property="specification" jdbcType="VARCHAR" />
+    <result column="temp_goods_list_unit" property="unit" jdbcType="VARCHAR" />
+    <result column="temp_goods_list_bulk_unit" property="bulkUnit" jdbcType="VARCHAR" />
+    <result column="temp_goods_list_package_con_rates" property="packageConRates" jdbcType="DECIMAL" />
+    <result column="temp_goods_list_pricing" property="pricing" jdbcType="VARCHAR" />
+    <result column="temp_goods_list_tax_rate" property="taxRate" jdbcType="DECIMAL" />
+    <result column="temp_goods_list_batch_management" property="batchManagement" jdbcType="CHAR" />
+    <result column="temp_goods_list_valid_management" property="validManagement" jdbcType="CHAR" />
+    <result column="temp_goods_list_reference_cost" property="referenceCost" jdbcType="DECIMAL" />
+    <result column="temp_goods_list_reference_sales_price" property="referenceSalesPrice" jdbcType="DECIMAL" />
+    <result column="temp_goods_list_reference_retail_price" property="referenceRetailPrice" jdbcType="DECIMAL" />
+    <result column="temp_goods_list_sales_price1" property="salesPrice1" jdbcType="DECIMAL" />
+    <result column="temp_goods_list_sales_price2" property="salesPrice2" jdbcType="DECIMAL" />
+    <result column="temp_goods_list_sales_price3" property="salesPrice3" jdbcType="DECIMAL" />
+    <result column="temp_goods_list_sales_price4" property="salesPrice4" jdbcType="DECIMAL" />
+    <result column="temp_goods_list_sales_price5" property="salesPrice5" jdbcType="DECIMAL" />
+    <result column="temp_goods_list_sales_price6" property="salesPrice6" jdbcType="DECIMAL" />
+    <result column="temp_goods_list_sales_price7" property="salesPrice7" jdbcType="DECIMAL" />
+    <result column="temp_goods_list_sales_price8" property="salesPrice8" jdbcType="DECIMAL" />
+    <result column="temp_goods_list_sales_price9" property="salesPrice9" jdbcType="DECIMAL" />
+    <result column="temp_goods_list_sales_price10" property="salesPrice10" jdbcType="DECIMAL" />
+    <result column="temp_goods_list_image" property="image" jdbcType="VARCHAR" />
+    <result column="temp_goods_list_origin" property="origin" jdbcType="VARCHAR" />
+    <result column="temp_goods_list_manufacturers" property="manufacturers" jdbcType="VARCHAR" />
+    <result column="temp_goods_list_brands" property="brands" jdbcType="VARCHAR" />
+    <result column="temp_goods_list_warranty_start" property="warrantyStart" jdbcType="TIMESTAMP" />
+    <result column="temp_goods_list_warranty_end" property="warrantyEnd" jdbcType="TIMESTAMP" />
+    <result column="temp_goods_list_attn" property="attn" jdbcType="VARCHAR" />
+    <result column="temp_goods_list_department" property="department" jdbcType="VARCHAR" />
+    <result column="temp_goods_list_enabled" property="enabled" jdbcType="CHAR" />
+    <result column="temp_goods_list_auditor" property="auditor" jdbcType="VARCHAR" />
+    <result column="temp_goods_list_audit_time" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="temp_goods_list_audit_state" property="auditState" jdbcType="CHAR" />
+    <result column="temp_goods_list_audit_remark" property="auditRemark" jdbcType="VARCHAR" />
+    <result column="temp_goods_list_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_goods_list_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_goods_list_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_goods_list_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_goods_list_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_goods_list.goods_id as temp_goods_list_goods_id, temp_goods_list.goods_code as temp_goods_list_goods_code, 
+    temp_goods_list.goods_name as temp_goods_list_goods_name, temp_goods_list.goods_type_id as temp_goods_list_goods_type_id, 
+    temp_goods_list.goods_sort_id as temp_goods_list_goods_sort_id, temp_goods_list.warehouse_type_id as temp_goods_list_warehouse_type_id, 
+    temp_goods_list.original_code as temp_goods_list_original_code, temp_goods_list.specification as temp_goods_list_specification, 
+    temp_goods_list.unit as temp_goods_list_unit, temp_goods_list.bulk_unit as temp_goods_list_bulk_unit, 
+    temp_goods_list.package_con_rates as temp_goods_list_package_con_rates, temp_goods_list.pricing as temp_goods_list_pricing, 
+    temp_goods_list.tax_rate as temp_goods_list_tax_rate, temp_goods_list.batch_management as temp_goods_list_batch_management, 
+    temp_goods_list.valid_management as temp_goods_list_valid_management, temp_goods_list.reference_cost as temp_goods_list_reference_cost, 
+    temp_goods_list.reference_sales_price as temp_goods_list_reference_sales_price, temp_goods_list.reference_retail_price as temp_goods_list_reference_retail_price, 
+    temp_goods_list.sales_price1 as temp_goods_list_sales_price1, temp_goods_list.sales_price2 as temp_goods_list_sales_price2, 
+    temp_goods_list.sales_price3 as temp_goods_list_sales_price3, temp_goods_list.sales_price4 as temp_goods_list_sales_price4, 
+    temp_goods_list.sales_price5 as temp_goods_list_sales_price5, temp_goods_list.sales_price6 as temp_goods_list_sales_price6, 
+    temp_goods_list.sales_price7 as temp_goods_list_sales_price7, temp_goods_list.sales_price8 as temp_goods_list_sales_price8, 
+    temp_goods_list.sales_price9 as temp_goods_list_sales_price9, temp_goods_list.sales_price10 as temp_goods_list_sales_price10, 
+    temp_goods_list.image as temp_goods_list_image, temp_goods_list.origin as temp_goods_list_origin, 
+    temp_goods_list.manufacturers as temp_goods_list_manufacturers, temp_goods_list.brands as temp_goods_list_brands, 
+    temp_goods_list.warranty_start as temp_goods_list_warranty_start, temp_goods_list.warranty_end as temp_goods_list_warranty_end, 
+    temp_goods_list.attn as temp_goods_list_attn, temp_goods_list.department as temp_goods_list_department, 
+    temp_goods_list.enabled as temp_goods_list_enabled, temp_goods_list.auditor as temp_goods_list_auditor, 
+    temp_goods_list.audit_time as temp_goods_list_audit_time, temp_goods_list.audit_state as temp_goods_list_audit_state, 
+    temp_goods_list.audit_remark as temp_goods_list_audit_remark, temp_goods_list.remark as temp_goods_list_remark, 
+    temp_goods_list.creater as temp_goods_list_creater, temp_goods_list.create_time as temp_goods_list_create_time, 
+    temp_goods_list.updater as temp_goods_list_updater, temp_goods_list.update_time as temp_goods_list_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.basicdatas.GoodsListExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_goods_list temp_goods_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_goods_list temp_goods_list
+    where temp_goods_list.goods_id = #{goodsId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_goods_list
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.GoodsListExample" >
+    delete from t_goods_list temp_goods_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.basicdatas.GoodsList" >
+    insert into t_goods_list (goods_id, goods_code, goods_name, 
+      goods_type_id, goods_sort_id, warehouse_type_id, 
+      original_code, specification, unit, 
+      bulk_unit, package_con_rates, pricing, 
+      tax_rate, batch_management, valid_management, 
+      reference_cost, reference_sales_price, reference_retail_price, 
+      sales_price1, sales_price2, sales_price3, 
+      sales_price4, sales_price5, sales_price6, 
+      sales_price7, sales_price8, sales_price9, 
+      sales_price10, image, origin, 
+      manufacturers, brands, warranty_start, 
+      warranty_end, attn, department, 
+      enabled, auditor, audit_time, 
+      audit_state, audit_remark, remark, 
+      creater, create_time, updater, 
+      update_time)
+    values (#{goodsId,jdbcType=VARCHAR}, #{goodsCode,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, 
+      #{goodsTypeId,jdbcType=VARCHAR}, #{goodsSortId,jdbcType=VARCHAR}, #{warehouseTypeId,jdbcType=VARCHAR}, 
+      #{originalCode,jdbcType=VARCHAR}, #{specification,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, 
+      #{bulkUnit,jdbcType=VARCHAR}, #{packageConRates,jdbcType=DECIMAL}, #{pricing,jdbcType=VARCHAR}, 
+      #{taxRate,jdbcType=DECIMAL}, #{batchManagement,jdbcType=CHAR}, #{validManagement,jdbcType=CHAR}, 
+      #{referenceCost,jdbcType=DECIMAL}, #{referenceSalesPrice,jdbcType=DECIMAL}, #{referenceRetailPrice,jdbcType=DECIMAL}, 
+      #{salesPrice1,jdbcType=DECIMAL}, #{salesPrice2,jdbcType=DECIMAL}, #{salesPrice3,jdbcType=DECIMAL}, 
+      #{salesPrice4,jdbcType=DECIMAL}, #{salesPrice5,jdbcType=DECIMAL}, #{salesPrice6,jdbcType=DECIMAL}, 
+      #{salesPrice7,jdbcType=DECIMAL}, #{salesPrice8,jdbcType=DECIMAL}, #{salesPrice9,jdbcType=DECIMAL}, 
+      #{salesPrice10,jdbcType=DECIMAL}, #{image,jdbcType=VARCHAR}, #{origin,jdbcType=VARCHAR}, 
+      #{manufacturers,jdbcType=VARCHAR}, #{brands,jdbcType=VARCHAR}, #{warrantyStart,jdbcType=TIMESTAMP}, 
+      #{warrantyEnd,jdbcType=TIMESTAMP}, #{attn,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, 
+      #{enabled,jdbcType=CHAR}, #{auditor,jdbcType=VARCHAR}, #{auditTime,jdbcType=TIMESTAMP}, 
+      #{auditState,jdbcType=CHAR}, #{auditRemark,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.basicdatas.GoodsList" >
+    insert into t_goods_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="goodsCode != null" >
+        goods_code,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="goodsTypeId != null" >
+        goods_type_id,
+      </if>
+      <if test="goodsSortId != null" >
+        goods_sort_id,
+      </if>
+      <if test="warehouseTypeId != null" >
+        warehouse_type_id,
+      </if>
+      <if test="originalCode != null" >
+        original_code,
+      </if>
+      <if test="specification != null" >
+        specification,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="bulkUnit != null" >
+        bulk_unit,
+      </if>
+      <if test="packageConRates != null" >
+        package_con_rates,
+      </if>
+      <if test="pricing != null" >
+        pricing,
+      </if>
+      <if test="taxRate != null" >
+        tax_rate,
+      </if>
+      <if test="batchManagement != null" >
+        batch_management,
+      </if>
+      <if test="validManagement != null" >
+        valid_management,
+      </if>
+      <if test="referenceCost != null" >
+        reference_cost,
+      </if>
+      <if test="referenceSalesPrice != null" >
+        reference_sales_price,
+      </if>
+      <if test="referenceRetailPrice != null" >
+        reference_retail_price,
+      </if>
+      <if test="salesPrice1 != null" >
+        sales_price1,
+      </if>
+      <if test="salesPrice2 != null" >
+        sales_price2,
+      </if>
+      <if test="salesPrice3 != null" >
+        sales_price3,
+      </if>
+      <if test="salesPrice4 != null" >
+        sales_price4,
+      </if>
+      <if test="salesPrice5 != null" >
+        sales_price5,
+      </if>
+      <if test="salesPrice6 != null" >
+        sales_price6,
+      </if>
+      <if test="salesPrice7 != null" >
+        sales_price7,
+      </if>
+      <if test="salesPrice8 != null" >
+        sales_price8,
+      </if>
+      <if test="salesPrice9 != null" >
+        sales_price9,
+      </if>
+      <if test="salesPrice10 != null" >
+        sales_price10,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+      <if test="origin != null" >
+        origin,
+      </if>
+      <if test="manufacturers != null" >
+        manufacturers,
+      </if>
+      <if test="brands != null" >
+        brands,
+      </if>
+      <if test="warrantyStart != null" >
+        warranty_start,
+      </if>
+      <if test="warrantyEnd != null" >
+        warranty_end,
+      </if>
+      <if test="attn != null" >
+        attn,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="auditor != null" >
+        auditor,
+      </if>
+      <if test="auditTime != null" >
+        audit_time,
+      </if>
+      <if test="auditState != null" >
+        audit_state,
+      </if>
+      <if test="auditRemark != null" >
+        audit_remark,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTypeId != null" >
+        #{goodsTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSortId != null" >
+        #{goodsSortId,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseTypeId != null" >
+        #{warehouseTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="originalCode != null" >
+        #{originalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null" >
+        #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="bulkUnit != null" >
+        #{bulkUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="packageConRates != null" >
+        #{packageConRates,jdbcType=DECIMAL},
+      </if>
+      <if test="pricing != null" >
+        #{pricing,jdbcType=VARCHAR},
+      </if>
+      <if test="taxRate != null" >
+        #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="batchManagement != null" >
+        #{batchManagement,jdbcType=CHAR},
+      </if>
+      <if test="validManagement != null" >
+        #{validManagement,jdbcType=CHAR},
+      </if>
+      <if test="referenceCost != null" >
+        #{referenceCost,jdbcType=DECIMAL},
+      </if>
+      <if test="referenceSalesPrice != null" >
+        #{referenceSalesPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="referenceRetailPrice != null" >
+        #{referenceRetailPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPrice1 != null" >
+        #{salesPrice1,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPrice2 != null" >
+        #{salesPrice2,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPrice3 != null" >
+        #{salesPrice3,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPrice4 != null" >
+        #{salesPrice4,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPrice5 != null" >
+        #{salesPrice5,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPrice6 != null" >
+        #{salesPrice6,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPrice7 != null" >
+        #{salesPrice7,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPrice8 != null" >
+        #{salesPrice8,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPrice9 != null" >
+        #{salesPrice9,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPrice10 != null" >
+        #{salesPrice10,jdbcType=DECIMAL},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="origin != null" >
+        #{origin,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturers != null" >
+        #{manufacturers,jdbcType=VARCHAR},
+      </if>
+      <if test="brands != null" >
+        #{brands,jdbcType=VARCHAR},
+      </if>
+      <if test="warrantyStart != null" >
+        #{warrantyStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="warrantyEnd != null" >
+        #{warrantyEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attn != null" >
+        #{attn,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="auditor != null" >
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditState != null" >
+        #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="auditRemark != null" >
+        #{auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.basicdatas.GoodsListExample" resultType="java.lang.Integer" >
+    select count(*) from t_goods_list temp_goods_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_goods_list temp_goods_list
+    <set >
+      <if test="record.goodsId != null" >
+        temp_goods_list.goods_id = #{record.goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsCode != null" >
+        temp_goods_list.goods_code = #{record.goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsName != null" >
+        temp_goods_list.goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsTypeId != null" >
+        temp_goods_list.goods_type_id = #{record.goodsTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsSortId != null" >
+        temp_goods_list.goods_sort_id = #{record.goodsSortId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouseTypeId != null" >
+        temp_goods_list.warehouse_type_id = #{record.warehouseTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.originalCode != null" >
+        temp_goods_list.original_code = #{record.originalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.specification != null" >
+        temp_goods_list.specification = #{record.specification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unit != null" >
+        temp_goods_list.unit = #{record.unit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bulkUnit != null" >
+        temp_goods_list.bulk_unit = #{record.bulkUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.packageConRates != null" >
+        temp_goods_list.package_con_rates = #{record.packageConRates,jdbcType=DECIMAL},
+      </if>
+      <if test="record.pricing != null" >
+        temp_goods_list.pricing = #{record.pricing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taxRate != null" >
+        temp_goods_list.tax_rate = #{record.taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.batchManagement != null" >
+        temp_goods_list.batch_management = #{record.batchManagement,jdbcType=CHAR},
+      </if>
+      <if test="record.validManagement != null" >
+        temp_goods_list.valid_management = #{record.validManagement,jdbcType=CHAR},
+      </if>
+      <if test="record.referenceCost != null" >
+        temp_goods_list.reference_cost = #{record.referenceCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.referenceSalesPrice != null" >
+        temp_goods_list.reference_sales_price = #{record.referenceSalesPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.referenceRetailPrice != null" >
+        temp_goods_list.reference_retail_price = #{record.referenceRetailPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.salesPrice1 != null" >
+        temp_goods_list.sales_price1 = #{record.salesPrice1,jdbcType=DECIMAL},
+      </if>
+      <if test="record.salesPrice2 != null" >
+        temp_goods_list.sales_price2 = #{record.salesPrice2,jdbcType=DECIMAL},
+      </if>
+      <if test="record.salesPrice3 != null" >
+        temp_goods_list.sales_price3 = #{record.salesPrice3,jdbcType=DECIMAL},
+      </if>
+      <if test="record.salesPrice4 != null" >
+        temp_goods_list.sales_price4 = #{record.salesPrice4,jdbcType=DECIMAL},
+      </if>
+      <if test="record.salesPrice5 != null" >
+        temp_goods_list.sales_price5 = #{record.salesPrice5,jdbcType=DECIMAL},
+      </if>
+      <if test="record.salesPrice6 != null" >
+        temp_goods_list.sales_price6 = #{record.salesPrice6,jdbcType=DECIMAL},
+      </if>
+      <if test="record.salesPrice7 != null" >
+        temp_goods_list.sales_price7 = #{record.salesPrice7,jdbcType=DECIMAL},
+      </if>
+      <if test="record.salesPrice8 != null" >
+        temp_goods_list.sales_price8 = #{record.salesPrice8,jdbcType=DECIMAL},
+      </if>
+      <if test="record.salesPrice9 != null" >
+        temp_goods_list.sales_price9 = #{record.salesPrice9,jdbcType=DECIMAL},
+      </if>
+      <if test="record.salesPrice10 != null" >
+        temp_goods_list.sales_price10 = #{record.salesPrice10,jdbcType=DECIMAL},
+      </if>
+      <if test="record.image != null" >
+        temp_goods_list.image = #{record.image,jdbcType=VARCHAR},
+      </if>
+      <if test="record.origin != null" >
+        temp_goods_list.origin = #{record.origin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manufacturers != null" >
+        temp_goods_list.manufacturers = #{record.manufacturers,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brands != null" >
+        temp_goods_list.brands = #{record.brands,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warrantyStart != null" >
+        temp_goods_list.warranty_start = #{record.warrantyStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.warrantyEnd != null" >
+        temp_goods_list.warranty_end = #{record.warrantyEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.attn != null" >
+        temp_goods_list.attn = #{record.attn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.department != null" >
+        temp_goods_list.department = #{record.department,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enabled != null" >
+        temp_goods_list.enabled = #{record.enabled,jdbcType=CHAR},
+      </if>
+      <if test="record.auditor != null" >
+        temp_goods_list.auditor = #{record.auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditTime != null" >
+        temp_goods_list.audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.auditState != null" >
+        temp_goods_list.audit_state = #{record.auditState,jdbcType=CHAR},
+      </if>
+      <if test="record.auditRemark != null" >
+        temp_goods_list.audit_remark = #{record.auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_goods_list.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_goods_list.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_goods_list.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_goods_list.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_goods_list.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_goods_list temp_goods_list
+    set temp_goods_list.goods_id = #{record.goodsId,jdbcType=VARCHAR},
+      temp_goods_list.goods_code = #{record.goodsCode,jdbcType=VARCHAR},
+      temp_goods_list.goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      temp_goods_list.goods_type_id = #{record.goodsTypeId,jdbcType=VARCHAR},
+      temp_goods_list.goods_sort_id = #{record.goodsSortId,jdbcType=VARCHAR},
+      temp_goods_list.warehouse_type_id = #{record.warehouseTypeId,jdbcType=VARCHAR},
+      temp_goods_list.original_code = #{record.originalCode,jdbcType=VARCHAR},
+      temp_goods_list.specification = #{record.specification,jdbcType=VARCHAR},
+      temp_goods_list.unit = #{record.unit,jdbcType=VARCHAR},
+      temp_goods_list.bulk_unit = #{record.bulkUnit,jdbcType=VARCHAR},
+      temp_goods_list.package_con_rates = #{record.packageConRates,jdbcType=DECIMAL},
+      temp_goods_list.pricing = #{record.pricing,jdbcType=VARCHAR},
+      temp_goods_list.tax_rate = #{record.taxRate,jdbcType=DECIMAL},
+      temp_goods_list.batch_management = #{record.batchManagement,jdbcType=CHAR},
+      temp_goods_list.valid_management = #{record.validManagement,jdbcType=CHAR},
+      temp_goods_list.reference_cost = #{record.referenceCost,jdbcType=DECIMAL},
+      temp_goods_list.reference_sales_price = #{record.referenceSalesPrice,jdbcType=DECIMAL},
+      temp_goods_list.reference_retail_price = #{record.referenceRetailPrice,jdbcType=DECIMAL},
+      temp_goods_list.sales_price1 = #{record.salesPrice1,jdbcType=DECIMAL},
+      temp_goods_list.sales_price2 = #{record.salesPrice2,jdbcType=DECIMAL},
+      temp_goods_list.sales_price3 = #{record.salesPrice3,jdbcType=DECIMAL},
+      temp_goods_list.sales_price4 = #{record.salesPrice4,jdbcType=DECIMAL},
+      temp_goods_list.sales_price5 = #{record.salesPrice5,jdbcType=DECIMAL},
+      temp_goods_list.sales_price6 = #{record.salesPrice6,jdbcType=DECIMAL},
+      temp_goods_list.sales_price7 = #{record.salesPrice7,jdbcType=DECIMAL},
+      temp_goods_list.sales_price8 = #{record.salesPrice8,jdbcType=DECIMAL},
+      temp_goods_list.sales_price9 = #{record.salesPrice9,jdbcType=DECIMAL},
+      temp_goods_list.sales_price10 = #{record.salesPrice10,jdbcType=DECIMAL},
+      temp_goods_list.image = #{record.image,jdbcType=VARCHAR},
+      temp_goods_list.origin = #{record.origin,jdbcType=VARCHAR},
+      temp_goods_list.manufacturers = #{record.manufacturers,jdbcType=VARCHAR},
+      temp_goods_list.brands = #{record.brands,jdbcType=VARCHAR},
+      temp_goods_list.warranty_start = #{record.warrantyStart,jdbcType=TIMESTAMP},
+      temp_goods_list.warranty_end = #{record.warrantyEnd,jdbcType=TIMESTAMP},
+      temp_goods_list.attn = #{record.attn,jdbcType=VARCHAR},
+      temp_goods_list.department = #{record.department,jdbcType=VARCHAR},
+      temp_goods_list.enabled = #{record.enabled,jdbcType=CHAR},
+      temp_goods_list.auditor = #{record.auditor,jdbcType=VARCHAR},
+      temp_goods_list.audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      temp_goods_list.audit_state = #{record.auditState,jdbcType=CHAR},
+      temp_goods_list.audit_remark = #{record.auditRemark,jdbcType=VARCHAR},
+      temp_goods_list.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_goods_list.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_goods_list.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_goods_list.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_goods_list.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.basicdatas.GoodsList" >
+    update t_goods_list
+    <set >
+      <if test="goodsCode != null" >
+        goods_code = #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTypeId != null" >
+        goods_type_id = #{goodsTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSortId != null" >
+        goods_sort_id = #{goodsSortId,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseTypeId != null" >
+        warehouse_type_id = #{warehouseTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="originalCode != null" >
+        original_code = #{originalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null" >
+        specification = #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="bulkUnit != null" >
+        bulk_unit = #{bulkUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="packageConRates != null" >
+        package_con_rates = #{packageConRates,jdbcType=DECIMAL},
+      </if>
+      <if test="pricing != null" >
+        pricing = #{pricing,jdbcType=VARCHAR},
+      </if>
+      <if test="taxRate != null" >
+        tax_rate = #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="batchManagement != null" >
+        batch_management = #{batchManagement,jdbcType=CHAR},
+      </if>
+      <if test="validManagement != null" >
+        valid_management = #{validManagement,jdbcType=CHAR},
+      </if>
+      <if test="referenceCost != null" >
+        reference_cost = #{referenceCost,jdbcType=DECIMAL},
+      </if>
+      <if test="referenceSalesPrice != null" >
+        reference_sales_price = #{referenceSalesPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="referenceRetailPrice != null" >
+        reference_retail_price = #{referenceRetailPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPrice1 != null" >
+        sales_price1 = #{salesPrice1,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPrice2 != null" >
+        sales_price2 = #{salesPrice2,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPrice3 != null" >
+        sales_price3 = #{salesPrice3,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPrice4 != null" >
+        sales_price4 = #{salesPrice4,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPrice5 != null" >
+        sales_price5 = #{salesPrice5,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPrice6 != null" >
+        sales_price6 = #{salesPrice6,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPrice7 != null" >
+        sales_price7 = #{salesPrice7,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPrice8 != null" >
+        sales_price8 = #{salesPrice8,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPrice9 != null" >
+        sales_price9 = #{salesPrice9,jdbcType=DECIMAL},
+      </if>
+      <if test="salesPrice10 != null" >
+        sales_price10 = #{salesPrice10,jdbcType=DECIMAL},
+      </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="origin != null" >
+        origin = #{origin,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturers != null" >
+        manufacturers = #{manufacturers,jdbcType=VARCHAR},
+      </if>
+      <if test="brands != null" >
+        brands = #{brands,jdbcType=VARCHAR},
+      </if>
+      <if test="warrantyStart != null" >
+        warranty_start = #{warrantyStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="warrantyEnd != null" >
+        warranty_end = #{warrantyEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attn != null" >
+        attn = #{attn,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="auditor != null" >
+        auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditState != null" >
+        audit_state = #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="auditRemark != null" >
+        audit_remark = #{auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.basicdatas.GoodsList" >
+    update t_goods_list
+    set goods_code = #{goodsCode,jdbcType=VARCHAR},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_type_id = #{goodsTypeId,jdbcType=VARCHAR},
+      goods_sort_id = #{goodsSortId,jdbcType=VARCHAR},
+      warehouse_type_id = #{warehouseTypeId,jdbcType=VARCHAR},
+      original_code = #{originalCode,jdbcType=VARCHAR},
+      specification = #{specification,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      bulk_unit = #{bulkUnit,jdbcType=VARCHAR},
+      package_con_rates = #{packageConRates,jdbcType=DECIMAL},
+      pricing = #{pricing,jdbcType=VARCHAR},
+      tax_rate = #{taxRate,jdbcType=DECIMAL},
+      batch_management = #{batchManagement,jdbcType=CHAR},
+      valid_management = #{validManagement,jdbcType=CHAR},
+      reference_cost = #{referenceCost,jdbcType=DECIMAL},
+      reference_sales_price = #{referenceSalesPrice,jdbcType=DECIMAL},
+      reference_retail_price = #{referenceRetailPrice,jdbcType=DECIMAL},
+      sales_price1 = #{salesPrice1,jdbcType=DECIMAL},
+      sales_price2 = #{salesPrice2,jdbcType=DECIMAL},
+      sales_price3 = #{salesPrice3,jdbcType=DECIMAL},
+      sales_price4 = #{salesPrice4,jdbcType=DECIMAL},
+      sales_price5 = #{salesPrice5,jdbcType=DECIMAL},
+      sales_price6 = #{salesPrice6,jdbcType=DECIMAL},
+      sales_price7 = #{salesPrice7,jdbcType=DECIMAL},
+      sales_price8 = #{salesPrice8,jdbcType=DECIMAL},
+      sales_price9 = #{salesPrice9,jdbcType=DECIMAL},
+      sales_price10 = #{salesPrice10,jdbcType=DECIMAL},
+      image = #{image,jdbcType=VARCHAR},
+      origin = #{origin,jdbcType=VARCHAR},
+      manufacturers = #{manufacturers,jdbcType=VARCHAR},
+      brands = #{brands,jdbcType=VARCHAR},
+      warranty_start = #{warrantyStart,jdbcType=TIMESTAMP},
+      warranty_end = #{warrantyEnd,jdbcType=TIMESTAMP},
+      attn = #{attn,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      enabled = #{enabled,jdbcType=CHAR},
+      auditor = #{auditor,jdbcType=VARCHAR},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      audit_state = #{auditState,jdbcType=CHAR},
+      audit_remark = #{auditRemark,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </update>
+</mapper>
