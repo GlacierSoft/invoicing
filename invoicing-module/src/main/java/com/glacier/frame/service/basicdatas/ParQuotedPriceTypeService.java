@@ -49,12 +49,10 @@ import com.glacier.jqueryui.util.JqReturnJson;
  * @author songjundong
  * @email 985776597@QQ.com
  * @date 2015-1-9  上午9:07:06
- */
-
+ */ 
 @Service
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
-public class ParQuotedPriceTypeService {
-
+public class ParQuotedPriceTypeService { 
 	 
 	@Autowired
     private ParQuotedPriceTypeMapper quotedPriceTypeMapper;
