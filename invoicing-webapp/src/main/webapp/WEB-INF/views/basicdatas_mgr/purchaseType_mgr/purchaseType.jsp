@@ -30,7 +30,7 @@
 		checkOnSelect : false,//选择复选框的时候选择该行
 		selectOnCheck : false,//选择的时候复选框打勾
 		url : ctx + '/do/purchaseType/list.json',
-		sortName : 'createTime',//排序字段名称
+		sortName : 'sequenced',//排序字段名称
 		sortOrder : 'DESC',//升序还是降序
 		remoteSort : true,//开启远程排序，默认为false
 		idField : 'purchaseTypeId',
@@ -44,8 +44,13 @@
 			width : 120,
 			sortable : true
 		},{
+			field : 'sequenced',
+			title : '序号',
+			sortable : true,
+			width : 120
+		},{
 			field : 'enabled',
-			title : '采购状态',
+			title : '是否启用',
 			width : 120,
 			sortable : true,
 			formatter : function(value, row, index) {
@@ -114,8 +119,8 @@
           $.easyui.showDialog({
 				title : '【' + rowData.name + '】采购类型信息',
 				href : ctx+ '/do/purchaseType/intoDetail.htm?purchaseTypeId='+ rowData.purchaseTypeId,//从controller请求jsp页面进行渲染
-				width : 480,
-				height : 320,
+				width : 530,
+				height : 250,
 				resizable : false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -127,8 +132,8 @@
 	glacier.purchaseType_mgr.purchaseType.addPurchaseType= function(){
 		glacier.basicAddOrEditDialog({
 			title : '【采购类型】- 增加',
-			width : 400,
-			height : 270,
+			width : 270,
+			height : 200,
 			queryUrl : ctx + '/do/purchaseType/intoForm.htm',
 			submitUrl : ctx + '/do/purchaseType/add.json',
 			successFun : function (){
@@ -141,8 +146,8 @@
 		var row = glacier.purchaseType_mgr.purchaseType.purchaseTypeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【采购类型】- 编辑',
-			width : 400,
-			height : 270,
+			width : 270,
+			height : 200,
 			queryUrl : ctx + '/do/purchaseType/intoForm.htm',
 			submitUrl : ctx + '/do/purchaseType/edit.json',
 			queryParams : {

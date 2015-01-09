@@ -3,26 +3,22 @@
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<form id="carrierCarType_mgr_carType_form" method="post" style="padding:15px">
+<form id="creditType_mgr_creditType_form" method="POST" modelAttribute="parameterCredit" style="padding:15px" enctype="multipart/form-data">
 	<table class="formtable">
 		<tr>
-			<td>采购名称：</td>
+			<td>名称：</td>
 			<td>
 				<input type="hidden" name="purchaseTypeId" value="${purchaseTypeDate.purchaseTypeId}" />
-				<input style="width:268px;height: 20px;" name="name" value="${purchaseTypeDate.name}" class="easyui-validatebox spinner"  required="true"/>
+				<input name="name"  class="easyui-validatebox spinner" style="width:168px" required="true" value="${purchaseTypeDate.name}"/>
 			</td>
 		</tr>
 		<tr>
-			<td>采购状态：</td>
-			<td>
-			<input  name="enabled"  style="width:268px;" value="${purchaseTypeDate.enabled}" class="easyui-combobox"  data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/>
-			</td>
+			<td>排序：</td>
+			<td><input maxlength="3" name="sequenced" class="easyui-numberspinner spinner" style="width:168px" value="${purchaseTypeDate.sequenced}" data-options="min:0,max:9999,required:true,missingMessage:'请输入写信用积分,只能输入整数'" style="width: 270px;height:18px;"/></td>
 		</tr>
 		<tr>
-			<td>备注：</td>
-			<td>
-				<textarea  style="width:268px;" class="spinner formta"></textarea>
-			</td>
+			<td>状态：</td>
+			<td><input id="deliverType_from_deliverType" name="enabled" style="width:168px" value="${purchaseTypeDate.enabled}"  class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/></td>
 		</tr>
 	</table>
 </form>

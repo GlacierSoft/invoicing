@@ -30,7 +30,7 @@
 		checkOnSelect : false,//选择复选框的时候选择该行
 		selectOnCheck : false,//选择的时候复选框打勾
 		url : ctx + '/do/suppliersGrade/list.json',
-		sortName : 'createTime',//排序字段名称
+		sortName : 'gradeCode',//排序字段名称
 		sortOrder : 'DESC',//升序还是降序
 		remoteSort : true,//开启远程排序，默认为false
 		idField : 'gradeId',
@@ -44,8 +44,13 @@
 			width : 120,
 			sortable : true
 		},{
+			field : 'gradeCode',
+			title : '序号',
+			width : 120,
+			sortable : true
+		},{
 			field : 'enabled',
-			title : '等级状态',
+			title : '是否启用',
 			width : 120,
 			sortable : true,
 			formatter : function(value, row, index) {
@@ -71,10 +76,6 @@
 			title : '更新时间',
 			sortable : true,
 			width : 200
-		},{
-			field : 'remark',
-			title : '备注',
-			sortable : true
 		} ] ],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
 		pcarrierCarTypeSize : 10,//注意，pcarrierCarTypeSize必须在pcarrierCarTypeList存在
@@ -118,8 +119,8 @@
           $.easyui.showDialog({
 				title : '【' + rowData.gradeName + '】等级详细信息',
 				href : ctx+ '/do/suppliersGrade/intoDetail.htm?gradeId='+ rowData.gradeId,//从controller请求jsp页面进行渲染
-				width : 480,
-				height : 320,
+				width : 530,
+				height : 250,
 				resizable : false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -131,8 +132,8 @@
 	glacier.suppliersGrade_mgr.suppliersGrade.addSuppliersGrade= function(){
 		glacier.basicAddOrEditDialog({
 			title : '【等级信息】- 增加',
-			width : 400,
-			height : 270,
+			width : 270,
+			height : 200,
 			queryUrl : ctx + '/do/suppliersGrade/intoForm.htm',
 			submitUrl : ctx + '/do/suppliersGrade/add.json',
 			successFun : function (){
@@ -145,8 +146,8 @@
 		var row = glacier.suppliersGrade_mgr.suppliersGrade.suppliersGradeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【等级信息】- 编辑',
-			width : 400,
-			height : 270,
+			width : 270,
+			height : 200,
 			queryUrl : ctx + '/do/suppliersGrade/intoForm.htm',
 			submitUrl : ctx + '/do/suppliersGrade/edit.json',
 			queryParams : {
