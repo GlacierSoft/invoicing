@@ -8,23 +8,25 @@
 			<legend>会员基本信息</legend>  
 			<table  class="detailtable"> 
 				    <tr> 
-				        <td>会员名称：</td>
-						<td>
-							<input type="hidden" id="member_mgr_member_form_memberId" name="memberId" value="${shipperMemberData.memberId}" />
-							<input id="member_mgr_member_form_memberName" name="memberName" class="spinner" style="width:168px" value="${shipperMemberData.memberName}"  readonly="readonly"/>
+				        <td style="padding-left:10px;">货物编号：</td>
+						<td >
+						    <input type="hidden" id="goodsId" name="goodsId" value="${goodsListDate.goodsId }" /> 
+						    <input id="goodsCode" name="goodsCode" class="spinner" style="width:168px;" value="${goodsListDate.goodsCode}" readonly="readonly"/>
 						</td>
-						<td style="padding-left:10px;">注册时间：</td>
-						<td ><input id="member_mgr_member_form_registrationTime" name="registrationTime" class="spinner" style="width:168px;" value="<fmt:formatDate value="${shipperMemberData.registrationTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
+				        <td>货品名称：</td>
+						<td>
+							<input id="goodsName" name="memberName" class="spinner" style="width:168px" value="${goodsListDate.goodsName }"  readonly="readonly"/>
+						</td>
 					</tr> 
 					<tr>
-					    <td>会员类型：</td>
-						<td><input id="member_mgr_member_form_memberType" name="memberType" class="spinner" style="width:168px" value='${shipperMemberData.memberType}' readonly="readonly"/></td>
+					    <td>货品类型：</td>
+						<td><input id="goodsTypeId" name="goodsTypeId" class="spinner" style="width:168px" value="${goodsListDate.goodsTypeId }" readonly="readonly"/></td>
 					    <td style="padding-left:10px;">会员状态：</td>
-						<td><input id="member_mgr_member_form_status" name="status" class="spinner" style="width:168px" value="${shipperMemberData.status}" readonly="readonly"/></td>
+						<td><input id="member_mgr_member_form_status" name="status" class="spinner" style="width:168px" value="" readonly="readonly"/></td>
 					 </tr>
 					 <tr>
 						<td>会员积分：</td>
-						<td><input id="member_mgr_member_form_integral" name="integral" class="spinner" style="width:168px" value="<fmt:formatNumber value='${shipperMemberData.integral}' pattern="#,#00.00"/>" readonly="readonly"/></td>
+						<td><input id="member_mgr_member_form_integral" name="integral" class="spinner" style="width:168px" value="<fmt:formatNumber value='' pattern="#,#00.00"/>" readonly="readonly"/></td>
 					    <td style="padding-left:10px;">账户余额：</td>
 					    <td><input id="member_mgr_member_form_accountBalance" name="accountBalance" class="spinner" style="width:168px" value="<fmt:formatNumber value='${shipperMemberData.accountBalance}' pattern="#,#00.00元"/>" readonly="readonly"/></td>
 				 	</tr>
