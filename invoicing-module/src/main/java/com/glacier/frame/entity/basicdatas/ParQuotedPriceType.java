@@ -2,6 +2,8 @@ package com.glacier.frame.entity.basicdatas;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class ParQuotedPriceType {
     private String quotedPriceTypeId;
 
@@ -11,14 +13,16 @@ public class ParQuotedPriceType {
 
     private Integer sequenced;
 
-    private String enabled;
-
+    private String enabled; 
+    
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     public String getQuotedPriceTypeId() {

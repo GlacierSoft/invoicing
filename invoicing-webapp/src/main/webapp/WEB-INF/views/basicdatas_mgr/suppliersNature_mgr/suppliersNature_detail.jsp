@@ -6,14 +6,15 @@
 	<table class="detailtable">
 		<tr>
 			<td>名称：</td> 
-			<td class="forminputtable"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
+			<td class="forminputtable" colspan="3"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
 				<input type="hidden" name="natureId" value="${suppliersNatureData.natureId}" />
-				<input class="spinner" style="width:168px"  value="${suppliersNatureData.natureName}" readonly="readonly"/>
+				<input class="spinner" style="width:410px"  value="${suppliersNatureData.natureName}" readonly="readonly"/>
 			</td>
-			<td>排序：</td>
-			<td><input class="spinner" style="width:168px" value="${suppliersNatureData.natureCode}" readonly="readonly"/></td>
 		</tr> 
 		<tr>
+			<td>序号：</td>
+			<td><input class="spinner" style="width:168px" value="${suppliersNatureData.natureCode}" readonly="readonly"/></td>
+		
 		 	<td>状态：</td>
 			<td><input id="status" class="spinner" style="width:168px" value="${suppliersNatureData.enabled}" ></td>
 		</tr>

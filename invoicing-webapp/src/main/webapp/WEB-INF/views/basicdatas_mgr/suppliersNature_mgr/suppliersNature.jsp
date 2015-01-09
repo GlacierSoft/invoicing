@@ -28,7 +28,7 @@
 		checkOnSelect:false,//选择复选框的时候选择该行
 		selectOnCheck:false,//选择的时候复选框打勾
 		url: ctx + '/do/suppliersNature/list.json',
-		sortName: 'createTime',//排序字段名称
+		sortName: 'natureCode',//排序字段名称
 		sortOrder: 'desc',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
 		idField:'natureId',
@@ -39,7 +39,7 @@
 				checkbox:true
 			},{
 				field:'natureCode',
-				title:'排序',
+				title:'序号',
 				width:120,
 				sortable:true
 			},{

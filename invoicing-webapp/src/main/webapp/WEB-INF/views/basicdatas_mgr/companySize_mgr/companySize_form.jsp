@@ -12,7 +12,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>排序：</td>
+			<td>序号：</td>
 			<td><input name="sequenced" class="easyui-numberspinner spinner" value="${companySizeData.sequenced}" data-options="min:0,max:999,missingMessage:'请输入序号'" value="10" style="width: 270px;height:18px;" min="1" max="99"/></td>
 		</tr> 
 		<tr>
