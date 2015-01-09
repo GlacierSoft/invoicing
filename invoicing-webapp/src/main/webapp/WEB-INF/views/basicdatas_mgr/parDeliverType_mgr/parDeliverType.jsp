@@ -49,7 +49,7 @@
 				sortable:true
 			},{
 				field:'enabled',
-				title:'是否启用',
+				title:'状态',
 				width:120,
 				sortable:true,
 				formatter: function(value,row,index){
@@ -126,7 +126,7 @@
 	glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.addParDeliverType = function(){
 		glacier.basicAddOrEditDialog({
 			title : '【交货方式】 - 增加',
-			width : 320,
+			width : 420,
 			height : 200,
 			queryUrl : ctx + '/do/deliverType/intoForm.htm',
 			submitUrl : ctx + '/do/deliverType/add.json',
@@ -141,7 +141,7 @@
 		var row = glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.parDeliverTypeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【交货方式】 - 编辑',
-			width : 320,
+			width : 420,
 			height : 200,
 			queryUrl : ctx + '/do/deliverType/intoForm.htm',
 			submitUrl : ctx + '/do/deliverType/edit.json',

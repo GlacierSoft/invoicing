@@ -136,6 +136,8 @@ public class ParPaymentTypeService {
     @Transactional(readOnly = false)
     @MethodLog(opera = "PaymentTypeList_edit")
     public Object editParPaymentType(ParPaymentType parPaymentType) {
+    	Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParPaymentTypeExample parPaymentTypeExample = new ParPaymentTypeExample();
         int count = 0;
@@ -146,7 +148,9 @@ public class ParPaymentTypeService {
             returnResult.setMsg("支付方式名称重复");
             return returnResult;
         }
-        //根据ID获取支付方式信息
+        //更新更新人和更新时间
+        parPaymentType.setUpdater(pricipalUser.getUserCnName());
+        parPaymentType.setUpdateTime(new Date());
         count = parPaymentTypeMapper.updateByPrimaryKeySelective(parPaymentType);
         if (count == 1) {
             returnResult.setSuccess(true);

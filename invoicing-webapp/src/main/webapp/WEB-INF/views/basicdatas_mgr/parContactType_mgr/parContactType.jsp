@@ -49,7 +49,7 @@
 				sortable:true
 			},{
 				field:'enabled',
-				title:'是否启用',
+				title:'状态',
 				width:120,
 				sortable:true,
 				formatter: function(value,row,index){
@@ -126,7 +126,7 @@
 	glacier.basicdatas_mgr.parContactType_mgr.parContactType.addParContactType = function(){
 		glacier.basicAddOrEditDialog({
 			title : '【联系人类型】 - 增加',
-			width : 320,
+			width : 380,
 			height : 200,
 			queryUrl : ctx + '/do/contactType/intoForm.htm',
 			submitUrl : ctx + '/do/contactType/add.json',
@@ -141,7 +141,7 @@
 		var row = glacier.basicdatas_mgr.parContactType_mgr.parContactType.parContactTypeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【联系人类型】 - 编辑',
-			width : 320,
+			width : 380,
 			height : 200,
 			queryUrl : ctx + '/do/contactType/intoForm.htm',
 			submitUrl : ctx + '/do/contactType/edit.json',

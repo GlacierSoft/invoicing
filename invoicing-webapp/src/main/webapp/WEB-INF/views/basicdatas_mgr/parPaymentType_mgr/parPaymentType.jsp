@@ -49,7 +49,7 @@
 				sortable:true
 			},{
 				field:'enabled',
-				title:'是否启用',
+				title:'状态',
 				width:120,
 				sortable:true,
 				formatter: function(value,row,index){
@@ -126,7 +126,7 @@
 	glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.addParPaymentType = function(){
 		glacier.basicAddOrEditDialog({
 			title : '【支付方式】 - 增加',
-			width : 320,
+			width : 420,
 			height : 200,
 			queryUrl : ctx + '/do/paymentType/intoForm.htm',
 			submitUrl : ctx + '/do/paymentType/add.json',
@@ -141,7 +141,7 @@
 		var row = glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.parPaymentTypeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【支付方式】 - 编辑',
-			width : 320,
+			width : 420,
 			height : 200,
 			queryUrl : ctx + '/do/paymentType/intoForm.htm',
 			submitUrl : ctx + '/do/paymentType/edit.json',

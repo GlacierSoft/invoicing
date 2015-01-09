@@ -137,6 +137,8 @@ public class ParDeliverTypeService {
     @Transactional(readOnly = false)
     @MethodLog(opera = "DeliverTypeList_edit")
     public Object editParDeliverType(ParDeliverType parDeliverType) {
+    	Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParDeliverTypeExample parDeliverTypeExample = new ParDeliverTypeExample();
         int count = 0;
@@ -147,7 +149,9 @@ public class ParDeliverTypeService {
             returnResult.setMsg("交货方式名称重复");
             return returnResult;
         }
-        //根据ID获取交货方式信息
+        //更新更新人和更新时间
+        parDeliverType.setUpdater(pricipalUser.getUserCnName());
+        parDeliverType.setUpdateTime(new Date());
         count = parDeliverTypeMapper.updateByPrimaryKeySelective(parDeliverType);
         if (count == 1) {
             returnResult.setSuccess(true);

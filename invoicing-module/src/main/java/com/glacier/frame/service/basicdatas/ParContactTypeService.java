@@ -136,6 +136,8 @@ public class ParContactTypeService {
     @Transactional(readOnly = false)
     @MethodLog(opera = "ContactTypeList_edit")
     public Object editParContactType(ParContactType parContactType) {
+    	Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParContactTypeExample parContactTypeExample = new ParContactTypeExample();
         int count = 0;
@@ -146,7 +148,9 @@ public class ParContactTypeService {
             returnResult.setMsg("联系人类型名称重复");
             return returnResult;
         }
-        //根据ID获取联系人类型信息
+        //更新更新人和更新时间
+        parContactType.setUpdater(pricipalUser.getUserCnName());
+        parContactType.setUpdateTime(new Date());
         count = parContactTypeMapper.updateByPrimaryKeySelective(parContactType);
         if (count == 1) {
             returnResult.setSuccess(true);
