@@ -8,17 +8,17 @@
 			<legend>会员基本信息</legend>  
 			<table  class="detailtable"> 
 				    <tr> 
-				        <td style="padding-left:10px;">货物编号：</td>
+				        <td>货物编号：</td>
 						<td >
 						    <input type="hidden" id="goodsId" name="goodsId" value="${goodsListDate.goodsId }" /> 
 						    <input id="goodsCode" name="goodsCode" class="spinner" style="width:168px;" value="${goodsListDate.goodsCode}" readonly="readonly"/>
 						</td>
-				        <td>货品名称：</td>
+				        <td style="padding-left:10px;">货品名称：</td>
 						<td>
 							<input id="goodsName" name="memberName" class="spinner" style="width:168px" value="${goodsListDate.goodsName }"  readonly="readonly"/>
 						</td>
 					</tr> 
-					<tr>
+					<tr> 
 					    <td>货品类型：</td>
 						<td><input id="goodsTypeId" name="goodsTypeId" class="spinner" style="width:168px" value="${goodsListDate.goodsTypeId }" readonly="readonly"/></td>
 					    <td style="padding-left:10px;">会员状态：</td>
@@ -106,7 +106,4 @@
 			$("div").remove(".validatebox-tip");//解决关闭窗体偶尔出现验证条bug
 		}
 	}); 
-	$('#member_mgr_member_form_status').val(renderGridValue('${shipperMemberData.status}',fields.status));
-	$('#member_mgr_member_form_memberType').val(renderGridValue('${shipperMemberData.memberType}',fields.memberType));
-	$('#member_mgr_member_form_sex').val(renderGridValue('${individualityMemberData.sex}',fields.sex));
 </script>

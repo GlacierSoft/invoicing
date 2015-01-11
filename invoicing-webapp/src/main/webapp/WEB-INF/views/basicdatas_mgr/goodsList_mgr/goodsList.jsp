@@ -122,10 +122,10 @@
 		},
 		onDblClickRow : function(rowIndex, rowData){
           $.easyui.showDialog({
-				title : '【' + rowData.name + '】详细信息',
+				title : '【' + rowData.goodsName + '】详细信息',
 				href : ctx+ '/do/goodsList/intoDetail.htm?goodsId='+ rowData.goodsId,//从controller请求jsp页面进行渲染
-				width : 530,
-				height : 250,
+				width : 600,
+				height : 460,
 				resizable : false,
 				enableApplyButton : false,
 				enableSaveButton : false
