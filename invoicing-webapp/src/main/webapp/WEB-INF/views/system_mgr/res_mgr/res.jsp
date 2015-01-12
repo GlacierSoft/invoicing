@@ -49,6 +49,9 @@
 			$(this).datagrid('clearSelections');
 			$(this).datagrid('clearChecked');
 		},
+		onLoadSuccess : function(node) {
+			$('#menuTreeGrid').treegrid('collapseAll');
+		},
 		onDblClickRow: function(row){
 			$.easyui.showDialog({
 				title: "【"+row.menuCnName+"】详细信息",
