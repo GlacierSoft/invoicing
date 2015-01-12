@@ -38,6 +38,11 @@
 				title:'ID',
 				checkbox:true
 			},{
+				field:'supplierNumber',
+				title:'编号',
+				width:120,
+				sortable:true
+			},{
 				field:'suppliersName',
 				title:'名称',
 				width:120,
@@ -56,9 +61,19 @@
 					return renderGridValue(value, fields.status);
 				}
 			},{
-				field:'typeId',
-				title:'类型',
-				width:200,
+				field:'supplierProvince',
+				title:'省份',
+				width:120,
+				sortable:true
+			},{
+				field:'city',
+				title:'城市',
+				width:120,
+				sortable:true
+			}, {
+				field:'prepaidBalance',
+				title:'预付款余额',
+				width:120,
 				sortable:true
 			},{
 				field:'companyPhone',
@@ -143,8 +158,8 @@
 			$.easyui.showDialog({
 				title: "供应商详细信息",
 				href : ctx + '/do/suppliers/intoDetail.htm?supplierId='+rowData.supplierId,//从controller请求jsp页面进行渲染
-				width : 530,
-				height : 250,
+				width : 560,
+				height : 570,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -156,8 +171,8 @@
 	glacier.basicdatas_mgr.suppliers_mgr.suppliers.addSuppliers = function(){
 		glacier.basicAddOrEditDialog({
 			title : '新增供应商',
-			width : 380,
-			height : 200,
+			width : 570,
+			height : 570,
 			queryUrl : ctx + '/do/suppliers/intoForm.htm',
 			submitUrl : ctx + '/do/suppliers/add.json',
 			successFun : function (){
@@ -171,8 +186,8 @@
 		var row = glacier.basicdatas_mgr.suppliers_mgr.suppliers.suppliersDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑供应商',
-			width : 380,
-			height : 200,
+			width : 560,
+			height : 550,
 			queryUrl : ctx + '/do/suppliers/intoForm.htm',
 			submitUrl : ctx + '/do/suppliers/edit.json',
 			queryParams : {
@@ -243,8 +258,8 @@
 <div class="easyui-layout" data-options="fit:true">
 	<div id="suppliersListGridPanel" data-options="region:'center',border:true" >
 		<table id="suppliersDataGrid">
-			 <glacierui:toolbar panelEnName="SuppliersList" toolbarId="suppliersDataGrid_toolbar" menuEnName="suppliers"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
-		</table>
+		  <glacierui:toolbar panelEnName="SuppliersList" toolbarId="suppliersDataGrid_toolbar" menuEnName="suppliers"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+	 	</table>
 	</div>
 	<div data-options="region:'north',split:true"
 		style="height: 40px; padding-left: 10px;">

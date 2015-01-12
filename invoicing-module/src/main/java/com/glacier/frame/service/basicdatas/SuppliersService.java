@@ -19,6 +19,7 @@
  */
 package com.glacier.frame.service.basicdatas;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,8 +33,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID; 
+import com.glacier.frame.dao.basicdatas.ParSuppliersTypeMapper;
 import com.glacier.frame.dao.basicdatas.SuppliersMapper;
 import com.glacier.frame.dto.query.basicdatas.SuppliersQueryDTO;
+import com.glacier.frame.entity.basicdatas.ParSuppliersType;
+import com.glacier.frame.entity.basicdatas.ParSuppliersTypeExample;
 import com.glacier.frame.entity.basicdatas.Suppliers;
 import com.glacier.frame.entity.basicdatas.SuppliersExample;
 import com.glacier.frame.entity.basicdatas.SuppliersExample.Criteria;
@@ -56,6 +60,9 @@ public class SuppliersService {
  
 	@Autowired
     private SuppliersMapper suppliersMapper;
+	
+	@Autowired
+	private ParSuppliersTypeMapper parSuppliersTypeMapper;
 	  
 	 /***
 	  * @Title: getSuppliers  
@@ -68,6 +75,22 @@ public class SuppliersService {
     public Object getSuppliers(String suppliersId) {
         return suppliersMapper.selectByPrimaryKey(suppliersId);
     } 
+    
+    /** 
+     * @Title: getInformation  
+     * @Description: TODO(获取公司类型，行业等下拉列表数据>>>>>>由于类型未完，此方法待定)  
+     * @param @return    设定文件  
+     * @return Object    返回类型  
+     * @throws
+     */
+    public Object getInformation(){
+    	List<Object> list=new ArrayList<Object>();
+    	//获取公司类型所有信息
+    	List<ParSuppliersType> suppliersType=parSuppliersTypeMapper.selectByExample(new ParSuppliersTypeExample());
+    	list.add(suppliersType);
+    	return list;
+    }
+    
     
     /**
      * @Title: listAsGrid
@@ -122,7 +145,8 @@ public class SuppliersService {
             returnResult.setSuccess(false);
             return returnResult;
         }
-        suppliers.setNatureId(RandomGUID.getRandomGUID());
+        suppliers.setSupplierId(RandomGUID.getRandomGUID());
+        suppliers.setSupplierNumber(getSupplierNumber());
         suppliers.setCreater(pricipalUser.getUserCnName());
         suppliers.setCreateTime(new Date());
         suppliers.setUpdater(pricipalUser.getUserCnName());
@@ -136,6 +160,24 @@ public class SuppliersService {
         }
         return returnResult;
     }
+    
+   /** 
+    * @Title: getSupplierNumber  
+    * @Description: TODO(自动累加供应商的编号)  
+    * @param @return    设定文件  
+    * @return String    返回类型  
+    * @throws
+    */
+   public String getSupplierNumber(){  
+		String route=suppliersMapper.selectTop();   
+		if(route==null){
+			String number=1+"00000";
+			return number;
+		} 
+		int num=Integer.parseInt(route)+1; 
+		return num+"";
+	} 
+    
     
      /** 
       * @Title: editSuppliers  

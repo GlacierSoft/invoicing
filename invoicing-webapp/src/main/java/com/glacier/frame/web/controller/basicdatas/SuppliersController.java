@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.glacier.core.controller.AbstractController;   
+import com.glacier.core.controller.AbstractController;    
 import com.glacier.frame.dto.query.basicdatas.SuppliersQueryDTO;
 import com.glacier.frame.entity.basicdatas.Suppliers;
 import com.glacier.frame.service.basicdatas.SuppliersService;
@@ -69,20 +69,24 @@ public class SuppliersController extends AbstractController{
     
      // 进入表单页面
     @RequestMapping(value = "/intoForm.htm")
-    private Object inForme(String suppliersId) {
+    private Object inForme(String supplierId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/suppliers_mgr/suppliers_form");
-        if(StringUtils.isNotBlank(suppliersId)){
-            mav.addObject("suppliersData", suppliersService.getSuppliers(suppliersId));
+        if(StringUtils.isNotBlank(supplierId)){
+            mav.addObject("suppliersData", suppliersService.getSuppliers(supplierId));
+        }else{
+        	Suppliers sup=new Suppliers();
+        	sup.setSupplierNumber(suppliersService.getSupplierNumber());
+        	mav.addObject("suppliersData",sup);
         }
         return mav;
     }
     
     // 进入Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
-    private Object intoParsuppliersDetailPage(String suppliersId) {
+    private Object intoParsuppliersDetailPage(String supplierId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/suppliers_mgr/suppliers_detail");
-        if(StringUtils.isNotBlank(suppliersId)){
-            mav.addObject("suppliersData", suppliersService.getSuppliers(suppliersId));
+        if(StringUtils.isNotBlank(supplierId)){
+            mav.addObject("suppliersData", suppliersService.getSuppliers(supplierId));
         }
         return mav;
     }
@@ -107,8 +111,8 @@ public class SuppliersController extends AbstractController{
     // 删除供应商
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
-    public Object del(@RequestParam List<String> suppliersIds,@RequestParam List<String> suppliersNames) {
-    	return suppliersService.delSuppliers(suppliersIds, suppliersNames);
+    public Object del(@RequestParam List<String> supplierIds,@RequestParam List<String> suppliersNames) {
+    	return suppliersService.delSuppliers(supplierIds, suppliersNames);
     }
    
 }

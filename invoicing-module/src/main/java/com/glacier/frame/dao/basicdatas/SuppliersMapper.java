@@ -4,6 +4,7 @@ import com.glacier.frame.entity.basicdatas.Suppliers;
 import com.glacier.frame.entity.basicdatas.SuppliersExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface SuppliersMapper {
     int countByExample(SuppliersExample example);
@@ -15,6 +16,10 @@ public interface SuppliersMapper {
     int insert(Suppliers record);
 
     int insertSelective(Suppliers record);
+    
+  //倒序查询班次编号
+    @Select("SELECT supplier_number FROM t_suppliers ORDER BY supplier_number DESC LIMIT 1")
+    String selectTop();
 
     List<Suppliers> selectByExample(SuppliersExample example);
 
