@@ -56,7 +56,7 @@ public class ParComIndustryController {
 	// 进入行业类型信息列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPmember() {
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/comIndustry_mgr/parComIndustry");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/comIndustry_mgr/comIndustry");
         return mav;
     } 
 
@@ -70,7 +70,7 @@ public class ParComIndustryController {
     // 进入行业类型信息Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoSuppliersIndustryDetail(String industryId) { 
-    	ModelAndView mav = new ModelAndView("basicdatas_mgr/comIndustry_mgr/parComIndustry_detail");
+    	ModelAndView mav = new ModelAndView("basicdatas_mgr/comIndustry_mgr/comIndustry_detail");
         if(StringUtils.isNotBlank(industryId)){
             mav.addObject("parComIndustryDate", parComIndustryService.getSuppliersIndustry(industryId));
         }
@@ -80,7 +80,7 @@ public class ParComIndustryController {
     // 进入行业类型信息Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoGradeFormPnews(String industryId) {
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/comIndustry_mgr/parComIndustry_form");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/comIndustry_mgr/comIndustry_form");
         if(StringUtils.isNotBlank(industryId)){
             mav.addObject("parComIndustryDate", parComIndustryService.getSuppliersIndustry(industryId));
         }

@@ -4,19 +4,19 @@
 
 <script type="text/javascript">
 
-	$.util.namespace('glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
+	$.util.namespace('glacier.basicdatas_mgr.parContactType_mgr.parContactType');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
 	//定义toolbar的操作，对操作进行控制 
-	glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.param = {
-			toolbarId : 'parPaymentTypeDataGrid_toolbar',
+	glacier.basicdatas_mgr.parContactType_mgr.parContactType.param = {
+			toolbarId : 'parContactTypeDataGrid_toolbar',
 			actions : {
 				edit:{flag:'edit',controlType:'single'},
 				del:{flag:'del',controlType:'multiple'}
 			}
 	};
 	
-	//初始化支付方式DataGrid
-	glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.parPaymentTypeDataGrid = $('#parPaymentTypeDataGrid').datagrid({
+	//初始化联系人类型DataGrid
+	glacier.basicdatas_mgr.parContactType_mgr.parContactType.parContactTypeDataGrid = $('#parContactTypeDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
@@ -27,19 +27,19 @@
 		singleSelect:true,//限制单选
 		checkOnSelect:false,//选择复选框的时候选择该行
 		selectOnCheck:false,//选择的时候复选框打勾
-		url: ctx + '/do/paymentType/list.json',
+		url: ctx + '/do/comContactType/list.json',
 		sortName: 'sequenced',//排序字段名称
 		sortOrder: 'desc',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
-		idField:'paymentTypeId',
+		idField:'contactTypeId',
 		columns:[[
 			{
-				field:'paymentTypeId',
+				field:'contactTypeId',
 				title:'ID',
 				checkbox:true
 			},{
-				field:'paymentTypeName',
-				title:'支付方式名称',
+				field:'contactTypeName',
+				title:'联系人类型名称',
 				width:120,
 				sortable:true
 			},{
@@ -81,24 +81,24 @@
 		pageSize : 10,//注意，pageSize必须在pageList存在
 		pageList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
-		toolbar:'#parPaymentTypeDataGrid_toolbar',
+		toolbar:'#parContactTypeDataGrid_toolbar',
 		onCheck:function(rowIndex,rowData){//在用户勾选一行的时候触发事件
-			action_controller(glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.param,this).check();
+			action_controller(glacier.basicdatas_mgr.parContactType_mgr.parContactType.param,this).check();
 		},
 		onCheckAll:function(rows){//在用户勾选所有行的时候触发
-			action_controller(glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.param,this).check();
+			action_controller(glacier.basicdatas_mgr.parContactType_mgr.parContactType.param,this).check();
 		},
 		onUncheck:function(rowIndex,rowData){//在用户取消勾选一行的时候触发
-			action_controller(glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.param,this).unCheck();
+			action_controller(glacier.basicdatas_mgr.parContactType_mgr.parContactType.param,this).unCheck();
 		},
 		onUncheckAll:function(rows){//在用户取消勾选所有行的时候触发
-			action_controller(glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.param,this).unCheck();
+			action_controller(glacier.basicdatas_mgr.parContactType_mgr.parContactType.param,this).unCheck();
 		},
 		onSelect:function(rowIndex, rowData){//在用户选择一行的时候触发
-			action_controller(glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.param,this).select();
+			action_controller(glacier.basicdatas_mgr.parContactType_mgr.parContactType.param,this).select();
 		},
 		onUnselectAll:function(rows){//在用户取消勾选所有行的时候触发
-			action_controller(glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.param,this).unSelect();
+			action_controller(glacier.basicdatas_mgr.parContactType_mgr.parContactType.param,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
@@ -111,9 +111,9 @@
 		},
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
-				title: "支付方式详细信息",
-				href : ctx + '/do/paymentType/intoDetail.htm?paymentTypeId='+rowData.paymentTypeId,//从controller请求jsp页面进行渲染
-				width : 530,
+				title: "联系人类型详细信息",
+				href : ctx + '/do/comContactType/intoDetail.htm?contactTypeId='+rowData.contactTypeId,//从controller请求jsp页面进行渲染
+				width : 540,
 				height : 250,
 				resizable: false,
 				enableApplyButton : false,
@@ -123,52 +123,52 @@
 		}
 	});
 	//点击增加按钮触发方法
-	glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.addParPaymentType = function(){
+	glacier.basicdatas_mgr.parContactType_mgr.parContactType.addParContactType = function(){
 		glacier.basicAddOrEditDialog({
-			title : '【支付方式】 - 增加',
-			width : 420,
+			title : '【联系人类型】 - 增加',
+			width : 380,
 			height : 200,
-			queryUrl : ctx + '/do/paymentType/intoForm.htm',
-			submitUrl : ctx + '/do/paymentType/add.json',
+			queryUrl : ctx + '/do/comContactType/intoForm.htm',
+			submitUrl : ctx + '/do/comContactType/add.json',
 			successFun : function (){
-				glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.parPaymentTypeDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.parContactType_mgr.parContactType.parContactTypeDataGrid.datagrid('reload');
 			}
 		});
 	};
 	
 	//点击编辑按钮触发方法
-	glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.editParPaymentType = function(){
-		var row = glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.parPaymentTypeDataGrid.datagrid("getSelected");
+	glacier.basicdatas_mgr.parContactType_mgr.parContactType.editParContactType = function(){
+		var row = glacier.basicdatas_mgr.parContactType_mgr.parContactType.parContactTypeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '【支付方式】 - 编辑',
-			width : 420,
+			title : '【联系人类型】 - 编辑',
+			width : 380,
 			height : 200,
-			queryUrl : ctx + '/do/paymentType/intoForm.htm',
-			submitUrl : ctx + '/do/paymentType/edit.json',
+			queryUrl : ctx + '/do/comContactType/intoForm.htm',
+			submitUrl : ctx + '/do/comContactType/edit.json',
 			queryParams : {
-				paymentTypeId : row.paymentTypeId
+				contactTypeId : row.contactTypeId
 			},
 			successFun : function (){
-				glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.parPaymentTypeDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.parContactType_mgr.parContactType.parContactTypeDataGrid.datagrid('reload');
 			}
 		});
 	};
 	//点击删除按钮触发方法
-	glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.delParPaymentType = function(){
-		var rows = glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.parPaymentTypeDataGrid.datagrid("getChecked");
-		var parPaymentTypeIds = [];//删除的id标识
-		var parPaymentTypes = [];//日志记录引用名称
+	glacier.basicdatas_mgr.parContactType_mgr.parContactType.delParContactType = function(){
+		var rows = glacier.basicdatas_mgr.parContactType_mgr.parContactType.parContactTypeDataGrid.datagrid("getChecked");
+		var parContactTypeIds = [];//删除的id标识
+		var parContactTypes = [];//日志记录引用名称
 		for(var i =0;i<rows.length;i++){
-			parPaymentTypeIds.push(rows[i].paymentTypeId);
-			parPaymentTypes.push(rows[i].paymentTypeName);
+			parContactTypeIds.push(rows[i].contactTypeId);
+			parContactTypes.push(rows[i].contactTypeName);
 		}
-		if(parPaymentTypeIds.length > 0){
+		if(parContactTypeIds.length > 0){
 			$.messager.confirm('请确认', '是否要删除该记录', function(r){
 				if (r){
 					$.ajax({
 						   type: "POST",
-						   url: ctx + '/do/paymentType/del.json',
-						   data: {parPaymentTypeIds:parPaymentTypeIds.join(','),parPaymentTypeNames:parPaymentTypes.join(',')},
+						   url: ctx + '/do/comContactType/del.json',
+						   data: {parContactTypeIds:parContactTypeIds.join(','),parContactTypeNames:parContactTypes.join(',')},
 						   dataType:'json',
 						   success: function(r){
 							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
@@ -177,7 +177,7 @@
 										timeout:3000,
 										msg:r.msg
 									});
-								   glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.parPaymentTypeDataGrid.datagrid('reload');
+								   glacier.basicdatas_mgr.parContactType_mgr.parContactType.parContactTypeDataGrid.datagrid('reload');
 							   }else{
 									$.messager.show({//后台验证弹出错误提示信息框
 										title:'错误提示',
@@ -195,23 +195,23 @@
 	};
 </script>
 
-<!-- 所有支付方式列表面板和表格 -->
+<!-- 所有联系人类型列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="creditGridPanel" data-options="region:'center',border:true" >
-		<table id="parPaymentTypeDataGrid">
-			<glacierui:toolbar panelEnName="ComPaymentTypeList" toolbarId="parPaymentTypeDataGrid_toolbar" menuEnName="comPaymentType"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+		<table id="parContactTypeDataGrid">
+			<glacierui:toolbar panelEnName="ComContactTypeList" toolbarId="parContactTypeDataGrid_toolbar" menuEnName="comContactType"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 	<div data-options="region:'north',split:true"
 		style="height: 40px; padding-left: 10px;">
-		<form id="parPaymentTypeSearchForm">
+		<form id="parContactTypeSearchForm">
 			<table>
 				<tr>
-					<td>支付方式名称：</td>
-					<td><input name="paymentTypeName" style="width: 80px;"
+					<td>联系人类型名称：</td>
+					<td><input name="contactTypeName" style="width: 80px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
-					<td><input id="parPaymentTypeSearchForm_status" name="enabled" style="width: 80px;"
+					<td><input id="parContactTypeSearchForm_status" name="enabled" style="width: 80px;"
 						 class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,data : fields.status"/></td> 
 					<td>创建时间：</td>
 					<td><input name="createStartTime" class="easyui-datetimebox"
@@ -219,10 +219,10 @@
 						class="easyui-datetimebox" style="width: 100px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
-						onclick="glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.parPaymentTypeDataGrid.datagrid('load',glacier.serializeObject($('#parPaymentTypeSearchForm')));">查询</a>
+						onclick="glacier.basicdatas_mgr.parContactType_mgr.parContactType.parContactTypeDataGrid.datagrid('load',glacier.serializeObject($('#parContactTypeSearchForm')));">查询</a>
 						<a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-out',plain:true"
-						onclick="$('#parPaymentTypeSearchForm input').val('');glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.parPaymentTypeDataGrid.datagrid('load',{});">重置条件</a>
+						onclick="$('#parContactTypeSearchForm input').val('');glacier.basicdatas_mgr.parContactType_mgr.parContactType.parContactTypeDataGrid.datagrid('load',{});">重置条件</a>
 					</td>
 				</tr>
 			</table>

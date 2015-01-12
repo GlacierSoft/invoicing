@@ -56,7 +56,7 @@ public class ParComNatureController extends AbstractController{
     // 进入列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexParea() {
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/comNature_mgr/suppliersNature");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/comNature_mgr/comNature");
         return mav;
     }
      
@@ -70,7 +70,7 @@ public class ParComNatureController extends AbstractController{
      // 进入表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object inForme(String suppliersNatureId) {
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/comNature_mgr/suppliersNature_form");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/comNature_mgr/comNature_form");
         if(StringUtils.isNotBlank(suppliersNatureId)){
             mav.addObject("suppliersNatureData", parComNatureService.getParComNature(suppliersNatureId));
         }
@@ -80,7 +80,7 @@ public class ParComNatureController extends AbstractController{
     // 进入Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoParComNatureDetailPage(String suppliersNatureId) {
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/comNature_mgr/suppliersNature_detail");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/comNature_mgr/comNature_detail");
         if(StringUtils.isNotBlank(suppliersNatureId)){
             mav.addObject("suppliersNatureData", parComNatureService.getParComNature(suppliersNatureId));
         }

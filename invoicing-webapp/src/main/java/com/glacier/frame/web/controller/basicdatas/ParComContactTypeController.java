@@ -34,7 +34,7 @@ public class ParComContactTypeController extends AbstractController{
 	// 进入联系人类型信息列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPmember() {
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/comContactType_mgr/parComContactType");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/comContactType_mgr/comContactType");
         return mav;
     } 
     
@@ -48,7 +48,7 @@ public class ParComContactTypeController extends AbstractController{
     // 进入联系人类型信息Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoMemberGradeDetailPage(String contactTypeId) { 
-    	ModelAndView mav = new ModelAndView("basicdatas_mgr/comContactType_mgr/parComContactType_detail");
+    	ModelAndView mav = new ModelAndView("basicdatas_mgr/comContactType_mgr/comContactType_detail");
         if(StringUtils.isNotBlank(contactTypeId)){
             mav.addObject("contactTypeDate", parComContactTypeService.getParComContactType(contactTypeId));
         }
@@ -58,7 +58,7 @@ public class ParComContactTypeController extends AbstractController{
     // 进入联系人类型信息Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoGradeFormPnews(String contactTypeId) {
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/comContactType_mgr/parComContactType_form");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/comContactType_mgr/comContactType_form");
         if(StringUtils.isNotBlank(contactTypeId)){
             mav.addObject("contactTypeDate", parComContactTypeService.getParComContactType(contactTypeId));
         }

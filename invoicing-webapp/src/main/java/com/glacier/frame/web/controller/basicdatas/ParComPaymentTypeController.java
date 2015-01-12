@@ -34,7 +34,7 @@ public class ParComPaymentTypeController extends AbstractController{
 	// 进入支付方式信息列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPmember() {
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/comPaymentType_mgr/parComPaymentType");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/comPaymentType_mgr/comPaymentType");
         return mav;
     } 
     
@@ -48,7 +48,7 @@ public class ParComPaymentTypeController extends AbstractController{
     // 进入支付方式信息Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoMemberGradeDetailPage(String paymentTypeId) { 
-    	ModelAndView mav = new ModelAndView("basicdatas_mgr/comPaymentType_mgr/parComPaymentType_detail");
+    	ModelAndView mav = new ModelAndView("basicdatas_mgr/comPaymentType_mgr/comPaymentType_detail");
         if(StringUtils.isNotBlank(paymentTypeId)){
             mav.addObject("paymentTypeDate", parComPaymentTypeService.getParComPaymentType(paymentTypeId));
         }
@@ -58,7 +58,7 @@ public class ParComPaymentTypeController extends AbstractController{
     // 进入支付方式信息Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoGradeFormPnews(String paymentTypeId) {
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/comPaymentType_mgr/parComPaymentType_form");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/comPaymentType_mgr/comPaymentType_form");
         if(StringUtils.isNotBlank(paymentTypeId)){
             mav.addObject("paymentTypeDate", parComPaymentTypeService.getParComPaymentType(paymentTypeId));
         }

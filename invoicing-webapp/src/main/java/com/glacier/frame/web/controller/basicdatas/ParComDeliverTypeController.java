@@ -34,7 +34,7 @@ public class ParComDeliverTypeController extends AbstractController{
 	// 进入交货方式信息列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPmember() {
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/comDeliverType_mgr/parComDeliverType");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/comDeliverType_mgr/comDeliverType");
         return mav;
     } 
     
@@ -48,7 +48,7 @@ public class ParComDeliverTypeController extends AbstractController{
     // 进入交货方式信息Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoMemberGradeDetailPage(String deliverTypeId) { 
-    	ModelAndView mav = new ModelAndView("basicdatas_mgr/comDeliverType_mgr/parComDeliverType_detail");
+    	ModelAndView mav = new ModelAndView("basicdatas_mgr/comDeliverType_mgr/comDeliverType_detail");
         if(StringUtils.isNotBlank(deliverTypeId)){
             mav.addObject("deliverTypeDate", parComDeliverTypeService.getParComDeliverType(deliverTypeId));
         }
@@ -58,7 +58,7 @@ public class ParComDeliverTypeController extends AbstractController{
     // 进入交货方式信息Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoGradeFormPnews(String deliverTypeId) {
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/comDeliverType_mgr/parComDeliverType_form");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/comDeliverType_mgr/comDeliverType_form");
         if(StringUtils.isNotBlank(deliverTypeId)){
             mav.addObject("deliverTypeDate", parComDeliverTypeService.getParComDeliverType(deliverTypeId));
         }

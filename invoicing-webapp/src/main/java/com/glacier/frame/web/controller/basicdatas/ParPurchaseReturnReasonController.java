@@ -54,7 +54,7 @@ public class ParPurchaseReturnReasonController {
     // 进入退货类型信息列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPmember() {
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/purchaseReturnReason_mgr/parPurchaseReturnReason");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/purchaseReturnReason_mgr/purchaseReturnReason");
         return mav;
     } 
 
@@ -68,7 +68,7 @@ public class ParPurchaseReturnReasonController {
     // 进入退货类型信息Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoReturnReasonDetail(String parPurchaseReturnReasonId) { 
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/purchaseReturnReason_mgr/parPurchaseReturnReason_detail");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/purchaseReturnReason_mgr/purchaseReturnReason_detail");
         if(StringUtils.isNotBlank(parPurchaseReturnReasonId)){
             mav.addObject("parPurchaseReturnReasonDate", parPurchaseReturnReasonService.getReturnReason(parPurchaseReturnReasonId));
         }
@@ -78,7 +78,7 @@ public class ParPurchaseReturnReasonController {
     // 进入退货类型信息Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoGradeFormPnews(String parPurchaseReturnReasonId) {
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/purchaseReturnReason_mgr/parPurchaseReturnReason_form");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/purchaseReturnReason_mgr/purchaseReturnReason_form");
         if(StringUtils.isNotBlank(parPurchaseReturnReasonId)){
             mav.addObject("parPurchaseReturnReasonDate", parPurchaseReturnReasonService.getReturnReason(parPurchaseReturnReasonId));
         }

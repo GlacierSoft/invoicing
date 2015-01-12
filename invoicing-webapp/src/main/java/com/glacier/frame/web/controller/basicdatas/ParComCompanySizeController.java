@@ -41,7 +41,7 @@ public class ParComCompanySizeController extends AbstractController{
     // 进入列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexParea() {
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/comCompanySize_mgr/companySize");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/comCompanySize_mgr/comCompanySize");
         return mav;
     }
      
@@ -55,7 +55,7 @@ public class ParComCompanySizeController extends AbstractController{
      // 进入表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object inForme(String companySizeId) {
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/comCompanySize_mgr/companySize_form");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/comCompanySize_mgr/comCompanySize_form");
         if(StringUtils.isNotBlank(companySizeId)){
             mav.addObject("companySizeData", parComCompanySizeService.getParComCompanySize(companySizeId));
         }
@@ -65,7 +65,7 @@ public class ParComCompanySizeController extends AbstractController{
     // 进入Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoParComCompanySizeDetailPage(String parComCompanySizeId) {
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/comCompanySize_mgr/companySize_detail");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/comCompanySize_mgr/comCompanySize_detail");
         if(StringUtils.isNotBlank(parComCompanySizeId)){
             mav.addObject("companySizeData", parComCompanySizeService.getParComCompanySize(parComCompanySizeId));
         }
