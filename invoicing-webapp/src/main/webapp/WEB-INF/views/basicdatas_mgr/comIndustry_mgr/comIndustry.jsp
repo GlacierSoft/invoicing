@@ -5,10 +5,10 @@
 	uri="http://com.glacier.permissions.com.cn/tag/easyui"%>
 
 <script type="text/javascript">
-	$.util.namespace('glacier.comIndustry_mgr.comIndustry');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
+	$.util.namespace('glacier.basicdatas_mgr.comIndustry_mgr.comIndustry');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 
 	//定义toolbar的操作，对操作进行控制
-	glacier.comIndustry_mgr.comIndustry.param = {
+	glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.param = {
 		toolbarId : 'comIndustryDataGrid_toolbar',
 		actions : {
 	            edit:{flag:'edit',controlType:'single'},
@@ -18,7 +18,7 @@
      };
 
 	//初始化DataGrid
-	glacier.comIndustry_mgr.comIndustry.comIndustryDataGrid = $('#comIndustryDataGrid').datagrid({
+	glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.comIndustryDataGrid = $('#comIndustryDataGrid').datagrid({
 		fit : true,//控件自动resize占满窗口大小
 		iconCls : 'icon-save',//图标样式
 		border : false,//是否存在边框
@@ -84,27 +84,27 @@
 		toolbar : '#comIndustryDataGrid_toolbar',
 		onCheck : function(rowIndex, rowData) {//选择行事件触发
 			action_controller(
-					glacier.comIndustry_mgr.comIndustry.param,this).check();
+					glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.param,this).check();
 		},
 		onCheckAll : function(rows) {//取消勾选行状态触发事件
 			action_controller(
-					glacier.comIndustry_mgr.comIndustry.param,this).check();
+					glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.param,this).check();
 		},
 		onUncheck : function(rowIndex, rowData) {//选择行事件触发
 			action_controller(
-					glacier.comIndustry_mgr.comIndustry.param,this).unCheck();
+					glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.param,this).unCheck();
 		},
 		onUncheckAll : function(rows) {//取消勾选行状态触发事件
 			action_controller(
-					glacier.comIndustry_mgr.comIndustry.param,this).unCheck();
+					glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.param,this).unCheck();
 		},
 		onSelect : function(rowIndex, rowData) {//选择行事件触发
 			action_controller(
-					glacier.comIndustry_mgr.comIndustry.param,this).select();
+					glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.param,this).select();
 		},
 		onUnselectAll : function(rows) {
 			action_controller(
-					glacier.comIndustry_mgr.comIndustry.param,this).unSelect();
+					glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.param,this).unSelect();
 		},
 		onLoadSuccess : function(index, record) {//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
@@ -129,7 +129,7 @@
 	});
 	
 	//点击增加按钮触发方法
-	glacier.comIndustry_mgr.comIndustry.addComIndustry= function(){
+	glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.addComIndustry= function(){
 		glacier.basicAddOrEditDialog({
 			title : '【行业类型】- 增加',
 			width : 270,
@@ -137,13 +137,13 @@
 			queryUrl : ctx + '/do/comIndustry/intoForm.htm',
 			submitUrl : ctx + '/do/comIndustry/add.json',
 			successFun : function (){
-				glacier.comIndustry_mgr.comIndustry.comIndustryDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.comIndustryDataGrid.datagrid('reload');
 			}
 		});
 	};
 	//点击编辑按钮触发方法
-	glacier.comIndustry_mgr.comIndustry.editComIndustry = function(){
-		var row = glacier.comIndustry_mgr.comIndustry.comIndustryDataGrid.datagrid("getSelected");
+	glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.editComIndustry = function(){
+		var row = glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.comIndustryDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【行业类型】- 编辑',
 			width : 270,
@@ -154,14 +154,14 @@
 				industryId : row.industryId
 			},
 			successFun : function (){
-				glacier.comIndustry_mgr.comIndustry.comIndustryDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.comIndustryDataGrid.datagrid('reload');
 			}
 		});
 	};
 	
 	//启用禁用按钮触发方法
-	glacier.comIndustry_mgr.comIndustry.enableComIndustry=function(){
-		var row = glacier.comIndustry_mgr.comIndustry.comIndustryDataGrid.datagrid("getSelected");
+	glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.enableComIndustry=function(){
+		var row = glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.comIndustryDataGrid.datagrid("getSelected");
 		if(row.enabled=='enable'){
 			var str='禁用';
 			var url_str=ctx + '/do/comIndustry/edit.json?enabled=disable&&industryId='+row.industryId+'&&industryName='+row.industryName;
@@ -182,7 +182,7 @@
 								timeout : 3000,
 								msg : r.msg
 							});
-							glacier.comIndustry_mgr.comIndustry.comIndustryDataGrid.datagrid('reload');
+							glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.comIndustryDataGrid.datagrid('reload');
 						} else {
 							$.messager.show({//后台验证弹出错误提示信息框
 										title : '错误提示',
@@ -200,8 +200,8 @@
 	
 	
 	//点击删除按钮触发方法
-	glacier.comIndustry_mgr.comIndustry.delComIndustry = function() {
-		var rows = glacier.comIndustry_mgr.comIndustry.comIndustryDataGrid.datagrid("getChecked");
+	glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.delComIndustry = function() {
+		var rows = glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.comIndustryDataGrid.datagrid("getChecked");
 		var industryIds = [];//删除的id标识
 		var industryNames = [];
 		for ( var i = 0; i < rows.length; i++) {
@@ -226,7 +226,7 @@
 									timeout : 3000,
 									msg : r.msg
 								});
-								glacier.comIndustry_mgr.comIndustry.comIndustryDataGrid.datagrid('reload');
+								glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.comIndustryDataGrid.datagrid('reload');
 							} else {
 								$.messager.show({//后台验证弹出错误提示信息框
 											title : '错误提示',
@@ -283,10 +283,10 @@
 						class="easyui-datetimebox" style="width: 100px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
-						onclick="glacier.comIndustry_mgr.comIndustry.comIndustryDataGrid.datagrid('load',glacier.serializeObject($('#comIndustrySearchForm')));">查询</a>
+						onclick="glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.comIndustryDataGrid.datagrid('load',glacier.serializeObject($('#comIndustrySearchForm')));">查询</a>
 						<a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-out',plain:true"
-						onclick="$('#comIndustrySearchForm input').val('');glacier.comIndustry_mgr.comIndustry.comIndustryDataGrid.datagrid('load',{});">重置条件</a>
+						onclick="$('#comIndustrySearchForm input').val('');glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.comIndustryDataGrid.datagrid('load',{});">重置条件</a>
 					</td>
 				</tr>
 			</table>

@@ -56,7 +56,7 @@ public class ParPurchaseQuotedPriceTypeController extends AbstractController{
     // 进入列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexParea() {
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/purchaseQuotedPriceType_mgr/quotedPriceType");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/purchaseQuotedPriceType_mgr/purchaseQuotedPriceType");
         return mav;
     }
      
@@ -70,7 +70,7 @@ public class ParPurchaseQuotedPriceTypeController extends AbstractController{
      // 进入表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object inForme(String quotedPriceTypeId) {
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/purchaseQuotedPriceType_mgr/quotedPriceType_form");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/purchaseQuotedPriceType_mgr/purchaseQuotedPriceType_form");
         if(StringUtils.isNotBlank(quotedPriceTypeId)){
             mav.addObject("quotedPriceTypeData", quotedPriceTypeService.getParPurchaseQuotedPriceType(quotedPriceTypeId));
         }
@@ -80,7 +80,7 @@ public class ParPurchaseQuotedPriceTypeController extends AbstractController{
     // 进入Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoParquotedPriceTypeDetailPage(String quotedPriceTypeId) {
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/purchaseQuotedPriceType_mgr/quotedPriceType_detail");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/purchaseQuotedPriceType_mgr/purchaseQuotedPriceType_detail");
         if(StringUtils.isNotBlank(quotedPriceTypeId)){
             mav.addObject("quotedPriceTypeData", quotedPriceTypeService.getParPurchaseQuotedPriceType(quotedPriceTypeId));
         }
