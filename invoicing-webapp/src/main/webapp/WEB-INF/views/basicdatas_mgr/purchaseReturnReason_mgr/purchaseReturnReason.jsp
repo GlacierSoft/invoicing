@@ -29,7 +29,7 @@
 		singleSelect : true,//限制单选
 		checkOnSelect : false,//选择复选框的时候选择该行
 		selectOnCheck : false,//选择的时候复选框打勾
-		url : ctx + '/do/returnReason/list.json',
+		url : ctx + '/do/purchaseReturnReason/list.json',
 		sortName : 'sequenced',//排序字段名称
 		sortOrder : 'DESC',//升序还是降序
 		remoteSort : true,//开启远程排序，默认为false
@@ -122,7 +122,7 @@
 		onDblClickRow : function(rowIndex, rowData){
           $.easyui.showDialog({
 				title : '【' + rowData.name + '】详细信息',
-				href : ctx+ '/do/returnReason/intoDetail.htm?returnReasonId='+ rowData.returnReasonId,//从controller请求jsp页面进行渲染
+				href : ctx+ '/do/purchaseReturnReason/intoDetail.htm?returnReasonId='+ rowData.returnReasonId,//从controller请求jsp页面进行渲染
 				width : 530,
 				height : 250,
 				resizable : false,
@@ -138,8 +138,8 @@
 			title : '【退货类型】- 增加',
 			width : 270,
 			height : 200,
-			queryUrl : ctx + '/do/returnReason/intoForm.htm',
-			submitUrl : ctx + '/do/returnReason/add.json',
+			queryUrl : ctx + '/do/purchaseReturnReason/intoForm.htm',
+			submitUrl : ctx + '/do/purchaseReturnReason/add.json',
 			successFun : function (){
 				glacier.parReturnReason_mgr.returnReason.returnReasonDataGrid.datagrid('reload');
 			}
@@ -152,8 +152,8 @@
 			title : '【退货类型】- 编辑',
 			width : 270,
 			height : 200,
-			queryUrl : ctx + '/do/returnReason/intoForm.htm',
-			submitUrl : ctx + '/do/returnReason/edit.json',
+			queryUrl : ctx + '/do/purchaseReturnReason/intoForm.htm',
+			submitUrl : ctx + '/do/purchaseReturnReason/edit.json',
 			queryParams : {
 				returnReasonId : row.returnReasonId
 			},
@@ -177,7 +177,7 @@
                    if (r){
                    	 $.ajax({ 
                    		type: "POST",
-                   	    url : ctx+ '/do/returnReason/del.json',
+                   	    url : ctx+ '/do/purchaseReturnReason/del.json',
 						data : {
 							returnReasonIds : returnReasonIds.join(','),
 							names : names.join(',')

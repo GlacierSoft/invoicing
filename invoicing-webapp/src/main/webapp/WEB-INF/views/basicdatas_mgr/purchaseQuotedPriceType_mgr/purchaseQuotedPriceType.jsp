@@ -27,7 +27,7 @@
 		singleSelect:true,//限制单选
 		checkOnSelect:false,//选择复选框的时候选择该行
 		selectOnCheck:false,//选择的时候复选框打勾
-		url: ctx + '/do/quotedPriceType/list.json',
+		url: ctx + '/do/purchaseQuotedPriceType/list.json',
 		sortName: 'sequenced',//排序字段名称
 		sortOrder: 'desc',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
@@ -112,7 +112,7 @@
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
 				title: "报价类型详细信息",
-				href : ctx + '/do/quotedPriceType/intoDetail.htm?quotedPriceTypeId='+rowData.quotedPriceTypeId,//从controller请求jsp页面进行渲染
+				href : ctx + '/do/purchaseQuotedPriceType/intoDetail.htm?quotedPriceTypeId='+rowData.quotedPriceTypeId,//从controller请求jsp页面进行渲染
 				width : 530,
 				height : 250,
 				resizable: false,
@@ -128,8 +128,8 @@
 			title : '新增报价类型',
 			width : 380,
 			height : 200,
-			queryUrl : ctx + '/do/quotedPriceType/intoForm.htm',
-			submitUrl : ctx + '/do/quotedPriceType/add.json',
+			queryUrl : ctx + '/do/purchaseQuotedPriceType/intoForm.htm',
+			submitUrl : ctx + '/do/purchaseQuotedPriceType/add.json',
 			successFun : function (){
 				glacier.basicdatas_mgr.quotedPriceType_mgr.parQuotedPriceType.parQuotedPriceTypeDataGrid.datagrid('reload');
 			}
@@ -143,8 +143,8 @@
 			title : '编辑报价类型',
 			width : 380,
 			height : 200,
-			queryUrl : ctx + '/do/quotedPriceType/intoForm.htm',
-			submitUrl : ctx + '/do/quotedPriceType/edit.json',
+			queryUrl : ctx + '/do/purchaseQuotedPriceType/intoForm.htm',
+			submitUrl : ctx + '/do/purchaseQuotedPriceType/edit.json',
 			queryParams : {
 				quotedPriceTypeId : row.quotedPriceTypeId
 			},
@@ -169,7 +169,7 @@
 				if (r){
 					$.ajax({
 						   type: "POST",
-						   url: ctx + '/do/quotedPriceType/del.json',
+						   url: ctx + '/do/purchaseQuotedPriceType/del.json',
 						   data: {quotedPriceTypeIds:quotedPriceTypeIds.join(','),quotedPriceTypeNames:quotedPriceTypeNames.join(',')},
 						   dataType:'json',
 						   success: function(r){

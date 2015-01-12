@@ -27,7 +27,7 @@
 		singleSelect:true,//限制单选
 		checkOnSelect:false,//选择复选框的时候选择该行
 		selectOnCheck:false,//选择的时候复选框打勾
-		url: ctx + '/do/deliverType/list.json',
+		url: ctx + '/do/comDeliverType/list.json',
 		sortName: 'sequenced',//排序字段名称
 		sortOrder: 'desc',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
@@ -112,7 +112,7 @@
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
 				title: "交货方式详细信息",
-				href : ctx + '/do/deliverType/intoDetail.htm?deliverTypeId='+rowData.deliverTypeId,//从controller请求jsp页面进行渲染
+				href : ctx + '/do/comDeliverType/intoDetail.htm?deliverTypeId='+rowData.deliverTypeId,//从controller请求jsp页面进行渲染
 				width : 530,
 				height : 250,
 				resizable: false,
@@ -128,8 +128,8 @@
 			title : '【交货方式】 - 增加',
 			width : 420,
 			height : 200,
-			queryUrl : ctx + '/do/deliverType/intoForm.htm',
-			submitUrl : ctx + '/do/deliverType/add.json',
+			queryUrl : ctx + '/do/comDeliverType/intoForm.htm',
+			submitUrl : ctx + '/do/comDeliverType/add.json',
 			successFun : function (){
 				glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.parDeliverTypeDataGrid.datagrid('reload');
 			}
@@ -143,8 +143,8 @@
 			title : '【交货方式】 - 编辑',
 			width : 420,
 			height : 200,
-			queryUrl : ctx + '/do/deliverType/intoForm.htm',
-			submitUrl : ctx + '/do/deliverType/edit.json',
+			queryUrl : ctx + '/do/comDeliverType/intoForm.htm',
+			submitUrl : ctx + '/do/comDeliverType/edit.json',
 			queryParams : {
 				deliverTypeId : row.deliverTypeId
 			},
@@ -167,7 +167,7 @@
 				if (r){
 					$.ajax({
 						   type: "POST",
-						   url: ctx + '/do/deliverType/del.json',
+						   url: ctx + '/do/comDeliverType/del.json',
 						   data: {parDeliverTypeIds:parDeliverTypeIds.join(','),parDeliverTypeNames:parDeliverTypes.join(',')},
 						   dataType:'json',
 						   success: function(r){

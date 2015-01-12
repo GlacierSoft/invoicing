@@ -27,7 +27,7 @@
 		singleSelect:true,//限制单选
 		checkOnSelect:false,//选择复选框的时候选择该行
 		selectOnCheck:false,//选择的时候复选框打勾
-		url: ctx + '/do/contactType/list.json',
+		url: ctx + '/do/comContactType/list.json',
 		sortName: 'sequenced',//排序字段名称
 		sortOrder: 'desc',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
@@ -112,7 +112,7 @@
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
 				title: "联系人类型详细信息",
-				href : ctx + '/do/contactType/intoDetail.htm?contactTypeId='+rowData.contactTypeId,//从controller请求jsp页面进行渲染
+				href : ctx + '/do/comContactType/intoDetail.htm?contactTypeId='+rowData.contactTypeId,//从controller请求jsp页面进行渲染
 				width : 540,
 				height : 250,
 				resizable: false,
@@ -128,8 +128,8 @@
 			title : '【联系人类型】 - 增加',
 			width : 380,
 			height : 200,
-			queryUrl : ctx + '/do/contactType/intoForm.htm',
-			submitUrl : ctx + '/do/contactType/add.json',
+			queryUrl : ctx + '/do/comContactType/intoForm.htm',
+			submitUrl : ctx + '/do/comContactType/add.json',
 			successFun : function (){
 				glacier.basicdatas_mgr.parContactType_mgr.parContactType.parContactTypeDataGrid.datagrid('reload');
 			}
@@ -143,8 +143,8 @@
 			title : '【联系人类型】 - 编辑',
 			width : 380,
 			height : 200,
-			queryUrl : ctx + '/do/contactType/intoForm.htm',
-			submitUrl : ctx + '/do/contactType/edit.json',
+			queryUrl : ctx + '/do/comContactType/intoForm.htm',
+			submitUrl : ctx + '/do/comContactType/edit.json',
 			queryParams : {
 				contactTypeId : row.contactTypeId
 			},
@@ -167,7 +167,7 @@
 				if (r){
 					$.ajax({
 						   type: "POST",
-						   url: ctx + '/do/contactType/del.json',
+						   url: ctx + '/do/comContactType/del.json',
 						   data: {parContactTypeIds:parContactTypeIds.join(','),parContactTypeNames:parContactTypes.join(',')},
 						   dataType:'json',
 						   success: function(r){

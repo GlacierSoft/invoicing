@@ -27,7 +27,7 @@
 		singleSelect:true,//限制单选
 		checkOnSelect:false,//选择复选框的时候选择该行
 		selectOnCheck:false,//选择的时候复选框打勾
-		url: ctx + '/do/companySize/list.json',
+		url: ctx + '/do/comCompanySize/list.json',
 		sortName: 'sequenced',//排序字段名称
 		sortOrder: 'desc',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
@@ -112,7 +112,7 @@
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
 				title: "公司规模详细信息",
-				href : ctx + '/do/companySize/intoDetail.htm?parCompanySizeId='+rowData.companySizeId,//从controller请求jsp页面进行渲染
+				href : ctx + '/do/comCompanySize/intoDetail.htm?parCompanySizeId='+rowData.companySizeId,//从controller请求jsp页面进行渲染
 				width : 530,
 				height : 250,
 				resizable: false,
@@ -127,8 +127,8 @@
 			title : '新增公司规模',
 			width : 380,
 			height : 200,
-			queryUrl : ctx + '/do/companySize/intoForm.htm',
-			submitUrl : ctx + '/do/companySize/add.json',
+			queryUrl : ctx + '/do/comCompanySize/intoForm.htm',
+			submitUrl : ctx + '/do/comCompanySize/add.json',
 			successFun : function (){
 				glacier.basicdatas_mgr.parCompanySize_mgr.parCompanySize.parCompanySizeDataGrid.datagrid('reload');
 			}
@@ -141,8 +141,8 @@
 			title : '编辑公司规模',
 			width : 380,
 			height : 200,
-			queryUrl : ctx + '/do/companySize/intoForm.htm',
-			submitUrl : ctx + '/do/companySize/edit.json',
+			queryUrl : ctx + '/do/comCompanySize/intoForm.htm',
+			submitUrl : ctx + '/do/comCompanySize/edit.json',
 			queryParams : {
 				companySizeId : row.companySizeId
 			},
@@ -167,7 +167,7 @@
 				if (r){
 					$.ajax({
 						   type: "POST",
-						   url: ctx + '/do/companySize/del.json',
+						   url: ctx + '/do/comCompanySize/del.json',
 						   data: {parCompanySizeIds:parCompanySizeIds.join(','),parCompanyNames:parCompanySizeNames.join(',')},
 						   dataType:'json',
 						   success: function(r){

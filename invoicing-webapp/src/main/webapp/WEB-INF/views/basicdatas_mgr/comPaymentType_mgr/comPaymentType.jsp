@@ -27,7 +27,7 @@
 		singleSelect:true,//限制单选
 		checkOnSelect:false,//选择复选框的时候选择该行
 		selectOnCheck:false,//选择的时候复选框打勾
-		url: ctx + '/do/paymentType/list.json',
+		url: ctx + '/do/comPaymentType/list.json',
 		sortName: 'sequenced',//排序字段名称
 		sortOrder: 'desc',//升序还是降序
 		remoteSort: true,//开启远程排序，默认为false
@@ -112,7 +112,7 @@
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
 				title: "支付方式详细信息",
-				href : ctx + '/do/paymentType/intoDetail.htm?paymentTypeId='+rowData.paymentTypeId,//从controller请求jsp页面进行渲染
+				href : ctx + '/do/comPaymentType/intoDetail.htm?paymentTypeId='+rowData.paymentTypeId,//从controller请求jsp页面进行渲染
 				width : 530,
 				height : 250,
 				resizable: false,
@@ -128,8 +128,8 @@
 			title : '【支付方式】 - 增加',
 			width : 420,
 			height : 200,
-			queryUrl : ctx + '/do/paymentType/intoForm.htm',
-			submitUrl : ctx + '/do/paymentType/add.json',
+			queryUrl : ctx + '/do/comPaymentType/intoForm.htm',
+			submitUrl : ctx + '/do/comPaymentType/add.json',
 			successFun : function (){
 				glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.parPaymentTypeDataGrid.datagrid('reload');
 			}
@@ -143,8 +143,8 @@
 			title : '【支付方式】 - 编辑',
 			width : 420,
 			height : 200,
-			queryUrl : ctx + '/do/paymentType/intoForm.htm',
-			submitUrl : ctx + '/do/paymentType/edit.json',
+			queryUrl : ctx + '/do/comPaymentType/intoForm.htm',
+			submitUrl : ctx + '/do/comPaymentType/edit.json',
 			queryParams : {
 				paymentTypeId : row.paymentTypeId
 			},
@@ -167,7 +167,7 @@
 				if (r){
 					$.ajax({
 						   type: "POST",
-						   url: ctx + '/do/paymentType/del.json',
+						   url: ctx + '/do/comPaymentType/del.json',
 						   data: {parPaymentTypeIds:parPaymentTypeIds.join(','),parPaymentTypeNames:parPaymentTypes.join(',')},
 						   dataType:'json',
 						   success: function(r){
