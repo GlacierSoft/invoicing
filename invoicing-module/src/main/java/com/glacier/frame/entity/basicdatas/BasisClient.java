@@ -3,6 +3,8 @@ package com.glacier.frame.entity.basicdatas;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class BasisClient {
     private String clientId;
 
@@ -12,98 +14,104 @@ public class BasisClient {
 
     private String clientName;
 
-    private String clientGrade;
+    private String clientGrade;//客户级别-
 
-    private String clientSource;
+    private String clientSource;//客户来源-
 
-    private String provinceManager;
+    private String provinceManager;//省经理
 
-    private String serviceManager;
+    private String serviceManager;//业务经理
 
-    private String companyScale;
+    private String companyScale;//公司规模
 
-    private String marketingDepartment;
+    private String marketingDepartment;//销售部门
 
-    private String companyPhone;
+    private String companyPhone;//客户档案手机-
 
-    private String companyFax;
+    private String companyFax;//客户档案传真-
 
-    private String companyWebsite;
+    private String companyWebsite;//客户档案网站-
 
-    private String companyEmail;
+    private String companyEmail;//客户档案邮箱-
 
-    private String province;
+    private String province;//省-
 
-    private String city;
+    private String city;//城市-
 
-    private String adress;
+    private String adress;//地址-
 
-    private String zipCode;
+    private String zipCode;//邮编-
 
-    private String pricePolicy;
+    private String pricePolicy;//价格政策-
 
-    private Integer contactCycle;
+    private Integer contactCycle;//联系周期-
 
-    private String companyNatureId;
+    private String companyNatureId;//公司性质-
 
-    private String mainBusiness;
+    private String mainBusiness;//主营业务-
 
-    private Date openedYear;
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    private Date openedYear;//开业年份-
 
-    private BigDecimal registeredCapital;
+    private BigDecimal registeredCapital;//注册资金-
 
-    private String corporate;
+    private String corporate;//公司法人-
 
-    private String creditLevelId;
+    private String creditLevelId;//信用等级
 
-    private String clientIntegral;
+    private String clientIntegral;//信用积分
 
-    private String bank;
+    private String bank;//开户银行
 
-    private String bankAccount;
+    private String bankAccount;//银行账户
 
-    private String tariff;
+    private String tariff;//税号-
 
-    private String controlCredit;
+    private String controlCredit;//是否控制信用-
 
-    private BigDecimal limitCredit;
+    private BigDecimal limitCredit;//信用额度
 
-    private BigDecimal presentCredit;
+    private BigDecimal presentCredit;//当前信用额度
 
-    private BigDecimal presentDebt;
+    private BigDecimal presentDebt;//当前欠款
 
-    private BigDecimal advancesReceived;
+    private BigDecimal advancesReceived;//预收款余额
+    
+    private String setupPerson;//调整人
 
-    private String setupPerson;
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    private Date setupTime;//调整时间
 
-    private Date setupTime;
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    private Date clientCreate;//客户建立日期
 
-    private Date clientCreate;
+    private String superiorClientId;//所属上级客户
 
-    private String superiorClientId;
+    private String accessory;//附件
 
-    private String accessory;
+    private String staffId;//销售代表
 
-    private String staffId;
+    private String enabled;//是否启用
 
-    private String enabled;
+    private String remark;//备注
 
-    private String remark;
+    private String auditState;//审核状态
 
-    private String auditState;
+    private String auditor;//审核人
 
-    private String auditor;
-
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditDate;
 
-    private String auditRemark;
+    private String auditRemark;//审核备注
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     public String getClientId() {
