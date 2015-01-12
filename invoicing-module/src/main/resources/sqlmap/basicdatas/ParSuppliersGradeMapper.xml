@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.basicdatas.ParSuppliersGradeMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.basicdatas.ParSuppliersGrade" >
+    <id column="temp_par_suppliers_grade_grade_id" property="gradeId" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_grade_grade_name" property="gradeName" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_grade_grade_code" property="gradeCode" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_grade_enabled" property="enabled" jdbcType="CHAR" />
+    <result column="temp_par_suppliers_grade_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_grade_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_grade_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_par_suppliers_grade_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_grade_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_par_suppliers_grade.grade_id as temp_par_suppliers_grade_grade_id, temp_par_suppliers_grade.grade_name as temp_par_suppliers_grade_grade_name, 
+    temp_par_suppliers_grade.grade_code as temp_par_suppliers_grade_grade_code, temp_par_suppliers_grade.enabled as temp_par_suppliers_grade_enabled, 
+    temp_par_suppliers_grade.remark as temp_par_suppliers_grade_remark, temp_par_suppliers_grade.creater as temp_par_suppliers_grade_creater, 
+    temp_par_suppliers_grade.create_time as temp_par_suppliers_grade_create_time, temp_par_suppliers_grade.updater as temp_par_suppliers_grade_updater, 
+    temp_par_suppliers_grade.update_time as temp_par_suppliers_grade_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.basicdatas.ParSuppliersGradeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_par_suppliers_grade temp_par_suppliers_grade
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_par_suppliers_grade temp_par_suppliers_grade
+    where temp_par_suppliers_grade.grade_id = #{gradeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_par_suppliers_grade
+    where grade_id = #{gradeId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.ParSuppliersGradeExample" >
+    delete from t_par_suppliers_grade temp_par_suppliers_grade
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.basicdatas.ParSuppliersGrade" >
+    insert into t_par_suppliers_grade (grade_id, grade_name, grade_code, 
+      enabled, remark, creater, 
+      create_time, updater, update_time
+      )
+    values (#{gradeId,jdbcType=VARCHAR}, #{gradeName,jdbcType=VARCHAR}, #{gradeCode,jdbcType=VARCHAR}, 
+      #{enabled,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.basicdatas.ParSuppliersGrade" >
+    insert into t_par_suppliers_grade
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gradeId != null" >
+        grade_id,
+      </if>
+      <if test="gradeName != null" >
+        grade_name,
+      </if>
+      <if test="gradeCode != null" >
+        grade_code,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gradeId != null" >
+        #{gradeId,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeName != null" >
+        #{gradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeCode != null" >
+        #{gradeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.basicdatas.ParSuppliersGradeExample" resultType="java.lang.Integer" >
+    select count(*) from t_par_suppliers_grade temp_par_suppliers_grade
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_par_suppliers_grade temp_par_suppliers_grade
+    <set >
+      <if test="record.gradeId != null" >
+        temp_par_suppliers_grade.grade_id = #{record.gradeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gradeName != null" >
+        temp_par_suppliers_grade.grade_name = #{record.gradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gradeCode != null" >
+        temp_par_suppliers_grade.grade_code = #{record.gradeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enabled != null" >
+        temp_par_suppliers_grade.enabled = #{record.enabled,jdbcType=CHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_par_suppliers_grade.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_par_suppliers_grade.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_par_suppliers_grade.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_par_suppliers_grade.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_par_suppliers_grade.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_par_suppliers_grade temp_par_suppliers_grade
+    set temp_par_suppliers_grade.grade_id = #{record.gradeId,jdbcType=VARCHAR},
+      temp_par_suppliers_grade.grade_name = #{record.gradeName,jdbcType=VARCHAR},
+      temp_par_suppliers_grade.grade_code = #{record.gradeCode,jdbcType=VARCHAR},
+      temp_par_suppliers_grade.enabled = #{record.enabled,jdbcType=CHAR},
+      temp_par_suppliers_grade.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_par_suppliers_grade.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_par_suppliers_grade.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_par_suppliers_grade.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_par_suppliers_grade.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.basicdatas.ParSuppliersGrade" >
+    update t_par_suppliers_grade
+    <set >
+      <if test="gradeName != null" >
+        grade_name = #{gradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeCode != null" >
+        grade_code = #{gradeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where grade_id = #{gradeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.basicdatas.ParSuppliersGrade" >
+    update t_par_suppliers_grade
+    set grade_name = #{gradeName,jdbcType=VARCHAR},
+      grade_code = #{gradeCode,jdbcType=VARCHAR},
+      enabled = #{enabled,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where grade_id = #{gradeId,jdbcType=VARCHAR}
+  </update>
+</mapper>
