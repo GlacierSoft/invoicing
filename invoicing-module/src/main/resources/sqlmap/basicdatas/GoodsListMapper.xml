@@ -160,7 +160,7 @@
     where goods_id = #{goodsId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.GoodsListExample" >
-    delete from t_goods_list temp_goods_list
+    delete temp_goods_list from t_goods_list temp_goods_list
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

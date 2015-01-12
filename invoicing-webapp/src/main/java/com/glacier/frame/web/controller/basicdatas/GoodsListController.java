@@ -80,9 +80,9 @@ public class GoodsListController {
     // 进入等级信息Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoGradeFormPnews(String goodsId) {
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/suppliersGrade_mgr/suppliersGrade_form");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/goodsList_mgr/goodsList_form");
         if(StringUtils.isNotBlank(goodsId)){
-            mav.addObject("suppliersGradeDate", goodsListService.getGoodsList(goodsId));
+            mav.addObject("goodsListDate", goodsListService.getGoodsList(goodsId));
         }
         return mav;
     }

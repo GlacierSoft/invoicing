@@ -137,8 +137,8 @@
 	glacier.goodsList_mgr.goodsList.addGoodsList= function(){
 		glacier.basicAddOrEditDialog({
 			title : '【货物档案】- 增加',
-			width : 270,
-			height : 200,
+			width : 620,
+			height : 420,
 			queryUrl : ctx + '/do/goodsList/intoForm.htm',
 			submitUrl : ctx + '/do/goodsList/add.json',
 			successFun : function (){
@@ -151,8 +151,8 @@
 		var row =glacier.goodsList_mgr.goodsList.goodsListDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【货物档案】- 编辑',
-			width : 270,
-			height : 200,
+			width : 620,
+			height : 420,
 			queryUrl : ctx + '/do/goodsList/intoForm.htm',
 			submitUrl : ctx + '/do/goodsList/edit.json',
 			queryParams : {
@@ -234,7 +234,7 @@
 			<table>
 				<tr>
 					<td>货物：</td>
-					<td><input name="name" style="width: 80px;"class="spinner" /></td>
+					<td><input name="goodsName" style="width: 80px;"class="spinner" /></td>
 					 <td>仓库：</td>
 					<td><input name="name" style="width: 80px;"class="spinner" /></td>
 					<td>状态：</td>
