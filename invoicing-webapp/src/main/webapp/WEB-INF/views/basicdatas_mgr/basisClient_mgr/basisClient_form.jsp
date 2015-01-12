@@ -24,27 +24,27 @@
 					 </tr>
 					 <tr>
 						<td>省：</td>
-						<td><input id="basisClient_mgr_basisClient_form_province" name="province" class="easyui-validatebox spinner" required="true" style="width:168px;height: 18px;" value="${clientDate.province}" /></td>
+						<td><input id="basisClient_mgr_basisClient_form_province" name="province" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="${clientDate.province}" /></td>
 					    <td style="padding-left:10px;">市：</td>
-					    <td><input id="basisClient_mgr_basisClient_form_city" name="city" class="easyui-validatebox spinner" required="true" style="width:168px;height: 18px;" value="${clientDate.city}" /></td>
+					    <td><input id="basisClient_mgr_basisClient_form_city" name="city" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="${clientDate.city}" /></td>
 				 	</tr>
 					 <tr>
 						<td>详细地址：</td>
-						<td><input name="adress" class="easyui-validatebox spinner" required="true" style="width:168px;height: 18px;" value="${clientDate.adress}"  /></td>
+						<td><input name="adress" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="${clientDate.adress}"  /></td>
 						<td style="padding-left:10px;">是否控制信用：</td>
 						<td><input name="controlCredit" style="width:168px;height: 18px;" value="${clientDate.controlCredit}" class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.yesOrNo"/></td>
 					</tr>
 					<tr>
 						<td>公司法人：</td>
-						<td><input name="corporate" class="easyui-validatebox spinner" required="true" style="width:168px;height: 18px;" value="${clientDate.corporate}"  /></td>
+						<td><input name="corporate" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="${clientDate.corporate}"  /></td>
 						<td style="padding-left:10px;">税号：</td>
-						<td><input name="tariff" class="easyui-validatebox spinner" required="true" style="width:168px;height: 18px;" value="${clientDate.tariff}" /></td>
+						<td><input name="tariff" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="${clientDate.tariff}" /></td>
 					</tr>
 					<tr>
 						<td>所属上级客户：</td>
-						<td ><input name="superiorClientId" class="easyui-validatebox spinner" required="true" style="width:168px;height: 18px;" value="${clientDate.superiorClientId}" /></td>
+						<td ><input name="superiorClientId" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="${clientDate.superiorClientId}" /></td>
 						<td style="padding-left:10px;">主营业务：</td>
-						<td ><input  name="mainBusiness" class="easyui-validatebox spinner" required="true" style="width:168px;height: 18px;" value="${clientDate.mainBusiness}" /></td>
+						<td ><input  name="mainBusiness" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="${clientDate.mainBusiness}" /></td>
 				   </tr> 
 					<tr>
 				      <td>附件：</td>
