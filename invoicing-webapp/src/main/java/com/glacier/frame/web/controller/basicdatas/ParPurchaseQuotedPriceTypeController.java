@@ -47,7 +47,7 @@ import com.glacier.jqueryui.util.JqPager;
  * @date 2015-1-9  上午9:19:03
  */
 @Controller
-@RequestMapping(value = "/quotedPriceType")
+@RequestMapping(value = "/purchaseQuotedPriceType")
 public class ParPurchaseQuotedPriceTypeController extends AbstractController{ 
 
     @Autowired

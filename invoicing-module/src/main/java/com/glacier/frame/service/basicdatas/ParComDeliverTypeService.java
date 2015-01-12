@@ -65,7 +65,7 @@ public class ParComDeliverTypeService {
         	parComDeliverTypeExample.setLimitEnd(jqPager.getRows());
         }
         if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
-        	parComDeliverTypeExample.setOrderByClause(jqPager.getOrderBy("temp_par_deliver_type_"));
+        	parComDeliverTypeExample.setOrderByClause(jqPager.getOrderBy("temp_par_com_deliver_type_"));
         }
         List<ParComDeliverType>  parComDeliverTypeList = parComDeliverTypeMapper.selectByExample(parComDeliverTypeExample); // 查询所有交货方式列表
         int total = parComDeliverTypeMapper.countByExample(parComDeliverTypeExample); // 查询总页数

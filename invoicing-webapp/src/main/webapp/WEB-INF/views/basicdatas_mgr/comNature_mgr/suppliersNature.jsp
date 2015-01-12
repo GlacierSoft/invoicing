@@ -4,11 +4,11 @@
 
 <script type="text/javascript">
 
-	$.util.namespace('glacier.basicdatas_mgr.comNature_mgr.parSuppliersNature');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
+	$.util.namespace('glacier.basicdatas_mgr.comNature_mgr.parComNature');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
 	//定义toolbar的操作，对操作进行控制
-	glacier.basicdatas_mgr.comNature_mgr.parSuppliersNature.param = {
-			toolbarId : 'parSuppliersNatureDataGrid_toolbar',
+	glacier.basicdatas_mgr.comNature_mgr.parComNature.param = {
+			toolbarId : 'parComNatureDataGrid_toolbar',
 			actions : {  
 				edit:{flag:'edit',controlType:'single'},
 				del:{flag:'del',controlType:'multiple'} 
@@ -16,7 +16,7 @@
 	}; 
 	
 	//初始化会员年龄别称DataGrid
-	glacier.basicdatas_mgr.comNature_mgr.parSuppliersNature.parSuppliersNatureDataGrid = $('#parSuppliersNatureDataGrid').datagrid({
+	glacier.basicdatas_mgr.comNature_mgr.parComNature.parComNatureDataGrid = $('#parComNatureDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
@@ -81,24 +81,24 @@
 		pageSize : 10,//注意，pageSize必须在pageList存在
 		pageList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
-		toolbar:'#parSuppliersNatureDataGrid_toolbar',
+		toolbar:'#parComNatureDataGrid_toolbar',
 		onCheck:function(rowIndex,rowData){//选择行事件触发
-			action_controller(glacier.basicdatas_mgr.comNature_mgr.parSuppliersNature.param,this).check();
+			action_controller(glacier.basicdatas_mgr.comNature_mgr.parComNature.param,this).check();
 		},
 		onCheckAll:function(rows){//取消勾选行状态触发事件
-			action_controller(glacier.basicdatas_mgr.comNature_mgr.parSuppliersNature.param,this).check();
+			action_controller(glacier.basicdatas_mgr.comNature_mgr.parComNature.param,this).check();
 		},
 		onUncheck:function(rowIndex,rowData){//选择行事件触发
-			action_controller(glacier.basicdatas_mgr.comNature_mgr.parSuppliersNature.param,this).unCheck();
+			action_controller(glacier.basicdatas_mgr.comNature_mgr.parComNature.param,this).unCheck();
 		},
 		onUncheckAll:function(rows){//取消勾选行状态触发事件
-			action_controller(glacier.basicdatas_mgr.comNature_mgr.parSuppliersNature.param,this).unCheck();
+			action_controller(glacier.basicdatas_mgr.comNature_mgr.parComNature.param,this).unCheck();
 		},
 		onSelect:function(rowIndex, rowData){//选择行事件触发
-			action_controller(glacier.basicdatas_mgr.comNature_mgr.parSuppliersNature.param,this).select();
+			action_controller(glacier.basicdatas_mgr.comNature_mgr.parComNature.param,this).select();
 		},
 		onUnselectAll:function(rows){
-			action_controller(glacier.basicdatas_mgr.comNature_mgr.parSuppliersNature.param,this).unSelect();
+			action_controller(glacier.basicdatas_mgr.comNature_mgr.parComNature.param,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
@@ -123,7 +123,7 @@
 	});
 	
 	//点击增加按钮触发方法
-	glacier.basicdatas_mgr.comNature_mgr.parSuppliersNature.addparparSuppliersNature = function(){
+	glacier.basicdatas_mgr.comNature_mgr.parComNature.addparComNature = function(){
 		glacier.basicAddOrEditDialog({
 			title : '新增公司性质',
 			width : 380,
@@ -131,14 +131,14 @@
 			queryUrl : ctx + '/do/comNature/intoForm.htm',
 			submitUrl : ctx + '/do/comNature/add.json',
 			successFun : function (){
-				glacier.basicdatas_mgr.comNature_mgr.parSuppliersNature.parSuppliersNatureDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.comNature_mgr.parComNature.parComNatureDataGrid.datagrid('reload');
 			}
 		});
 	};
 	
 	//点击编辑按钮触发方法
-	glacier.basicdatas_mgr.comNature_mgr.parSuppliersNature.editparSuppliersNature = function(){
-		var row = glacier.basicdatas_mgr.comNature_mgr.parSuppliersNature.parSuppliersNatureDataGrid.datagrid("getSelected");
+	glacier.basicdatas_mgr.comNature_mgr.parComNature.editparComNature = function(){
+		var row = glacier.basicdatas_mgr.comNature_mgr.parComNature.parComNatureDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑公司性质',
 			width : 380,
@@ -149,15 +149,15 @@
 				comNatureId : row.natureId
 			},
 			successFun : function (){
-				glacier.basicdatas_mgr.comNature_mgr.parSuppliersNature.parSuppliersNatureDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.comNature_mgr.parComNature.parComNatureDataGrid.datagrid('reload');
 			}
 		});
 	};
 	 
 	
 	//点击删除按钮触发方法
-	glacier.basicdatas_mgr.comNature_mgr.parSuppliersNature.delparSuppliersNature = function(){
-		var rows = glacier.basicdatas_mgr.comNature_mgr.parSuppliersNature.parSuppliersNatureDataGrid.datagrid("getChecked");
+	glacier.basicdatas_mgr.comNature_mgr.parComNature.delparComNature = function(){
+		var rows = glacier.basicdatas_mgr.comNature_mgr.parComNature.parComNatureDataGrid.datagrid("getChecked");
 		var comNatureIds = [];//删除的id标识
 		var comNatureNames = [];//会员年龄别称
 		for(var i=0;i<rows.length;i++){
@@ -179,7 +179,7 @@
 										timeout:3000,
 										msg:r.msg
 									});
-								   glacier.basicdatas_mgr.comNature_mgr.parSuppliersNature.parSuppliersNatureDataGrid.datagrid('reload');
+								   glacier.basicdatas_mgr.comNature_mgr.parComNature.parComNatureDataGrid.datagrid('reload');
 							   }else{
 									$.messager.show({//后台验证弹出错误提示信息框
 										title:'错误提示',
@@ -197,7 +197,7 @@
 	}; 
 	
 	//下拉项的值
-	$('#parSuppliersNatureSearchForm_enabled').combobox({
+	$('#parComNatureSearchForm_enabled').combobox({
 		valueField : 'value',
 		//height:18,
 		width : 80,
@@ -212,21 +212,21 @@
 
 <!-- 所有会员年龄别称列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
-	<div id="parSuppliersNatureGridPanel" data-options="region:'center',border:true" >
-		<table id="parSuppliersNatureDataGrid">
-			<glacierui:toolbar panelEnName="SuppliersNatureList" toolbarId="parSuppliersNatureDataGrid_toolbar" menuEnName="comNature"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+	<div id="parComNatureGridPanel" data-options="region:'center',border:true" >
+		<table id="parComNatureDataGrid">
+			<glacierui:toolbar panelEnName="ComNatureList" toolbarId="parComNatureDataGrid_toolbar" menuEnName="comNature"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 	<div data-options="region:'north',split:true"
 		style="height: 40px; padding-left: 10px;">
-		<form id="parSuppliersNatureSearchForm">
+		<form id="parComNatureSearchForm">
 			<table>
 				<tr>
 					<td>名称：</td>
 					<td><input name="natureName" style="width: 80px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
-					<td><input id="parSuppliersNatureSearchForm_enabled" name="enabled" style="width: 80px;"
+					<td><input id="parComNatureSearchForm_enabled" name="enabled" style="width: 80px;"
 						 /></td> 
 					<td>创建时间：</td>
 					<td><input name="createStartTime" class="easyui-datetimebox"
@@ -234,10 +234,10 @@
 						class="easyui-datetimebox" style="width: 100px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
-						onclick="glacier.basicdatas_mgr.comNature_mgr.parSuppliersNature.parSuppliersNatureDataGrid.datagrid('load',glacier.serializeObject($('#parSuppliersNatureSearchForm')));">查询</a>
+						onclick="glacier.basicdatas_mgr.comNature_mgr.parComNature.parComNatureDataGrid.datagrid('load',glacier.serializeObject($('#parComNatureSearchForm')));">查询</a>
 						<a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-out',plain:true"
-						onclick="$('#parSuppliersNatureSearchForm input').val('');glacier.basicdatas_mgr.comNature_mgr.parSuppliersNature.parSuppliersNatureDataGrid.datagrid('load',{});">重置条件</a>
+						onclick="$('#parComNatureSearchForm input').val('');glacier.basicdatas_mgr.comNature_mgr.parComNature.parComNatureDataGrid.datagrid('load',{});">重置条件</a>
 					</td>
 				</tr>
 			</table>

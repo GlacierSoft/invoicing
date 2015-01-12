@@ -212,7 +212,7 @@
 <div class="easyui-layout" data-options="fit:true">
 	<div id="parCompanySizeGridPanel" data-options="region:'center',border:true" >
 		<table id="parCompanySizeDataGrid">
-			<glacierui:toolbar panelEnName="CompanySizeList" toolbarId="parCompanySizeDataGrid_toolbar" menuEnName="companySize"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+			<glacierui:toolbar panelEnName="ComCompanySizeList" toolbarId="parCompanySizeDataGrid_toolbar" menuEnName="comCompanySize"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 	<div data-options="region:'north',split:true"

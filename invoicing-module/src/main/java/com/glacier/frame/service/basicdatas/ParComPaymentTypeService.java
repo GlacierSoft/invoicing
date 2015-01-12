@@ -64,7 +64,7 @@ public class ParComPaymentTypeService {
         	parComPaymentTypeExample.setLimitEnd(jqPager.getRows());
         }
         if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
-        	parComPaymentTypeExample.setOrderByClause(jqPager.getOrderBy("temp_par_payment_type_"));
+        	parComPaymentTypeExample.setOrderByClause(jqPager.getOrderBy("temp_par_com_payment_type_"));
         }
         List<ParComPaymentType>  parComPaymentTypeList = parComPaymentTypeMapper.selectByExample(parComPaymentTypeExample); // 查询所有支付方式列表
         int total = parComPaymentTypeMapper.countByExample(parComPaymentTypeExample); // 查询总页数

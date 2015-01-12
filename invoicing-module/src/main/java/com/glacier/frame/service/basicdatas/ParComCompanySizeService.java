@@ -73,7 +73,7 @@ public class ParComCompanySizeService {
             parComCompanySizeExample.setLimitEnd(jqPager.getRows());
         }
          if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
-            parComCompanySizeExample.setOrderByClause(jqPager.getOrderBy("temp_par_company_size_"));
+            parComCompanySizeExample.setOrderByClause(jqPager.getOrderBy("temp_par_com_company_size_"));
         } 
         List<ParComCompanySize>  carrierCarTypeList = parComCompanySizeMapper.selectByExample(parComCompanySizeExample); // 查询所有会员列表
         int total = parComCompanySizeMapper.countByExample(parComCompanySizeExample); // 查询总页数

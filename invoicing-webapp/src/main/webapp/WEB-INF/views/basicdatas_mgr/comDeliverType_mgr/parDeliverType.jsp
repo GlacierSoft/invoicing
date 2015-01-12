@@ -199,7 +199,7 @@
 <div class="easyui-layout" data-options="fit:true">
 	<div id="creditGridPanel" data-options="region:'center',border:true" >
 		<table id="parDeliverTypeDataGrid">
-			<glacierui:toolbar panelEnName="DeliverTypeList" toolbarId="parDeliverTypeDataGrid_toolbar" menuEnName="deliveryType"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+			<glacierui:toolbar panelEnName="ComDeliverTypeList" toolbarId="parDeliverTypeDataGrid_toolbar" menuEnName="comDeliveryType"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 	<div data-options="region:'north',split:true"

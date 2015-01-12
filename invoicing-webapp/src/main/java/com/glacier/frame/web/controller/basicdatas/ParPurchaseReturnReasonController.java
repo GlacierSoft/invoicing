@@ -46,7 +46,7 @@ import com.glacier.jqueryui.util.JqPager;
  * @date 2015-1-9 上午9:45:57
  */
 @Controller
-@RequestMapping(value = "/parPurchaseReturnReason")
+@RequestMapping(value = "/purchaseReturnReason")
 public class ParPurchaseReturnReasonController {
     @Autowired
     private ParPurchaseReturnReasonService parPurchaseReturnReasonService;

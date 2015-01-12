@@ -32,7 +32,7 @@ import com.glacier.jqueryui.util.JqPager;
  * @date 2015-1-8  上午9:53:18
  */
 @Controller
-@RequestMapping(value = "/companySize")
+@RequestMapping(value = "/comCompanySize")
 public class ParComCompanySizeController extends AbstractController{
 
     @Autowired

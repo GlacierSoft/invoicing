@@ -76,7 +76,7 @@ public class ParPurchaseReturnReasonService {
 			parPurchaseReturnReasonExample.setLimitEnd(jqPager.getRows());
 		}
 		if (StringUtils.isNotBlank(jqPager.getSort())&& StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
-			parPurchaseReturnReasonExample.setOrderByClause(jqPager.getOrderBy("temp_par_return_reason_"));
+			parPurchaseReturnReasonExample.setOrderByClause(jqPager.getOrderBy("temp_par_purchase_return_reason_"));
 		}
 		List<ParPurchaseReturnReason> parPurchaseReturnReasonList = parPurchaseReturnReasonMapper.selectByExample(parPurchaseReturnReasonExample); // 查询所有会员列表
 		int total = parPurchaseReturnReasonMapper.countByExample(parPurchaseReturnReasonExample); // 查询总页数

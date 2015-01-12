@@ -25,7 +25,7 @@ import com.glacier.jqueryui.util.JqPager;
  * @date 2015-1-08
  */
 @Controller
-@RequestMapping(value = "/deliverType")
+@RequestMapping(value = "/comDeliverType")
 public class ParComDeliverTypeController extends AbstractController{
 
 	@Autowired

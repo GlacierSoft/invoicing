@@ -225,8 +225,8 @@
 <div class="easyui-layout" data-options="fit:true">
 	<div id="returnReasonPanel" data-options="region:'center',border:true">
 		<table id="returnReasonDataGrid">
-			<glacierui:toolbar panelEnName="ReturnReasonList"
-				toolbarId="returnReasonDataGrid_toolbar" menuEnName="ReturnReason" />
+			<glacierui:toolbar panelEnName="PurchaseReturnReasonList"
+				toolbarId="returnReasonDataGrid_toolbar" menuEnName="purchaseReturnReason" />
 			<!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>

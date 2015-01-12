@@ -88,7 +88,7 @@ public class ParPurchaseQuotedPriceTypeService {
         	parPurchaseQuotedPriceTypeExample.setLimitEnd(jqPager.getRows());
         }
          if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
-        	 parPurchaseQuotedPriceTypeExample.setOrderByClause(jqPager.getOrderBy("temp_par_quoted_price_type_"));
+        	 parPurchaseQuotedPriceTypeExample.setOrderByClause(jqPager.getOrderBy("temp_par_purchase_quoted_price_type_"));
         } 
         List<ParPurchaseQuotedPriceType>  carrierCarTypeList = quotedPriceTypeMapper.selectByExample(parPurchaseQuotedPriceTypeExample); // 查询所有列表
         int total = quotedPriceTypeMapper.countByExample(parPurchaseQuotedPriceTypeExample); // 查询总页数

@@ -64,7 +64,7 @@ public class ParComContactTypeService {
         	parComContactTypeExample.setLimitEnd(jqPager.getRows());
         }
         if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
-        	parComContactTypeExample.setOrderByClause(jqPager.getOrderBy("temp_par_contact_type_"));
+        	parComContactTypeExample.setOrderByClause(jqPager.getOrderBy("temp_par_com_contact_type_"));
         }
         List<ParComContactType>  parComContactTypeList = parComContactTypeMapper.selectByExample(parComContactTypeExample); // 查询所有联系人类型列表
         int total = parComContactTypeMapper.countByExample(parComContactTypeExample); // 查询总页数

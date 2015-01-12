@@ -87,7 +87,7 @@ public class ParComNatureService {
         	parComNatureExample.setLimitEnd(jqPager.getRows());
         }
          if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
-        	 parComNatureExample.setOrderByClause(jqPager.getOrderBy("temp_par_suppliers_nature_"));
+        	 parComNatureExample.setOrderByClause(jqPager.getOrderBy("temp_par_com_nature_"));
         } 
         List<ParComNature>  carrierCarTypeList = parComNatureMapper.selectByExample(parComNatureExample); // 查询所有列表
         int total = parComNatureMapper.countByExample(parComNatureExample); // 查询总页数

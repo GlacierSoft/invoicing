@@ -25,7 +25,7 @@ import com.glacier.jqueryui.util.JqPager;
  * @date 2015-1-08
  */
 @Controller
-@RequestMapping(value = "/paymentType")
+@RequestMapping(value = "/comPaymentType")
 public class ParComPaymentTypeController extends AbstractController{
 
 	@Autowired
