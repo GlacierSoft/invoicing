@@ -96,7 +96,7 @@ public class ParComDeliverTypeService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "DeliverTypeList_add")
+    @MethodLog(opera = "ComDeliveryTypeList_add")
     public Object addParComDeliverType(ParComDeliverType parComDeliverType) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -135,14 +135,14 @@ public class ParComDeliverTypeService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "DeliverTypeList_edit")
+    @MethodLog(opera = "ComDeliveryTypeList_edit")
     public Object editParComDeliverType(ParComDeliverType parComDeliverType) {
     	Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParComDeliverTypeExample parComDeliverTypeExample = new ParComDeliverTypeExample();
         int count = 0;
-        // 防止交货方式名称重复
+        //防止交货方式名称重复
         parComDeliverTypeExample.createCriteria().andDeliverTypeNameEqualTo(parComDeliverType.getDeliverTypeName()).andDeliverTypeIdNotEqualTo(parComDeliverType.getDeliverTypeId());
         count = parComDeliverTypeMapper.countByExample(parComDeliverTypeExample);
         if (count > 0) {
@@ -171,7 +171,7 @@ public class ParComDeliverTypeService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "DeliverTypeList_del")
+    @MethodLog(opera = "ComDeliveryTypeList_del")
     public Object delParComDeliverType(List<String> deliverTypeIds, List<String> deliverTypeName) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;

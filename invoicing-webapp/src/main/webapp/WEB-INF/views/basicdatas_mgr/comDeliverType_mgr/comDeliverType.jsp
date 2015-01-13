@@ -4,11 +4,11 @@
 
 <script type="text/javascript">
 
-	$.util.namespace('glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
+	$.util.namespace('glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
 	//定义toolbar的操作，对操作进行控制 
-	glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.param = {
-			toolbarId : 'parDeliverTypeDataGrid_toolbar',
+	glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.param = {
+			toolbarId : 'comDeliveryTypeDataGrid_toolbar',
 			actions : {
 				edit:{flag:'edit',controlType:'single'},
 				del:{flag:'del',controlType:'multiple'}
@@ -16,7 +16,7 @@
 	};
 	
 	//初始化交货方式DataGrid
-	glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.parDeliverTypeDataGrid = $('#parDeliverTypeDataGrid').datagrid({
+	glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliveryTypeDataGrid = $('#comDeliveryTypeDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
@@ -81,24 +81,24 @@
 		pageSize : 10,//注意，pageSize必须在pageList存在
 		pageList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
-		toolbar:'#parDeliverTypeDataGrid_toolbar',
+		toolbar:'#comDeliveryTypeDataGrid_toolbar',
 		onCheck:function(rowIndex,rowData){//在用户勾选一行的时候触发事件
-			action_controller(glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.param,this).check();
+			action_controller(glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.param,this).check();
 		},
 		onCheckAll:function(rows){//在用户勾选所有行的时候触发
-			action_controller(glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.param,this).check();
+			action_controller(glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.param,this).check();
 		},
 		onUncheck:function(rowIndex,rowData){//在用户取消勾选一行的时候触发
-			action_controller(glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.param,this).unCheck();
+			action_controller(glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.param,this).unCheck();
 		},
 		onUncheckAll:function(rows){//在用户取消勾选所有行的时候触发
-			action_controller(glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.param,this).unCheck();
+			action_controller(glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.param,this).unCheck();
 		},
 		onSelect:function(rowIndex, rowData){//在用户选择一行的时候触发
-			action_controller(glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.param,this).select();
+			action_controller(glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.param,this).select();
 		},
 		onUnselectAll:function(rows){//在用户取消勾选所有行的时候触发
-			action_controller(glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.param,this).unSelect();
+			action_controller(glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.param,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
@@ -123,7 +123,7 @@
 		}
 	});
 	//点击增加按钮触发方法
-	glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.addParDeliverType = function(){
+	glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.addComDeliverType = function(){
 		glacier.basicAddOrEditDialog({
 			title : '【交货方式】 - 增加',
 			width : 420,
@@ -131,14 +131,14 @@
 			queryUrl : ctx + '/do/comDeliverType/intoForm.htm',
 			submitUrl : ctx + '/do/comDeliverType/add.json',
 			successFun : function (){
-				glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.parDeliverTypeDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliveryTypeDataGrid.datagrid('reload');
 			}
 		});
 	};
 	
 	//点击编辑按钮触发方法
-	glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.editParDeliverType = function(){
-		var row = glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.parDeliverTypeDataGrid.datagrid("getSelected");
+	glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.editComDeliverType = function(){
+		var row = glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliveryTypeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【交货方式】 - 编辑',
 			width : 420,
@@ -149,26 +149,26 @@
 				deliverTypeId : row.deliverTypeId
 			},
 			successFun : function (){
-				glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.parDeliverTypeDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliveryTypeDataGrid.datagrid('reload');
 			}
 		});
 	};
 	//点击删除按钮触发方法
-	glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.delParDeliverType = function(){
-		var rows = glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.parDeliverTypeDataGrid.datagrid("getChecked");
-		var parDeliverTypeIds = [];//删除的id标识
-		var parDeliverTypes = [];//日志记录引用名称
+	glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.delComDeliverType = function(){
+		var rows = glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliveryTypeDataGrid.datagrid("getChecked");
+		var parComDeliverTypeIds = [];//删除的id标识
+		var parComDeliverTypeNames = [];//日志记录引用名称
 		for(var i =0;i<rows.length;i++){
-			parDeliverTypeIds.push(rows[i].deliverTypeId);
-			parDeliverTypes.push(rows[i].deliverTypeName);
+			parComDeliverTypeIds.push(rows[i].deliverTypeId);
+			parComDeliverTypeNames.push(rows[i].deliverTypeName);
 		}
-		if(parDeliverTypeIds.length > 0){
+		if(parComDeliverTypeIds.length > 0){
 			$.messager.confirm('请确认', '是否要删除该记录', function(r){
 				if (r){
 					$.ajax({
 						   type: "POST",
 						   url: ctx + '/do/comDeliverType/del.json',
-						   data: {parDeliverTypeIds:parDeliverTypeIds.join(','),parDeliverTypeNames:parDeliverTypes.join(',')},
+						   data: {parComDeliverTypeIds:parComDeliverTypeIds.join(','),parComDeliverTypeNames:parComDeliverTypeNames.join(',')},
 						   dataType:'json',
 						   success: function(r){
 							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
@@ -177,7 +177,7 @@
 										timeout:3000,
 										msg:r.msg
 									});
-								   glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.parDeliverTypeDataGrid.datagrid('reload');
+								   glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliveryTypeDataGrid.datagrid('reload');
 							   }else{
 									$.messager.show({//后台验证弹出错误提示信息框
 										title:'错误提示',
@@ -198,20 +198,20 @@
 <!-- 所有交货方式列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="creditGridPanel" data-options="region:'center',border:true" >
-		<table id="parDeliverTypeDataGrid">
-			<glacierui:toolbar panelEnName="ComDeliverTypeList" toolbarId="parDeliverTypeDataGrid_toolbar" menuEnName="comDeliveryType"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+		<table id="comDeliveryTypeDataGrid">
+			<glacierui:toolbar panelEnName="ComDeliveryTypeList" toolbarId="comDeliveryTypeDataGrid_toolbar" menuEnName="comDeliveryType"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 	<div data-options="region:'north',split:true"
 		style="height: 40px; padding-left: 10px;">
-		<form id="parDeliverTypeSearchForm">
+		<form id="comDeliveryTypeSearchForm">
 			<table>
 				<tr>
 					<td>交货方式名称：</td>
 					<td><input name="deliverTypeName" style="width: 80px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
-					<td><input id="parDeliverTypeSearchForm_status" name="enabled" style="width: 80px;"
+					<td><input id="comDeliveryTypeSearchForm_status" name="enabled" style="width: 80px;"
 						 class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,data : fields.status"/></td> 
 					<td>创建时间：</td>
 					<td><input name="createStartTime" class="easyui-datetimebox"
@@ -219,10 +219,10 @@
 						class="easyui-datetimebox" style="width: 100px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
-						onclick="glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.parDeliverTypeDataGrid.datagrid('load',glacier.serializeObject($('#parDeliverTypeSearchForm')));">查询</a>
+						onclick="glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliveryTypeDataGrid.datagrid('load',glacier.serializeObject($('#comDeliveryTypeSearchForm')));">查询</a>
 						<a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-out',plain:true"
-						onclick="$('#parDeliverTypeSearchForm input').val('');glacier.basicdatas_mgr.parDeliverType_mgr.parDeliverType.parDeliverTypeDataGrid.datagrid('load',{});">重置条件</a>
+						onclick="$('#comDeliveryTypeSearchForm input').val('');glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliveryTypeDataGrid.datagrid('load',{});">重置条件</a>
 					</td>
 				</tr>
 			</table>

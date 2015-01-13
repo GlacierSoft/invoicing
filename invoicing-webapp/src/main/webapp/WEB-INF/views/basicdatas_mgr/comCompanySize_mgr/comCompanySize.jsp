@@ -208,7 +208,7 @@
 	 
 </script>
 
-<!-- 所有会员年龄别称列表面板和表格 -->
+<!-- 所有公司规模列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="parCompanySizeGridPanel" data-options="region:'center',border:true" >
 		<table id="comCompanySizeDataGrid">
@@ -220,7 +220,7 @@
 		<form id="parCompanySizeSearchForm">
 			<table>
 				<tr>
-					<td>名称：</td>
+					<td>公司规模名称：</td>
 					<td><input name="companySizeName" style="width: 80px;"
 						class="spinner" /></td> 
 					<td>状态：</td>

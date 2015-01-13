@@ -257,7 +257,7 @@
 	
 </script>
 
-<!-- 所有列表面板和表格 -->
+<!-- 所有行业类型列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="comIndustryPanel" data-options="region:'center',border:true">
 		<table id="comIndustryDataGrid">
