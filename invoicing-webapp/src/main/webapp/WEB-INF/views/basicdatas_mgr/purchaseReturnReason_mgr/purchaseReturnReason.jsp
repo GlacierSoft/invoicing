@@ -235,7 +235,7 @@
 		<form id="returnReasonSearchForm">
 			<table>
 				<tr>
-					<td>等级名称：</td>
+					<td>退货原因：</td>
 					<td><input name="name" style="width: 80px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
