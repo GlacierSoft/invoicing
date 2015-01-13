@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.basicdatas.ParWarGoodsTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.basicdatas.ParWarGoodsType" >
+    <id column="temp_par_war_goods_type_war_goods_type_id" property="warGoodsTypeId" jdbcType="VARCHAR" />
+    <result column="temp_par_war_goods_type_order_num" property="orderNum" jdbcType="INTEGER" />
+    <result column="temp_par_war_goods_type_name" property="name" jdbcType="VARCHAR" />
+    <result column="temp_par_war_goods_type_enabled" property="enabled" jdbcType="CHAR" />
+    <result column="temp_par_war_goods_type_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_par_war_goods_type_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_par_war_goods_type_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_par_war_goods_type_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_par_war_goods_type_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_par_war_goods_type.war_goods_type_id as temp_par_war_goods_type_war_goods_type_id, 
+    temp_par_war_goods_type.order_num as temp_par_war_goods_type_order_num, temp_par_war_goods_type.name as temp_par_war_goods_type_name, 
+    temp_par_war_goods_type.enabled as temp_par_war_goods_type_enabled, temp_par_war_goods_type.remark as temp_par_war_goods_type_remark, 
+    temp_par_war_goods_type.creater as temp_par_war_goods_type_creater, temp_par_war_goods_type.create_time as temp_par_war_goods_type_create_time, 
+    temp_par_war_goods_type.updater as temp_par_war_goods_type_updater, temp_par_war_goods_type.update_time as temp_par_war_goods_type_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.basicdatas.ParWarGoodsTypeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_par_war_goods_type temp_par_war_goods_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_par_war_goods_type temp_par_war_goods_type
+    where temp_par_war_goods_type.war_goods_type_id = #{warGoodsTypeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_par_war_goods_type
+    where war_goods_type_id = #{warGoodsTypeId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.ParWarGoodsTypeExample" >
+    delete from t_par_war_goods_type temp_par_war_goods_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.basicdatas.ParWarGoodsType" >
+    insert into t_par_war_goods_type (war_goods_type_id, order_num, name, 
+      enabled, remark, creater, 
+      create_time, updater, update_time
+      )
+    values (#{warGoodsTypeId,jdbcType=VARCHAR}, #{orderNum,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{enabled,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.basicdatas.ParWarGoodsType" >
+    insert into t_par_war_goods_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="warGoodsTypeId != null" >
+        war_goods_type_id,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="warGoodsTypeId != null" >
+        #{warGoodsTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.basicdatas.ParWarGoodsTypeExample" resultType="java.lang.Integer" >
+    select count(*) from t_par_war_goods_type temp_par_war_goods_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_par_war_goods_type temp_par_war_goods_type
+    <set >
+      <if test="record.warGoodsTypeId != null" >
+        temp_par_war_goods_type.war_goods_type_id = #{record.warGoodsTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNum != null" >
+        temp_par_war_goods_type.order_num = #{record.orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        temp_par_war_goods_type.name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enabled != null" >
+        temp_par_war_goods_type.enabled = #{record.enabled,jdbcType=CHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_par_war_goods_type.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_par_war_goods_type.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_par_war_goods_type.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_par_war_goods_type.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_par_war_goods_type.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_par_war_goods_type temp_par_war_goods_type
+    set temp_par_war_goods_type.war_goods_type_id = #{record.warGoodsTypeId,jdbcType=VARCHAR},
+      temp_par_war_goods_type.order_num = #{record.orderNum,jdbcType=INTEGER},
+      temp_par_war_goods_type.name = #{record.name,jdbcType=VARCHAR},
+      temp_par_war_goods_type.enabled = #{record.enabled,jdbcType=CHAR},
+      temp_par_war_goods_type.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_par_war_goods_type.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_par_war_goods_type.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_par_war_goods_type.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_par_war_goods_type.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.basicdatas.ParWarGoodsType" >
+    update t_par_war_goods_type
+    <set >
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where war_goods_type_id = #{warGoodsTypeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.basicdatas.ParWarGoodsType" >
+    update t_par_war_goods_type
+    set order_num = #{orderNum,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      enabled = #{enabled,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where war_goods_type_id = #{warGoodsTypeId,jdbcType=VARCHAR}
+  </update>
+</mapper>
