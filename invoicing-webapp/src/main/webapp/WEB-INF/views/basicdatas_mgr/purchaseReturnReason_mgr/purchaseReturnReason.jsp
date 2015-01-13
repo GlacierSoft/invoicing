@@ -5,11 +5,11 @@
 	uri="http://com.glacier.permissions.com.cn/tag/easyui"%>
 
 <script type="text/javascript">
-	$.util.namespace('glacier.parReturnReason_mgr.returnReason');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
+	$.util.namespace('glacier.purchaseReturnReason_mgr.purchaseReturnReason');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 
 	//定义toolbar的操作，对操作进行控制
-	glacier.parReturnReason_mgr.returnReason.param = {
-		toolbarId : 'returnReasonDataGrid_toolbar',
+	glacier.purchaseReturnReason_mgr.purchaseReturnReason.param = {
+		toolbarId : 'purchaseReturnReasonDataGrid_toolbar',
 		actions : {
 	            edit:{flag:'edit',controlType:'single'},
 	            del:{flag:'del',controlType:'multiple'},
@@ -18,7 +18,7 @@
      };
 
 	//初始化DataGrid
-	glacier.parReturnReason_mgr.returnReason.returnReasonDataGrid = $('#returnReasonDataGrid').datagrid({
+	glacier.purchaseReturnReason_mgr.purchaseReturnReason.purchaseReturnReasonDataGrid = $('#purchaseReturnReasonDataGrid').datagrid({
 		fit : true,//控件自动resize占满窗口大小
 		iconCls : 'icon-save',//图标样式
 		border : false,//是否存在边框
@@ -85,30 +85,30 @@
 		pcarrierCarTypeSize : 10,//注意，pcarrierCarTypeSize必须在pcarrierCarTypeList存在
 		pcarrierCarTypeList : [ 2, 10, 50, 100 ],//从session中获取
 		rownumbers : true,//True 就会显示行号的列
-		toolbar : '#returnReasonDataGrid_toolbar',
+		toolbar : '#purchaseReturnReasonDataGrid_toolbar',
 		onCheck : function(rowIndex, rowData) {//选择行事件触发
 			action_controller(
-					glacier.parReturnReason_mgr.returnReason.param,this).check();
+					glacier.purchaseReturnReason_mgr.purchaseReturnReason.param,this).check();
 		},
 		onCheckAll : function(rows) {//取消勾选行状态触发事件
 			action_controller(
-					glacier.parReturnReason_mgr.returnReason.param,this).check();
+					glacier.purchaseReturnReason_mgr.purchaseReturnReason.param,this).check();
 		},
 		onUncheck : function(rowIndex, rowData) {//选择行事件触发
 			action_controller(
-					glacier.parReturnReason_mgr.returnReason.param,this).unCheck();
+					glacier.purchaseReturnReason_mgr.purchaseReturnReason.param,this).unCheck();
 		},
 		onUncheckAll : function(rows) {//取消勾选行状态触发事件
 			action_controller(
-					glacier.parReturnReason_mgr.returnReason.param,this).unCheck();
+					glacier.purchaseReturnReason_mgr.purchaseReturnReason.param,this).unCheck();
 		},
 		onSelect : function(rowIndex, rowData) {//选择行事件触发
 			action_controller(
-					glacier.parReturnReason_mgr.returnReason.param,this).select();
+					glacier.purchaseReturnReason_mgr.purchaseReturnReason.param,this).select();
 		},
 		onUnselectAll : function(rows) {
 			action_controller(
-					glacier.parReturnReason_mgr.returnReason.param,this).unSelect();
+					glacier.purchaseReturnReason_mgr.purchaseReturnReason.param,this).unSelect();
 		},
 		onLoadSuccess : function(index, record) {//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
@@ -133,23 +133,23 @@
 	});
 	
 	//点击增加按钮触发方法
-	glacier.parReturnReason_mgr.returnReason.addReturnReason= function(){
+	glacier.purchaseReturnReason_mgr.purchaseReturnReason.addPurchaseReturnReason= function(){
 		glacier.basicAddOrEditDialog({
-			title : '【退货类型】- 增加',
+			title : '【退货原因】- 增加',
 			width : 270,
 			height : 200,
 			queryUrl : ctx + '/do/purchaseReturnReason/intoForm.htm',
 			submitUrl : ctx + '/do/purchaseReturnReason/add.json',
 			successFun : function (){
-				glacier.parReturnReason_mgr.returnReason.returnReasonDataGrid.datagrid('reload');
+				glacier.purchaseReturnReason_mgr.purchaseReturnReason.returnReasonDataGrid.datagrid('reload');
 			}
 		});
 	};
 	//点击编辑按钮触发方法
-	glacier.parReturnReason_mgr.returnReason.editReturnReason= function(){
-		var row = glacier.parReturnReason_mgr.returnReason.returnReasonDataGrid.datagrid("getSelected");
+	glacier.purchaseReturnReason_mgr.purchaseReturnReason.editPurchaseReturnReason= function(){
+		var row = glacier.purchaseReturnReason_mgr.purchaseReturnReason.returnReasonDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '【退货类型】- 编辑',
+			title : '【退货原因】- 编辑',
 			width : 270,
 			height : 200,
 			queryUrl : ctx + '/do/purchaseReturnReason/intoForm.htm',
@@ -158,14 +158,14 @@
 				returnReasonId : row.returnReasonId
 			},
 			successFun : function (){
-				glacier.parReturnReason_mgr.returnReason.returnReasonDataGrid.datagrid('reload');
+				glacier.purchaseReturnReason_mgr.purchaseReturnReason.returnReasonDataGrid.datagrid('reload');
 			}
 		});
 	};
 	
 	//点击删除按钮触发方法
-	glacier.parReturnReason_mgr.returnReason.delReturnReason= function() {
-		var rows = glacier.parReturnReason_mgr.returnReason.returnReasonDataGrid.datagrid("getChecked");
+	glacier.purchaseReturnReason_mgr.purchaseReturnReason.delPurchaseReturnReason= function() {
+		var rows = glacier.purchaseReturnReason_mgr.purchaseReturnReason.returnReasonDataGrid.datagrid("getChecked");
 		var returnReasonIds = [];//删除的id标识
 		var names = [];
 		for ( var i = 0; i < rows.length; i++) {
@@ -190,7 +190,7 @@
 									timeout : 3000,
 									msg : r.msg
 								});
-								glacier.parReturnReason_mgr.returnReason.returnReasonDataGrid.datagrid('reload');
+								glacier.purchaseReturnReason_mgr.purchaseReturnReason.returnReasonDataGrid.datagrid('reload');
 							} else {
 								$.messager.show({//后台验证弹出错误提示信息框
 											title : '错误提示',
@@ -224,9 +224,9 @@
 <!-- 所有列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="returnReasonPanel" data-options="region:'center',border:true">
-		<table id="returnReasonDataGrid">
+		<table id="purchaseReturnReasonDataGrid">
 			<glacierui:toolbar panelEnName="PurchaseReturnReasonList"
-				toolbarId="returnReasonDataGrid_toolbar" menuEnName="purchaseReturnReason" />
+				toolbarId="purchaseReturnReasonDataGrid_toolbar" menuEnName="purchaseReturnReason" />
 			<!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
@@ -247,10 +247,10 @@
 						class="easyui-datetimebox" style="width: 100px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
-						onclick="glacier.parReturnReason_mgr.returnReason.returnReasonDataGrid.datagrid('load',glacier.serializeObject($('#returnReasonSearchForm')));">查询</a>
+						onclick="glacier.purchaseReturnReason_mgr.purchaseReturnReason.returnReasonDataGrid.datagrid('load',glacier.serializeObject($('#returnReasonSearchForm')));">查询</a>
 						<a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-out',plain:true"
-						onclick="$('#returnReasonSearchForm input').val('');glacier.parReturnReason_mgr.returnReason.returnReasonDataGrid.datagrid('load',{});">重置条件</a>
+						onclick="$('#returnReasonSearchForm input').val('');glacier.purchaseReturnReason_mgr.purchaseReturnReason.returnReasonDataGrid.datagrid('load',{});">重置条件</a>
 					</td>
 				</tr>
 			</table>
