@@ -158,19 +158,17 @@
 	//点击删除按钮触发方法
 	glacier.basicdatas_mgr.comNature_mgr.comNature.delComNature= function(){
 		var rows = glacier.basicdatas_mgr.comNature_mgr.comNature.comNatureDataGrid.datagrid("getChecked");
-		var comNatureIds = [];//删除的id标识
-		var comNatureNames = [];//会员年龄别称
+		var natureIds = [];//删除的id标识
 		for(var i=0;i<rows.length;i++){
-			comNatureIds.push(rows[i].natureId);
-			comNatureNames.push(rows[i].natureName);
+			natureIds.push(rows[i].natureId);
 		}
-		if(comNatureIds.length > 0){
+		if(natureIds.length > 0){
 			$.messager.confirm('请确认','是否要删除该记录',function(r){
 				if (r){
 					$.ajax({
 						   type: "POST",
 						   url: ctx + '/do/comNature/del.json',
-						   data: {comNatureIds:comNatureIds.join(','),comNatureNames:comNatureNames.join(',')},
+						   data: {natureIds:natureIds.join(',')},
 						   dataType:'json',
 						   success: function(r){
 							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理

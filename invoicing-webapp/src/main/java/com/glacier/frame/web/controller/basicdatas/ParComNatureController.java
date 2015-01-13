@@ -107,8 +107,8 @@ public class ParComNatureController extends AbstractController{
     // 删除公司性质
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
-    public Object del(@RequestParam List<String> suppliersNatureIds,@RequestParam List<String> suppliersNatureNames) {
-        return parComNatureService.delSuppliersNature(suppliersNatureIds, suppliersNatureNames);
+    public Object del(@RequestParam List<String> natureIds) {
+        return parComNatureService.delSuppliersNature(natureIds);
     }
 
 }

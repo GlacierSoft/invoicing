@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional; 
-import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.ParComContactTypeMapper;
 import com.glacier.frame.dto.query.basicdatas.ParComContactTypeQueryDTO;
@@ -171,16 +170,16 @@ public class ParComContactTypeService {
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "ContactTypeList_del")
-    public Object delParComContactType(List<String> paymentTypesId, List<String> paymentTypeNames) {
+    public Object delParComContactType(List<String> contactTypeIds) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
-        if (paymentTypesId.size() > 0) {
+        if (contactTypeIds.size() > 0) {
         	ParComContactTypeExample parComContactTypeExample = new ParComContactTypeExample();
-        	parComContactTypeExample.createCriteria().andContactTypeIdIn(paymentTypesId);
+        	parComContactTypeExample.createCriteria().andContactTypeIdIn(contactTypeIds);
             count = parComContactTypeMapper.deleteByExample(parComContactTypeExample);
             if (count > 0) {
                 returnResult.setSuccess(true);
-                returnResult.setMsg("成功删除了[ " + CollectionsUtil.convertToString(paymentTypeNames, ",") + " ]联系人类型信息");
+                returnResult.setMsg("成功删除了【" + count + " 】条联系人类型信息");
             } else {
                 returnResult.setMsg("发生未知错误，联系人类型信息删除失败");
             }

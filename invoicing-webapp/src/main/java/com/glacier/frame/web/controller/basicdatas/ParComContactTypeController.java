@@ -88,7 +88,7 @@ public class ParComContactTypeController extends AbstractController{
     //批量删除联系人类型信息
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
-    public Object delGrade(@RequestParam List<String> parComContactTypeIds,@RequestParam List<String> parComContactTypeNames) {
-    	return parComContactTypeService.delParComContactType(parComContactTypeIds, parComContactTypeNames);
+    public Object delGrade(@RequestParam List<String> contactTypeIds) {
+    	return parComContactTypeService.delParComContactType(contactTypeIds);
     }
 }

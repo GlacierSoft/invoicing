@@ -156,19 +156,17 @@
 	//点击删除按钮触发方法
 	glacier.basicdatas_mgr.comContactType_mgr.comContactType.delComContactType = function(){
 		var rows = glacier.basicdatas_mgr.comContactType_mgr.comContactType.comContactTypeDataGrid.datagrid("getChecked");
-		var parContactTypeIds = [];//删除的id标识
-		var parContactTypes = [];//日志记录引用名称
+		var contactTypeIds = [];//删除的id标识
 		for(var i =0;i<rows.length;i++){
-			parContactTypeIds.push(rows[i].contactTypeId);
-			parContactTypes.push(rows[i].contactTypeName);
+			contactTypeIds.push(rows[i].contactTypeId);
 		}
-		if(parContactTypeIds.length > 0){
+		if(contactTypeIds.length > 0){
 			$.messager.confirm('请确认', '是否要删除该记录', function(r){
 				if (r){
 					$.ajax({
 						   type: "POST",
 						   url: ctx + '/do/comContactType/del.json',
-						   data: {parContactTypeIds:parContactTypeIds.join(','),parContactTypeNames:parContactTypes.join(',')},
+						   data: {contactTypeIds:contactTypeIds.join(',')},
 						   dataType:'json',
 						   success: function(r){
 							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理

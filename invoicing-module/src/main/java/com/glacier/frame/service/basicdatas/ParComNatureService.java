@@ -29,7 +29,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional; 
-import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.ParComNatureMapper; 
 import com.glacier.frame.dto.query.basicdatas.ParComNatureQueryDTO;
@@ -151,6 +150,15 @@ public class ParComNatureService {
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0; 
+        // 防止名称重复
+        ParComNatureExample ParComNatureExample = new ParComNatureExample();
+        ParComNatureExample.createCriteria().andNatureNameEqualTo(parComNature.getNatureName()).andNatureIdNotEqualTo(parComNature.getNatureId());
+        count = parComNatureMapper.countByExample(ParComNatureExample);
+        if (count > 0) {
+            returnResult.setMsg("公司性质名称重复");
+            returnResult.setSuccess(false);
+            return returnResult;
+        }
         parComNature.setUpdater(pricipalUser.getUserCnName());
         parComNature.setUpdateTime(new Date());
         count = parComNatureMapper.updateByPrimaryKeySelective(parComNature);
@@ -174,7 +182,7 @@ public class ParComNatureService {
      */
     @Transactional(readOnly = false) 
     @MethodLog(opera = "SuppliersNatureList_del")
-    public Object delSuppliersNature(List<String> parComNatureIds, List<String> parCompanyNames) {
+    public Object delSuppliersNature(List<String> parComNatureIds) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
         if (parComNatureIds.size() > 0) {
@@ -183,9 +191,9 @@ public class ParComNatureService {
             count = parComNatureMapper.deleteByExample(ParComNatureExample);
             if (count > 0) {
                 returnResult.setSuccess(true);
-                returnResult.setMsg("成功删除了公司性质为:[ " + CollectionsUtil.convertToString(parCompanyNames, ",") + " ]的信息");
+                returnResult.setMsg("成功删除了【" +count + "】条公司性质信息！");
             } else {
-                returnResult.setMsg("发生未知错误，信息删除失败");
+                returnResult.setMsg("发生未知错误，公司性质信息删除失败");
             }
         }
         return returnResult;
