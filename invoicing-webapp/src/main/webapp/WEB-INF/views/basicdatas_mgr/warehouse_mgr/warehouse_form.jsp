@@ -11,16 +11,19 @@
 				<input type="hidden" name="warehouseId" value="${warehouseDate.warehouseId}" />
 				<input name="warehouseName"  class="easyui-validatebox spinner" style="width:168px;height: 20px;" required="true" value="${warehouseDate.warehouseName}"/>
 			</td>
-			<td style="padding-left: 15px;">所属部门：</td>
+			 <td style="padding-left: 15px;">仓库序号：</td>
+			<td>
+			    <input maxlength="3" name="orderNum" class="easyui-numberspinner spinner" style="width:168px;height: 20px;"  value="${warehouseDate.orderNum}" data-options="min:0,max:9999,required:true,missingMessage:'请输入仓库序号'" /> 
+			 </td>
+		</tr>
+		<tr>
+		    <td>所属部门：</td>
 			<td>
 				<input name="warehouseName" id="warehouseName"  class="easyui-validatebox spinner" style="width:168px;height: 20px;" required="true" value="${warehouseDate.warehouseName}"/>
 			</td>
-		</tr>
-		<tr>
-			<td>仓库管理：</td>
-			<td><input name="warehouseManager" class="easyui-validatebox spinner" style="width:168px;height: 20px;" value="${warehouseDate.warehouseManager}" required="true"/></td>
-		    <td style="padding-left: 15px;">仓库序号：</td>
-			<td><input  name="orderNum" class="easyui-numberspinner spinner" style="width:168px;height: 20px;" value="${warehouseDate.orderNum}" required="true"/></td>
+			<td style="padding-left: 15px;">仓库管理：</td>
+			<td><input name="warehouseManager" id="warehouseManager" class="easyui-combobox spinner" style="width:168px;height: 20px;" value="${warehouseDate.warehouseManager}" required="true"/></td>
+		   
 		</tr>
 		<tr>
 			<td>负责人员：</td>
@@ -45,6 +48,8 @@
 	</table>
 </form>
 <script>
+       
+    
 		$('#retailLibraries').combobox({
 			valueField : 'value',
 			//height:18,
@@ -55,4 +60,37 @@
 			//required:true,
 			data : fields.yesOrNo
 		});
+		
+		//初始化上级部门
+		$("#warehouseName").combotree({
+			data :$.parseJSON('${allDepTreeNodeData}'),
+			width:168,
+			panelHeight : 'auto',
+		    missingMessage:'请选择上级部门',
+		    smooth: true,       //该属性用以启用当前 easyui-tree 控件对平滑数据格式的支持
+		    lines : true,
+		    onBeforeSelect:function(node){
+		    	if(node.state){
+                     $("#warehouseName").combotree("unselect");
+                 }
+		    },
+		    onSelect:function(record){
+		    	$.ajax({
+		    		type: "post", 
+		    		url:ctx + "/do/user/dept.json?depId="+record.id,
+		    		dataType:"json",
+		    		success: function (date){
+		    			console.info(date);
+		    			 $("#warehouseManager").combobox({
+		    				 	data:$.parseJSON(date),
+		    					valueField:'id',    
+		    				    textField:'text',
+		    				    panelHeight : 'auto',
+		    			});   
+		    		 }
+		    	});
+		        
+		    }
+		});	
+		
 </script>

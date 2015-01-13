@@ -36,6 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.glacier.frame.dto.query.basicdatas.WarehouseQueryDTO;
 import com.glacier.frame.entity.basicdatas.Warehouse;
 import com.glacier.frame.service.basicdatas.WarehouseService;
+import com.glacier.frame.service.system.DepService;
 import com.glacier.jqueryui.util.JqPager;
 
 /**
@@ -50,6 +51,9 @@ import com.glacier.jqueryui.util.JqPager;
 public class WarehouseController {
 	@Autowired
 	private WarehouseService warehouseService;
+	
+	@Autowired
+	private DepService depService;// 注入部门业务Bean
 	
 	//进入仓库信息列表展示页面
     @RequestMapping(value = "/index.htm")
@@ -79,6 +83,7 @@ public class WarehouseController {
     @RequestMapping(value = "/intoForm.htm")
     private Object intoGradeFormPnews(String warehouseId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/warehouse_mgr/warehouse_form");
+        mav.addObject("allDepTreeNodeData", depService.getAllTreeDepNode(true));
         if(StringUtils.isNotBlank(warehouseId)){
             mav.addObject("warehouseDate", warehouseService.getWarehouse(warehouseId));
         }

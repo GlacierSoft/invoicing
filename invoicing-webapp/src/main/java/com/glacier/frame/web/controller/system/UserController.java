@@ -105,4 +105,11 @@ public class UserController extends AbstractController{
     public Object modifyPsd(String oldPassword, String newPassword) {
         return userService.modifyPsd(oldPassword, newPassword);
     }
+	
+	//查询指定部门下的用户信息
+	@RequestMapping(value="/dept.json", method = RequestMethod.POST)
+	@ResponseBody
+	 public Object ListAsDept(String depId) {
+        return userService.ListAsDept(depId);
+    }
 }

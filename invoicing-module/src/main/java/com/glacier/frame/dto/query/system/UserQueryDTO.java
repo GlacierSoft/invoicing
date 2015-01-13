@@ -71,6 +71,10 @@ public class UserQueryDTO extends User {
         if(null != this.getStatus()){//用户状态Enum查询
             queryCriteria.andStatusEqualTo(this.getStatus().toString());
         }
+        if(null!=this.getDepId()){//部门判断
+        	queryCriteria.andDepIdEqualTo(this.getDepId());
+        }
+        
         if(null != createStartTime && null != createEndTime){//创建时间段查询
             queryCriteria.andCreateTimeBetween(createStartTime, createEndTime); 
         }else{

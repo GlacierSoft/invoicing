@@ -20,9 +20,13 @@
 package com.glacier.frame.service.system;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -30,6 +34,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
@@ -191,7 +197,31 @@ public class UserService {
         returnResulte.setTotal(total);
         return returnResulte;
     }
-
+    
+    /**
+     * @Title: ListAsDept
+     * @Description: TODO(指定部门下的用户信息)
+     * @param @param pager
+     * @param @return设定文件
+     * @return Object 返回类型
+     * @throws
+     */
+    public Object ListAsDept(String depId) {
+        List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andDepIdEqualTo(depId);
+        List<User> users = userMapper.selectByExample(userExample);
+        if(users.size()>0){
+        	for(int i=0;i<users.size();i++){
+        		Map<String,Object> map=new HashMap<String,Object>();
+        		map.put("id",users.get(i).getUserId() );
+        		map.put("text", users.get(i).getUsername());
+        		list.add(map);
+        	}
+        }
+        return  JackJson.fromObjectToJson(list);
+    }
+    
     /**
      * @Title: addUser
      * @Description: TODO(增加管理员)

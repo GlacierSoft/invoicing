@@ -35,7 +35,7 @@
 </form>
 
 <script type="text/javascript">
-	//初始化上级部门
+	
 	$("#dep_mgr_dep_form_parentId").combotree({
 		data : $.parseJSON('${allDepTreeNodeData}'),
 		width:270,
