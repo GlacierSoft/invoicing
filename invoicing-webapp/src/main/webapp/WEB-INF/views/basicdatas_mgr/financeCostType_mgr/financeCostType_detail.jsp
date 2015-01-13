@@ -7,7 +7,7 @@
 		<tr>
 			<td>费用类型名称：</td> 
 			<td class="forminputtable" colspan="3"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
-				<input class="spinner" style="width:375px" id="financeCostType_detail_financeCostType" name="financeCostTypeName" value="${financeCostTypeDate.Name}"  readonly="readonly"/>
+				<input class="spinner" style="width:375px" id="financeCostType_detail_financeCostType" value="${financeCostTypeDate.name}"  readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>
