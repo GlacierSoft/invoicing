@@ -8,7 +8,7 @@
 	
 	//定义toolbar的操作，对操作进行控制 
 	glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.param = {
-			toolbarId : 'comDeliveryTypeDataGrid_toolbar',
+			toolbarId : 'comDeliverTypeDataGrid_toolbar',
 			actions : {
 				edit:{flag:'edit',controlType:'single'},
 				del:{flag:'del',controlType:'multiple'}
@@ -16,7 +16,7 @@
 	};
 	
 	//初始化交货方式DataGrid
-	glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliveryTypeDataGrid = $('#comDeliveryTypeDataGrid').datagrid({
+	glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliverTypeDataGrid = $('#comDeliverTypeDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
@@ -81,7 +81,7 @@
 		pageSize : 10,//注意，pageSize必须在pageList存在
 		pageList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
-		toolbar:'#comDeliveryTypeDataGrid_toolbar',
+		toolbar:'#comDeliverTypeDataGrid_toolbar',
 		onCheck:function(rowIndex,rowData){//在用户勾选一行的时候触发事件
 			action_controller(glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.param,this).check();
 		},
@@ -131,14 +131,14 @@
 			queryUrl : ctx + '/do/comDeliverType/intoForm.htm',
 			submitUrl : ctx + '/do/comDeliverType/add.json',
 			successFun : function (){
-				glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliveryTypeDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliverTypeDataGrid.datagrid('reload');
 			}
 		});
 	};
 	
 	//点击编辑按钮触发方法
 	glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.editComDeliverType = function(){
-		var row = glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliveryTypeDataGrid.datagrid("getSelected");
+		var row = glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliverTypeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【交货方式】 - 编辑',
 			width : 420,
@@ -149,13 +149,13 @@
 				deliverTypeId : row.deliverTypeId
 			},
 			successFun : function (){
-				glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliveryTypeDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliverTypeDataGrid.datagrid('reload');
 			}
 		});
 	};
 	//点击删除按钮触发方法
 	glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.delComDeliverType = function(){
-		var rows = glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliveryTypeDataGrid.datagrid("getChecked");
+		var rows = glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliverTypeDataGrid.datagrid("getChecked");
 		var parComDeliverTypeIds = [];//删除的id标识
 		var parComDeliverTypeNames = [];//日志记录引用名称
 		for(var i =0;i<rows.length;i++){
@@ -177,7 +177,7 @@
 										timeout:3000,
 										msg:r.msg
 									});
-								   glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliveryTypeDataGrid.datagrid('reload');
+								   glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliverTypeDataGrid.datagrid('reload');
 							   }else{
 									$.messager.show({//后台验证弹出错误提示信息框
 										title:'错误提示',
@@ -198,20 +198,20 @@
 <!-- 所有交货方式列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="creditGridPanel" data-options="region:'center',border:true" >
-		<table id="comDeliveryTypeDataGrid">
-			<glacierui:toolbar panelEnName="ComDeliveryTypeList" toolbarId="comDeliveryTypeDataGrid_toolbar" menuEnName="comDeliveryType"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+		<table id="comDeliverTypeDataGrid">
+			<glacierui:toolbar panelEnName="ComDeliverTypeList" toolbarId="comDeliverTypeDataGrid_toolbar" menuEnName="comDeliverType"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 	<div data-options="region:'north',split:true"
 		style="height: 40px; padding-left: 10px;">
-		<form id="comDeliveryTypeSearchForm">
+		<form id="comDeliverTypeSearchForm">
 			<table>
 				<tr>
 					<td>交货方式名称：</td>
 					<td><input name="deliverTypeName" style="width: 80px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
-					<td><input id="comDeliveryTypeSearchForm_status" name="enabled" style="width: 80px;"
+					<td><input id="comDeliverTypeSearchForm_status" name="enabled" style="width: 80px;"
 						 class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,data : fields.status"/></td> 
 					<td>创建时间：</td>
 					<td><input name="createStartTime" class="easyui-datetimebox"
@@ -219,10 +219,10 @@
 						class="easyui-datetimebox" style="width: 100px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
-						onclick="glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliveryTypeDataGrid.datagrid('load',glacier.serializeObject($('#comDeliveryTypeSearchForm')));">查询</a>
+						onclick="glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliverTypeDataGrid.datagrid('load',glacier.serializeObject($('#comDeliverTypeSearchForm')));">查询</a>
 						<a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-out',plain:true"
-						onclick="$('#comDeliveryTypeSearchForm input').val('');glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliveryTypeDataGrid.datagrid('load',{});">重置条件</a>
+						onclick="$('#comDeliverTypeSearchForm input').val('');glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.comDeliverTypeDataGrid.datagrid('load',{});">重置条件</a>
 					</td>
 				</tr>
 			</table>
