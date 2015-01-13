@@ -139,7 +139,7 @@ public class ParComCompanySizeService {
         ParComCompanySizeExample parComCompanySizeExample = new ParComCompanySizeExample();
         int count = 0; 
         //防止名称重复
-        parComCompanySizeExample.createCriteria().andCompanySizeNameEqualTo(parComCompanySize.getCompanySizeName());
+        parComCompanySizeExample.createCriteria().andCompanySizeNameEqualTo(parComCompanySize.getCompanySizeName()).andCompanySizeIdNotEqualTo(parComCompanySize.getCompanySizeId());
         count = parComCompanySizeMapper.countByExample(parComCompanySizeExample);
         if (count > 0) {
             returnResult.setMsg("公司规模名称重复");

@@ -5,7 +5,7 @@
 <form method="post" style="padding:15px">
 	<table class="formtable">
 		<tr>
-			<td>名称：</td>
+			<td>公司规模名称：</td>
 			<td>
 				<input type="hidden" name="companySizeId" value="${companySizeData.companySizeId}" />
 				<input name="companySizeName" class="easyui-validatebox spinner" style="width:268px;height: 16px;" required="true" value="${companySizeData.companySizeName}" />

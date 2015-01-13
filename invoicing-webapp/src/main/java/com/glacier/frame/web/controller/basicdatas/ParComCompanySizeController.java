@@ -64,10 +64,10 @@ public class ParComCompanySizeController extends AbstractController{
     
     //进入Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
-    private Object intoParComCompanySizeDetailPage(String parComCompanySizeId) {
+    private Object intoParComCompanySizeDetailPage(String companySizeId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/comCompanySize_mgr/comCompanySize_detail");
-        if(StringUtils.isNotBlank(parComCompanySizeId)){
-            mav.addObject("companySizeData", parComCompanySizeService.getParComCompanySize(parComCompanySizeId));
+        if(StringUtils.isNotBlank(companySizeId)){
+            mav.addObject("companySizeData", parComCompanySizeService.getParComCompanySize(companySizeId));
         }
         return mav;
     }

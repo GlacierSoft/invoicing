@@ -112,7 +112,7 @@
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
 				title: "公司规模详细信息",
-				href : ctx + '/do/comCompanySize/intoDetail.htm?parCompanySizeId='+rowData.companySizeId,//从controller请求jsp页面进行渲染
+				href : ctx + '/do/comCompanySize/intoDetail.htm?companySizeId='+rowData.companySizeId,//从controller请求jsp页面进行渲染
 				width : 530,
 				height : 250,
 				resizable: false,
@@ -125,7 +125,7 @@
 	glacier.basicdatas_mgr.companySize_mgr.companySize.addCompanySize = function(){
 		glacier.basicAddOrEditDialog({
 			title : '新增公司规模',
-			width : 380,
+			width : 420,
 			height : 200,
 			queryUrl : ctx + '/do/comCompanySize/intoForm.htm',
 			submitUrl : ctx + '/do/comCompanySize/add.json',
@@ -139,7 +139,7 @@
 		var row = glacier.basicdatas_mgr.companySize_mgr.companySize.comCompanySizeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑公司规模',
-			width : 380,
+			width : 420,
 			height : 200,
 			queryUrl : ctx + '/do/comCompanySize/intoForm.htm',
 			submitUrl : ctx + '/do/comCompanySize/edit.json',

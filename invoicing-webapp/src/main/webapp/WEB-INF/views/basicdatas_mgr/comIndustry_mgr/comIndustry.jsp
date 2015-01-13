@@ -132,7 +132,7 @@
 	glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.addComIndustry= function(){
 		glacier.basicAddOrEditDialog({
 			title : '【行业类型】- 增加',
-			width : 270,
+			width : 420,
 			height : 200,
 			queryUrl : ctx + '/do/comIndustry/intoForm.htm',
 			submitUrl : ctx + '/do/comIndustry/add.json',
@@ -146,7 +146,7 @@
 		var row = glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.comIndustryDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【行业类型】- 编辑',
-			width : 270,
+			width : 420,
 			height : 200,
 			queryUrl : ctx + '/do/comIndustry/intoForm.htm',
 			submitUrl : ctx + '/do/comIndustry/edit.json',
