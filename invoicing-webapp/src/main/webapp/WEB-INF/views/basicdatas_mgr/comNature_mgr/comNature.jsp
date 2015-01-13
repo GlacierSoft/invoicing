@@ -38,14 +38,14 @@
 				title:'ID',
 				checkbox:true
 			},{
+				field:'natureName',
+				title:'公司性质名称',
+				width:200,
+				sortable:true
+			},{
 				field:'natureCode',
 				title:'序号',
 				width:120,
-				sortable:true
-			},{
-				field:'natureName',
-				title:'名称',
-				width:200,
 				sortable:true
 			},{
 				field:'enabled',
@@ -222,7 +222,7 @@
 		<form id="comNatureSearchForm">
 			<table>
 				<tr>
-					<td>名称：</td>
+					<td>公司性质名称：</td>
 					<td><input name="natureName" style="width: 80px;"
 						class="spinner" /></td> 
 					<td>状态：</td>

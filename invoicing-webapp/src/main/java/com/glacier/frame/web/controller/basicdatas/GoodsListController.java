@@ -45,7 +45,6 @@ import com.glacier.jqueryui.util.JqPager;
  * @email 1203807137@qq.com
  * @date 2015-1-9 下午3:48:53
  */
-
 @Controller
 @RequestMapping(value = "/goodsList")
 public class GoodsListController {
@@ -53,21 +52,21 @@ public class GoodsListController {
 	@Autowired
 	private GoodsListService goodsListService;
 	
-	// 进入货物档案信息列表展示页面
+	//进入货物档案信息列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPmember() {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/goodsList_mgr/goodsList");
         return mav;
     } 
 
-    // 获取表格结构的所有菜单数据
+    //获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
     private Object listActionAsGridByMenuId(JqPager jqPager, GoodsListQueryDTO goodsListQueryDTO) {
         return goodsListService.listAsGrid(jqPager, goodsListQueryDTO);
     }
     
-    // 进入货物档案信息Detail信息页面
+    //进入货物档案信息Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoSuppliersIndustryDetail(String goodsId) { 
     	ModelAndView mav = new ModelAndView("basicdatas_mgr/goodsList_mgr/goodsList_detail");
@@ -77,7 +76,7 @@ public class GoodsListController {
 	    return mav;
     }
     
-    // 进入等级信息Form表单页面
+    //进入等级信息Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoGradeFormPnews(String goodsId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/goodsList_mgr/goodsList_form");
@@ -101,7 +100,7 @@ public class GoodsListController {
         return goodsListService.editGoodsList(goodsList);
     }
     
-    //删除等级信息
+    //删除货物档案信息
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
     public Object delGrade(@RequestParam List<String> goodsIds) {

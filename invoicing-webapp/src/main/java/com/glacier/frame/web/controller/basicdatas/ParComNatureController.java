@@ -53,21 +53,21 @@ public class ParComNatureController extends AbstractController{
     @Autowired
     private ParComNatureService parComNatureService;// 注入service
     
-    // 进入列表展示页面
+    //进入列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexParea() {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/comNature_mgr/comNature");
         return mav;
     }
      
-    // 获取表格结构的所有菜单数据
+    //获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
     private Object listActionAsGridByMenuId(JqPager jqPager, ParComNatureQueryDTO parComNatureQueryDTO) {
         return parComNatureService.listAsGrid(jqPager, parComNatureQueryDTO);
     }
     
-     // 进入表单页面
+     //进入表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object inForme(String natureId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/comNature_mgr/comNature_form");
@@ -77,7 +77,7 @@ public class ParComNatureController extends AbstractController{
         return mav;
     }
     
-    // 进入Detail信息页面
+    //进入Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoParComNatureDetailPage(String suppliersNatureId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/comNature_mgr/comNature_detail");
@@ -87,7 +87,7 @@ public class ParComNatureController extends AbstractController{
         return mav;
     }
     
-     //新增公司规模
+     //新增公司性质
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
     private Object addSuppliersNature(@Valid ParComNature parComNature, BindingResult bindingResult) {
@@ -97,14 +97,14 @@ public class ParComNatureController extends AbstractController{
         return parComNatureService.addParComNature(parComNature);
     }  
     
-    // 修改公司规模
+    //修改公司性质
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
     private Object editRole(@Valid ParComNature parComNature, BindingResult bindingResult) {
          return parComNatureService.editParComNature(parComNature);
     }
     
-    // 删除公司规模
+    // 删除公司性质
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
     public Object del(@RequestParam List<String> suppliersNatureIds,@RequestParam List<String> suppliersNatureNames) {

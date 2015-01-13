@@ -44,7 +44,7 @@ import com.glacier.jqueryui.util.JqReturnJson;
 
 /**
  * @ClassName:  ParComNatureService
- * @Description: TODO(公司性质ervice)
+ * @Description: TODO(公司性质Service)
  * @author songjundong
  * @email 985776597@QQ.com
  * @date 2015-1-8  下午3:00:01

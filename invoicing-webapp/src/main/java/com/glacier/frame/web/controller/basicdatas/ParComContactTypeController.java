@@ -19,7 +19,7 @@ import com.glacier.jqueryui.util.JqPager;
 
 /*** 
  * @ClassName:  ParComContactTypeController
- * @Description: TODO(联系人类型controller)
+ * @Description: TODO(联系人类型Controller)
  * @author wuting
  * @email 920339213@QQ.com
  * @date 2015-1-08
@@ -31,21 +31,21 @@ public class ParComContactTypeController extends AbstractController{
 	@Autowired
 	private ParComContactTypeService parComContactTypeService;
 	
-	// 进入联系人类型信息列表展示页面
+	//进入联系人类型信息列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPmember() {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/comContactType_mgr/comContactType");
         return mav;
     } 
     
-    // 获取表格结构的所有联系人类型数据
+    //获取表格结构的所有联系人类型数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
     private Object listActionAsGridByMenuId(JqPager jqPager, ParComContactTypeQueryDTO carTypeQueryDTO) {
         return parComContactTypeService.listAsGrid(jqPager, carTypeQueryDTO);
     }
       
-    // 进入联系人类型信息Detail信息页面
+    //进入联系人类型信息Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoMemberGradeDetailPage(String contactTypeId) { 
     	ModelAndView mav = new ModelAndView("basicdatas_mgr/comContactType_mgr/comContactType_detail");
@@ -55,7 +55,7 @@ public class ParComContactTypeController extends AbstractController{
 	    return mav;
     }
     
-    // 进入联系人类型信息Form表单页面
+    //进入联系人类型信息Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoGradeFormPnews(String contactTypeId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/comContactType_mgr/comContactType_form");
@@ -65,7 +65,7 @@ public class ParComContactTypeController extends AbstractController{
         return mav;
     }
     
-    // 增加联系人类型信息
+    //增加联系人类型信息
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
     private Object addGrade(@Valid ParComContactType parComContactType, BindingResult bindingResult) {
