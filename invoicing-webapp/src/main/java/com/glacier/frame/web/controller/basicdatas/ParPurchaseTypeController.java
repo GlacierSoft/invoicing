@@ -44,8 +44,7 @@ import com.glacier.jqueryui.util.JqPager;
  * @author junjie.zheng
  * @email 1203807137@qq.com
  * @date 2015-1-8 下午5:29:50
- */
-
+ */ 
 @Controller
 @RequestMapping(value = "/purchaseType")
 public class ParPurchaseTypeController {
@@ -67,7 +66,7 @@ public class ParPurchaseTypeController {
         return purchaseTypeService.listAsGrid(jqPager, purchaseTypeQueryDTO);
     }
     
-    // 进入采购信息Detail信息页面
+    // 进入采购类型信息Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoSuppliersIndustryDetail(String purchaseTypeId) { 
     	ModelAndView mav = new ModelAndView("basicdatas_mgr/purchaseType_mgr/purchaseType_detail");
@@ -77,7 +76,7 @@ public class ParPurchaseTypeController {
 	    return mav;
     }
     
-    // 进入采购信息Form表单页面
+    // 进入采购类型信息Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoGradeFormPnews(String purchaseTypeId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/purchaseType_mgr/purchaseType_form");
@@ -87,21 +86,21 @@ public class ParPurchaseTypeController {
         return mav;
     }
     
-    //增加采购信息
+    //增加采购类型信息
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
     private Object addGrade(@Valid ParPurchaseType parPurchaseType, BindingResult bindingResult) {
         return purchaseTypeService.addPurchaseType(parPurchaseType);
     }
     
-    //修改采购信息
+    //修改采购类型信息
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
     private Object editGrade(@Valid ParPurchaseType parPurchaseType, BindingResult bindingResult) {
         return purchaseTypeService.editPurchaseType(parPurchaseType);
     }
     
-    //删除等级信息
+    //删除采购类型信息
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
     public Object delGrade(@RequestParam List<String> purchaseTypeIds,@RequestParam List<String> names) {

@@ -12,9 +12,9 @@
 			</td>
 		</tr>
 		<tr>
-			<td>采购序号：</td>
+			<td>序号：</td>
 			<td><input class="spinner" style="width:150px"  value="${purchaseTypeDate.sequenced}" readonly="readonly"/></td>
-			<td>是否启用：</td>
+			<td>状态：</td>
 			<td colspan="3"><input id="enabled" class="spinner" style="width:150px"  value="${purchaseTypeDate.enabled}" readonly="readonly"/></td>
 		</tr>
 		<tr>
