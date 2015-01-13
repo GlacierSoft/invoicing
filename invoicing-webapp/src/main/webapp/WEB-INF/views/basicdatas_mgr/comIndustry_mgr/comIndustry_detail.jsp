@@ -6,7 +6,7 @@
 <form method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
-			<td>行业类型：</td> 
+			<td>行业类型名称：</td> 
 			<td class="forminputtable" colspan="3">
 				<input class="spinner" style="width:375px" value="${suppliersIndustryDate.industryName}"  readonly="readonly"/>
 			</td>
