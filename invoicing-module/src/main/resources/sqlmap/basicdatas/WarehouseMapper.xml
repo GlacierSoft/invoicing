@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.basicdatas.WarehouseMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.basicdatas.Warehouse" >
+    <id column="temp_warehouse_warehouse_id" property="warehouseId" jdbcType="VARCHAR" />
+    <result column="temp_warehouse_order_num" property="orderNum" jdbcType="INTEGER" />
+    <result column="temp_warehouse_warehouse_code" property="warehouseCode" jdbcType="VARCHAR" />
+    <result column="temp_warehouse_warehouse_name" property="warehouseName" jdbcType="VARCHAR" />
+    <result column="temp_warehouse_department_id" property="departmentId" jdbcType="VARCHAR" />
+    <result column="temp_warehouse_warehouse_manager" property="warehouseManager" jdbcType="VARCHAR" />
+    <result column="temp_warehouse_retail_libraries" property="retailLibraries" jdbcType="CHAR" />
+    <result column="temp_warehouse_phone" property="phone" jdbcType="VARCHAR" />
+    <result column="temp_warehouse_address" property="address" jdbcType="VARCHAR" />
+    <result column="temp_warehouse_head" property="head" jdbcType="VARCHAR" />
+    <result column="temp_warehouse_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_warehouse_enabled" property="enabled" jdbcType="CHAR" />
+    <result column="temp_warehouse_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_warehouse_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_warehouse_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_warehouse_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_warehouse.warehouse_id as temp_warehouse_warehouse_id, temp_warehouse.order_num as temp_warehouse_order_num, 
+    temp_warehouse.warehouse_code as temp_warehouse_warehouse_code, temp_warehouse.warehouse_name as temp_warehouse_warehouse_name, 
+    temp_warehouse.department_id as temp_warehouse_department_id, temp_warehouse.warehouse_manager as temp_warehouse_warehouse_manager, 
+    temp_warehouse.retail_libraries as temp_warehouse_retail_libraries, temp_warehouse.phone as temp_warehouse_phone, 
+    temp_warehouse.address as temp_warehouse_address, temp_warehouse.head as temp_warehouse_head, 
+    temp_warehouse.remark as temp_warehouse_remark, temp_warehouse.enabled as temp_warehouse_enabled, 
+    temp_warehouse.creater as temp_warehouse_creater, temp_warehouse.create_time as temp_warehouse_create_time, 
+    temp_warehouse.updater as temp_warehouse_updater, temp_warehouse.update_time as temp_warehouse_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.basicdatas.WarehouseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_warehouse temp_warehouse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_warehouse temp_warehouse
+    where temp_warehouse.warehouse_id = #{warehouseId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_warehouse
+    where warehouse_id = #{warehouseId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.WarehouseExample" >
+    delete temp_warehouse from t_warehouse temp_warehouse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.basicdatas.Warehouse" >
+    insert into t_warehouse (warehouse_id, order_num, warehouse_code, 
+      warehouse_name, department_id, warehouse_manager, 
+      retail_libraries, phone, address, 
+      head, remark, enabled, 
+      creater, create_time, updater, 
+      update_time)
+    values (#{warehouseId,jdbcType=VARCHAR}, #{orderNum,jdbcType=INTEGER}, #{warehouseCode,jdbcType=VARCHAR}, 
+      #{warehouseName,jdbcType=VARCHAR}, #{departmentId,jdbcType=VARCHAR}, #{warehouseManager,jdbcType=VARCHAR}, 
+      #{retailLibraries,jdbcType=CHAR}, #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{head,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{enabled,jdbcType=CHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.basicdatas.Warehouse" >
+    insert into t_warehouse
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="warehouseId != null" >
+        warehouse_id,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="warehouseCode != null" >
+        warehouse_code,
+      </if>
+      <if test="warehouseName != null" >
+        warehouse_name,
+      </if>
+      <if test="departmentId != null" >
+        department_id,
+      </if>
+      <if test="warehouseManager != null" >
+        warehouse_manager,
+      </if>
+      <if test="retailLibraries != null" >
+        retail_libraries,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="head != null" >
+        head,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="warehouseId != null" >
+        #{warehouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="warehouseCode != null" >
+        #{warehouseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseName != null" >
+        #{warehouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseManager != null" >
+        #{warehouseManager,jdbcType=VARCHAR},
+      </if>
+      <if test="retailLibraries != null" >
+        #{retailLibraries,jdbcType=CHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="head != null" >
+        #{head,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.basicdatas.WarehouseExample" resultType="java.lang.Integer" >
+    select count(*) from t_warehouse temp_warehouse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_warehouse temp_warehouse
+    <set >
+      <if test="record.warehouseId != null" >
+        temp_warehouse.warehouse_id = #{record.warehouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNum != null" >
+        temp_warehouse.order_num = #{record.orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.warehouseCode != null" >
+        temp_warehouse.warehouse_code = #{record.warehouseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouseName != null" >
+        temp_warehouse.warehouse_name = #{record.warehouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.departmentId != null" >
+        temp_warehouse.department_id = #{record.departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouseManager != null" >
+        temp_warehouse.warehouse_manager = #{record.warehouseManager,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retailLibraries != null" >
+        temp_warehouse.retail_libraries = #{record.retailLibraries,jdbcType=CHAR},
+      </if>
+      <if test="record.phone != null" >
+        temp_warehouse.phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        temp_warehouse.address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.head != null" >
+        temp_warehouse.head = #{record.head,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_warehouse.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enabled != null" >
+        temp_warehouse.enabled = #{record.enabled,jdbcType=CHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_warehouse.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_warehouse.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_warehouse.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_warehouse.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_warehouse temp_warehouse
+    set temp_warehouse.warehouse_id = #{record.warehouseId,jdbcType=VARCHAR},
+      temp_warehouse.order_num = #{record.orderNum,jdbcType=INTEGER},
+      temp_warehouse.warehouse_code = #{record.warehouseCode,jdbcType=VARCHAR},
+      temp_warehouse.warehouse_name = #{record.warehouseName,jdbcType=VARCHAR},
+      temp_warehouse.department_id = #{record.departmentId,jdbcType=VARCHAR},
+      temp_warehouse.warehouse_manager = #{record.warehouseManager,jdbcType=VARCHAR},
+      temp_warehouse.retail_libraries = #{record.retailLibraries,jdbcType=CHAR},
+      temp_warehouse.phone = #{record.phone,jdbcType=VARCHAR},
+      temp_warehouse.address = #{record.address,jdbcType=VARCHAR},
+      temp_warehouse.head = #{record.head,jdbcType=VARCHAR},
+      temp_warehouse.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_warehouse.enabled = #{record.enabled,jdbcType=CHAR},
+      temp_warehouse.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_warehouse.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_warehouse.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_warehouse.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.basicdatas.Warehouse" >
+    update t_warehouse
+    <set >
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="warehouseCode != null" >
+        warehouse_code = #{warehouseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseName != null" >
+        warehouse_name = #{warehouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null" >
+        department_id = #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseManager != null" >
+        warehouse_manager = #{warehouseManager,jdbcType=VARCHAR},
+      </if>
+      <if test="retailLibraries != null" >
+        retail_libraries = #{retailLibraries,jdbcType=CHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="head != null" >
+        head = #{head,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where warehouse_id = #{warehouseId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.basicdatas.Warehouse" >
+    update t_warehouse
+    set order_num = #{orderNum,jdbcType=INTEGER},
+      warehouse_code = #{warehouseCode,jdbcType=VARCHAR},
+      warehouse_name = #{warehouseName,jdbcType=VARCHAR},
+      department_id = #{departmentId,jdbcType=VARCHAR},
+      warehouse_manager = #{warehouseManager,jdbcType=VARCHAR},
+      retail_libraries = #{retailLibraries,jdbcType=CHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      head = #{head,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      enabled = #{enabled,jdbcType=CHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where warehouse_id = #{warehouseId,jdbcType=VARCHAR}
+  </update>
+</mapper>
