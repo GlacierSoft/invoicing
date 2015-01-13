@@ -67,20 +67,20 @@ public class ParPurchaseReturnReasonController {
     
     // 进入退货类型信息Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
-    private Object intoReturnReasonDetail(String parPurchaseReturnReasonId) { 
+    private Object intoReturnReasonDetail(String returnReasonId) { 
         ModelAndView mav = new ModelAndView("basicdatas_mgr/purchaseReturnReason_mgr/purchaseReturnReason_detail");
-        if(StringUtils.isNotBlank(parPurchaseReturnReasonId)){
-            mav.addObject("parPurchaseReturnReasonDate", parPurchaseReturnReasonService.getReturnReason(parPurchaseReturnReasonId));
+        if(StringUtils.isNotBlank(returnReasonId)){
+            mav.addObject("returnReasonDate", parPurchaseReturnReasonService.getReturnReason(returnReasonId));
         }
         return mav;
     }
     
     // 进入退货类型信息Form表单页面
     @RequestMapping(value = "/intoForm.htm")
-    private Object intoGradeFormPnews(String parPurchaseReturnReasonId) {
+    private Object intoGradeFormPnews(String returnReasonId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/purchaseReturnReason_mgr/purchaseReturnReason_form");
-        if(StringUtils.isNotBlank(parPurchaseReturnReasonId)){
-            mav.addObject("parPurchaseReturnReasonDate", parPurchaseReturnReasonService.getReturnReason(parPurchaseReturnReasonId));
+        if(StringUtils.isNotBlank(returnReasonId)){
+            mav.addObject("returnReasonDate", parPurchaseReturnReasonService.getReturnReason(returnReasonId));
         }
         return mav;
     }
@@ -102,7 +102,7 @@ public class ParPurchaseReturnReasonController {
     //删除等级信息
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
-    public Object delGrade(@RequestParam List<String> parPurchaseReturnReasonIds,@RequestParam List<String> names) {
-        return parPurchaseReturnReasonService.delReturnReason(parPurchaseReturnReasonIds, names);
+    public Object delGrade(@RequestParam List<String> returnReasonIds,@RequestParam List<String> names) {
+        return parPurchaseReturnReasonService.delReturnReason(returnReasonIds, names);
     }
 }
