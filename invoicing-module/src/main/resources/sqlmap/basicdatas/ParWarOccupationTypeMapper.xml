@@ -105,7 +105,7 @@
     where occupation_type_id = #{occupationTypeId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.ParWarOccupationTypeExample" >
-    delete from t_par_war_occupation_type temp_par_war_occupation_type
+    delete temp_par_war_occupation_type from t_par_war_occupation_type temp_par_war_occupation_type
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

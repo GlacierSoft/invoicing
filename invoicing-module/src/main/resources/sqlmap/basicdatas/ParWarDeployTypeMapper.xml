@@ -106,7 +106,7 @@
     where deploy_type_id = #{deployTypeId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.ParWarDeployTypeExample" >
-    delete from t_par_war_deploy_type temp_par_war_deploy_type
+    delete temp_par_war_deploy_type from t_par_war_deploy_type temp_par_war_deploy_type
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

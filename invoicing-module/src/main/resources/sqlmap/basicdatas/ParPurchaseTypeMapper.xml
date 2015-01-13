@@ -105,7 +105,7 @@
     where purchase_type_id = #{purchaseTypeId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.ParPurchaseTypeExample" >
-    delete from t_par_purchase_type temp_par_purchase_type
+    delete temp_par_purchase_type from t_par_purchase_type temp_par_purchase_type
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

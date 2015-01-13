@@ -106,7 +106,7 @@
     where contact_type_id = #{contactTypeId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.ParComContactTypeExample" >
-    delete from t_par_com_contact_type temp_par_com_contact_type
+    delete temp_par_com_contact_type from t_par_com_contact_type temp_par_com_contact_type
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

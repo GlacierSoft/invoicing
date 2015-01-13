@@ -105,7 +105,7 @@
     where nature_id = #{natureId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.ParComNatureExample" >
-    delete from t_par_com_nature temp_par_com_nature
+    delete temp_par_com_nature from t_par_com_nature temp_par_com_nature
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

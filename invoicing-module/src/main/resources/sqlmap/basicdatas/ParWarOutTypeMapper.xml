@@ -103,7 +103,7 @@
     where out_type_id = #{outTypeId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.ParWarOutTypeExample" >
-    delete from t_par_war_out_type temp_par_war_out_type
+    delete temp_par_war_out_type from t_par_war_out_type temp_par_war_out_type
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
