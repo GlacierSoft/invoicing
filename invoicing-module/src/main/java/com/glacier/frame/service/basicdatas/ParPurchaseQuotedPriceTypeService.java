@@ -107,7 +107,7 @@ public class ParPurchaseQuotedPriceTypeService {
       * @throws
       */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "QuotedPriceTypeList_add")
+    @MethodLog(opera = "PurchaseQuotedPriceTypeList_add")
     public Object addParPurchaseQuotedPriceType(ParPurchaseQuotedPriceType parPurchaseQuotedPriceType) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -146,7 +146,7 @@ public class ParPurchaseQuotedPriceTypeService {
       * @throws
       */
     @Transactional(readOnly = false) 
-    @MethodLog(opera = "QuotedPriceTypeList_edit")
+    @MethodLog(opera = "PurchaseQuotedPriceTypeList_edit")
     public Object editParPurchaseQuotedPriceType(ParPurchaseQuotedPriceType parPurchaseQuotedPriceType) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -183,7 +183,7 @@ public class ParPurchaseQuotedPriceTypeService {
      * @throws
      */
     @Transactional(readOnly = false) 
-    @MethodLog(opera = "QuotedPriceTypeList_del")
+    @MethodLog(opera = "PurchaseQuotedPriceTypeList_del")
     public Object delQuotedPriceType(List<String> parPurchaseQuotedPriceTypeIds, List<String> parPurchaseQuotedPriceTypeNames) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;

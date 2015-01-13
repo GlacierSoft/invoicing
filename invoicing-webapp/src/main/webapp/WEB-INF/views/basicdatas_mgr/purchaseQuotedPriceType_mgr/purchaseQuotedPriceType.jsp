@@ -4,11 +4,11 @@
 
 <script type="text/javascript">
 
-	$.util.namespace('glacier.basicdatas_mgr.quotedPriceType_mgr.parQuotedPriceType');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
+	$.util.namespace('glacier.basicdatas_mgr.quotedPriceType_mgr.quotedPriceType');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
 	//定义toolbar的操作，对操作进行控制
-	glacier.basicdatas_mgr.quotedPriceType_mgr.parQuotedPriceType.param = {
-			toolbarId : 'parQuotedPriceTypeDataGrid_toolbar',
+	glacier.basicdatas_mgr.quotedPriceType_mgr.quotedPriceType.param = {
+			toolbarId : 'purchaseQuotedPriceTypeDataGrid_toolbar',
 			actions : {  
 				edit:{flag:'edit',controlType:'single'},
 				del:{flag:'del',controlType:'multiple'} 
@@ -16,7 +16,7 @@
 	}; 
 	
 	//初始化会员年龄别称DataGrid
-	glacier.basicdatas_mgr.quotedPriceType_mgr.parQuotedPriceType.parQuotedPriceTypeDataGrid = $('#parQuotedPriceTypeDataGrid').datagrid({
+	glacier.basicdatas_mgr.quotedPriceType_mgr.quotedPriceType.purchaseQuotedPriceTypeDataGrid = $('#purchaseQuotedPriceTypeDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
@@ -44,7 +44,7 @@
 				sortable:true
 			},{
 				field:'name',
-				title:'名称',
+				title:'报价类型名称',
 				width:200,
 				sortable:true
 			},{
@@ -81,24 +81,24 @@
 		pageSize : 10,//注意，pageSize必须在pageList存在
 		pageList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
-		toolbar:'#parQuotedPriceTypeDataGrid_toolbar',
+		toolbar:'#purchaseQuotedPriceTypeDataGrid_toolbar',
 		onCheck:function(rowIndex,rowData){//选择行事件触发
-			action_controller(glacier.basicdatas_mgr.quotedPriceType_mgr.parQuotedPriceType.param,this).check();
+			action_controller(glacier.basicdatas_mgr.quotedPriceType_mgr.quotedPriceType.param,this).check();
 		},
 		onCheckAll:function(rows){//取消勾选行状态触发事件
-			action_controller(glacier.basicdatas_mgr.quotedPriceType_mgr.parQuotedPriceType.param,this).check();
+			action_controller(glacier.basicdatas_mgr.quotedPriceType_mgr.quotedPriceType.param,this).check();
 		},
 		onUncheck:function(rowIndex,rowData){//选择行事件触发
-			action_controller(glacier.basicdatas_mgr.quotedPriceType_mgr.parQuotedPriceType.param,this).unCheck();
+			action_controller(glacier.basicdatas_mgr.quotedPriceType_mgr.quotedPriceType.param,this).unCheck();
 		},
 		onUncheckAll:function(rows){//取消勾选行状态触发事件
-			action_controller(glacier.basicdatas_mgr.quotedPriceType_mgr.parQuotedPriceType.param,this).unCheck();
+			action_controller(glacier.basicdatas_mgr.quotedPriceType_mgr.quotedPriceType.param,this).unCheck();
 		},
 		onSelect:function(rowIndex, rowData){//选择行事件触发
-			action_controller(glacier.basicdatas_mgr.quotedPriceType_mgr.parQuotedPriceType.param,this).select();
+			action_controller(glacier.basicdatas_mgr.quotedPriceType_mgr.quotedPriceType.param,this).select();
 		},
 		onUnselectAll:function(rows){
-			action_controller(glacier.basicdatas_mgr.quotedPriceType_mgr.parQuotedPriceType.param,this).unSelect();
+			action_controller(glacier.basicdatas_mgr.quotedPriceType_mgr.quotedPriceType.param,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
@@ -123,7 +123,7 @@
 	});
 	
 	//点击增加按钮触发方法
-	glacier.basicdatas_mgr.quotedPriceType_mgr.parQuotedPriceType.addParQuotedPriceType = function(){
+	glacier.basicdatas_mgr.quotedPriceType_mgr.quotedPriceType.addQuotedPriceType = function(){
 		glacier.basicAddOrEditDialog({
 			title : '新增报价类型',
 			width : 380,
@@ -131,14 +131,14 @@
 			queryUrl : ctx + '/do/purchaseQuotedPriceType/intoForm.htm',
 			submitUrl : ctx + '/do/purchaseQuotedPriceType/add.json',
 			successFun : function (){
-				glacier.basicdatas_mgr.quotedPriceType_mgr.parQuotedPriceType.parQuotedPriceTypeDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.quotedPriceType_mgr.quotedPriceType.purchaseQuotedPriceTypeDataGrid.datagrid('reload');
 			}
 		});
 	};
 	
 	//点击编辑按钮触发方法
-	glacier.basicdatas_mgr.quotedPriceType_mgr.parQuotedPriceType.editParQuotedPriceType = function(){
-		var row = glacier.basicdatas_mgr.quotedPriceType_mgr.parQuotedPriceType.parQuotedPriceTypeDataGrid.datagrid("getSelected");
+	glacier.basicdatas_mgr.quotedPriceType_mgr.quotedPriceType.editQuotedPriceType = function(){
+		var row = glacier.basicdatas_mgr.quotedPriceType_mgr.quotedPriceType.purchaseQuotedPriceTypeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑报价类型',
 			width : 380,
@@ -146,18 +146,19 @@
 			queryUrl : ctx + '/do/purchaseQuotedPriceType/intoForm.htm',
 			submitUrl : ctx + '/do/purchaseQuotedPriceType/edit.json',
 			queryParams : {
+				 
 				quotedPriceTypeId : row.quotedPriceTypeId
 			},
 			successFun : function (){
-				glacier.basicdatas_mgr.quotedPriceType_mgr.parQuotedPriceType.parQuotedPriceTypeDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.quotedPriceType_mgr.quotedPriceType.purchaseQuotedPriceTypeDataGrid.datagrid('reload');
 			}
 		});
 	};
 	 
 	
 	//点击删除按钮触发方法
-	glacier.basicdatas_mgr.quotedPriceType_mgr.parQuotedPriceType.delParQuotedPriceType = function(){
-		var rows = glacier.basicdatas_mgr.quotedPriceType_mgr.parQuotedPriceType.parQuotedPriceTypeDataGrid.datagrid("getChecked");
+	glacier.basicdatas_mgr.quotedPriceType_mgr.quotedPriceType.delQuotedPriceType = function(){
+		var rows = glacier.basicdatas_mgr.quotedPriceType_mgr.quotedPriceType.purchaseQuotedPriceTypeDataGrid.datagrid("getChecked");
 		var quotedPriceTypeIds = [];//删除的id标识
 		var quotedPriceTypeNames = [];//会员年龄别称
 		for(var i=0;i<rows.length;i++){
@@ -179,7 +180,7 @@
 										timeout:3000,
 										msg:r.msg
 									});
-								   glacier.basicdatas_mgr.quotedPriceType_mgr.parQuotedPriceType.parQuotedPriceTypeDataGrid.datagrid('reload');
+								   glacier.basicdatas_mgr.quotedPriceType_mgr.quotedPriceType.purchaseQuotedPriceTypeDataGrid.datagrid('reload');
 							   }else{
 									$.messager.show({//后台验证弹出错误提示信息框
 										title:'错误提示',
@@ -213,8 +214,8 @@
 <!-- 所有会员年龄别称列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="parQuotedPriceTypeGridPanel" data-options="region:'center',border:true" >
-		<table id="parQuotedPriceTypeDataGrid">
-			<glacierui:toolbar panelEnName="PurchaseQuotedPriceTypeList" toolbarId="parQuotedPriceTypeDataGrid_toolbar" menuEnName="purchaseQuotedPriceType"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+		<table id="purchaseQuotedPriceTypeDataGrid">
+			<glacierui:toolbar panelEnName="PurchaseQuotedPriceTypeList" toolbarId="purchaseQuotedPriceTypeDataGrid_toolbar" menuEnName="purchaseQuotedPriceType"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 	<div data-options="region:'north',split:true"
@@ -222,8 +223,8 @@
 		<form id="parQuotedPriceTypeSearchForm">
 			<table>
 				<tr>
-					<td>名称：</td>
-					<td><input name="natureName" style="width: 80px;"
+					<td>报价类型名称：</td>
+					<td><input name="name" style="width: 80px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
 					<td><input id="parQuotedPriceTypeSearchForm_enabled" name="enabled" style="width: 80px;"
@@ -234,10 +235,10 @@
 						class="easyui-datetimebox" style="width: 100px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
-						onclick="glacier.basicdatas_mgr.quotedPriceType_mgr.parQuotedPriceType.parQuotedPriceTypeDataGrid.datagrid('load',glacier.serializeObject($('#parQuotedPriceTypeSearchForm')));">查询</a>
+						onclick="glacier.basicdatas_mgr.quotedPriceType_mgr.quotedPriceType.purchaseQuotedPriceTypeDataGrid.datagrid('load',glacier.serializeObject($('#parQuotedPriceTypeSearchForm')));">查询</a>
 						<a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-out',plain:true"
-						onclick="$('#parQuotedPriceTypeSearchForm input').val('');glacier.basicdatas_mgr.quotedPriceType_mgr.parQuotedPriceType.parQuotedPriceTypeDataGrid.datagrid('load',{});">重置条件</a>
+						onclick="$('#parQuotedPriceTypeSearchForm input').val('');glacier.basicdatas_mgr.quotedPriceType_mgr.quotedPriceType.purchaseQuotedPriceTypeDataGrid.datagrid('load',{});">重置条件</a>
 					</td>
 				</tr>
 			</table>
