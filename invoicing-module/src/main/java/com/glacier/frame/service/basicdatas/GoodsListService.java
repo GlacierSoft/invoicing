@@ -49,7 +49,6 @@ import com.glacier.jqueryui.util.JqReturnJson;
  * @email 1203807137@qq.com
  * @date 2015-1-9 下午3:30:56
  */
-
 @Service
 @Transactional(readOnly = true ,propagation = Propagation.REQUIRED)
 public class GoodsListService {
@@ -150,15 +149,7 @@ public class GoodsListService {
 		Subject pricipalSubject = SecurityUtils.getSubject();
 		User pricipalUser = (User) pricipalSubject.getPrincipal();
 		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-		GoodsListExample goodsListExample = new GoodsListExample();
 		int count = 0;
-		// // 防止货物档案名称重复
-		goodsListExample.createCriteria().andGoodsNameEqualTo(goodsList.getGoodsName()).andGoodsIdNotEqualTo(goodsList.getGoodsId());
-		count = goodsListMapper.countByExample(goodsListExample);
-		if (count > 0) {
-			returnResult.setMsg("等级名称重复");
-			return returnResult;
-		}
 		goodsList.setCreater(pricipalUser.getUserCnName());
 		goodsList.setCreateTime(new Date());
 		goodsList.setUpdater(pricipalUser.getUserCnName());

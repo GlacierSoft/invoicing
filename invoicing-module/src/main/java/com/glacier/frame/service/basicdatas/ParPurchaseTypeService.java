@@ -49,22 +49,21 @@ import com.glacier.jqueryui.util.JqReturnJson;
  * @email 1203807137@qq.com
  * @date 2015-1-8 下午5:04:51
  */
-
 @Service
 @Transactional(readOnly = true ,propagation = Propagation.REQUIRED)
 public class ParPurchaseTypeService {
+	
 	@Autowired
 	private ParPurchaseTypeMapper purchaseTypeMapper;
 
 	/**
 	 * @Title: listAsGrid
-	 * @Description: TODO(获取所有采购信息)
+	 * @Description: TODO(获取所有采购类型信息)
 	 * @param @param pager
 	 * @param @return 设定文件
 	 * @return Object 返回类型
 	 * @throws
 	 */
-
 	public Object listAsGrid(JqPager jqPager,ParPurchaseTypeQueryDTO purchaseTypeQueryDTO) {
 		JqGridReturn returnResult = new JqGridReturn();
 		ParPurchaseTypeExample parPurchaseTypeExample = new ParPurchaseTypeExample();
@@ -77,7 +76,7 @@ public class ParPurchaseTypeService {
 		if (StringUtils.isNotBlank(jqPager.getSort())&& StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
 			parPurchaseTypeExample.setOrderByClause(jqPager.getOrderBy("temp_par_purchase_type_"));
 		}
-		List<ParPurchaseType> parPurchaseTypeList = purchaseTypeMapper.selectByExample(parPurchaseTypeExample); // 查询所有会员列表
+		List<ParPurchaseType> parPurchaseTypeList = purchaseTypeMapper.selectByExample(parPurchaseTypeExample); // 查询所有信息列表
 		int total = purchaseTypeMapper.countByExample(parPurchaseTypeExample); // 查询总页数
 		returnResult.setRows(parPurchaseTypeList);
 		returnResult.setTotal(total);
@@ -86,7 +85,7 @@ public class ParPurchaseTypeService {
 
 	/**
 	 * @Title: getPurchaseType
-	 * @Description: TODO(获取采购对象)
+	 * @Description: TODO(获取采购类型对象)
 	 * @param @param industryId
 	 * @param @return 设定文件
 	 * @return Object 返回类型
@@ -106,18 +105,18 @@ public class ParPurchaseTypeService {
 	 * @throws
 	 */
 	@Transactional(readOnly = false)
-	@MethodLog(opera = "PurchaseType_add")
+	@MethodLog(opera = "PurchaseTypeList_add")
 	public Object addPurchaseType(ParPurchaseType purchaseType) {
 		Subject pricipalSubject = SecurityUtils.getSubject();
 		User pricipalUser = (User) pricipalSubject.getPrincipal();
 		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
 		ParPurchaseTypeExample parPurchaseTypeExample = new ParPurchaseTypeExample();
 		int count = 0;
-		// 防止行业类型名称重复
+		// 防止采购类型名称重复
 		parPurchaseTypeExample.createCriteria().andNameEqualTo(purchaseType.getName());
 		count = purchaseTypeMapper.countByExample(parPurchaseTypeExample);
 		if (count > 0) {
-			returnResult.setMsg("采购名称重复,请重新填写!");
+			returnResult.setMsg("采购类型名称重复,请重新填写!");
 			returnResult.setSuccess(false);
 			return returnResult;
 		}
@@ -145,14 +144,14 @@ public class ParPurchaseTypeService {
 	 * @throws
 	 */
 	@Transactional(readOnly = false)
-	@MethodLog(opera = "PurchaseType_edit")
+	@MethodLog(opera = "PurchaseTypeList_edit")
 	public Object editPurchaseType(ParPurchaseType purchaseType) {
 		Subject pricipalSubject = SecurityUtils.getSubject();
 		User pricipalUser = (User) pricipalSubject.getPrincipal();
 		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
 		ParPurchaseTypeExample parPurchaseTypeExample = new ParPurchaseTypeExample();
 		int count = 0;
-		// 防止行业类型名称重复
+		// 防止采购类型名称重复
 		parPurchaseTypeExample.createCriteria().andNameEqualTo(purchaseType.getName()).andPurchaseTypeIdNotEqualTo(purchaseType.getPurchaseTypeId());
 		count = purchaseTypeMapper.countByExample(parPurchaseTypeExample);
 		if (count > 0) {
@@ -180,7 +179,7 @@ public class ParPurchaseTypeService {
 	 * @throws
 	 */
 	@Transactional(readOnly = false)
-	@MethodLog(opera = "PurchaseType_del")
+	@MethodLog(opera = "PurchaseTypeList_del")
 	public Object delPurchaseType(List<String> purchaseTypeIds,List<String> names) {
 		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
 		int count = 0;

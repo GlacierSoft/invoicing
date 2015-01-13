@@ -5,20 +5,18 @@
 	uri="http://com.glacier.permissions.com.cn/tag/easyui"%>
 
 <script type="text/javascript">
-	$.util.namespace('glacier.purchaseType_mgr.purchaseType');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
+	$.util.namespace('glacier.basicdatas_mgr.purchaseType_mgr.purchaseType');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 
 	//定义toolbar的操作，对操作进行控制
-	glacier.purchaseType_mgr.purchaseType.param = {
+	glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.param = {
 		toolbarId : 'purchaseTypeDataGrid_toolbar',
 		actions : {
 	            edit:{flag:'edit',controlType:'single'},
-	            del:{flag:'del',controlType:'multiple'},
-	            state:{flag:'state',controlType:'single'}
+	            del:{flag:'del',controlType:'multiple'}, 
 	         }
-     };
-
+     }; 
 	//初始化DataGrid
-	glacier.purchaseType_mgr.purchaseType.purchaseTypeDataGrid = $('#purchaseTypeDataGrid').datagrid({
+	glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.purchaseTypeDataGrid = $('#purchaseTypeDataGrid').datagrid({
 		fit : true,//控件自动resize占满窗口大小
 		iconCls : 'icon-save',//图标样式
 		border : false,//是否存在边框
@@ -84,27 +82,27 @@
 		toolbar : '#purchaseTypeDataGrid_toolbar',
 		onCheck : function(rowIndex, rowData) {//选择行事件触发
 			action_controller(
-					glacier.purchaseType_mgr.purchaseType.param,this).check();
+					glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.param,this).check();
 		},
 		onCheckAll : function(rows) {//取消勾选行状态触发事件
 			action_controller(
-					glacier.purchaseType_mgr.purchaseType.param,this).check();
+					glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.param,this).check();
 		},
 		onUncheck : function(rowIndex, rowData) {//选择行事件触发
 			action_controller(
-					glacier.purchaseType_mgr.purchaseType.param,this).unCheck();
+					glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.param,this).unCheck();
 		},
 		onUncheckAll : function(rows) {//取消勾选行状态触发事件
 			action_controller(
-					glacier.purchaseType_mgr.purchaseType.param,this).unCheck();
+					glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.param,this).unCheck();
 		},
 		onSelect : function(rowIndex, rowData) {//选择行事件触发
 			action_controller(
-					glacier.purchaseType_mgr.purchaseType.param,this).select();
+					glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.param,this).select();
 		},
 		onUnselectAll : function(rows) {
 			action_controller(
-					glacier.purchaseType_mgr.purchaseType.param,this).unSelect();
+					glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.param,this).unSelect();
 		},
 		onLoadSuccess : function(index, record) {//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
@@ -129,7 +127,7 @@
 	});
 	
 	//点击增加按钮触发方法
-	glacier.purchaseType_mgr.purchaseType.addPurchaseType= function(){
+	glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.addPurchaseType= function(){
 		glacier.basicAddOrEditDialog({
 			title : '【采购类型】- 增加',
 			width : 270,
@@ -137,13 +135,13 @@
 			queryUrl : ctx + '/do/purchaseType/intoForm.htm',
 			submitUrl : ctx + '/do/purchaseType/add.json',
 			successFun : function (){
-				glacier.purchaseType_mgr.purchaseType.purchaseTypeDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.purchaseTypeDataGrid.datagrid('reload');
 			}
 		});
 	};
 	//点击编辑按钮触发方法
-	glacier.purchaseType_mgr.purchaseType.editPurchaseType= function(){
-		var row = glacier.purchaseType_mgr.purchaseType.purchaseTypeDataGrid.datagrid("getSelected");
+	glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.editPurchaseType= function(){
+		var row = glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.purchaseTypeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【采购类型】- 编辑',
 			width : 270,
@@ -154,14 +152,14 @@
 				purchaseTypeId : row.purchaseTypeId
 			},
 			successFun : function (){
-				glacier.purchaseType_mgr.purchaseType.purchaseTypeDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.purchaseTypeDataGrid.datagrid('reload');
 			}
 		});
 	};
 	
 	//点击删除按钮触发方法
-	glacier.purchaseType_mgr.purchaseType.delPurchaseType= function() {
-		var rows =glacier.purchaseType_mgr.purchaseType.purchaseTypeDataGrid.datagrid("getChecked");
+	glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.delPurchaseType= function() {
+		var rows =glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.purchaseTypeDataGrid.datagrid("getChecked");
 		var purchaseTypeIds = [];//删除的id标识
 		var names = [];
 		for ( var i = 0; i < rows.length; i++) {
@@ -186,7 +184,7 @@
 									timeout : 3000,
 									msg : r.msg
 								});
-								glacier.purchaseType_mgr.purchaseType.purchaseTypeDataGrid.datagrid('reload');
+								glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.purchaseTypeDataGrid.datagrid('reload');
 							} else {
 								$.messager.show({//后台验证弹出错误提示信息框
 											title : '错误提示',
@@ -243,10 +241,10 @@
 						class="easyui-datetimebox" style="width: 100px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
-						onclick="glacier.purchaseType_mgr.purchaseType.purchaseTypeDataGrid.datagrid('load',glacier.serializeObject($('#purchaseTypeSearchForm')));">查询</a>
+						onclick="glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.purchaseTypeDataGrid.datagrid('load',glacier.serializeObject($('#purchaseTypeSearchForm')));">查询</a>
 						<a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-out',plain:true"
-						onclick="$('#purchaseTypeSearchForm input').val('');glacier.purchaseType_mgr.purchaseType.purchaseTypeDataGrid.datagrid('load',{});">重置条件</a>
+						onclick="$('#purchaseTypeSearchForm input').val('');glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.purchaseTypeDataGrid.datagrid('load',{});">重置条件</a>
 					</td>
 				</tr>
 			</table>
