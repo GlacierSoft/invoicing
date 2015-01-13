@@ -4,11 +4,11 @@
 
 <script type="text/javascript">
 
-	$.util.namespace('glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
+	$.util.namespace('glacier.basicdatas_mgr.comPaymentType_mgr.comPaymentType');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
 	//定义toolbar的操作，对操作进行控制 
-	glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.param = {
-			toolbarId : 'parPaymentTypeDataGrid_toolbar',
+	glacier.basicdatas_mgr.comPaymentType_mgr.comPaymentType.param = {
+			toolbarId : 'comPaymentTypeDataGrid_toolbar',
 			actions : {
 				edit:{flag:'edit',controlType:'single'},
 				del:{flag:'del',controlType:'multiple'}
@@ -16,7 +16,7 @@
 	};
 	
 	//初始化支付方式DataGrid
-	glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.parPaymentTypeDataGrid = $('#parPaymentTypeDataGrid').datagrid({
+	glacier.basicdatas_mgr.comPaymentType_mgr.comPaymentType.comPaymentTypeDataGrid = $('#comPaymentTypeDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
@@ -81,24 +81,24 @@
 		pageSize : 10,//注意，pageSize必须在pageList存在
 		pageList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
-		toolbar:'#parPaymentTypeDataGrid_toolbar',
+		toolbar:'#comPaymentTypeDataGrid_toolbar',
 		onCheck:function(rowIndex,rowData){//在用户勾选一行的时候触发事件
-			action_controller(glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.param,this).check();
+			action_controller(glacier.basicdatas_mgr.comPaymentType_mgr.comPaymentType.param,this).check();
 		},
 		onCheckAll:function(rows){//在用户勾选所有行的时候触发
-			action_controller(glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.param,this).check();
+			action_controller(glacier.basicdatas_mgr.comPaymentType_mgr.comPaymentType.param,this).check();
 		},
 		onUncheck:function(rowIndex,rowData){//在用户取消勾选一行的时候触发
-			action_controller(glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.param,this).unCheck();
+			action_controller(glacier.basicdatas_mgr.comPaymentType_mgr.comPaymentType.param,this).unCheck();
 		},
 		onUncheckAll:function(rows){//在用户取消勾选所有行的时候触发
-			action_controller(glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.param,this).unCheck();
+			action_controller(glacier.basicdatas_mgr.comPaymentType_mgr.comPaymentType.param,this).unCheck();
 		},
 		onSelect:function(rowIndex, rowData){//在用户选择一行的时候触发
-			action_controller(glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.param,this).select();
+			action_controller(glacier.basicdatas_mgr.comPaymentType_mgr.comPaymentType.param,this).select();
 		},
 		onUnselectAll:function(rows){//在用户取消勾选所有行的时候触发
-			action_controller(glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.param,this).unSelect();
+			action_controller(glacier.basicdatas_mgr.comPaymentType_mgr.comPaymentType.param,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
@@ -123,7 +123,7 @@
 		}
 	});
 	//点击增加按钮触发方法
-	glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.addParPaymentType = function(){
+	glacier.basicdatas_mgr.comPaymentType_mgr.comPaymentType.addComPaymentType = function(){
 		glacier.basicAddOrEditDialog({
 			title : '【支付方式】 - 增加',
 			width : 420,
@@ -131,14 +131,14 @@
 			queryUrl : ctx + '/do/comPaymentType/intoForm.htm',
 			submitUrl : ctx + '/do/comPaymentType/add.json',
 			successFun : function (){
-				glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.parPaymentTypeDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.comPaymentType_mgr.comPaymentType.comPaymentTypeDataGrid.datagrid('reload');
 			}
 		});
 	};
 	
 	//点击编辑按钮触发方法
-	glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.editParPaymentType = function(){
-		var row = glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.parPaymentTypeDataGrid.datagrid("getSelected");
+	glacier.basicdatas_mgr.comPaymentType_mgr.comPaymentType.editComPaymentType = function(){
+		var row = glacier.basicdatas_mgr.comPaymentType_mgr.comPaymentType.comPaymentTypeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【支付方式】 - 编辑',
 			width : 420,
@@ -149,26 +149,26 @@
 				paymentTypeId : row.paymentTypeId
 			},
 			successFun : function (){
-				glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.parPaymentTypeDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.comPaymentType_mgr.comPaymentType.comPaymentTypeDataGrid.datagrid('reload');
 			}
 		});
 	};
 	//点击删除按钮触发方法
-	glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.delParPaymentType = function(){
-		var rows = glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.parPaymentTypeDataGrid.datagrid("getChecked");
-		var parPaymentTypeIds = [];//删除的id标识
-		var parPaymentTypes = [];//日志记录引用名称
+	glacier.basicdatas_mgr.comPaymentType_mgr.comPaymentType.delComPaymentType = function(){
+		var rows = glacier.basicdatas_mgr.comPaymentType_mgr.comPaymentType.comPaymentTypeDataGrid.datagrid("getChecked");
+		var parComPaymentTypeIds = [];//删除的id标识
+		var parComPaymentTypeNames = [];//日志记录引用名称
 		for(var i =0;i<rows.length;i++){
-			parPaymentTypeIds.push(rows[i].paymentTypeId);
-			parPaymentTypes.push(rows[i].paymentTypeName);
+			parComPaymentTypeIds.push(rows[i].paymentTypeId);
+			parComPaymentTypeNames.push(rows[i].paymentTypeName);
 		}
-		if(parPaymentTypeIds.length > 0){
+		if(parComPaymentTypeIds.length > 0){
 			$.messager.confirm('请确认', '是否要删除该记录', function(r){
 				if (r){
 					$.ajax({
 						   type: "POST",
 						   url: ctx + '/do/comPaymentType/del.json',
-						   data: {parPaymentTypeIds:parPaymentTypeIds.join(','),parPaymentTypeNames:parPaymentTypes.join(',')},
+						   data: {parComPaymentTypeIds:parComPaymentTypeIds.join(','),parComPaymentTypeNames:parComPaymentTypeNames.join(',')},
 						   dataType:'json',
 						   success: function(r){
 							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
@@ -177,7 +177,7 @@
 										timeout:3000,
 										msg:r.msg
 									});
-								   glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.parPaymentTypeDataGrid.datagrid('reload');
+								   glacier.basicdatas_mgr.comPaymentType_mgr.comPaymentType.comPaymentTypeDataGrid.datagrid('reload');
 							   }else{
 									$.messager.show({//后台验证弹出错误提示信息框
 										title:'错误提示',
@@ -198,8 +198,8 @@
 <!-- 所有支付方式列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="creditGridPanel" data-options="region:'center',border:true" >
-		<table id="parPaymentTypeDataGrid">
-			<glacierui:toolbar panelEnName="ComPaymentTypeList" toolbarId="parPaymentTypeDataGrid_toolbar" menuEnName="comPaymentType"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+		<table id="comPaymentTypeDataGrid">
+			<glacierui:toolbar panelEnName="ComPaymentTypeList" toolbarId="comPaymentTypeDataGrid_toolbar" menuEnName="comPaymentType"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 	<div data-options="region:'north',split:true"
@@ -219,10 +219,10 @@
 						class="easyui-datetimebox" style="width: 100px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
-						onclick="glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.parPaymentTypeDataGrid.datagrid('load',glacier.serializeObject($('#parPaymentTypeSearchForm')));">查询</a>
+						onclick="glacier.basicdatas_mgr.comPaymentType_mgr.comPaymentType.comPaymentTypeDataGrid.datagrid('load',glacier.serializeObject($('#parPaymentTypeSearchForm')));">查询</a>
 						<a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-out',plain:true"
-						onclick="$('#parPaymentTypeSearchForm input').val('');glacier.basicdatas_mgr.parPaymentType_mgr.parPaymentType.parPaymentTypeDataGrid.datagrid('load',{});">重置条件</a>
+						onclick="$('#parPaymentTypeSearchForm input').val('');glacier.basicdatas_mgr.comPaymentType_mgr.comPaymentType.comPaymentTypeDataGrid.datagrid('load',{});">重置条件</a>
 					</td>
 				</tr>
 			</table>

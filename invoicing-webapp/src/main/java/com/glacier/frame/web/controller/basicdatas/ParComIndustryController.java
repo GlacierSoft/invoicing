@@ -45,7 +45,6 @@ import com.glacier.jqueryui.util.JqPager;
  * @email 1203807137@qq.com
  * @date 2015-1-8 上午10:42:21
  */
-
 @Controller
 @RequestMapping(value = "/comIndustry")
 public class ParComIndustryController {
@@ -60,7 +59,7 @@ public class ParComIndustryController {
         return mav;
     } 
 
-    // 获取表格结构的所有菜单数据
+    // 获取表格结构的所有公司规模数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
     private Object listActionAsGridByMenuId(JqPager jqPager, ParComIndustryQueryDTO parComIndustryQueryDTO) {

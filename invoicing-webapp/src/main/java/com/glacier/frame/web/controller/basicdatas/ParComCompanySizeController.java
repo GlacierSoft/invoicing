@@ -38,21 +38,21 @@ public class ParComCompanySizeController extends AbstractController{
     @Autowired
     private ParComCompanySizeService parComCompanySizeService;// 注入service
     
-    // 进入列表展示页面
+    //进入列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexParea() {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/comCompanySize_mgr/comCompanySize");
         return mav;
     }
      
-    // 获取表格结构的所有菜单数据
+    //获取表格结构的所有公司规模数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
     private Object listActionAsGridByMenuId(JqPager jqPager, ParComCompanySizeQueryDTO parComCompanySizeQueryDTO) {
         return parComCompanySizeService.listAsGrid(jqPager, parComCompanySizeQueryDTO);
     }
     
-     // 进入表单页面
+    //进入表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object inForme(String companySizeId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/comCompanySize_mgr/comCompanySize_form");
@@ -62,7 +62,7 @@ public class ParComCompanySizeController extends AbstractController{
         return mav;
     }
     
-    // 进入Detail信息页面
+    //进入Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoParComCompanySizeDetailPage(String parComCompanySizeId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/comCompanySize_mgr/comCompanySize_detail");
@@ -72,7 +72,7 @@ public class ParComCompanySizeController extends AbstractController{
         return mav;
     }
     
-     //新增公司规模
+    //新增公司规模
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
     private Object addarea(@Valid ParComCompanySize ParComCompanySize, BindingResult bindingResult) {
@@ -82,14 +82,14 @@ public class ParComCompanySizeController extends AbstractController{
         return parComCompanySizeService.addParComCompanySize(ParComCompanySize);
     }  
     
-    // 修改公司规模
+    //修改公司规模
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
     private Object editRole(@Valid ParComCompanySize parComCompanySize, BindingResult bindingResult) {
          return parComCompanySizeService.editParComCompanySize(parComCompanySize);
     }
     
-    // 删除公司规模
+    //删除公司规模
     @RequestMapping(value = "/del.json", method = RequestMethod.POST)
     @ResponseBody
     public Object del(@RequestParam List<String> parComCompanySizeIds,@RequestParam List<String> parComCompanyNames) {

@@ -42,14 +42,14 @@ public class ParComCompanySizeService {
     @Autowired
     private ParComCompanySizeMapper parComCompanySizeMapper;
       
-     /***
-      * @Title: getParComCompanySize  
-      * @Description: TODO(根据id获取公司规模)  
-      * @param @param parComCompanySizeId
-      * @param @return    设定文件  
-      * @return Object    返回类型  
-      * @throws
-      */
+    /***
+     * @Title: getParComCompanySize  
+     * @Description: TODO(根据id获取公司规模)  
+     * @param @param parComCompanySizeId
+     * @param @return    设定文件  
+     * @return Object    返回类型  
+     * @throws
+     */
     public Object getParComCompanySize(String parComCompanySizeId) {
         return parComCompanySizeMapper.selectByPrimaryKey(parComCompanySizeId);
     } 
@@ -75,7 +75,7 @@ public class ParComCompanySizeService {
          if (StringUtils.isNotBlank(jqPager.getSort()) && StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
             parComCompanySizeExample.setOrderByClause(jqPager.getOrderBy("temp_par_com_company_size_"));
         } 
-        List<ParComCompanySize>  carrierCarTypeList = parComCompanySizeMapper.selectByExample(parComCompanySizeExample); // 查询所有会员列表
+        List<ParComCompanySize>  carrierCarTypeList = parComCompanySizeMapper.selectByExample(parComCompanySizeExample); // 查询所有公司规模列表
         int total = parComCompanySizeMapper.countByExample(parComCompanySizeExample); // 查询总页数
         returnResult.setRows(carrierCarTypeList);
         returnResult.setTotal(total);
@@ -92,14 +92,14 @@ public class ParComCompanySizeService {
       * @throws
       */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "CompanySizeList_add")
+    @MethodLog(opera = "ComCompanySizeList_add")
     public Object addParComCompanySize(ParComCompanySize parComCompanySize) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParComCompanySizeExample parComCompanySizeExample = new ParComCompanySizeExample();
         int count = 0;
-        // 防止名称重复
+        //防止名称重复
         parComCompanySizeExample.createCriteria().andCompanySizeNameEqualTo(parComCompanySize.getCompanySizeName());
         count = parComCompanySizeMapper.countByExample(parComCompanySizeExample);
         if (count > 0) {
@@ -131,14 +131,14 @@ public class ParComCompanySizeService {
       * @throws
       */
     @Transactional(readOnly = false) 
-    @MethodLog(opera = "CompanySizeList_edit")
+    @MethodLog(opera = "ComCompanySizeList_edit")
     public Object editParComCompanySize(ParComCompanySize parComCompanySize) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         ParComCompanySizeExample parComCompanySizeExample = new ParComCompanySizeExample();
         int count = 0; 
-       // 防止名称重复
+        //防止名称重复
         parComCompanySizeExample.createCriteria().andCompanySizeNameEqualTo(parComCompanySize.getCompanySizeName());
         count = parComCompanySizeMapper.countByExample(parComCompanySizeExample);
         if (count > 0) {
@@ -168,7 +168,7 @@ public class ParComCompanySizeService {
      * @throws
      */
     @Transactional(readOnly = false) 
-    @MethodLog(opera = "CompanySizeList_del")
+    @MethodLog(opera = "ComCompanySizeList_del")
     public Object delCarType(List<String> parComCompanySizeIds, List<String> parComCompanyNames) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;

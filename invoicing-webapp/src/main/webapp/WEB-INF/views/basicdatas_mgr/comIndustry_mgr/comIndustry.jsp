@@ -40,7 +40,7 @@
 			checkbox : true
 		}, {
 			field : 'industryName',
-			title : '行业类型',
+			title : '行业类型名称',
 			width : 120,
 			sortable : true
 		},{

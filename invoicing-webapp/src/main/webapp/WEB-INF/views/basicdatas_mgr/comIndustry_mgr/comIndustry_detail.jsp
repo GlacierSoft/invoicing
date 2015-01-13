@@ -12,7 +12,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>行业序号：</td>
+			<td>序号：</td>
 			<td><input class="spinner" style="width:150px"  value="${suppliersIndustryDate.industyCode}" readonly="readonly"/></td>
 			<td>是否启用：</td>
 			<td colspan="3"><input id="enabled" class="spinner" style="width:150px"  value="${suppliersIndustryDate.enabled}" readonly="readonly"/></td>

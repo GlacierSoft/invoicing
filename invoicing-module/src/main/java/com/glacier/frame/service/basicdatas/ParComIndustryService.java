@@ -45,12 +45,11 @@ import com.glacier.jqueryui.util.JqReturnJson;
 
 /**
  * @ClassName: ParComIndustryService 
- * @Description: TODO(供应商行业类型业务层) 
+ * @Description: TODO(行业类型业务层) 
  * @author junjie.zheng
  * @email 1203807137@qq.com
  * @date 2015-1-8 上午10:05:50
  */
-
 @Service
 @Transactional(readOnly = true ,propagation = Propagation.REQUIRED)
 public class ParComIndustryService {
@@ -66,7 +65,6 @@ public class ParComIndustryService {
      * @return Object    返回类型 
      * @throws
      */
-	
 	public Object listAsGrid(JqPager jqPager,ParComIndustryQueryDTO parComIndustryQueryDTO) {
 		JqGridReturn returnResult = new JqGridReturn();
 		ParComIndustryExample parComIndustryExample = new ParComIndustryExample();
@@ -79,7 +77,7 @@ public class ParComIndustryService {
 		if (StringUtils.isNotBlank(jqPager.getSort())&& StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
 			parComIndustryExample.setOrderByClause(jqPager.getOrderBy("temp_par_com_industry_"));
 		}
-		List<ParComIndustry> carrierCarTypeList = parComIndustryMapper.selectByExample(parComIndustryExample); // 查询所有会员列表
+		List<ParComIndustry> carrierCarTypeList = parComIndustryMapper.selectByExample(parComIndustryExample); // 查询所有行业类型列表
 		int total = parComIndustryMapper.countByExample(parComIndustryExample); // 查询总页数
 		returnResult.setRows(carrierCarTypeList);
 		returnResult.setTotal(total);
@@ -108,7 +106,7 @@ public class ParComIndustryService {
 	 * @throws
 	 */
 	@Transactional(readOnly = false)
-	@MethodLog(opera = "SuppliersIndustry_add")
+	@MethodLog(opera = "ComIndustryList_add")
 	public Object addSuppliersIndustry(ParComIndustry parComIndustry) {
 		Subject pricipalSubject = SecurityUtils.getSubject();
 		User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -147,7 +145,7 @@ public class ParComIndustryService {
 	 * @throws
 	 */
 	@Transactional(readOnly = false)
-	@MethodLog(opera = "SuppliersIndustry_edit")
+	@MethodLog(opera = "ComIndustryList_edit")
 	public Object editSuppliersIndustry(ParComIndustry parComIndustry) {
 		Subject pricipalSubject = SecurityUtils.getSubject();
 		User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -184,7 +182,7 @@ public class ParComIndustryService {
 	 * @throws
 	 */
 	@Transactional(readOnly = false)
-	@MethodLog(opera = "SuppliersIndustry_del")
+	@MethodLog(opera = "ComIndustryList_del")
 	public Object delSuppliersIndustry(List<String> industryIds,List<String> industryNames) {
 		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
 		int count = 0;
@@ -194,7 +192,7 @@ public class ParComIndustryService {
 			count = parComIndustryMapper.deleteByExample(parComIndustryExample);
 			if (count > 0) {
 				returnResult.setSuccess(true);
-				returnResult.setMsg("成功删除了【 " + industryIds.size()+ " 】	条行业类型信息");
+				returnResult.setMsg("成功删除了【 " + industryIds.size()+ " 】条行业类型信息");
 			} else {
 				returnResult.setMsg("发生未知错误，行业类型信息删除失败");
 			}

@@ -4,11 +4,11 @@
 
 <script type="text/javascript">
 
-	$.util.namespace('glacier.basicdatas_mgr.parCompanySize_mgr.parCompanySize');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
+	$.util.namespace('glacier.basicdatas_mgr.companySize_mgr.companySize');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
 	//定义toolbar的操作，对操作进行控制
-	glacier.basicdatas_mgr.parCompanySize_mgr.parCompanySize.param = {
-			toolbarId : 'parCompanySizeDataGrid_toolbar',
+	glacier.basicdatas_mgr.companySize_mgr.companySize.param = {
+			toolbarId : 'comCompanySizeDataGrid_toolbar',
 			actions : {  
 				edit:{flag:'edit',controlType:'single'},
 				del:{flag:'del',controlType:'multiple'} 
@@ -16,7 +16,7 @@
 	}; 
 	
 	//初始化会员年龄别称DataGrid
-	glacier.basicdatas_mgr.parCompanySize_mgr.parCompanySize.parCompanySizeDataGrid = $('#parCompanySizeDataGrid').datagrid({
+	glacier.basicdatas_mgr.companySize_mgr.companySize.comCompanySizeDataGrid = $('#comCompanySizeDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
@@ -38,14 +38,14 @@
 				title:'ID',
 				checkbox:true
 			},{
+				field:'companySizeName',
+				title:'公司规模名称',
+				width:200,
+				sortable:true
+			},{
 				field:'sequenced',
 				title:'序号',
 				width:120,
-				sortable:true
-			},{
-				field:'companySizeName',
-				title:'名称',
-				width:200,
 				sortable:true
 			},{
 				field:'enabled',
@@ -81,24 +81,24 @@
 		pageSize : 10,//注意，pageSize必须在pageList存在
 		pageList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
-		toolbar:'#parCompanySizeDataGrid_toolbar',
+		toolbar:'#comCompanySizeDataGrid_toolbar',
 		onCheck:function(rowIndex,rowData){//选择行事件触发
-			action_controller(glacier.basicdatas_mgr.parCompanySize_mgr.parCompanySize.param,this).check();
+			action_controller(glacier.basicdatas_mgr.companySize_mgr.companySize.param,this).check();
 		},
 		onCheckAll:function(rows){//取消勾选行状态触发事件
-			action_controller(glacier.basicdatas_mgr.parCompanySize_mgr.parCompanySize.param,this).check();
+			action_controller(glacier.basicdatas_mgr.companySize_mgr.companySize.param,this).check();
 		},
 		onUncheck:function(rowIndex,rowData){//选择行事件触发
-			action_controller(glacier.basicdatas_mgr.parCompanySize_mgr.parCompanySize.param,this).unCheck();
+			action_controller(glacier.basicdatas_mgr.companySize_mgr.companySize.param,this).unCheck();
 		},
 		onUncheckAll:function(rows){//取消勾选行状态触发事件
-			action_controller(glacier.basicdatas_mgr.parCompanySize_mgr.parCompanySize.param,this).unCheck();
+			action_controller(glacier.basicdatas_mgr.companySize_mgr.companySize.param,this).unCheck();
 		},
 		onSelect:function(rowIndex, rowData){//选择行事件触发
-			action_controller(glacier.basicdatas_mgr.parCompanySize_mgr.parCompanySize.param,this).select();
+			action_controller(glacier.basicdatas_mgr.companySize_mgr.companySize.param,this).select();
 		},
 		onUnselectAll:function(rows){
-			action_controller(glacier.basicdatas_mgr.parCompanySize_mgr.parCompanySize.param,this).unSelect();
+			action_controller(glacier.basicdatas_mgr.companySize_mgr.companySize.param,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
@@ -122,7 +122,7 @@
 		}
 	});
 	//点击增加按钮触发方法
-	glacier.basicdatas_mgr.parCompanySize_mgr.parCompanySize.addparCompanySize = function(){
+	glacier.basicdatas_mgr.companySize_mgr.companySize.addCompanySize = function(){
 		glacier.basicAddOrEditDialog({
 			title : '新增公司规模',
 			width : 380,
@@ -130,13 +130,13 @@
 			queryUrl : ctx + '/do/comCompanySize/intoForm.htm',
 			submitUrl : ctx + '/do/comCompanySize/add.json',
 			successFun : function (){
-				glacier.basicdatas_mgr.parCompanySize_mgr.parCompanySize.parCompanySizeDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.companySize_mgr.companySize.comCompanySizeDataGrid.datagrid('reload');
 			}
 		});
 	};
 	//点击编辑按钮触发方法
-	glacier.basicdatas_mgr.parCompanySize_mgr.parCompanySize.editparCompanySize = function(){
-		var row = glacier.basicdatas_mgr.parCompanySize_mgr.parCompanySize.parCompanySizeDataGrid.datagrid("getSelected");
+	glacier.basicdatas_mgr.companySize_mgr.companySize.editCompanySize = function(){
+		var row = glacier.basicdatas_mgr.companySize_mgr.companySize.comCompanySizeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑公司规模',
 			width : 380,
@@ -147,28 +147,28 @@
 				companySizeId : row.companySizeId
 			},
 			successFun : function (){
-				glacier.basicdatas_mgr.parCompanySize_mgr.parCompanySize.parCompanySizeDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.companySize_mgr.companySize.comCompanySizeDataGrid.datagrid('reload');
 			}
 		});
 	};
 	 
 	
 	//点击删除按钮触发方法
-	glacier.basicdatas_mgr.parCompanySize_mgr.parCompanySize.delparCompanySize = function(){
-		var rows = glacier.basicdatas_mgr.parCompanySize_mgr.parCompanySize.parCompanySizeDataGrid.datagrid("getChecked");
-		var parCompanySizeIds = [];//删除的id标识
-		var parCompanySizeNames = [];//会员年龄别称
+	glacier.basicdatas_mgr.companySize_mgr.companySize.delCompanySize = function(){
+		var rows = glacier.basicdatas_mgr.companySize_mgr.companySize.comCompanySizeDataGrid.datagrid("getChecked");
+		var parComCompanySizeIds = [];//删除的id标识
+		var parComCompanyNames = [];//公司规模别称
 		for(var i=0;i<rows.length;i++){
-			parCompanySizeIds.push(rows[i].companySizeId);
-			parCompanySizeNames.push(rows[i].companySizeName);
+			parComCompanySizeIds.push(rows[i].companySizeId);
+			parComCompanyNames.push(rows[i].companySizeName);
 		}
-		if(parCompanySizeIds.length > 0){
+		if(parComCompanySizeIds.length > 0){
 			$.messager.confirm('请确认','是否要删除该记录',function(r){
 				if (r){
 					$.ajax({
 						   type: "POST",
 						   url: ctx + '/do/comCompanySize/del.json',
-						   data: {parCompanySizeIds:parCompanySizeIds.join(','),parCompanyNames:parCompanySizeNames.join(',')},
+						   data: {parComCompanySizeIds:parComCompanySizeIds.join(','),parComCompanyNames:parComCompanyNames.join(',')},
 						   dataType:'json',
 						   success: function(r){
 							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
@@ -177,7 +177,7 @@
 										timeout:3000,
 										msg:r.msg
 									});
-								   glacier.basicdatas_mgr.parCompanySize_mgr.parCompanySize.parCompanySizeDataGrid.datagrid('reload');
+								   glacier.basicdatas_mgr.companySize_mgr.companySize.comCompanySizeDataGrid.datagrid('reload');
 							   }else{
 									$.messager.show({//后台验证弹出错误提示信息框
 										title:'错误提示',
@@ -211,8 +211,8 @@
 <!-- 所有会员年龄别称列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="parCompanySizeGridPanel" data-options="region:'center',border:true" >
-		<table id="parCompanySizeDataGrid">
-			<glacierui:toolbar panelEnName="ComCompanySizeList" toolbarId="parCompanySizeDataGrid_toolbar" menuEnName="comCompanySize"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+		<table id="comCompanySizeDataGrid">
+			<glacierui:toolbar panelEnName="ComCompanySizeList" toolbarId="comCompanySizeDataGrid_toolbar" menuEnName="comCompanySize"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 	<div data-options="region:'north',split:true"
@@ -232,10 +232,10 @@
 						class="easyui-datetimebox" style="width: 100px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
-						onclick="glacier.basicdatas_mgr.parCompanySize_mgr.parCompanySize.parCompanySizeDataGrid.datagrid('load',glacier.serializeObject($('#parCompanySizeSearchForm')));">查询</a>
+						onclick="glacier.basicdatas_mgr.companySize_mgr.companySize.comCompanySizeDataGrid.datagrid('load',glacier.serializeObject($('#parCompanySizeSearchForm')));">查询</a>
 						<a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-out',plain:true"
-						onclick="$('#parCompanySizeSearchForm input').val('');glacier.basicdatas_mgr.parCompanySize_mgr.parCompanySize.parCompanySizeDataGrid.datagrid('load',{});">重置条件</a>
+						onclick="$('#parCompanySizeSearchForm input').val('');glacier.basicdatas_mgr.companySize_mgr.companySize.comCompanySizeDataGrid.datagrid('load',{});">重置条件</a>
 					</td>
 				</tr>
 			</table>

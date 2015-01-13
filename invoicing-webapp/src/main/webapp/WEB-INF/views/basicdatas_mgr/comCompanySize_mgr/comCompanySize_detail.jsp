@@ -12,10 +12,10 @@
 			</td>
 		</tr> 
 		<tr>
-		 	<td>状态：</td>
-			<td><input id="status" class="spinner" style="width:168px" value="${companySizeData.enabled}" ></td>
 			<td>序号：</td>
 			<td><input class="spinner" style="width:168px" value="${companySizeData.sequenced}" readonly="readonly"/></td>
+		 	<td>状态：</td>
+			<td><input id="status" class="spinner" style="width:168px" value="${companySizeData.enabled}" ></td>
 	    </tr> 
 		<tr>
 			<td>创建人：</td>

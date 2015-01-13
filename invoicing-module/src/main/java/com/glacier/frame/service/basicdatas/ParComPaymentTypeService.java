@@ -95,7 +95,7 @@ public class ParComPaymentTypeService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "PaymentTypeList_add")
+    @MethodLog(opera = "ComPaymentTypeList_add")
     public Object addParComPaymentType(ParComPaymentType parComPaymentType) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -134,7 +134,7 @@ public class ParComPaymentTypeService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "PaymentTypeList_edit")
+    @MethodLog(opera = "ComPaymentTypeList_edit")
     public Object editParComPaymentType(ParComPaymentType parComPaymentType) {
     	Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -170,7 +170,7 @@ public class ParComPaymentTypeService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "PaymentTypeList_del")
+    @MethodLog(opera = "ComPaymentTypeList_del")
     public Object delParComPaymentType(List<String> paymentTypesId, List<String> paymentTypeNames) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
