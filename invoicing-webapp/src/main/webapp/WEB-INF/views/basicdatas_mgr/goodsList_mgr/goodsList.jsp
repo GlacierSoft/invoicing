@@ -6,10 +6,10 @@
 
 <script type="text/javascript">
 	
-	$.util.namespace('glacier.goodsList_mgr.goodsList');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
+	$.util.namespace('glacier.basicdatas_mgr.goodsList_mgr.goodsList');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 
 	//定义toolbar的操作，对操作进行控制
-	glacier.goodsList_mgr.goodsList.param = {
+	glacier.basicdatas_mgr.goodsList_mgr.goodsList.param = {
 		toolbarId : 'GoodsListDataGrid_toolbar',
 		actions : {
 	            edit:{flag:'edit',controlType:'single'},
@@ -19,7 +19,7 @@
      };
 
 	//初始化DataGrid
-	glacier.goodsList_mgr.goodsList.goodsListDataGrid = $('#goodsListDataGrid').datagrid({
+	glacier.basicdatas_mgr.goodsList_mgr.goodsList.goodsListDataGrid = $('#goodsListDataGrid').datagrid({
 		fit : true,//控件自动resize占满窗口大小
 		iconCls : 'icon-save',//图标样式
 		border : false,//是否存在边框
@@ -89,27 +89,27 @@
 		toolbar : '#GoodsListDataGrid_toolbar',
 		onCheck : function(rowIndex, rowData) {//选择行事件触发
 			action_controller(
-					glacier.goodsList_mgr.goodsList.param,this).check();
+					glacier.basicdatas_mgr.goodsList_mgr.goodsList.param,this).check();
 		},
 		onCheckAll : function(rows) {//取消勾选行状态触发事件
 			action_controller(
-					glacier.goodsList_mgr.goodsList.param,this).check();
+					glacier.basicdatas_mgr.goodsList_mgr.goodsList.param,this).check();
 		},
 		onUncheck : function(rowIndex, rowData) {//选择行事件触发
 			action_controller(
-					glacier.goodsList_mgr.goodsList.param,this).unCheck();
+					glacier.basicdatas_mgr.goodsList_mgr.goodsList.param,this).unCheck();
 		},
 		onUncheckAll : function(rows) {//取消勾选行状态触发事件
 			action_controller(
-					glacier.goodsList_mgr.goodsList.param,this).unCheck();
+					glacier.basicdatas_mgr.goodsList_mgr.goodsList.param,this).unCheck();
 		},
 		onSelect : function(rowIndex, rowData) {//选择行事件触发
 			action_controller(
-					glacier.goodsList_mgr.goodsList.param,this).select();
+					glacier.basicdatas_mgr.goodsList_mgr.goodsList.param,this).select();
 		},
 		onUnselectAll : function(rows) {
 			action_controller(
-					glacier.goodsList_mgr.goodsList.param,this).unSelect();
+					glacier.basicdatas_mgr.goodsList_mgr.goodsList.param,this).unSelect();
 		},
 		onLoadSuccess : function(index, record) {//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
@@ -134,7 +134,7 @@
 	});
 	
 	//点击增加按钮触发方法
-	glacier.goodsList_mgr.goodsList.addGoodsList= function(){
+	glacier.basicdatas_mgr.goodsList_mgr.goodsList.addGoodsList= function(){
 		glacier.basicAddOrEditDialog({
 			title : '【货物档案】- 增加',
 			width : 620,
@@ -142,13 +142,13 @@
 			queryUrl : ctx + '/do/goodsList/intoForm.htm',
 			submitUrl : ctx + '/do/goodsList/add.json',
 			successFun : function (){
-				glacier.goodsList_mgr.goodsList.goodsListDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.goodsList_mgr.goodsList.goodsListDataGrid.datagrid('reload');
 			}
 		});
 	};
 	//点击编辑按钮触发方法
-	glacier.goodsList_mgr.goodsList.editGoodsList= function(){
-		var row =glacier.goodsList_mgr.goodsList.goodsListDataGrid.datagrid("getSelected");
+	glacier.basicdatas_mgr.goodsList_mgr.goodsList.editGoodsList= function(){
+		var row =glacier.basicdatas_mgr.goodsList_mgr.goodsList.goodsListDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【货物档案】- 编辑',
 			width : 620,
@@ -159,14 +159,14 @@
 				goodsId : row.goodsId
 			},
 			successFun : function (){
-				glacier.goodsList_mgr.goodsList.goodsListDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.goodsList_mgr.goodsList.goodsListDataGrid.datagrid('reload');
 			}
 		});
 	};
 	
 	//点击删除按钮触发方法
-	glacier.goodsList_mgr.goodsList.delGoodsList= function() {
-		var rows =glacier.goodsList_mgr.goodsList.goodsListDataGrid.datagrid("getChecked");
+	glacier.basicdatas_mgr.goodsList_mgr.goodsList.delGoodsList= function() {
+		var rows =glacier.basicdatas_mgr.goodsList_mgr.goodsList.goodsListDataGrid.datagrid("getChecked");
 		var goodsIds = [];//删除的id标识
 		for ( var i = 0; i < rows.length; i++) {
 			goodsIds.push(rows[i].goodsId);
@@ -188,7 +188,7 @@
 									timeout : 3000,
 									msg : r.msg
 								});
-								glacier.goodsList_mgr.goodsList.goodsListDataGrid.datagrid('reload');
+								glacier.basicdatas_mgr.goodsList_mgr.goodsList.goodsListDataGrid.datagrid('reload');
 							} else {
 								$.messager.show({//后台验证弹出错误提示信息框
 											title : '错误提示',
@@ -245,10 +245,10 @@
 						class="easyui-datetimebox" style="width: 100px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
-						onclick="glacier.goodsList_mgr.goodsList.goodsListDataGrid.datagrid('load',glacier.serializeObject($('#goodsListSearchForm')));">查询</a>
+						onclick="glacier.basicdatas_mgr.goodsList_mgr.goodsList.goodsListDataGrid.datagrid('load',glacier.serializeObject($('#goodsListSearchForm')));">查询</a>
 						<a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-out',plain:true"
-						onclick="$('#goodsListSearchForm input').val('');glacier.goodsList_mgr.goodsList.goodsListDataGrid.datagrid('load',{});">重置条件</a>
+						onclick="$('#goodsListSearchForm input').val('');glacier.basicdatas_mgr.goodsList_mgr.goodsList.goodsList.goodsListDataGrid.datagrid('load',{});">重置条件</a>
 					</td>
 				</tr>
 			</table>
