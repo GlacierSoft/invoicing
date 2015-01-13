@@ -43,12 +43,12 @@
 				width:120,
 				sortable:true
 			},{
-				field:'clientTypeId',
+				field:'clientTypeDisplay',
 				title:'客户类型',
 				width:120,
 				sortable:true
 			},{
-				field:'clientGrade',
+				field:'clientGradeDisplay',
 				title:'客户级别',
 				width:120,
 				sortable:true

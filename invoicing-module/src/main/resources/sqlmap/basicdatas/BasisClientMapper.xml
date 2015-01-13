@@ -53,6 +53,11 @@
     <result column="temp_basis_client_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_basis_client_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_basis_client_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  	<!--自定义拓展字段  -->
+    <result column="temp_basis_client_client_type_display" property="clientTypeDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_basis_client_client_grade_display" property="clientGradeDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_basis_client_client_source_display" property="clientSourceDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_basis_client_user_display" property="userDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -139,6 +144,17 @@
     temp_basis_client.audit_remark as temp_basis_client_audit_remark, temp_basis_client.creater as temp_basis_client_creater, 
     temp_basis_client.create_time as temp_basis_client_create_time, temp_basis_client.updater as temp_basis_client_updater, 
     temp_basis_client.update_time as temp_basis_client_update_time
+    <!-- 以下字段属于扩展 -->
+    ,temp_userCnName.user_cn_name as temp_basis_client_user_display
+    ,temp_clientType.client_type_name as temp_basis_client_client_type_display
+    ,temp_clientSource.client_source_name as temp_basis_client_client_source_display
+    ,temp_clientLevel.client_level_name as temp_basis_client_client_grade_display
+  </sql>
+  <sql id="Base_extend">
+     LEFT JOIN t_user temp_userCnName ON temp_userCnName.user_id =  temp_basis_client.staff_id <!-- 扩展 -->
+     LEFT JOIN t_par_client_type temp_clientType ON temp_clientType.client_typeid =  temp_basis_client.client_type_id <!-- 扩展 -->
+  	 LEFT JOIN t_par_client_source temp_clientSource ON temp_clientSource.client_source_id =  temp_basis_client.client_source <!-- 扩展 -->
+  	 LEFT JOIN t_par_client_level temp_clientLevel ON temp_clientLevel.client_level_id =  temp_basis_client.client_grade <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.basicdatas.BasisClientExample" >
     select
@@ -147,6 +163,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_basis_client temp_basis_client
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -161,6 +178,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_basis_client temp_basis_client
+    <include refid="Base_extend" />
     where temp_basis_client.client_id = #{clientId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -526,6 +544,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.basicdatas.BasisClientExample" resultType="java.lang.Integer" >
     select count(*) from t_basis_client temp_basis_client
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

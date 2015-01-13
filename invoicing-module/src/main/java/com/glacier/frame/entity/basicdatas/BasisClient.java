@@ -114,6 +114,15 @@ public class BasisClient {
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
+    //自定义字段
+    private String clientTypeDisplay;
+    
+    private String clientGradeDisplay;
+    
+    private String clientSourceDisplay;
+    
+    private String userDisplay;
+    
     public String getClientId() {
         return clientId;
     }
@@ -522,7 +531,39 @@ public class BasisClient {
         this.updateTime = updateTime;
     }
 
-    @Override
+	public String getClientTypeDisplay() {
+		return clientTypeDisplay;
+	}
+
+	public void setClientTypeDisplay(String clientTypeDisplay) {
+		this.clientTypeDisplay = clientTypeDisplay;
+	}
+
+	public String getClientGradeDisplay() {
+		return clientGradeDisplay;
+	}
+
+	public void setClientGradeDisplay(String clientGradeDisplay) {
+		this.clientGradeDisplay = clientGradeDisplay;
+	}
+
+	public String getClientSourceDisplay() {
+		return clientSourceDisplay;
+	}
+
+	public void setClientSourceDisplay(String clientSourceDisplay) {
+		this.clientSourceDisplay = clientSourceDisplay;
+	}
+
+	public String getUserDisplay() {
+		return userDisplay;
+	}
+
+	public void setUserDisplay(String userDisplay) {
+		this.userDisplay = userDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
