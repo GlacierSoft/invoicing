@@ -19,13 +19,90 @@
  */
 package com.glacier.frame.web.controller.basicdatas;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.glacier.frame.dto.query.basicdatas.WarehouseQueryDTO;
+import com.glacier.frame.entity.basicdatas.Warehouse;
+import com.glacier.frame.service.basicdatas.WarehouseService;
+import com.glacier.jqueryui.util.JqPager;
+
 /**
  * @ClassName: WarehouseController 
- * @Description: TODO(这里用一句话描述这个类的作用) 
+ * @Description: TODO(仓库信息控制层) 
  * @author junjie.zheng
  * @email 1203807137@qq.com
  * @date 2015-1-13 下午2:16:37
  */
+@Controller
+@RequestMapping(value = "/warehouse")
 public class WarehouseController {
+	@Autowired
+	private WarehouseService warehouseService;
+	
+	//进入仓库信息列表展示页面
+    @RequestMapping(value = "/index.htm")
+    private Object intoIndexPmember() {
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/warehouse_mgr/warehouse");
+        return mav;
+    } 
 
+    //获取表格结构的所有菜单数据
+    @RequestMapping(value = "/list.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object listActionAsGridByMenuId(JqPager jqPager, WarehouseQueryDTO warehouseQueryDTO) {
+        return warehouseService.listAsGrid(jqPager, warehouseQueryDTO);
+    }
+    
+    //进入库存信息Detail信息页面
+    @RequestMapping(value = "/intoDetail.htm")
+    private Object intoSuppliersIndustryDetail(String warehouseId) { 
+    	ModelAndView mav = new ModelAndView("basicdatas_mgr/warehouse_mgr/warehouse_detail");
+        if(StringUtils.isNotBlank(warehouseId)){
+            mav.addObject("warehouseDate", warehouseService.getWarehouse(warehouseId));
+        }
+	    return mav;
+    }
+    
+    //进入库存信息Form表单页面
+    @RequestMapping(value = "/intoForm.htm")
+    private Object intoGradeFormPnews(String warehouseId) {
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/warehouse_mgr/warehouse_form");
+        if(StringUtils.isNotBlank(warehouseId)){
+            mav.addObject("warehouseDate", warehouseService.getWarehouse(warehouseId));
+        }
+        return mav;
+    }
+    
+    //增加库存信息
+    @RequestMapping(value = "/add.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object addGrade(@Valid Warehouse warehouse, BindingResult bindingResult) {
+        return warehouseService.addWarehouse(warehouse);
+    }
+    
+    //修改库存信息
+    @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object editGrade(@Valid Warehouse warehouse, BindingResult bindingResult) {
+        return warehouseService.editWarehouse(warehouse);
+    }
+    
+    //删除库存信息
+    @RequestMapping(value = "/del.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object delGrade(@RequestParam List<String> warehouseIds) {
+    	return warehouseService.delWarehouse(warehouseIds);
+    }
 }

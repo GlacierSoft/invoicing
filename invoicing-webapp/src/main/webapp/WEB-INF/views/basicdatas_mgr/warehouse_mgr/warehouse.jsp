@@ -46,7 +46,7 @@
 			sortable : true
 		},{
 			field : 'warehouseCode',
-			title : '仓库编码',
+			title : '仓库编号',
 			sortable : true,
 			width : 120
 		},{
@@ -124,8 +124,8 @@
           $.easyui.showDialog({
 				title : '【' + rowData.warehouseName + '】详细信息',
 				href : ctx+ '/do/warehouse/intoDetail.htm?warehouseId='+ rowData.warehouseId,//从controller请求jsp页面进行渲染
-				width : 600,
-				height : 460,
+				width : 480,
+				height : 300,
 				resizable : false,
 				enableApplyButton : false,
 				enableSaveButton : false
@@ -137,8 +137,8 @@
 	glacier.basicdatas_mgr.warehouse_mgr.warehouse.addWarehouse= function(){
 		glacier.basicAddOrEditDialog({
 			title : '【货物档案】- 增加',
-			width : 620,
-			height : 420,
+			width : 560,
+			height : 300,
 			queryUrl : ctx + '/do/warehouse/intoForm.htm',
 			submitUrl : ctx + '/do/warehouse/add.json',
 			successFun : function (){
@@ -151,12 +151,12 @@
 		var row =glacier.basicdatas_mgr.warehouse_mgr.warehouse.warehouseDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【货物档案】- 编辑',
-			width : 620,
-			height : 420,
+			width : 560,
+			height : 300,
 			queryUrl : ctx + '/do/warehouse/intoForm.htm',
 			submitUrl : ctx + '/do/warehouse/edit.json',
 			queryParams : {
-				goodsId : row.goodsId
+				warehouseId : row.warehouseId
 			},
 			successFun : function (){
 				glacier.basicdatas_mgr.warehouse_mgr.warehouse.warehouseDataGrid.datagrid('reload');
@@ -222,7 +222,7 @@
 <!-- 所有列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="goodsListPanel" data-options="region:'center',border:true">
-		<table id="goodsListDataGrid">
+		<table id="warehouseDataGrid">
 			<glacierui:toolbar panelEnName="WarehouseList"
 				toolbarId="warehouseDataGrid_toolbar" menuEnName="warehouse" />
 			<!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
