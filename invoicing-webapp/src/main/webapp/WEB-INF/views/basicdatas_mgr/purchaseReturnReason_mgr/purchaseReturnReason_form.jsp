@@ -8,17 +8,17 @@
 		<tr>
 			<td>名称：</td>
 			<td>
-				<input type="hidden" name="returnReasonId" value="${returnReasonDate.returnReasonId}" />
-				<input name="name"  class="easyui-validatebox spinner" style="width:168px" required="true" value="${returnReasonDate.name}"/>
+				<input type="hidden" name="returnReasonId" value="${parPurchaseReturnReasonDate.returnReasonId}" />
+				<input name="name"  class="easyui-validatebox spinner" style="width:168px" required="true" value="${parPurchaseReturnReasonDate.name}"/>
 			</td>
 		</tr>
 		<tr>
 			<td>排序：</td>
-			<td><input maxlength="3" name="sequenced" class="easyui-numberspinner spinner" style="width:168px" value="${returnReasonDate.sequenced}" data-options="min:0,max:9999,required:true,missingMessage:'请输入写信用积分,只能输入整数'" style="width: 270px;height:18px;"/></td>
+			<td><input maxlength="3" name="sequenced" class="easyui-numberspinner spinner" style="width:168px" value="${parPurchaseReturnReasonDate.sequenced}" data-options="min:0,max:9999,required:true,missingMessage:'请输入写信用积分,只能输入整数'" style="width: 270px;height:18px;"/></td>
 		</tr>
 		<tr>
 			<td>状态：</td>
-			<td><input id="deliverType_from_deliverType" name="enabled" style="width:168px" value="${returnReasonDate.enabled}"  class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/></td>
+			<td><input id="deliverType_from_deliverType" name="enabled" style="width:168px" value="${parPurchaseReturnReasonDate.enabled}"  class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/></td>
 		</tr>
 	</table>
 </form>

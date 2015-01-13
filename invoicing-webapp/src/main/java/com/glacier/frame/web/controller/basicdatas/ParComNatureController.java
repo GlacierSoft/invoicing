@@ -69,10 +69,10 @@ public class ParComNatureController extends AbstractController{
     
      // 进入表单页面
     @RequestMapping(value = "/intoForm.htm")
-    private Object inForme(String suppliersNatureId) {
+    private Object inForme(String natureId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/comNature_mgr/comNature_form");
-        if(StringUtils.isNotBlank(suppliersNatureId)){
-            mav.addObject("suppliersNatureData", parComNatureService.getParComNature(suppliersNatureId));
+        if(StringUtils.isNotBlank(natureId)){
+            mav.addObject("suppliersNatureData", parComNatureService.getParComNature(natureId));
         }
         return mav;
     }

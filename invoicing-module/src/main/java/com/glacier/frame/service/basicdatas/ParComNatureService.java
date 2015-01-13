@@ -150,16 +150,7 @@ public class ParComNatureService {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        ParComNatureExample ParComNatureExample = new ParComNatureExample();
         int count = 0; 
-       // 防止名称重复
-        ParComNatureExample.createCriteria().andNatureNameEqualTo(parComNature.getNatureName());
-        count = parComNatureMapper.countByExample(ParComNatureExample);
-        if (count > 0) {
-            returnResult.setMsg("公司性质名称重复");
-            returnResult.setSuccess(false);
-            return returnResult;
-        }
         parComNature.setUpdater(pricipalUser.getUserCnName());
         parComNature.setUpdateTime(new Date());
         count = parComNatureMapper.updateByPrimaryKeySelective(parComNature);

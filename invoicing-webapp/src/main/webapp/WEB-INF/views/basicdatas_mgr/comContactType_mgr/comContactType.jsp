@@ -4,11 +4,11 @@
 
 <script type="text/javascript">
 
-	$.util.namespace('glacier.basicdatas_mgr.parContactType_mgr.parContactType');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
+	$.util.namespace('glacier.basicdatas_mgr.comContactType_mgr.comContactType');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 	
 	//定义toolbar的操作，对操作进行控制 
-	glacier.basicdatas_mgr.parContactType_mgr.parContactType.param = {
-			toolbarId : 'parContactTypeDataGrid_toolbar',
+	glacier.basicdatas_mgr.comContactType_mgr.comContactType.param = {
+			toolbarId : 'comContactTypeDataGrid_toolbar',
 			actions : {
 				edit:{flag:'edit',controlType:'single'},
 				del:{flag:'del',controlType:'multiple'}
@@ -16,7 +16,7 @@
 	};
 	
 	//初始化联系人类型DataGrid
-	glacier.basicdatas_mgr.parContactType_mgr.parContactType.parContactTypeDataGrid = $('#parContactTypeDataGrid').datagrid({
+	glacier.basicdatas_mgr.comContactType_mgr.comContactType.comContactTypeDataGrid = $('#comContactTypeDataGrid').datagrid({
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
@@ -81,24 +81,24 @@
 		pageSize : 10,//注意，pageSize必须在pageList存在
 		pageList : [2,10,50,100],//从session中获取
 		rownumbers:true,//True 就会显示行号的列
-		toolbar:'#parContactTypeDataGrid_toolbar',
+		toolbar:'#comContactTypeDataGrid_toolbar',
 		onCheck:function(rowIndex,rowData){//在用户勾选一行的时候触发事件
-			action_controller(glacier.basicdatas_mgr.parContactType_mgr.parContactType.param,this).check();
+			action_controller(glacier.basicdatas_mgr.comContactType_mgr.comContactType.param,this).check();
 		},
 		onCheckAll:function(rows){//在用户勾选所有行的时候触发
-			action_controller(glacier.basicdatas_mgr.parContactType_mgr.parContactType.param,this).check();
+			action_controller(glacier.basicdatas_mgr.comContactType_mgr.comContactType.param,this).check();
 		},
 		onUncheck:function(rowIndex,rowData){//在用户取消勾选一行的时候触发
-			action_controller(glacier.basicdatas_mgr.parContactType_mgr.parContactType.param,this).unCheck();
+			action_controller(glacier.basicdatas_mgr.comContactType_mgr.comContactType.param,this).unCheck();
 		},
 		onUncheckAll:function(rows){//在用户取消勾选所有行的时候触发
-			action_controller(glacier.basicdatas_mgr.parContactType_mgr.parContactType.param,this).unCheck();
+			action_controller(glacier.basicdatas_mgr.comContactType_mgr.comContactType.param,this).unCheck();
 		},
 		onSelect:function(rowIndex, rowData){//在用户选择一行的时候触发
-			action_controller(glacier.basicdatas_mgr.parContactType_mgr.parContactType.param,this).select();
+			action_controller(glacier.basicdatas_mgr.comContactType_mgr.comContactType.param,this).select();
 		},
 		onUnselectAll:function(rows){//在用户取消勾选所有行的时候触发
-			action_controller(glacier.basicdatas_mgr.parContactType_mgr.parContactType.param,this).unSelect();
+			action_controller(glacier.basicdatas_mgr.comContactType_mgr.comContactType.param,this).unSelect();
 		},
 		onLoadSuccess:function(index, record){//加载数据成功触发事件
 			$(this).datagrid('clearSelections');
@@ -123,7 +123,7 @@
 		}
 	});
 	//点击增加按钮触发方法
-	glacier.basicdatas_mgr.parContactType_mgr.parContactType.addParContactType = function(){
+	glacier.basicdatas_mgr.comContactType_mgr.comContactType.addComContactType= function(){
 		glacier.basicAddOrEditDialog({
 			title : '【联系人类型】 - 增加',
 			width : 380,
@@ -131,14 +131,14 @@
 			queryUrl : ctx + '/do/comContactType/intoForm.htm',
 			submitUrl : ctx + '/do/comContactType/add.json',
 			successFun : function (){
-				glacier.basicdatas_mgr.parContactType_mgr.parContactType.parContactTypeDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.comContactType_mgr.comContactType.comContactTypeDataGrid.datagrid('reload');
 			}
 		});
 	};
 	
 	//点击编辑按钮触发方法
-	glacier.basicdatas_mgr.parContactType_mgr.parContactType.editParContactType = function(){
-		var row = glacier.basicdatas_mgr.parContactType_mgr.parContactType.parContactTypeDataGrid.datagrid("getSelected");
+	glacier.basicdatas_mgr.comContactType_mgr.comContactType.editComContactType = function(){
+		var row = glacier.basicdatas_mgr.comContactType_mgr.comContactType.comContactTypeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【联系人类型】 - 编辑',
 			width : 380,
@@ -149,13 +149,13 @@
 				contactTypeId : row.contactTypeId
 			},
 			successFun : function (){
-				glacier.basicdatas_mgr.parContactType_mgr.parContactType.parContactTypeDataGrid.datagrid('reload');
+				glacier.basicdatas_mgr.comContactType_mgr.comContactType.comContactTypeDataGrid.datagrid('reload');
 			}
 		});
 	};
 	//点击删除按钮触发方法
-	glacier.basicdatas_mgr.parContactType_mgr.parContactType.delParContactType = function(){
-		var rows = glacier.basicdatas_mgr.parContactType_mgr.parContactType.parContactTypeDataGrid.datagrid("getChecked");
+	glacier.basicdatas_mgr.comContactType_mgr.comContactType.delComContactType = function(){
+		var rows = glacier.basicdatas_mgr.comContactType_mgr.comContactType.comContactTypeDataGrid.datagrid("getChecked");
 		var parContactTypeIds = [];//删除的id标识
 		var parContactTypes = [];//日志记录引用名称
 		for(var i =0;i<rows.length;i++){
@@ -177,7 +177,7 @@
 										timeout:3000,
 										msg:r.msg
 									});
-								   glacier.basicdatas_mgr.parContactType_mgr.parContactType.parContactTypeDataGrid.datagrid('reload');
+								   glacier.basicdatas_mgr.comContactType_mgr.comContactType.comContactTypeDataGrid.datagrid('reload');
 							   }else{
 									$.messager.show({//后台验证弹出错误提示信息框
 										title:'错误提示',
@@ -198,20 +198,20 @@
 <!-- 所有联系人类型列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true">
 	<div id="creditGridPanel" data-options="region:'center',border:true" >
-		<table id="parContactTypeDataGrid">
-			<glacierui:toolbar panelEnName="ComContactTypeList" toolbarId="parContactTypeDataGrid_toolbar" menuEnName="comContactType"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+		<table id="comContactTypeDataGrid">
+			<glacierui:toolbar panelEnName="ComContactTypeList" toolbarId="comContactTypeDataGrid_toolbar" menuEnName="comContactType"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 	<div data-options="region:'north',split:true"
 		style="height: 40px; padding-left: 10px;">
-		<form id="parContactTypeSearchForm">
+		<form id="contactTypeSearchForm">
 			<table>
 				<tr>
 					<td>联系人类型名称：</td>
 					<td><input name="contactTypeName" style="width: 80px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
-					<td><input id="parContactTypeSearchForm_status" name="enabled" style="width: 80px;"
+					<td><input id="contactTypeSearchForm_status" name="enabled" style="width: 80px;"
 						 class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,data : fields.status"/></td> 
 					<td>创建时间：</td>
 					<td><input name="createStartTime" class="easyui-datetimebox"
@@ -219,10 +219,10 @@
 						class="easyui-datetimebox" style="width: 100px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
-						onclick="glacier.basicdatas_mgr.parContactType_mgr.parContactType.parContactTypeDataGrid.datagrid('load',glacier.serializeObject($('#parContactTypeSearchForm')));">查询</a>
+						onclick=" glacier.basicdatas_mgr.comContactType_mgr.comContactType.comContactTypeDataGrid.datagrid('load',glacier.serializeObject($('#contactTypeSearchForm')));">查询</a>
 						<a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-out',plain:true"
-						onclick="$('#parContactTypeSearchForm input').val('');glacier.basicdatas_mgr.parContactType_mgr.parContactType.parContactTypeDataGrid.datagrid('load',{});">重置条件</a>
+						onclick="$('#contactTypeSearchForm input').val(''); glacier.basicdatas_mgr.comContactType_mgr.comContactType.comContactTypeDataGrid.datagrid('load',{});">重置条件</a>
 					</td>
 				</tr>
 			</table>
