@@ -1,19 +1,19 @@
-package com.glacier.frame.dto.service.basicdatas;
+package com.glacier.frame.dto.query.basicdatas;
 
 import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
-import com.glacier.frame.entity.basicdatas.GoodsList;
-import com.glacier.frame.entity.basicdatas.GoodsListExample.Criteria;
+import com.glacier.frame.entity.basicdatas.ParPurchaseType;
+import com.glacier.frame.entity.basicdatas.ParPurchaseTypeExample.Criteria;
 
-public class GoodsListQueryDTO extends GoodsList{
-	 private Date createStartTime;
-		
-	 private Date createEndTime;
+public class ParPurchaseTypeQueryDTO extends  ParPurchaseType{
+	private Date createStartTime;
+	
+	private Date createEndTime;
 	    
-     public Date getCreateStartTime() {
+    public Date getCreateStartTime() {
 	        return createStartTime;
 	    }
 
@@ -29,9 +29,9 @@ public class GoodsListQueryDTO extends GoodsList{
 	        this.createEndTime = createEndTime;
 	    }
 	    
-      public void setQueryCondition(Criteria queryCriteria){
-	   	 if(null != this.getGoodsName() && StringUtils.isNotBlank(this.getGoodsName())){//车辆类型名称Like查询
-	            queryCriteria.andGoodsNameLike("%" + this.getGoodsName() + "%");
+    public void setQueryCondition(Criteria queryCriteria){
+	   	 if(null != this.getName() && StringUtils.isNotBlank(this.getName())){//采购类型名称Like查询
+	            queryCriteria.andNameLike("%" + this.getName() + "%");
 	        }  
 	   	 if(null != this.getEnabled()){//状态Enum查询
 	        queryCriteria.andEnabledEqualTo(this.getEnabled().toString());

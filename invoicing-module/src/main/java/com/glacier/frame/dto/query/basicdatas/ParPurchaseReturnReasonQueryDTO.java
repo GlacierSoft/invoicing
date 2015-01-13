@@ -1,4 +1,4 @@
-package com.glacier.frame.dto.service.basicdatas;
+package com.glacier.frame.dto.query.basicdatas;
 
 import java.util.Date;
 

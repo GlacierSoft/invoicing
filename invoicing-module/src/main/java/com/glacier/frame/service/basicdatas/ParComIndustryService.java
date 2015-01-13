@@ -33,7 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.ParComIndustryMapper;
 
-import com.glacier.frame.dto.service.basicdatas.ParComIndustryQueryDTO;
+import com.glacier.frame.dto.query.basicdatas.ParComIndustryQueryDTO;
 import com.glacier.frame.entity.basicdatas.ParComIndustry;
 import com.glacier.frame.entity.basicdatas.ParComIndustryExample;
 import com.glacier.frame.entity.basicdatas.ParComIndustryExample.Criteria;

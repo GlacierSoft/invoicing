@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.glacier.frame.dto.service.basicdatas.ParComIndustryQueryDTO;
+import com.glacier.frame.dto.query.basicdatas.ParComIndustryQueryDTO;
 import com.glacier.frame.entity.basicdatas.ParComIndustry;
 import com.glacier.frame.service.basicdatas.ParComIndustryService;
 import com.glacier.jqueryui.util.JqPager;

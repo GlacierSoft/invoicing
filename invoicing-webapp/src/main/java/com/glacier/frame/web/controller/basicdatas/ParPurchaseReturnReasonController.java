@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.glacier.frame.dto.service.basicdatas.ParPurchaseReturnReasonQueryDTO;
+import com.glacier.frame.dto.query.basicdatas.ParPurchaseReturnReasonQueryDTO;
 import com.glacier.frame.entity.basicdatas.ParPurchaseReturnReason;
 import com.glacier.frame.service.basicdatas.ParPurchaseReturnReasonService;
 import com.glacier.jqueryui.util.JqPager;

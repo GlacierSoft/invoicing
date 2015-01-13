@@ -32,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.ParSuppliersGradeMapper;
-import com.glacier.frame.dto.service.basicdatas.ParSuppliersGradeQueryDTO;
+import com.glacier.frame.dto.query.basicdatas.ParSuppliersGradeQueryDTO;
 
 import com.glacier.frame.entity.basicdatas.ParSuppliersGrade;
 import com.glacier.frame.entity.basicdatas.ParSuppliersGradeExample;

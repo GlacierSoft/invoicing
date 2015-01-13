@@ -32,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.ParPurchaseReturnReasonMapper;
-import com.glacier.frame.dto.service.basicdatas.ParPurchaseReturnReasonQueryDTO;
+import com.glacier.frame.dto.query.basicdatas.ParPurchaseReturnReasonQueryDTO;
 import com.glacier.frame.entity.basicdatas.ParPurchaseReturnReason;
 import com.glacier.frame.entity.basicdatas.ParPurchaseReturnReasonExample;
 import com.glacier.frame.entity.basicdatas.ParPurchaseReturnReasonExample.Criteria;

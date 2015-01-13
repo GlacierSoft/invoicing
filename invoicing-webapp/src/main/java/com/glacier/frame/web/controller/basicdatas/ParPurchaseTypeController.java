@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.glacier.frame.dto.service.basicdatas.ParPurchaseTypeQueryDTO;
+import com.glacier.frame.dto.query.basicdatas.ParPurchaseTypeQueryDTO;
 import com.glacier.frame.entity.basicdatas.ParPurchaseType;
 import com.glacier.frame.service.basicdatas.ParPurchaseTypeService;
 import com.glacier.jqueryui.util.JqPager;

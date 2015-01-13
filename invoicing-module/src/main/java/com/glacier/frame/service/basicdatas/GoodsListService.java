@@ -32,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.GoodsListMapper;
-import com.glacier.frame.dto.service.basicdatas.GoodsListQueryDTO;
+import com.glacier.frame.dto.query.basicdatas.GoodsListQueryDTO;
 import com.glacier.frame.entity.basicdatas.GoodsList;
 import com.glacier.frame.entity.basicdatas.GoodsListExample;
 import com.glacier.frame.entity.basicdatas.GoodsListExample.Criteria;

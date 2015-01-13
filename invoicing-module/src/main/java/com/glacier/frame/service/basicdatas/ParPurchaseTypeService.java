@@ -32,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.ParPurchaseTypeMapper;
-import com.glacier.frame.dto.service.basicdatas.ParPurchaseTypeQueryDTO;
+import com.glacier.frame.dto.query.basicdatas.ParPurchaseTypeQueryDTO;
 import com.glacier.frame.entity.basicdatas.ParPurchaseType;
 import com.glacier.frame.entity.basicdatas.ParPurchaseTypeExample;
 import com.glacier.frame.entity.basicdatas.ParPurchaseTypeExample.Criteria;
