@@ -208,7 +208,7 @@
 			<table>
 				<tr>
 					<td>应付类型名称：</td>
-					<td><input name="financePayableTypeName" style="width: 80px;"
+					<td><input name="name" style="width: 80px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
 					<td><input id="financePayableTypeSearchForm_status" name="enabled" style="width: 80px;"

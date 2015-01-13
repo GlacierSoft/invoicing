@@ -208,7 +208,7 @@
 			<table>
 				<tr>
 					<td>应收类型名称：</td>
-					<td><input name="financeReceivableTypeName" style="width: 80px;"
+					<td><input name="name" style="width: 80px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
 					<td><input id="financeReceivableTypeSearchForm_status" name="enabled" style="width: 80px;"
