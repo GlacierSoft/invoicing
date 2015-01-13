@@ -112,7 +112,7 @@
 		onDblClickRow:function(rowIndex, rowData){
 			$.easyui.showDialog({
 				title: "公司性质详细信息",
-				href : ctx + '/do/comNature/intoDetail.htm?comNatureId='+rowData.natureId,//从controller请求jsp页面进行渲染
+				href : ctx + '/do/comNature/intoDetail.htm?natureId='+rowData.natureId,//从controller请求jsp页面进行渲染
 				width : 530,
 				height : 250,
 				resizable: false,
