@@ -29,7 +29,7 @@
 			<td>负责人员：</td>
 			<td><input name="head" class="easyui-validatebox spinner" style="width:168px;height: 20px;" value="${warehouseDate.head}" required="true" /></td>
 		    <td style="padding-left: 15px;">联系电话：</td>
-			<td><input  name="phone" class="easyui-validatebox spinner" style="width:168px;height: 20px;" value="${warehouseDate.phone}" required="true" validtype="mobile" /></td>
+			<td><input  name="phone" class="easyui-validatebox spinner" style="width:168px;height: 20px;" value="${warehouseDate.phone}" required="true" validType="customReg['^[1]([3][0-9]{1}|59|58|88|89)[0-9]{8}$','<fmt:message key="User.mobile.illegal"/>']" missingMessage="请输入正确手机号"/ /></td>
 		</tr>
 		<tr>
 			<td>零售库存：</td>
@@ -38,14 +38,20 @@
 			<td><input name="address" class="easyui-validatebox spinner" style="width:168px;height: 20px;" value="${warehouseDate.address}" required="true"/></td>
 		</tr>
 		<tr>
+		  <td>仓库分类：</td>
+		  <td colspan="3" id="waresort_td"></td>
+	    </tr>
+		<tr>
 		  <td>备注信息：</td>
-		  <td colspan="3"><textarea style="width:420px;height: 40px;">${warehouseDate.remark}</textarea></td>
+		  <td colspan="3">
+		        <textarea style="width:420px;height: 40px;">${warehouseDate.remark}</textarea>
+		   </td>
 	    </tr>
 	</table>
 </form>
-<script>
+ <script>
 
-     var str='${warehouseDate.warehouseId}';
+    var str='${warehouseDate.warehouseId}';
 
      $('#retailLibraries').combobox({
 			valueField : 'value',
@@ -55,8 +61,15 @@
 			editable : false,
 			data : fields.yesOrNo
 		});
-		
-		//初始化上级部门
+     
+        if($.parseJSON('${allTypeTreeNodeData}').length>0){
+       	     $.each($.parseJSON('${allTypeTreeNodeData}'),function(i,v){
+           		  var listHtml="<label style='padding:5px;'><input type='checkbox' name='warehouseTypeName' value='"+v.warGoodsTypeId+"'/>&nbsp;&nbsp;"+v.name+"</label >";  
+           		  $(listHtml).appendTo("#waresort_td");
+           	 });    	
+          }    
+       
+        //初始化上级部门
 		$("#departmentId").combotree({
 			data :$.parseJSON('${allDepTreeNodeData}'),
 			width:168,

@@ -48,10 +48,11 @@ import com.glacier.jqueryui.util.JqPager;
 @Controller
 @RequestMapping(value = "/warGoodsType")
 public class ParWarGoodsTypeController {
+	
 	@Autowired
     private ParWarGoodsTypeService parWarGoodsTypeService;
-    
-    // 进入仓库货品信息列表展示页面
+	
+	// 进入仓库货品信息列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPmember() {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/warGoodsType_mgr/warGoodsType");

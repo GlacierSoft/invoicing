@@ -36,6 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.glacier.frame.dto.query.basicdatas.GoodsListQueryDTO;
 import com.glacier.frame.entity.basicdatas.GoodsList;
 import com.glacier.frame.service.basicdatas.GoodsListService;
+import com.glacier.frame.service.basicdatas.ParWarGoodsTypeService;
 import com.glacier.frame.service.system.DepService;
 import com.glacier.jqueryui.util.JqPager;
 
@@ -54,7 +55,10 @@ public class GoodsListController {
 	private GoodsListService goodsListService;
 	
 	@Autowired
-	private DepService depService;// 注入部门业务Bean
+    private ParWarGoodsTypeService warGoodsTypeService;
+	
+	@Autowired
+	private DepService depService;
 	
 	//进入货物档案信息列表展示页面
     @RequestMapping(value = "/index.htm")
@@ -84,7 +88,11 @@ public class GoodsListController {
     @RequestMapping(value = "/intoForm.htm")
     private Object intoGradeFormPnews(String goodsId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/goodsList_mgr/goodsList_form");
+        //部门信息
         mav.addObject("allDepTreeNodeData", depService.getAllTreeDepNode(true));
+        //库存货品信息
+        mav.addObject("allTypeTreeNodeData", warGoodsTypeService.getAllTreeTypeNode());
+        //主键标志判断
         if(StringUtils.isNotBlank(goodsId)){
             mav.addObject("goodsListDate", goodsListService.getGoodsList(goodsId));
         }

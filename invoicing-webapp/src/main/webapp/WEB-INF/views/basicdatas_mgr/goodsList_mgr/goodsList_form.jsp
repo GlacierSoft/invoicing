@@ -14,13 +14,13 @@
 						    <input id="goodsName" name="goodsName" class="easyui-validatebox spinner" required="true" style="width:168px;height: 18px;" value="${goodsListDate.goodsName}"  />
 						</td>
 				        <td style="padding-left:10px;">货品类型：</td>
-						<td><input id="goodsTypeId" name="goodsTypeId" class="easyui-validatebox spinner" style="width:168px" value="${goodsListDate.goodsTypeId }" required="true"/></td>
+						<td><input id="goodsTypeId" name="goodsTypeId" class="easyui-combobox spinner" style="width:168px" value="${goodsListDate.goodsTypeId }" required="true"/></td>
 					</tr> 
 					<tr> 
 					    <td> 仓库类型：</td>
-						<td><input id="goodsSortId" name="goodsSortId" class="easyui-validatebox spinner" style="width:168px" value="${goodsListDate.goodsSortId }" required="true"/></td>
+						<td><input id="goodsSortId" name="goodsSortId" class="easyui-combobox spinner" style="width:168px" value="${goodsListDate.goodsSortId }" required="true"/></td>
 					    <td style="padding-left:10px;">所属仓库：</td>
-						<td><input id="warehouseTypeId" name="warehouseTypeId" class="easyui-validatebox spinner" style="width:168px" value="${goodsListDate.warehouseTypeId}" required="true"/></td>
+						<td><input id="warehouseTypeId" name="warehouseTypeId" class="easyui-combobox spinner" style="width:168px" value="${goodsListDate.warehouseTypeId}" required="true"/></td>
 					 </tr>
 					 <tr>
 						<td>货物品牌：</td>
@@ -137,6 +137,38 @@
 		}
 	}); 
 	
+	//货品类型一级
+	$("#goodsTypeId").combobox({
+		data : $.parseJSON('${allTypeTreeNodeData}'),//controller传来的数据源
+		height:18,
+		panelHeight : 'auto',
+	    required:true,
+	    editable : false,
+	    missingMessage:'请选择货品类型',
+		textField : 'name',
+		valueField: 'warGoodsTypeId',
+		onSelect:function(record){
+			$("#goodsSortId").combobox('setValue',record.warGoodsTypeId);
+		}
+     });
+	
+	//仓库类型信息二级
+	$("#goodsSortId").combobox({
+		data : $.parseJSON('${allTypeTreeNodeData}'),//controller传来的数据源
+		height:18,
+		panelHeight : 'auto',
+	    required:true,
+	    editable : false,
+	    missingMessage:'请选择仓库类型',
+		textField : 'name',
+		valueField: 'warGoodsTypeId',
+		onSelect:function(record){
+			$("#goodsTypeId").combobox('setValue',record.warGoodsTypeId);
+		}
+	});
+	
+	//仓库信息三级
+	
 	$('#member_mgr_member_form_status').val(renderGridValue('${goodsListDate.auditState}',fields.auditState));
 	
 	//下拉项的值
@@ -149,7 +181,6 @@
 		required:true,
 		data : fields.yesOrNo
 	});
-	
 	
 	//下拉项的值
 	$('#validManagement').combobox({
@@ -164,8 +195,6 @@
 	
 	//标识
 	var str='${goodsListDate.goodsId }';
-	
-	console.info('${allDepTreeNodeData}');
 	
 	//初始化上级部门
 	$("#department").combotree({
@@ -187,7 +216,6 @@
 	    		url:ctx + "/do/user/dept.json?depId="+record.id,
 	    		dataType:"json",
 	    		success: function (date){
-	    			   console.info(date);
 	    			   $("#attn").combobox({
 	    				 	data:$.parseJSON(date),
 	    					valueField:'id',    

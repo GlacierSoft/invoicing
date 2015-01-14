@@ -35,6 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.frame.dto.query.basicdatas.WarehouseQueryDTO;
 import com.glacier.frame.entity.basicdatas.Warehouse;
+import com.glacier.frame.service.basicdatas.ParWarGoodsTypeService;
 import com.glacier.frame.service.basicdatas.WarehouseService;
 import com.glacier.frame.service.system.DepService;
 import com.glacier.jqueryui.util.JqPager;
@@ -51,6 +52,9 @@ import com.glacier.jqueryui.util.JqPager;
 public class WarehouseController {
 	@Autowired
 	private WarehouseService warehouseService;
+	
+	@Autowired
+	private ParWarGoodsTypeService warGoodsTypeService;
 	
 	@Autowired
 	private DepService depService;// 注入部门业务Bean
@@ -84,6 +88,9 @@ public class WarehouseController {
     private Object intoGradeFormPnews(String warehouseId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/warehouse_mgr/warehouse_form");
         mav.addObject("allDepTreeNodeData", depService.getAllTreeDepNode(true));
+        //库存货品信息
+        mav.addObject("allTypeTreeNodeData", warGoodsTypeService.getAllTreeTypeNode());
+        //主键标志判断
         if(StringUtils.isNotBlank(warehouseId)){
             mav.addObject("warehouseDate", warehouseService.getWarehouse(warehouseId));
         }
@@ -93,7 +100,8 @@ public class WarehouseController {
     //增加库存信息
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addGrade(@Valid Warehouse warehouse, BindingResult bindingResult) {
+    private Object addGrade(@Valid Warehouse warehouse, BindingResult bindingResult,String warehouseTypeName) {
+    	System.out.println("warehouseTypeName=========================="+warehouseTypeName);
         return warehouseService.addWarehouse(warehouse);
     }
     

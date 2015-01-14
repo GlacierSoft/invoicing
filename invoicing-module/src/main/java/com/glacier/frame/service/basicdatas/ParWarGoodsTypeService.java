@@ -30,6 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.ParWarGoodsTypeMapper;
 import com.glacier.frame.dto.query.basicdatas.ParWarGoodsTypeQueryDTO;
@@ -84,6 +85,22 @@ public class ParWarGoodsTypeService {
 		return returnResult;// 返回ExtGrid表
 	}
 
+	/**
+	 * @Title: listAsGridCombox
+	 * @Description: TODO(获取所有仓库货品分类信息combobox)
+	 * @param @param pager
+	 * @param @return 设定文件
+	 * @return Object 返回类型
+	 * @throws
+	 */
+
+	public Object getAllTreeTypeNode() {
+		ParWarGoodsTypeExample parWarGoodsTypeExample = new ParWarGoodsTypeExample();
+		parWarGoodsTypeExample.createCriteria().andEnabledEqualTo("enable");
+		List<ParWarGoodsType> parWarGoodsTypeList = parWarGoodsTypeMapper.selectByExample(parWarGoodsTypeExample); // 查询所有仓库货品分类
+		return JackJson.fromObjectToJson(parWarGoodsTypeList);// 返回ExtGrid表
+	}
+	
 	/**
 	 * @Title: getParWarGoodsType
 	 * @Description: TODO(获取仓库货品分类对象)
