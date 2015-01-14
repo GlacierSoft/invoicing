@@ -1,7 +1,6 @@
 package com.glacier.frame.entity.basicdatas;
 
-import java.util.Date;
-
+import java.util.Date; 
 public class ParSuppliersType {
     private String typeId;
 
@@ -20,8 +19,9 @@ public class ParSuppliersType {
     private String updater;
 
     private Date updateTime;
-
-    public String getTypeId() {
+    
+     
+	public String getTypeId() {
         return typeId;
     }
 

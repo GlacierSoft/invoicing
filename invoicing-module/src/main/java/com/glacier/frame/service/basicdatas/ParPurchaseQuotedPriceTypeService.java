@@ -154,7 +154,7 @@ public class ParPurchaseQuotedPriceTypeService {
         ParPurchaseQuotedPriceTypeExample ParPurchaseQuotedPriceTypeExample = new ParPurchaseQuotedPriceTypeExample();
         int count = 0; 
        // 防止名称重复
-        ParPurchaseQuotedPriceTypeExample.createCriteria().andNameEqualTo(parPurchaseQuotedPriceType.getName());
+        ParPurchaseQuotedPriceTypeExample.createCriteria().andNameEqualTo(parPurchaseQuotedPriceType.getName()).andQuotedPriceTypeIdNotEqualTo(parPurchaseQuotedPriceType.getQuotedPriceTypeId());
         count = quotedPriceTypeMapper.countByExample(ParPurchaseQuotedPriceTypeExample);
         if (count > 0) {
             returnResult.setMsg("报价类型名称重复");

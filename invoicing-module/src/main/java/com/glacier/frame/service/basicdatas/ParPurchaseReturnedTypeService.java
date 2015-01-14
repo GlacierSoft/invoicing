@@ -139,7 +139,7 @@ public class ParPurchaseReturnedTypeService {
     
      /** 
       * @Title: editParPurchaseReturnedType  
-      * @Description: TODO(这修改采购退货方式信息)  
+      * @Description: TODO(修改采购退货方式信息)  
       * @param @param ParPurchaseReturnedType
       * @param @return    设定文件  
       * @return Object    返回类型  
@@ -150,8 +150,17 @@ public class ParPurchaseReturnedTypeService {
     public Object editParPurchaseReturnedType(ParPurchaseReturnedType parPurchaseReturnedType) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
-        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        int count = 0; 
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
+        ParPurchaseReturnedTypeExample ParPurchaseReturnedTypeExample = new ParPurchaseReturnedTypeExample();
+        int count = 0;
+        // 防止名称重复
+        ParPurchaseReturnedTypeExample.createCriteria().andNameEqualTo(parPurchaseReturnedType.getName()).andReturnedPurchaseTypeIdNotEqualTo(parPurchaseReturnedType.getReturnedPurchaseTypeId());
+        count = purchaseReturnedTypeMapper.countByExample(ParPurchaseReturnedTypeExample);
+        if (count > 0) {
+            returnResult.setMsg("采购退货方式名称重复");
+            returnResult.setSuccess(false);
+            return returnResult;
+        } 
         parPurchaseReturnedType.setUpdater(pricipalUser.getUserCnName());
         parPurchaseReturnedType.setUpdateTime(new Date());
         count = purchaseReturnedTypeMapper.updateByPrimaryKeySelective(parPurchaseReturnedType);

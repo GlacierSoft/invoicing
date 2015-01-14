@@ -1,3 +1,22 @@
+/**
+ * @Title: ParSuppliersTypeQueryDTO.java 
+ * @Package com.glacier.frame.dto.query.basicdatas 
+ * @author song.jundong   
+ * @email 985776597@qq.com
+ * @date 2015-1-13 下午1:17:05 
+ * @company (开发公司)    珠海市冰川软件有限公司
+ * @copyright (版权)    本文件归属珠海市冰川软件有限公司所有
+ * @version V1.0
+ * @modify (修改) 
+ *        	<p>
+				第一次修改：
+				时间：2015-1-13
+				修改人：song.jundong 
+				修改内容简介 ：
+			</p>              
+ * @Review (审核人) ：song.jundong 
+ * 
+ */
 package com.glacier.frame.dto.query.basicdatas;
 
 import java.util.Date;
@@ -5,17 +24,18 @@ import java.util.Date;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
-import com.glacier.frame.entity.basicdatas.ParSuppliersGrade;
-import com.glacier.frame.entity.basicdatas.ParSuppliersGradeExample.Criteria;
+import com.glacier.frame.entity.basicdatas.ParSuppliersType;
+import com.glacier.frame.entity.basicdatas.ParSuppliersTypeExample.Criteria;
 
 /**
- * @ClassName: ParSuppliersGradeQueryDTO
- * @Description: TODO(供应商等级DTO)
+ * @ClassName: ParSuppliersTypeQueryDTO
+ * @Description: TODO(供应商类型DTO)
  * @author songjundong
  * @email 985776597@QQ.com
- * @date 2015-1-13 下午1:24:47
+ * @date 2015-1-13 下午1:17:05
  */
-public class ParSuppliersGradeQueryDTO extends ParSuppliersGrade {
+public class ParSuppliersTypeQueryDTO extends ParSuppliersType {
+
 	private Date createStartTime;
 
 	private Date createEndTime;
@@ -37,9 +57,9 @@ public class ParSuppliersGradeQueryDTO extends ParSuppliersGrade {
 	}
 
 	public void setQueryCondition(Criteria queryCriteria) {
-		if (null != this.getGradeName()
-				&& StringUtils.isNotBlank(this.getGradeName())) {// 名称Like查询
-			queryCriteria.andGradeNameLike("%" + this.getGradeName() + "%");
+		if (null != this.getTypeName()
+				&& StringUtils.isNotBlank(this.getTypeName())) {// 车辆类型名称Like查询
+			queryCriteria.andTypeNameLike("%" + this.getTypeName() + "%");
 		}
 		if (null != this.getEnabled()) {// 状态Enum查询
 			queryCriteria.andEnabledEqualTo(this.getEnabled().toString());
@@ -61,4 +81,5 @@ public class ParSuppliersGradeQueryDTO extends ParSuppliersGrade {
 	public String toString() {
 		return ReflectionToStringBuilder.toString(this);
 	}
+
 }
