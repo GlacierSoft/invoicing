@@ -14,8 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.glacier.basic.util.CollectionsUtil;
+import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.ParComCompanySizeMapper;
 import com.glacier.frame.dto.query.basicdatas.ParComCompanySizeQueryDTO;
@@ -80,6 +80,23 @@ public class ParComCompanySizeService {
         returnResult.setRows(carrierCarTypeList);
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
+    }
+    
+    /**
+     * @Title: getParComCompanySizeCombo 
+     * @Description: TODO(根据公司规模Id查找公司规模信息或查询全部,用于Combo的数据绑定) 
+     * @param  @param clientTypeId
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getParComCompanySizeCombo(String comCompanySizeId) {
+    	ParComCompanySizeExample parComCompanySizeExample = new ParComCompanySizeExample();
+        if (StringUtils.isNotBlank(comCompanySizeId)) {// 可以根据ID查找，如果参数Id为空，则查找所有的数据
+        	parComCompanySizeExample.createCriteria().andCompanySizeIdEqualTo(comCompanySizeId);
+        }
+        List<ParComCompanySize> parComCompanySizes = parComCompanySizeMapper.selectByExample(parComCompanySizeExample);
+        return JackJson.fromObjectToJson(parComCompanySizes);
     }
     
      /**
