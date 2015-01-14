@@ -223,6 +223,23 @@ public class UserService {
     }
     
     /**
+     * @Title: getUserCombo 
+     * @Description: TODO(根据员工Id查找客户员工信息或查询全部,用于Combo的数据绑定) 
+     * @param  @param clientId
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getUserCombo(String userId) {
+    	UserExample userExample = new UserExample();
+        if (StringUtils.isNotBlank(userId)) {// 可以根据ID查找，如果参数Id为空，则查找所有的数据
+        	userExample.createCriteria().andUserIdEqualTo(userId);
+        }
+        List<User> users = userMapper.selectByExample(userExample);
+        return JackJson.fromObjectToJson(users);
+    }
+    
+    /**
      * @Title: addUser
      * @Description: TODO(增加管理员)
      * @param @param user

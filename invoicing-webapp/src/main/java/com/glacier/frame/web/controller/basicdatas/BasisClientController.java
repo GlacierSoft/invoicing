@@ -15,6 +15,10 @@ import com.glacier.core.controller.AbstractController;
 import com.glacier.frame.dto.query.basicdatas.BasisClientQueryDTO;
 import com.glacier.frame.entity.basicdatas.BasisClient;
 import com.glacier.frame.service.basicdatas.BasisClientService;
+import com.glacier.frame.service.basicdatas.ParClientLevelService;
+import com.glacier.frame.service.basicdatas.ParClientSourceService;
+import com.glacier.frame.service.basicdatas.ParClientTypeService;
+import com.glacier.frame.service.system.UserService;
 import com.glacier.jqueryui.util.JqPager;
 
 /*** 
@@ -30,6 +34,18 @@ public class BasisClientController extends AbstractController{
 
 	@Autowired
 	private BasisClientService basisClientService;
+	
+	@Autowired
+	private ParClientTypeService clientTypeService;
+	
+	@Autowired
+	private ParClientSourceService clientSourceService;
+	
+	@Autowired
+	private ParClientLevelService clientLevelService;
+	
+	@Autowired
+	private UserService userService;
 	
 	//进入客户档案信息列表展示页面
     @RequestMapping(value = "/index.htm")
@@ -59,6 +75,11 @@ public class BasisClientController extends AbstractController{
     @RequestMapping(value = "/intoForm.htm")
     private Object intoGradeFormPnews(String clientId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/basisClient_mgr/basisClient_form");
+        mav.addObject("clientCountDate", basisClientService.getClientCombo(clientId));//所有客户档案信息
+    	mav.addObject("clientTypeDate", clientTypeService.getClientTypeCombo(null));//客户类型信息
+    	mav.addObject("clientLevelDate", clientLevelService.getClientLevelCombo(null));//客户级别信息
+    	mav.addObject("clientSourceDate", clientSourceService.getClientSourceCombo(null));//客户来源信息
+    	mav.addObject("userDate", userService.getUserCombo(null));//员工信息
         if(StringUtils.isNotBlank(clientId)){
             mav.addObject("clientDate", basisClientService.getBasisClient(clientId));
         }

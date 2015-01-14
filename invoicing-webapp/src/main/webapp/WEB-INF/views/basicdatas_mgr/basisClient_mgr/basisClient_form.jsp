@@ -42,7 +42,7 @@
 					</tr>
 					<tr>
 						<td>所属上级客户：</td>
-						<td ><input id="basisClient_mgr_basisClient_form_superiorClientId" name="superiorClientId" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="${clientDate.superiorClientId}" /></td>
+						<td ><input id="basisClient_mgr_basisClient_form_superiorClientId" name="superiorClientId" style="width:168px;height: 18px;" value="${clientDate.superiorClientId}" /></td>
 						<td style="padding-left:10px;">主营业务：</td>
 						<td ><input  name="mainBusiness" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="${clientDate.mainBusiness}" /></td>
 				   </tr> 
@@ -119,243 +119,66 @@
 			$("div").remove(".validatebox-tip");//解决关闭窗体偶尔出现验证条bug
 		}
 	}); 
-	
-	//用于combogrid的客户类型信息绑定
-	$('#basisClient_mgr_basisClient_form_clientTypeId').combogrid({
-		panelWidth:450,
-		fit:true,//控件自动resize占满窗口大小
-		border:false,//是否存在边框
-		fitColumns:true,//自动填充行
-		nowrap: true,//禁止单元格中的文字自动换行
-		autoRowHeight: false,//禁止设置自动行高以适应内容
-		striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
-		singleSelect:true,//限制单选
-		checkOnSelect:false,//选择复选框的时候选择该行
-		selectOnCheck:false,//选择的时候复选框打勾
-	    idField:'clientTypeid',    
-	    textField:'clientTypeName',    
-	    url: ctx + '/do/clientType/list.json',
-	    sortName: 'createTime',//排序字段名称
-		sortOrder: 'ASC',//升序还是降序
-		remoteSort: true,//开启远程排序，默认为false
-	    columns : [ [ {
-			field : 'clientTypeid',
-			title : 'ID',
-			checkbox : true
-		},{
-			field : 'clientTypeName',
-			title : '客户类型名称',
-			width : 120,
-			sortable : true
-		},{
-			field:'enabled',
-			title:'状态',
-			width:120,
-			sortable:true,
-			formatter: function(value,row,index){
-				return renderGridValue(value,fields.status);
-			}
-		} ] ],
-		pagination : true,//True 就会在 datagrid 的底部显示分页栏
-		pageSize : 10,//注意，pageSize必须在pageList存在
-		pageList : [2,10,50,100],//从session中获取
-		rownumbers : true,//True 就会显示行号的列
-		loadMsg : '数据加载中....',
-		mode : 'remote',
-		delay : 200
+	//初始化客户类型下拉项
+	$("#basisClient_mgr_basisClient_form_clientTypeId").combobox({
+		data : $.parseJSON('${clientTypeDate}'),//controller传来的数据源
+		height:18,
+		width:170,
+	    required:true,
+	    editable : false,
+	    missingMessage:'请选客户类型',
+		textField : 'clientTypeName',//这里为名称
+		valueField: 'clientTypeid'//这里为Id
 	});
 	
-	//用于combogrid的客户级别信息绑定
-	/* $('#basisClient_mgr_basisClient_form_clientGrade').combogrid({
-		panelWidth:450,
-		fit:true,//控件自动resize占满窗口大小
-		//iconCls:'icon-save',//图标样式
-		border:false,//是否存在边框
-		fitColumns:true,//自动填充行
-		nowrap: true,//禁止单元格中的文字自动换行
-		autoRowHeight: false,//禁止设置自动行高以适应内容
-		striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
-		singleSelect:true,//限制单选
-		checkOnSelect:false,//选择复选框的时候选择该行
-		selectOnCheck:false,//选择的时候复选框打勾
-	    //value:'${messageNoticeData.addresseeDisplay}',    
-	    idField:'clientLevelId',    
-	    textField:'clientLevelName',    
-	    url: ctx + '/do/clientLevel/list.json',
-	    sortName: 'createTime',//排序字段名称
-		sortOrder: 'ASC',//升序还是降序
-		remoteSort: true,//开启远程排序，默认为false
-	    columns : [ [ {
-			field : 'clientLevelId',
-			title : 'ID',
-			checkbox : true
-		},{
-			field : 'clientLevelName',
-			title : '客户级别名称',
-			width : 120,
-			sortable : true
-		},{
-			field:'enabled',
-			title:'状态',
-			width:120,
-			sortable:true,
-			formatter: function(value,row,index){
-				return renderGridValue(value,fields.status);
-			}
-		} ] ],
-			pagination : true,//True 就会在 datagrid 的底部显示分页栏
-			pageSize : 10,//注意，pageSize必须在pageList存在
-			pageList : [2,10,50,100],//从session中获取
-			rownumbers : true,//True 就会显示行号的列
-		loadMsg : '数据加载中....',
-		mode : 'remote',
-		delay : 200
+	//初始化客户级别下拉项
+	$("#basisClient_mgr_basisClient_form_clientGrade").combobox({
+		data : $.parseJSON('${clientLevelDate}'),//controller传来的数据源
+		height:18,
+		width:170,
+	    required:true,
+	    editable : false,
+	    missingMessage:'请选客户级别',
+		textField : 'clientLevelName',//这里为名称
+		valueField: 'clientLevelId'//这里为Id
 	});
 	
-	//用于combogrid的客户来源信息绑定
-	$('#basisClient_mgr_basisClient_form_clientSource').combogrid({
-		panelWidth:450,
-		fit:true,//控件自动resize占满窗口大小
-		//iconCls:'icon-save',//图标样式
-		border:false,//是否存在边框
-		fitColumns:true,//自动填充行
-		nowrap: true,//禁止单元格中的文字自动换行
-		autoRowHeight: false,//禁止设置自动行高以适应内容
-		striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
-		singleSelect:true,//限制单选
-		checkOnSelect:false,//选择复选框的时候选择该行
-		selectOnCheck:false,//选择的时候复选框打勾
-	    //value:'${messageNoticeData.addresseeDisplay}',    
-	    idField:'clientSourceId',    
-	    textField:'clientSourceName',    
-	    url: ctx + '/do/clientSource/list.json',
-	    sortName: 'createTime',//排序字段名称
-		sortOrder: 'ASC',//升序还是降序
-		remoteSort: true,//开启远程排序，默认为false
-	    columns : [ [ {
-			field : 'clientSourceId',
-			title : 'ID',
-			checkbox : true
-		},{
-			field : 'clientSourceName',
-			title : '客户来源名称',
-			width : 120,
-			sortable : true
-		},{
-			field:'enabled',
-			title:'状态',
-			width:120,
-			sortable:true,
-			formatter: function(value,row,index){
-				return renderGridValue(value,fields.status);
-			}
-		} ] ],
-			pagination : true,//True 就会在 datagrid 的底部显示分页栏
-			pageSize : 10,//注意，pageSize必须在pageList存在
-			pageList : [2,10,50,100],//从session中获取
-			rownumbers : true,//True 就会显示行号的列
-		loadMsg : '数据加载中....',
-		mode : 'remote',
-		delay : 200
+	//初始化客户来源下拉项
+	$("#basisClient_mgr_basisClient_form_clientSource").combobox({
+		data : $.parseJSON('${clientSourceDate}'),//controller传来的数据源
+		height:18,
+		width:170,
+	    required:true,
+	    editable : false,
+	    missingMessage:'请选客户来源',
+		textField : 'clientSourceName',//这里为名称
+		valueField: 'clientSourceId'//这里为Id
 	});
 	
-	//用于combogrid的客户档案信息绑定
-	$('#basisClient_mgr_basisClient_form_superiorClientId').combogrid({
-		panelWidth:450,
-		fit:true,//控件自动resize占满窗口大小
-		//iconCls:'icon-save',//图标样式
-		border:false,//是否存在边框
-		fitColumns:true,//自动填充行
-		nowrap: true,//禁止单元格中的文字自动换行
-		autoRowHeight: false,//禁止设置自动行高以适应内容
-		striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
-		singleSelect:true,//限制单选
-		checkOnSelect:false,//选择复选框的时候选择该行
-		selectOnCheck:false,//选择的时候复选框打勾
-	    //value:'${messageNoticeData.addresseeDisplay}',    
-	    idField:'clientId',    
-	    textField:'clientName',    
-	    url: ctx + '/do/client/list.json',
-	    sortName: 'createTime',//排序字段名称
-		sortOrder: 'ASC',//升序还是降序
-		remoteSort: true,//开启远程排序，默认为false
-	    columns : [ [ {
-			field : 'clientId',
-			title : 'ID',
-			checkbox : true
-		},{
-			field : 'clientName',
-			title : '客户档案名称',
-			width : 120,
-			sortable : true
-		},{
-			field:'enabled',
-			title:'状态',
-			width:120,
-			sortable:true,
-			formatter: function(value,row,index){
-				return renderGridValue(value,fields.status);
-			}
-		} ] ],
-			pagination : true,//True 就会在 datagrid 的底部显示分页栏
-			pageSize : 10,//注意，pageSize必须在pageList存在
-			pageList : [2,10,50,100],//从session中获取
-			rownumbers : true,//True 就会显示行号的列
-		loadMsg : '数据加载中....',
-		mode : 'remote',
-		delay : 200
-	}); */
+	//初始化客户档案上级下拉项
+	$("#basisClient_mgr_basisClient_form_superiorClientId").combobox({
+		data : $.parseJSON('${clientCountDate}'),//controller传来的数据源
+		height:18,
+		width:170,
+	    //required:true,
+	    editable : false,
+	    missingMessage:'请选客户档案上级',
+		textField : 'clientName',//这里为名称
+		valueField: 'clientId'//这里为IduserDate
+	});
 	
-	//用于combogrid的员工信息绑定
-	/* $('#basisClient_mgr_basisClient_form_staffId').combogrid({
-		panelWidth:450,
-		fit:true,//控件自动resize占满窗口大小
-		//iconCls:'icon-save',//图标样式
-		border:false,//是否存在边框
-		fitColumns:true,//自动填充行
-		nowrap: true,//禁止单元格中的文字自动换行
-		autoRowHeight: false,//禁止设置自动行高以适应内容
-		striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
-		singleSelect:true,//限制单选
-		checkOnSelect:false,//选择复选框的时候选择该行
-		selectOnCheck:false,//选择的时候复选框打勾
-	    idField:'userId',    
-	    textField:'userCnName',    
-	    url: ctx + '/do/user/list.json',
-	    sortName: 'createTime',//排序字段名称
-		sortOrder: 'ASC',//升序还是降序
-		remoteSort: true,//开启远程排序，默认为false
-	    columns : [ [ {
-			field : 'userId',
-			title : 'ID',
-			checkbox : true
-		},{
-			field : 'userCnName',
-			title : '员工名称',
-			width : 120,
-			sortable : true
-		},{
-			field:'status',
-			title:'状态',
-			width:120,
-			sortable:true,
-			formatter: function(value,row,index){
-				return renderGridValue(value,fields.status);
-			}
-		},{
-			field : 'depDisplay',
-			title : '部门名称',
-			width : 120
-		} ] ],
-	    pagination : true,//True 就会在 datagrid 的底部显示分页栏
-		pageSize : 10,//注意，pageSize必须在pageList存在
-		pageList : [2,10,50,100],//从session中获取
-		rownumbers : true,//True 就会显示行号的列
-		loadMsg : '数据加载中....',
-		mode : 'remote',
-		delay : 200,
-		onSelect:function(rowIndex, rowData){//在用户选择一行的时候触发
+	//初始化员工下拉项
+	$("#basisClient_mgr_basisClient_form_staffId").combobox({
+		data : $.parseJSON('${userDate}'),//controller传来的数据源
+		height:18,
+		width:170,
+	    required:true,
+	    editable : false,
+	    missingMessage:'请选员工',
+		textField : 'userCnName',//这里为名称
+		valueField: 'userId',//这里为Id
+		onSelect:function(rowData){//在用户选择一行的时候触发
 			$("#marketingDepartment").val(rowData.depDisplay);
 		}
-	}); */
+	});
 </script>

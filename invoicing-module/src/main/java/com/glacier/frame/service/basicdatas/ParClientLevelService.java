@@ -20,8 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional; 
-
 import com.glacier.basic.util.CollectionsUtil;
+import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.ParClientLevelMapper;
 import com.glacier.frame.dto.query.basicdatas.ParClientLevelQueryDTO;
@@ -72,6 +72,23 @@ public class ParClientLevelService {
         returnResult.setRows(parClientLevelList);
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
+    }
+    
+    /**
+     * @Title: getClientLevelCombo 
+     * @Description: TODO(根据客户档案Id查找客户级别信息或查询全部,用于Combo的数据绑定) 
+     * @param  @param clientLevelId
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getClientLevelCombo(String clientLevelId) {
+    	ParClientLevelExample parClientExample = new ParClientLevelExample();
+        if (StringUtils.isNotBlank(clientLevelId)) {// 可以根据ID查找，如果参数Id为空，则查找所有的数据
+        	parClientExample.createCriteria().andClientLevelIdEqualTo(clientLevelId);
+        }
+        List<ParClientLevel> parClientLevels = parClientLevelMapper.selectByExample(parClientExample);
+        return JackJson.fromObjectToJson(parClientLevels);
     }
     
     /**

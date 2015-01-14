@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional; 
 import com.glacier.basic.util.CollectionsUtil;
+import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.ParClientSourceMapper;
 import com.glacier.frame.dto.query.basicdatas.ParClientSourceQueryDTO;
@@ -71,6 +72,23 @@ public class ParClientSourceService {
         returnResult.setRows(parClientSourceList);
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
+    }
+    
+    /**
+     * @Title: getClientSourceCombo 
+     * @Description: TODO(根据客户来源Id查找客户来源信息或查询全部,用于Combo的数据绑定) 
+     * @param  @param clientSourceId
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getClientSourceCombo(String clientSourceId) {
+    	ParClientSourceExample parClientSourceExample = new ParClientSourceExample();
+        if (StringUtils.isNotBlank(clientSourceId)) {// 可以根据ID查找，如果参数Id为空，则查找所有的数据
+        	parClientSourceExample.createCriteria().andClientSourceIdEqualTo(clientSourceId);
+        }
+        List<ParClientSource> parClientSources = parClientSourceMapper.selectByExample(parClientSourceExample);
+        return JackJson.fromObjectToJson(parClientSources);
     }
     
     /**
