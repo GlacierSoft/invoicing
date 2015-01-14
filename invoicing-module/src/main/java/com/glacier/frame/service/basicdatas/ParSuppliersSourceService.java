@@ -31,11 +31,12 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.CollectionsUtil;
+import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID; 
 import com.glacier.frame.dao.basicdatas.ParSuppliersSourceMapper;
 import com.glacier.frame.dto.query.basicdatas.ParSuppliersSourceQueryDTO;
 import com.glacier.frame.entity.basicdatas.ParSuppliersSource;
-import com.glacier.frame.entity.basicdatas.ParSuppliersSourceExample;
+import com.glacier.frame.entity.basicdatas.ParSuppliersSourceExample; 
 import com.glacier.frame.entity.basicdatas.ParSuppliersSourceExample.Criteria;
 import com.glacier.frame.entity.system.User;
 import com.glacier.frame.util.MethodLog;
@@ -65,10 +66,24 @@ public class ParSuppliersSourceService {
 	  * @return Object    返回类型  
 	  * @throws
 	  */
-    public Object getSuppliers(String suppliersId) {
+    public Object getSuppliersSource(String suppliersId) {
         return suppliersSourceMapper.selectByPrimaryKey(suppliersId);
     } 
-      
+    
+    /**
+     * 
+     * @Title: getSuppliersSourceCombo  
+     * @Description: TODO(供应商类型下拉项显示)  
+     * @param @return    设定文件  
+     * @return Object    返回类型  
+     * @throws
+     */
+    public Object getSuppliersSourceCombo() { 
+    	ParSuppliersSourceExample suppliersSourceExample=new ParSuppliersSourceExample();
+    	suppliersSourceExample.createCriteria().andEnabledEqualTo("enable");
+        return JackJson.fromObjectToJson(suppliersSourceMapper.selectByExample(suppliersSourceExample));
+    }
+    
     /**
      * @Title: listAsGrid
      * @Description: TODO(获取所有供应商来源信息信息)

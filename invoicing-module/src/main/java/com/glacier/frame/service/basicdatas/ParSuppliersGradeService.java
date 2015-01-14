@@ -30,10 +30,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.ParSuppliersGradeMapper;
-import com.glacier.frame.dto.query.basicdatas.ParSuppliersGradeQueryDTO;
-
+import com.glacier.frame.dto.query.basicdatas.ParSuppliersGradeQueryDTO; 
 import com.glacier.frame.entity.basicdatas.ParSuppliersGrade;
 import com.glacier.frame.entity.basicdatas.ParSuppliersGradeExample;
 import com.glacier.frame.entity.basicdatas.ParSuppliersGradeExample.Criteria;
@@ -65,8 +65,7 @@ public class ParSuppliersGradeService {
 	 * @param @return 设定文件
 	 * @return Object 返回类型
 	 * @throws
-	 */
-
+	 */ 
 	public Object listAsGrid(JqPager jqPager,ParSuppliersGradeQueryDTO suppliersGradeQueryDTO) {
 		JqGridReturn returnResult = new JqGridReturn();
 		ParSuppliersGradeExample suppliersGradeExample = new ParSuppliersGradeExample();
@@ -85,7 +84,22 @@ public class ParSuppliersGradeService {
 		returnResult.setTotal(total);
 		return returnResult;// 返回ExtGrid表
 	}
-
+	
+	/**
+     * 
+     * @Title: getSuppliersGradeCombo  
+     * @Description: TODO(供应商级别下拉项显示)  
+     * @param @return    设定文件  
+     * @return Object    返回类型  
+     * @throws
+     */
+    public Object getSuppliersGradeCombo() { 
+    	ParSuppliersGradeExample suppliersGradeExample=	new ParSuppliersGradeExample();
+    	suppliersGradeExample.createCriteria().andEnabledEqualTo("enable");
+        return JackJson.fromObjectToJson(suppliersGradeMapper.selectByExample(suppliersGradeExample));
+    }
+	
+	
 	/**
 	 * @Title: getSuppliersGrade
 	 * @Description: TODO(获取供应商等级对象)

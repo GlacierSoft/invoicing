@@ -1,7 +1,7 @@
 package com.glacier.frame.entity.basicdatas;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.util.Date; 
 
 import com.alibaba.fastjson.annotation.JSONField;
 
@@ -86,8 +86,79 @@ public class Suppliers {
 
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
+   
+    //自定义名称字段
+    private String suppliersTypeName; //供应商类型
+    
+    private String suppliersGradeName;//供应商级别
+    
+    private String suppliersSourceName;//供应商来源
+     
+    private String suppliersNatureName;//公司性质 
 
-    public String getSupplierId() {
+    private String suppliersIndustryeName;//行业名称
+
+    private String suppliersPanySizeName;//公司规模
+      
+    private String suppliersUpName;//上级供应商 
+    
+    public String getSuppliersUpName() {
+		return suppliersUpName;
+	}
+
+	public void setSuppliersUpName(String suppliersUpName) {
+		this.suppliersUpName = suppliersUpName;
+	}
+
+	public String getSuppliersTypeName() {
+		return suppliersTypeName;
+	}
+
+	public void setSuppliersTypeName(String suppliersTypeName) {
+		this.suppliersTypeName = suppliersTypeName;
+	}
+
+	public String getSuppliersGradeName() {
+		return suppliersGradeName;
+	}
+
+	public void setSuppliersGradeName(String suppliersGradeName) {
+		this.suppliersGradeName = suppliersGradeName;
+	}
+
+	public String getSuppliersSourceName() {
+		return suppliersSourceName;
+	}
+
+	public void setSuppliersSourceName(String suppliersSourceName) {
+		this.suppliersSourceName = suppliersSourceName;
+	}
+
+	public String getSuppliersNatureName() {
+		return suppliersNatureName;
+	}
+
+	public void setSuppliersNatureName(String suppliersNatureName) {
+		this.suppliersNatureName = suppliersNatureName;
+	}
+
+	public String getSuppliersIndustryeName() {
+		return suppliersIndustryeName;
+	}
+
+	public void setSuppliersIndustryeName(String suppliersIndustryeName) {
+		this.suppliersIndustryeName = suppliersIndustryeName;
+	}
+
+	public String getSuppliersPanySizeName() {
+		return suppliersPanySizeName;
+	}
+
+	public void setSuppliersPanySizeName(String suppliersPanySizeName) {
+		this.suppliersPanySizeName = suppliersPanySizeName;
+	}
+
+	public String getSupplierId() {
         return supplierId;
     }
 

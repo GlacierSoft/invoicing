@@ -73,7 +73,7 @@ public class ParSuppliersSourceController extends AbstractController{
     private Object inForme(String sourceId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/suppliersSource_mgr/suppliersSource_form");
         if(StringUtils.isNotBlank(sourceId)){
-            mav.addObject("suppliersSourceData", suppliersSourceService.getSuppliers(sourceId));
+            mav.addObject("suppliersSourceData", suppliersSourceService.getSuppliersSource(sourceId));
         }
         return mav;
     }
@@ -83,7 +83,7 @@ public class ParSuppliersSourceController extends AbstractController{
     private Object intoSuppliersSource(String sourceId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/suppliersSource_mgr/suppliersSource_detail");
         if(StringUtils.isNotBlank(sourceId)){
-            mav.addObject("suppliersSourceData", suppliersSourceService.getSuppliers(sourceId));
+            mav.addObject("suppliersSourceData", suppliersSourceService.getSuppliersSource(sourceId));
         }
         return mav;
     }

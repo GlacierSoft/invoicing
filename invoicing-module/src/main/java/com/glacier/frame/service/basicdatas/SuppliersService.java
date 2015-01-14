@@ -17,9 +17,7 @@
  * @Review (审核人) ：song.jundong 
  * 
  */
-package com.glacier.frame.service.basicdatas;
-
-import java.util.ArrayList;
+package com.glacier.frame.service.basicdatas; 
 import java.util.Date;
 import java.util.List;
 
@@ -32,12 +30,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.CollectionsUtil;
-import com.glacier.basic.util.RandomGUID; 
-import com.glacier.frame.dao.basicdatas.ParSuppliersTypeMapper;
+import com.glacier.basic.util.RandomGUID;  
 import com.glacier.frame.dao.basicdatas.SuppliersMapper;
-import com.glacier.frame.dto.query.basicdatas.SuppliersQueryDTO;
-import com.glacier.frame.entity.basicdatas.ParSuppliersType;
-import com.glacier.frame.entity.basicdatas.ParSuppliersTypeExample;
+import com.glacier.frame.dto.query.basicdatas.SuppliersQueryDTO; 
 import com.glacier.frame.entity.basicdatas.Suppliers;
 import com.glacier.frame.entity.basicdatas.SuppliersExample;
 import com.glacier.frame.entity.basicdatas.SuppliersExample.Criteria;
@@ -60,10 +55,7 @@ public class SuppliersService {
  
 	@Autowired
     private SuppliersMapper suppliersMapper;
-	
-	@Autowired
-	private ParSuppliersTypeMapper parSuppliersTypeMapper;
-	  
+	 
 	 /***
 	  * @Title: getSuppliers  
 	  * @Description: TODO(根据id获取供应商)  
@@ -75,23 +67,7 @@ public class SuppliersService {
     public Object getSuppliers(String suppliersId) {
         return suppliersMapper.selectByPrimaryKey(suppliersId);
     } 
-    
-    /** 
-     * @Title: getInformation  
-     * @Description: TODO(获取公司类型，行业等下拉列表数据>>>>>>由于类型未完，此方法待定)  
-     * @param @return    设定文件  
-     * @return Object    返回类型  
-     * @throws
-     */
-    public Object getInformation(){
-    	List<Object> list=new ArrayList<Object>();
-    	//获取公司类型所有信息
-    	List<ParSuppliersType> suppliersType=parSuppliersTypeMapper.selectByExample(new ParSuppliersTypeExample());
-    	list.add(suppliersType);
-    	return list;
-    }
-    
-    
+      
     /**
      * @Title: listAsGrid
      * @Description: TODO(获取所有供应商信息)
@@ -196,7 +172,7 @@ public class SuppliersService {
         SuppliersExample SuppliersExample = new SuppliersExample();
         int count = 0; 
        // 防止名称重复
-        SuppliersExample.createCriteria().andSuppliersNameEqualTo(suppliers.getSuppliersName());
+        SuppliersExample.createCriteria().andSuppliersNameEqualTo(suppliers.getSuppliersName()).andSupplierIdNotEqualTo(suppliers.getSupplierId());
         count = suppliersMapper.countByExample(SuppliersExample);
         if (count > 0) {
             returnResult.setMsg("供应商名称重复");

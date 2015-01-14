@@ -84,17 +84,15 @@ public class ParComCompanySizeService {
     
     /**
      * @Title: getParComCompanySizeCombo 
-     * @Description: TODO(根据公司规模Id查找公司规模信息或查询全部,用于Combo的数据绑定) 
+     * @Description: TODO(用于Combo的数据绑定) 
      * @param  @param clientTypeId
      * @param  @return
      * @throws 
      * 备注<p>已检查测试:Green<p>
      */
-    public Object getParComCompanySizeCombo(String comCompanySizeId) {
+    public Object getParComCompanySizeCombo() {
     	ParComCompanySizeExample parComCompanySizeExample = new ParComCompanySizeExample();
-        if (StringUtils.isNotBlank(comCompanySizeId)) {// 可以根据ID查找，如果参数Id为空，则查找所有的数据
-        	parComCompanySizeExample.createCriteria().andCompanySizeIdEqualTo(comCompanySizeId);
-        }
+        parComCompanySizeExample.createCriteria().andEnabledEqualTo("enable");
         List<ParComCompanySize> parComCompanySizes = parComCompanySizeMapper.selectByExample(parComCompanySizeExample);
         return JackJson.fromObjectToJson(parComCompanySizes);
     }

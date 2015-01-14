@@ -30,12 +30,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.ParComIndustryMapper;
 
 import com.glacier.frame.dto.query.basicdatas.ParComIndustryQueryDTO;
 import com.glacier.frame.entity.basicdatas.ParComIndustry;
-import com.glacier.frame.entity.basicdatas.ParComIndustryExample;
+import com.glacier.frame.entity.basicdatas.ParComIndustryExample; 
 import com.glacier.frame.entity.basicdatas.ParComIndustryExample.Criteria;
 import com.glacier.frame.entity.system.User;
 import com.glacier.frame.util.MethodLog;
@@ -97,6 +98,18 @@ public class ParComIndustryService {
 		return parComIndustry;
 	}
 
+	 /**
+     * 
+     * @Title: getSuppliersSourceCombo  
+     * @Description: TODO(行业类型下拉项显示)  
+     * @param @return    设定文件  
+     * @return Object    返回类型  
+     * @throws
+     */
+    public Object getParComIndustryCombo() { 
+        return JackJson.fromObjectToJson(parComIndustryMapper.selectByExample(new ParComIndustryExample()));
+    }
+    
 	/**
 	 * @Title: addSuppliersIndustry
 	 * @Description: TODO(新增行业类型)

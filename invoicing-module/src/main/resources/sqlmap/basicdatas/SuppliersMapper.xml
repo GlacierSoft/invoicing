@@ -40,7 +40,16 @@
     <result column="temp_suppliers_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_suppliers_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_suppliers_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-  </resultMap>
+    
+    <!-- 自定义字段 --> 
+    <result column="temp_suppliers_type_name" property="suppliersTypeName" jdbcType="VARCHAR" /> 
+    <result column="temp_suppliers_grade_name" property="suppliersGradeName" jdbcType="VARCHAR" />  
+    <result column="temp_suppliers_source_name" property="suppliersSourceName" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_nature_name" property="suppliersNatureName" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_industrye_name" property="suppliersIndustryeName" jdbcType="VARCHAR" />
+    <result column="temp_suppliers_pany_size_name" property="suppliersPanySizeName" jdbcType="VARCHAR" />  
+    <result column="temp_suppliers_suppliers_up_name" property="suppliersUpName" jdbcType="VARCHAR" />  
+ </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -119,7 +128,25 @@
     temp_suppliers.audit_remark as temp_suppliers_audit_remark, temp_suppliers.remark as temp_suppliers_remark, 
     temp_suppliers.creater as temp_suppliers_creater, temp_suppliers.create_time as temp_suppliers_create_time, 
     temp_suppliers.updater as temp_suppliers_updater, temp_suppliers.update_time as temp_suppliers_update_time
+    <!-- 自定义扩展字段 -->
+    ,temp_par_suppliers_type.type_name as temp_suppliers_type_name  
+    ,temp_par_suppliers_grade.grade_name as  temp_suppliers_grade_name
+    ,temp_par_suppliers_source.source_name as  temp_suppliers_source_name   
+    ,temp_par_com_nature.nature_name as temp_suppliers_nature_name 
+    ,temp_par_com_industry.industry_name as temp_suppliers_industrye_name 
+    ,temp_par_com_company_size.company_size_name as temp_suppliers_pany_size_name  
+    ,temp_suppliersTwo.suppliers_name as temp_suppliers_suppliers_up_name
   </sql>
+  
+  <sql id="Base_extend">
+    LEFT JOIN t_par_suppliers_type  temp_par_suppliers_type ON temp_par_suppliers_type.type_id =temp_suppliers.type_id<!-- 扩展 -->
+   	LEFT JOIN t_par_suppliers_grade temp_par_suppliers_grade ON temp_par_suppliers_grade.grade_id =temp_suppliers.supplier_level <!-- 扩展 -->
+    LEFT JOIN t_par_suppliers_source temp_par_suppliers_source ON temp_par_suppliers_source.source_id =temp_suppliers.source_id <!-- 扩展 -->
+    LEFT JOIN t_par_com_nature temp_par_com_nature ON temp_par_com_nature.nature_id =temp_suppliers.nature_id <!-- 扩展 --> 
+    LEFT JOIN t_par_com_industry temp_par_com_industry ON temp_par_com_industry.industry_id =temp_suppliers.industry_id <!-- 扩展 -->
+    LEFT JOIN t_par_com_company_size temp_par_com_company_size ON temp_par_com_company_size.company_size_id =temp_suppliers.size_id <!-- 扩展 -->
+    LEFT JOIN t_suppliers temp_suppliersTwo ON temp_suppliersTwo.supplier_type =temp_suppliers.supplier_id <!-- 扩展 -->
+   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.basicdatas.SuppliersExample" >
     select
     <if test="distinct" >
@@ -127,6 +154,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_suppliers temp_suppliers
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -141,6 +169,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_suppliers temp_suppliers
+    <include refid="Base_extend" />
     where temp_suppliers.supplier_id = #{supplierId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -182,7 +211,7 @@
       #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.glacier.frame.entity.basicdatas.Suppliers" >
-    insert into t_suppliers
+    insert into t_suppliers 
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="supplierId != null" >
         supplier_id,
@@ -418,6 +447,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.basicdatas.SuppliersExample" resultType="java.lang.Integer" >
     select count(*) from t_suppliers temp_suppliers
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

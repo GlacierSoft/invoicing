@@ -31,13 +31,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.glacier.core.controller.AbstractController;    
+import org.springframework.web.servlet.ModelAndView; 
+import com.glacier.core.controller.AbstractController;     
 import com.glacier.frame.dto.query.basicdatas.SuppliersQueryDTO;
 import com.glacier.frame.entity.basicdatas.Suppliers;
+import com.glacier.frame.service.basicdatas.ParComCompanySizeService;
+import com.glacier.frame.service.basicdatas.ParComIndustryService;
+import com.glacier.frame.service.basicdatas.ParComNatureService;
+import com.glacier.frame.service.basicdatas.ParSuppliersGradeService;
+import com.glacier.frame.service.basicdatas.ParSuppliersSourceService;
+import com.glacier.frame.service.basicdatas.ParSuppliersTypeService;
 import com.glacier.frame.service.basicdatas.SuppliersService;
-import com.glacier.jqueryui.util.JqPager;
+import com.glacier.jqueryui.util.JqPager; 
  
 /**
  * @ClassName:  SuppliersController
@@ -52,6 +57,24 @@ public class SuppliersController extends AbstractController{
 	  
     @Autowired
     private SuppliersService suppliersService;// 注入service
+    
+	@Autowired
+	private ParSuppliersTypeService parSuppliersTypeService;
+	 
+	@Autowired
+	private ParSuppliersSourceService parSuppliersSourceService;
+	 
+	@Autowired
+	private ParSuppliersGradeService parSuppliersGradeService;
+
+	@Autowired
+	private ParComNatureService parComNatureService;
+
+	@Autowired
+	private ParComIndustryService parComIndustryService;
+
+	@Autowired
+	private ParComCompanySizeService parComCompanySizeService;
     
     // 进入列表展示页面
     @RequestMapping(value = "/index.htm")
@@ -70,16 +93,28 @@ public class SuppliersController extends AbstractController{
      // 进入表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object inForme(String supplierId) {
-        ModelAndView mav = new ModelAndView("basicdatas_mgr/suppliers_mgr/suppliers_form");
+        ModelAndView mav = new ModelAndView("basicdatas_mgr/suppliers_mgr/suppliers_form");  
         if(StringUtils.isNotBlank(supplierId)){
-            mav.addObject("suppliersData", suppliersService.getSuppliers(supplierId));
+            mav.addObject("suppliersData", suppliersService.getSuppliers(supplierId));  
         }else{
-        	Suppliers sup=new Suppliers();
-        	sup.setSupplierNumber(suppliersService.getSupplierNumber());
-        	mav.addObject("suppliersData",sup);
-        }
+        	Suppliers sup=new Suppliers();  
+         	sup.setSupplierNumber(suppliersService.getSupplierNumber());
+        	mav.addObject("suppliersData",sup);  
+        } 
+        //获取供应商类型所有信息 
+    	mav.addObject("suppliersType",parSuppliersTypeService.getSuppliersTypeCombo());
+        //获取供应商级别
+    	mav.addObject("suppliersGrade",parSuppliersGradeService.getSuppliersGradeCombo());
+        //获取供应商来源信息
+    	mav.addObject("suppliersSource",parSuppliersSourceService.getSuppliersSourceCombo());
+    	//获取公司性质
+    	mav.addObject("comNature",parComNatureService.getParComNatureCombo());
+    	//获取行业信息
+    	mav.addObject("comIndustry",parComIndustryService.getParComIndustryCombo());
+    	//获取公司规模
+    	mav.addObject("companySize",parComCompanySizeService.getParComCompanySizeCombo()); 
         return mav;
-    }
+    } 
     
     // 进入Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")

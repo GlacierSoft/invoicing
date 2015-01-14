@@ -31,9 +31,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.CollectionsUtil;
+import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID; 
 import com.glacier.frame.dao.basicdatas.ParSuppliersTypeMapper; 
-import com.glacier.frame.dto.query.basicdatas.ParSuppliersTypeQueryDTO; 
+import com.glacier.frame.dto.query.basicdatas.ParSuppliersTypeQueryDTO;  
 import com.glacier.frame.entity.basicdatas.ParSuppliersType;
 import com.glacier.frame.entity.basicdatas.ParSuppliersTypeExample;
 import com.glacier.frame.entity.basicdatas.ParSuppliersTypeExample.Criteria;
@@ -68,6 +69,20 @@ public class ParSuppliersTypeService {
     public Object getSuppliersType(String suppliersTypeId) {
         return suppliersTypeMapper.selectByPrimaryKey(suppliersTypeId);
     } 
+    
+    /**
+     * 
+     * @Title: getSuppliersTypeCombo  
+     * @Description: TODO(供应商类型下拉项显示)  
+     * @param @return    设定文件  
+     * @return Object    返回类型  
+     * @throws
+     */
+    public Object getSuppliersTypeCombo() { 
+    	ParSuppliersTypeExample suppliersTypeExample=new ParSuppliersTypeExample();
+    	suppliersTypeExample.createCriteria().andEnabledEqualTo("enable");
+        return JackJson.fromObjectToJson(suppliersTypeMapper.selectByExample(suppliersTypeExample));
+    }
       
     /**
      * @Title: listAsGrid

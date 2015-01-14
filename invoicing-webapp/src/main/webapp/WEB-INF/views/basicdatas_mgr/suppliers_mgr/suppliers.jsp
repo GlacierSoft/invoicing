@@ -48,7 +48,7 @@
 				width:120,
 				sortable:true
 			},{
-				field:'typeId',
+				field:'suppliersTypeName',
 				title:'类型',
 				width:200,
 				sortable:true
@@ -77,7 +77,7 @@
 				sortable:true
 			},{
 				field:'companyPhone',
-				title:'公司电话',
+				title:'联系电话',
 				width:200,
 				sortable:true
 			},{
@@ -95,12 +95,12 @@
 				title:'地址',
 				width:200,
 				sortable:true
-			},{
+			},/* {
 				field:'natureId',
 				title:'公司性质',
 				width:200,
 				sortable:true
-			},{
+			}, */{
 				field:'creater',
 				title:'创建人',
 				sortable:true,
