@@ -153,10 +153,10 @@
 						<td><input name="warrantyEnd" class="spinner" style="width:168px" value="<fmt:formatDate value='${goodsListDate.warrantyEnd}'  pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/></td>
 					 </tr>
 					 <tr>
-					 <td style="padding-left:10px;">负责人：</td>
-						<td><input name="attn" class="spinner" style="width:168px" value="${goodsListDate.attn }" readonly="readonly"/></td>
 					    <td style="padding-left:10px;">负责部门：</td>
-						<td><input name="department" class="spinner" style="width:168px" value="${goodsListDate.department}" readonly="readonly"/></td>
+						<td><input name="department" class="spinner" style="width:168px" value="${goodsListDate.depDisplay}" readonly="readonly"/></td>
+						<td style="padding-left:10px;">负责人：</td>
+						<td><input name="attn" class="spinner" style="width:168px" value="${goodsListDate.warehouseManagerDisplay }" readonly="readonly"/></td>
 					 </tr>
 					 <tr>
 					    <td style="padding-left:10px;">是否启用：</td>

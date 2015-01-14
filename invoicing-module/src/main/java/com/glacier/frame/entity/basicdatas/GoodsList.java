@@ -102,8 +102,28 @@ public class GoodsList {
 
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
+    
+    private String depDisplay;
+    
+    private String warehouseManagerDisplay;
 
-    public String getGoodsId() {
+    public String getDepDisplay() {
+		return depDisplay;
+	}
+
+	public void setDepDisplay(String depDisplay) {
+		this.depDisplay = depDisplay;
+	}
+
+	public String getWarehouseManagerDisplay() {
+		return warehouseManagerDisplay;
+	}
+
+	public void setWarehouseManagerDisplay(String warehouseManagerDisplay) {
+		this.warehouseManagerDisplay = warehouseManagerDisplay;
+	}
+
+	public String getGoodsId() {
         return goodsId;
     }
 

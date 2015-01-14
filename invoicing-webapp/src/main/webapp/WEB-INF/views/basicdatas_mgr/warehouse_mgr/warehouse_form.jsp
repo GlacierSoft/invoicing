@@ -49,12 +49,10 @@
 
      $('#retailLibraries').combobox({
 			valueField : 'value',
-			//height:18,
 			width : 168,
 			textField : 'label',
 			panelHeight : 'auto',
 			editable : false,
-			//required:true,
 			data : fields.yesOrNo
 		});
 		

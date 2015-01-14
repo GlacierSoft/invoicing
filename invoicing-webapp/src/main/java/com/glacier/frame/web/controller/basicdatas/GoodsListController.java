@@ -36,6 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.glacier.frame.dto.query.basicdatas.GoodsListQueryDTO;
 import com.glacier.frame.entity.basicdatas.GoodsList;
 import com.glacier.frame.service.basicdatas.GoodsListService;
+import com.glacier.frame.service.system.DepService;
 import com.glacier.jqueryui.util.JqPager;
 
 /**
@@ -51,6 +52,9 @@ public class GoodsListController {
 	
 	@Autowired
 	private GoodsListService goodsListService;
+	
+	@Autowired
+	private DepService depService;// 注入部门业务Bean
 	
 	//进入货物档案信息列表展示页面
     @RequestMapping(value = "/index.htm")
@@ -76,10 +80,11 @@ public class GoodsListController {
 	    return mav;
     }
     
-    //进入等级信息Form表单页面
+    //进入货物档案信息Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoGradeFormPnews(String goodsId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/goodsList_mgr/goodsList_form");
+        mav.addObject("allDepTreeNodeData", depService.getAllTreeDepNode(true));
         if(StringUtils.isNotBlank(goodsId)){
             mav.addObject("goodsListDate", goodsListService.getGoodsList(goodsId));
         }

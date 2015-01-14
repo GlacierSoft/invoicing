@@ -107,10 +107,10 @@
 						<td ><input  name="pricing" class="easyui-validatebox spinner" style="width:168px" value="${goodsListDate.pricing}"  required="true"/></td>
 				   </tr>
 				   <tr>
+					  <td style="padding-left:10px;">负责部门：</td>
+						<td><input name="department"  id="department" class="easyui-comboboxspinner spinner" style="width:168px" value="${goodsListDate.department}" required="true"/></td>
 					 <td style="padding-left:10px;">负责人：</td>
-						<td><input name="attn" class="easyui-validatebox spinner" style="width:168px" value="${goodsListDate.attn }" required="true"/></td>
-					    <td style="padding-left:10px;">负责部门：</td>
-						<td><input name="department" class="easyui-validatebox spinner" style="width:168px" value="${goodsListDate.department}" required="true"/></td>
+						<td><input name="attn" id="attn" class="easyui-combobox spinner" style="width:168px" value="${goodsListDate.attn }" required="true"/></td>
 					 </tr>
 					 <tr>
 						<td style="padding-left:10px;">批次管理：</td>
@@ -161,5 +161,50 @@
 		required:true,
 		data : fields.yesOrNo,
 	});
+	
+	//标识
+	var str='${goodsListDate.goodsId }';
+	
+	console.info('${allDepTreeNodeData}');
+	
+	//初始化上级部门
+	$("#department").combotree({
+		data :$.parseJSON('${allDepTreeNodeData}'),
+		width:168,
+		panelHeight : 'auto',
+	    missingMessage:'请选择上级部门',
+	    smooth: true,       //该属性用以启用当前 easyui-tree 控件对平滑数据格式的支持
+	    lines : true,
+	    editable:false,
+	    onBeforeSelect:function(node){
+	    	if(node.state){
+                 $("#department").combotree("unselect");
+             }
+	    },
+	    onSelect:function(record){
+	    	$.ajax({
+	    		type: "post", 
+	    		url:ctx + "/do/user/dept.json?depId="+record.id,
+	    		dataType:"json",
+	    		success: function (date){
+	    			   console.info(date);
+	    			   $("#attn").combobox({
+	    				 	data:$.parseJSON(date),
+	    					valueField:'id',    
+	    				    textField:'text',
+	    				    panelHeight : 'auto',
+	    				    editable:false 
+	    			   });
+	    			   if($.parseJSON(date).length==0){
+	    				   $("#attn").combobox('setValue', '');
+					   }else{
+						   if(str==null||str=="")
+						        $("#attn").combobox('select', $.parseJSON(date)[0].id);
+					   }
+	    			}
+	    	});
+	        
+	    }
+	});	
 	
 </script>

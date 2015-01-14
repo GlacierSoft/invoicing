@@ -48,6 +48,10 @@
     <result column="temp_goods_list_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_goods_list_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_goods_list_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    
+    <result column="temp_goods_list_dep_display" property="depDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_goods_list_warehouse_manager_display" property="warehouseManagerDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -131,6 +135,14 @@
     temp_goods_list.audit_remark as temp_goods_list_audit_remark, temp_goods_list.remark as temp_goods_list_remark, 
     temp_goods_list.creater as temp_goods_list_creater, temp_goods_list.create_time as temp_goods_list_create_time, 
     temp_goods_list.updater as temp_goods_list_updater, temp_goods_list.update_time as temp_goods_list_update_time
+    
+    ,temp_dep_display.cn_name as temp_goods_list_dep_display 
+    ,temp_manager_display.username as  temp_goods_list_warehouse_manager_display
+  </sql>
+  
+   <sql id="Base_extend">
+    LEFT JOIN t_dep  temp_dep_display ON temp_dep_display.dep_id = temp_goods_list.department<!-- 扩展 -->
+   	LEFT JOIN t_user temp_manager_display ON temp_manager_display.user_id = temp_goods_list.attn <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.basicdatas.GoodsListExample" >
     select
@@ -139,6 +151,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_goods_list temp_goods_list
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -153,6 +166,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_goods_list temp_goods_list
+    <include refid="Base_extend" />
     where temp_goods_list.goods_id = #{goodsId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -484,6 +498,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.basicdatas.GoodsListExample" resultType="java.lang.Integer" >
     select count(*) from t_goods_list temp_goods_list
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
