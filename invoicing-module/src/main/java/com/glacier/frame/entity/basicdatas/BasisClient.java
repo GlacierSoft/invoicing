@@ -123,6 +123,12 @@ public class BasisClient {
     
     private String userDisplay;
     
+    private String companyNatureDisplay;
+    
+    private String companyScaleDisplay;
+    
+    private String clientDisplay;
+    
     public String getClientId() {
         return clientId;
     }
@@ -561,6 +567,30 @@ public class BasisClient {
 
 	public void setUserDisplay(String userDisplay) {
 		this.userDisplay = userDisplay;
+	}
+
+	public String getCompanyNatureDisplay() {
+		return companyNatureDisplay;
+	}
+
+	public void setCompanyNatureDisplay(String companyNatureDisplay) {
+		this.companyNatureDisplay = companyNatureDisplay;
+	}
+
+	public String getCompanyScaleDisplay() {
+		return companyScaleDisplay;
+	}
+
+	public void setCompanyScaleDisplay(String companyScaleDisplay) {
+		this.companyScaleDisplay = companyScaleDisplay;
+	}
+	
+	public String getClientDisplay() {
+		return clientDisplay;
+	}
+
+	public void setClientDisplay(String clientDisplay) {
+		this.clientDisplay = clientDisplay;
 	}
 
 	@Override

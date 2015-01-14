@@ -20,7 +20,7 @@
 		fit:true,//控件自动resize占满窗口大小
 		iconCls:'icon-save',//图标样式
 		border:false,//是否存在边框
-		fitColumns:true,//自动填充行
+		fitColumns:false,//自动填充行
 		nowrap: true,//禁止单元格中的文字自动换行
 		autoRowHeight: false,//禁止设置自动行高以适应内容
 		striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
@@ -53,7 +53,7 @@
 				width:120,
 				sortable:true
 			},{
-				field:'companyScale',
+				field:'companyScaleDisplay',
 				title:'公司规模',
 				width:120,
 				sortable:true
@@ -68,7 +68,7 @@
 				width:120,
 				sortable:true
 			},{
-				field:'companyNatureId',
+				field:'companyNatureDisplay',
 				title:'公司性质',
 				width:120,
 				sortable:true
@@ -93,7 +93,7 @@
 				width:120,
 				sortable:true
 			},{
-				field:'staffId',
+				field:'userDisplay',
 				title:'销售代表',
 				width:120,
 				sortable:true

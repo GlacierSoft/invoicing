@@ -18,6 +18,8 @@ import com.glacier.frame.service.basicdatas.BasisClientService;
 import com.glacier.frame.service.basicdatas.ParClientLevelService;
 import com.glacier.frame.service.basicdatas.ParClientSourceService;
 import com.glacier.frame.service.basicdatas.ParClientTypeService;
+import com.glacier.frame.service.basicdatas.ParComCompanySizeService;
+import com.glacier.frame.service.basicdatas.ParComNatureService;
 import com.glacier.frame.service.system.UserService;
 import com.glacier.jqueryui.util.JqPager;
 
@@ -46,6 +48,12 @@ public class BasisClientController extends AbstractController{
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ParComCompanySizeService companySizeService;
+	
+	@Autowired
+	private ParComNatureService natureService; 
 	
 	//进入客户档案信息列表展示页面
     @RequestMapping(value = "/index.htm")
@@ -80,6 +88,8 @@ public class BasisClientController extends AbstractController{
     	mav.addObject("clientLevelDate", clientLevelService.getClientLevelCombo(null));//客户级别信息
     	mav.addObject("clientSourceDate", clientSourceService.getClientSourceCombo(null));//客户来源信息
     	mav.addObject("userDate", userService.getUserCombo(null));//员工信息
+    	mav.addObject("natureDate", natureService.getParComNatureCombo(null));//公司性质
+    	mav.addObject("companySizeDate", companySizeService.getParComCompanySizeCombo(null));//公司规模
         if(StringUtils.isNotBlank(clientId)){
             mav.addObject("clientDate", basisClientService.getBasisClient(clientId));
         }

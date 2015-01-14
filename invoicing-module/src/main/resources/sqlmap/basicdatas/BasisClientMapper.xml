@@ -58,6 +58,9 @@
     <result column="temp_basis_client_client_grade_display" property="clientGradeDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
     <result column="temp_basis_client_client_source_display" property="clientSourceDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
     <result column="temp_basis_client_user_display" property="userDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_basis_client_company_nature_display" property="companyNatureDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_basis_client_company_scale_display" property="companyScaleDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+  	<result column="temp_basis_client_client_display" property="clientDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -149,12 +152,18 @@
     ,temp_clientType.client_type_name as temp_basis_client_client_type_display
     ,temp_clientSource.client_source_name as temp_basis_client_client_source_display
     ,temp_clientLevel.client_level_name as temp_basis_client_client_grade_display
+    ,temp_comNature.nature_name as temp_basis_client_company_nature_display
+    ,temp_companySize.company_size_name as temp_basis_client_company_scale_display
+    ,temp_basisClient.client_name as temp_basis_client_client_display
   </sql>
   <sql id="Base_extend">
      LEFT JOIN t_user temp_userCnName ON temp_userCnName.user_id =  temp_basis_client.staff_id <!-- 扩展 -->
      LEFT JOIN t_par_client_type temp_clientType ON temp_clientType.client_typeid =  temp_basis_client.client_type_id <!-- 扩展 -->
   	 LEFT JOIN t_par_client_source temp_clientSource ON temp_clientSource.client_source_id =  temp_basis_client.client_source <!-- 扩展 -->
   	 LEFT JOIN t_par_client_level temp_clientLevel ON temp_clientLevel.client_level_id =  temp_basis_client.client_grade <!-- 扩展 -->
+  	 LEFT JOIN t_par_com_nature temp_comNature ON temp_comNature.nature_id =  temp_basis_client.company_nature_id <!-- 扩展 -->
+  	 LEFT JOIN t_par_com_company_size temp_companySize ON temp_companySize.company_size_id =  temp_basis_client.company_scale <!-- 扩展 -->
+  	 LEFT JOIN t_basis_client temp_basisClient ON temp_basisClient.client_id =  temp_basis_client.superior_client_id <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.basicdatas.BasisClientExample" >
     select

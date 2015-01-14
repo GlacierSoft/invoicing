@@ -14,13 +14,19 @@
 							<input id="basisClient_mgr_basisClient_form_clientName" name="clientName" class="spinner" required="true" style="width:168px;height: 18px;" value="${clientDate.clientName}"  readonly="readonly"/>
 						</td>
 						<td style="padding-left:10px;">客户类型：</td>
-						<td ><input id="basisClient_mgr_basisClient_form_clientTypeId" name="clientTypeId" class="spinner" required="true" style="width:168px;height: 18px;" value="${clientDate.clientTypeId}" readonly="readonly"/></td>
+						<td ><input id="basisClient_mgr_basisClient_form_clientTypeId" name="clientTypeId" class="spinner" required="true" style="width:168px;height: 18px;" value="${clientDate.clientTypeDisplay}" readonly="readonly"/></td>
 					</tr> 
 					<tr>
 					    <td>客户级别：</td>
-						<td><input id="basisClient_mgr_basisClient_form_clientGrade" name="clientGrade" class="spinner" required="true" style="width:168px;height: 18px;" value='${clientDate.clientGrade}' readonly="readonly"/></td>
+						<td><input id="basisClient_mgr_basisClient_form_clientGrade" name="clientGrade" class="spinner" required="true" style="width:168px;height: 18px;" value='${clientDate.clientGradeDisplay}' readonly="readonly"/></td>
 					    <td style="padding-left:10px;">客户来源：</td>
-						<td><input id="basisClient_mgr_basisClient_form_clientSource" name="clientSource" class="spinner" required="true" style="width:168px;height: 18px;" value="${clientDate.clientSource}" readonly="readonly"/></td>
+						<td><input id="basisClient_mgr_basisClient_form_clientSource" name="clientSource" class="spinner" required="true" style="width:168px;height: 18px;" value="${clientDate.clientSourceDisplay}" readonly="readonly"/></td>
+					 </tr>
+					 <tr>
+					    <td>公司规模：</td>
+						<td><input id="basisClient_mgr_basisClient_form_companyScale" class="spinner" name="companyScale" style="width:168px;height: 18px;" value='${clientDate.companyScaleDisplay}' /></td>
+					    <td style="padding-left:10px;">公司性质：</td>
+						<td><input id="basisClient_mgr_basisClient_form_companyNatureId" class="spinner" name="companyNatureId" style="width:168px;height: 18px;" value="${clientDate.companyNatureDisplay}" /></td>
 					 </tr>
 					 <tr>
 						<td>省：</td>
@@ -42,7 +48,7 @@
 					</tr>
 					<tr>
 						<td>所属上级客户：</td>
-						<td ><input name="superiorClientId" class="spinner" required="true" style="width:168px;height: 18px;" value="${clientDate.superiorClientId}" readonly="readonly"/></td>
+						<td ><input name="superiorClientId" class="spinner" required="true" style="width:168px;height: 18px;" value="${clientDate.clientDisplay}" readonly="readonly"/></td>
 						<td style="padding-left:10px;">主营业务：</td>
 						<td ><input  name="mainBusiness" class="spinner" required="true" style="width:168px;height: 18px;" value="${clientDate.mainBusiness}" readonly="readonly"/></td>
 				   </tr> 
@@ -54,7 +60,7 @@
 				    </tr>
 				    <tr>   
 				     <td>销售代表：</td>
-					 <td><input class="spinner" required="true" style="width:168px;height: 18px;" name="staffId"  value="${clientDate.staffId}" readonly="readonly"/></td>
+					 <td><input class="spinner" required="true" style="width:168px;height: 18px;" name="staffId"  value="${clientDate.userDisplay}" readonly="readonly"/></td>
 				     <td style="padding-left:10px;">销售部门：</td>
 					 <td><input class="spinner" required="true" style="width:168px;height: 18px;" name="marketingDepartment"  value="${clientDate.marketingDepartment}" readonly="readonly"/></td>
 				    </tr>

@@ -14,13 +14,19 @@
 							<input id="basisClient_mgr_basisClient_form_clientName" name="clientName" class="easyui-validatebox spinner" required="true" style="width:168px;height: 18px;" value="${clientDate.clientName}"  />
 						</td>
 						<td style="padding-left:10px;">客户类型：</td>
-						<td ><input id="basisClient_mgr_basisClient_form_clientTypeId" name="clientTypeId" class="easyui-validatebox spinner" required="true" style="width:168px;height: 18px;" value="${clientDate.clientTypeId}" /></td>
+						<td ><input id="basisClient_mgr_basisClient_form_clientTypeId" name="clientTypeId" value="${clientDate.clientTypeId}" /></td>
 					</tr> 
 					<tr>
 					    <td>客户级别：</td>
-						<td><input id="basisClient_mgr_basisClient_form_clientGrade" name="clientGrade" class="easyui-validatebox spinner" required="true" style="width:168px;height: 18px;" value='${clientDate.clientGrade}' /></td>
+						<td><input id="basisClient_mgr_basisClient_form_clientGrade" name="clientGrade" value='${clientDate.clientGrade}' /></td>
 					    <td style="padding-left:10px;">客户来源：</td>
-						<td><input id="basisClient_mgr_basisClient_form_clientSource" name="clientSource" class="easyui-validatebox spinner" required="true" style="width:168px;height: 18px;" value="${clientDate.clientSource}" /></td>
+						<td><input id="basisClient_mgr_basisClient_form_clientSource" name="clientSource" value="${clientDate.clientSource}" /></td>
+					 </tr>
+					 <tr>
+					    <td>公司规模：</td>
+						<td><input id="basisClient_mgr_basisClient_form_companyScale" name="companyScale" value='${clientDate.companyScale}' /></td>
+					    <td style="padding-left:10px;">公司性质：</td>
+						<td><input id="basisClient_mgr_basisClient_form_companyNatureId" name="companyNatureId" value="${clientDate.companyNatureId}" /></td>
 					 </tr>
 					 <tr>
 						<td>省：</td>
@@ -42,7 +48,7 @@
 					</tr>
 					<tr>
 						<td>所属上级客户：</td>
-						<td ><input id="basisClient_mgr_basisClient_form_superiorClientId" name="superiorClientId" style="width:168px;height: 18px;" value="${clientDate.superiorClientId}" /></td>
+						<td ><input id="basisClient_mgr_basisClient_form_superiorClientId" name="superiorClientId" value="${clientDate.superiorClientId}" /></td>
 						<td style="padding-left:10px;">主营业务：</td>
 						<td ><input  name="mainBusiness" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="${clientDate.mainBusiness}" /></td>
 				   </tr> 
@@ -54,10 +60,10 @@
 				    </tr>
 				    <tr>   
 				     <td>销售代表：</td>
-					 <td><input id="basisClient_mgr_basisClient_form_staffId" class="easyui-validatebox spinner" required="true" style="width:168px;height: 18px;" name="staffId"  value="${clientDate.staffId}" /></td>
+					 <td><input id="basisClient_mgr_basisClient_form_staffId" name="staffId"  value="${clientDate.staffId}" /></td>
 				     <td style="padding-left:10px;">销售部门：</td>
 					 <td>
-					 	<input id="marketingDepartment" class="easyui-validatebox spinner" required="true" style="width:168px;height: 18px;" name="marketingDepartment"  value="${clientDate.marketingDepartment}"  />
+					 	<input id="marketingDepartment" class="easyui-validatebox spinner" style="width:168px;height: 18px;" name="marketingDepartment"  value="${clientDate.marketingDepartment}" disabled="disabled"/>
 					 </td>
 				    </tr>
 					<tr>
@@ -153,6 +159,30 @@
 	    missingMessage:'请选客户来源',
 		textField : 'clientSourceName',//这里为名称
 		valueField: 'clientSourceId'//这里为Id
+	});
+	
+	//初始化公司规模下拉项
+	$("#basisClient_mgr_basisClient_form_companyScale").combobox({
+		data : $.parseJSON('${companySizeDate}'),//controller传来的数据源
+		height:18,
+		width:170,
+	    required:true,
+	    editable : false,
+	    missingMessage:'请选公司规模',
+		textField : 'companySizeName',//这里为名称
+		valueField: 'companySizeId'//这里为Id
+	});
+	
+	//初始化公司性质下拉项
+	$("#basisClient_mgr_basisClient_form_companyNatureId").combobox({
+		data : $.parseJSON('${natureDate}'),//controller传来的数据源
+		height:18,
+		width:170,
+	    required:true,
+	    editable : false,
+	    missingMessage:'请选公司性质',
+		textField : 'natureName',//这里为名称
+		valueField: 'natureId'//这里为Id
 	});
 	
 	//初始化客户档案上级下拉项
