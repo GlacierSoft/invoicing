@@ -84,9 +84,7 @@ public class ParClientLevelService {
      */
     public Object getClientLevelCombo(String clientLevelId) {
     	ParClientLevelExample parClientExample = new ParClientLevelExample();
-        if (StringUtils.isNotBlank(clientLevelId)) {// 可以根据ID查找，如果参数Id为空，则查找所有的数据
-        	parClientExample.createCriteria().andClientLevelIdEqualTo(clientLevelId);
-        }
+        parClientExample.createCriteria().andEnabledEqualTo("enable");
         List<ParClientLevel> parClientLevels = parClientLevelMapper.selectByExample(parClientExample);
         return JackJson.fromObjectToJson(parClientLevels);
     }

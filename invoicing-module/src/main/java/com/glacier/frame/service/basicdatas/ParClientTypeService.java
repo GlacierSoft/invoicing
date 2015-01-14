@@ -84,9 +84,7 @@ public class ParClientTypeService {
      */
     public Object getClientTypeCombo(String clientTypeId) {
     	ParClientTypeExample parClientExample = new ParClientTypeExample();
-        if (StringUtils.isNotBlank(clientTypeId)) {// 可以根据ID查找，如果参数Id为空，则查找所有的数据
-        	parClientExample.createCriteria().andClientTypeidEqualTo(clientTypeId);
-        }
+        parClientExample.createCriteria().andEnabledEqualTo("enable");
         List<ParClientType> parClientTypes = parClientTypeMapper.selectByExample(parClientExample);
         return JackJson.fromObjectToJson(parClientTypes);
     }

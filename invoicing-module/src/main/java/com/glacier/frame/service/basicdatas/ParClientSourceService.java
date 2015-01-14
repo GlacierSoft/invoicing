@@ -84,9 +84,7 @@ public class ParClientSourceService {
      */
     public Object getClientSourceCombo(String clientSourceId) {
     	ParClientSourceExample parClientSourceExample = new ParClientSourceExample();
-        if (StringUtils.isNotBlank(clientSourceId)) {// 可以根据ID查找，如果参数Id为空，则查找所有的数据
-        	parClientSourceExample.createCriteria().andClientSourceIdEqualTo(clientSourceId);
-        }
+        parClientSourceExample.createCriteria().andEnabledEqualTo("enable");
         List<ParClientSource> parClientSources = parClientSourceMapper.selectByExample(parClientSourceExample);
         return JackJson.fromObjectToJson(parClientSources);
     }
