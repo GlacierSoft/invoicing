@@ -49,7 +49,6 @@ import com.glacier.jqueryui.util.JqReturnJson;
  * @email 1203807137@qq.com
  * @date 2015-1-9 上午9:29:30
  */
-
 @Service
 @Transactional(readOnly = true ,propagation = Propagation.REQUIRED)
 public class ParPurchaseReturnReasonService {
@@ -59,7 +58,7 @@ public class ParPurchaseReturnReasonService {
 
 	/**
 	 * @Title: listAsGrid
-	 * @Description: TODO(获取所有脱货类型信息)
+	 * @Description: TODO(获取所有退货原因信息)
 	 * @param @param pager
 	 * @param @return 设定文件
 	 * @return Object 返回类型
