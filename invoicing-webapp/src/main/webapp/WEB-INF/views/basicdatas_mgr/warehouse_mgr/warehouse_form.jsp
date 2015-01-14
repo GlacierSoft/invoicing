@@ -19,7 +19,7 @@
 		<tr>
 		    <td>所属部门：</td>
 			<td>
-				<input name="warehouseName" id="warehouseName"  class="easyui-validatebox spinner" style="width:168px;height: 20px;" required="true" value="${warehouseDate.warehouseName}"/>
+				<input name="departmentId" id="departmentId"  class="easyui-combobox spinner" style="width:168px;height: 20px;" required="true" value="${warehouseDate.departmentId}"/>
 			</td>
 			<td style="padding-left: 15px;">仓库管理：</td>
 			<td><input name="warehouseManager" id="warehouseManager" class="easyui-combobox spinner" style="width:168px;height: 20px;" value="${warehouseDate.warehouseManager}" required="true"/></td>
@@ -29,7 +29,7 @@
 			<td>负责人员：</td>
 			<td><input name="head" class="easyui-validatebox spinner" style="width:168px;height: 20px;" value="${warehouseDate.head}" required="true" /></td>
 		    <td style="padding-left: 15px;">联系电话：</td>
-			<td><input  name="phone" class="easyui-validatebox spinner" style="width:168px;height: 20px;" value="${warehouseDate.phone}" required="true"/></td>
+			<td><input  name="phone" class="easyui-validatebox spinner" style="width:168px;height: 20px;" value="${warehouseDate.phone}" required="true" validtype="mobile" /></td>
 		</tr>
 		<tr>
 			<td>零售库存：</td>
@@ -38,19 +38,16 @@
 			<td><input name="address" class="easyui-validatebox spinner" style="width:168px;height: 20px;" value="${warehouseDate.address}" required="true"/></td>
 		</tr>
 		<tr>
-			<td>仓库分类：</td>
-			<td colspan="3"><input name="warehouseManager" class="easyui-validatebox spinner" style="width:420px;height: 20px;" value="${warehouseDate.warehouseManager}" /></td>
-		</tr>
-		<tr>
 		  <td>备注信息：</td>
 		  <td colspan="3"><textarea style="width:420px;height: 40px;">${warehouseDate.remark}</textarea></td>
 	    </tr>
 	</table>
 </form>
 <script>
-       
-    
-		$('#retailLibraries').combobox({
+
+     var str='${warehouseDate.warehouseId}';
+
+     $('#retailLibraries').combobox({
 			valueField : 'value',
 			//height:18,
 			width : 168,
@@ -62,16 +59,17 @@
 		});
 		
 		//初始化上级部门
-		$("#warehouseName").combotree({
+		$("#departmentId").combotree({
 			data :$.parseJSON('${allDepTreeNodeData}'),
 			width:168,
 			panelHeight : 'auto',
 		    missingMessage:'请选择上级部门',
 		    smooth: true,       //该属性用以启用当前 easyui-tree 控件对平滑数据格式的支持
 		    lines : true,
+		    editable:false,
 		    onBeforeSelect:function(node){
 		    	if(node.state){
-                     $("#warehouseName").combotree("unselect");
+                     $("#departmentId").combotree("unselect");
                  }
 		    },
 		    onSelect:function(record){
@@ -80,14 +78,21 @@
 		    		url:ctx + "/do/user/dept.json?depId="+record.id,
 		    		dataType:"json",
 		    		success: function (date){
-		    			console.info(date);
-		    			 $("#warehouseManager").combobox({
+		    			   console.info(date);
+		    			   $("#warehouseManager").combobox({
 		    				 	data:$.parseJSON(date),
 		    					valueField:'id',    
 		    				    textField:'text',
 		    				    panelHeight : 'auto',
-		    			});   
-		    		 }
+		    				    editable:false 
+		    			   });
+		    			   if($.parseJSON(date).length==0){
+		    				   $("#warehouseManager").combobox('setValue', '');
+						   }else{
+							   if(str==null||str=="")
+							        $("#warehouseManager").combobox('select', $.parseJSON(date)[0].id);
+						   }
+		    			}
 		    	});
 		        
 		    }

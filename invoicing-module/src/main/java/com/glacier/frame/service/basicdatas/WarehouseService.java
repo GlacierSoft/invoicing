@@ -121,6 +121,7 @@ public class WarehouseService {
 		}
 		warehouse.setWarehouseId(RandomGUID.getRandomGUID());
 		warehouse.setWarehouseCode("WH_"+(int)(Math.random()*9000+1000));
+		warehouse.setEnabled("enable");
 		warehouse.setCreater(pricipalUser.getUserCnName());
 		warehouse.setCreateTime(new Date());
 		warehouse.setUpdater(pricipalUser.getUserCnName());

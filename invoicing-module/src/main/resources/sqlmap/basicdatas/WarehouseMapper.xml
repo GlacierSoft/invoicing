@@ -18,6 +18,10 @@
     <result column="temp_warehouse_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_warehouse_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_warehouse_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    
+    <result column="temp_warehouse_dep_display" property="depDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_warehouse_warehouse_manager_display" property="warehouseManagerDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+  
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -86,7 +90,16 @@
     temp_warehouse.remark as temp_warehouse_remark, temp_warehouse.enabled as temp_warehouse_enabled, 
     temp_warehouse.creater as temp_warehouse_creater, temp_warehouse.create_time as temp_warehouse_create_time, 
     temp_warehouse.updater as temp_warehouse_updater, temp_warehouse.update_time as temp_warehouse_update_time
+    
+    ,temp_dep_display.cn_name as temp_warehouse_dep_display 
+    ,temp_manager_display.username as  temp_warehouse_warehouse_manager_display
   </sql>
+  
+   <sql id="Base_extend">
+    LEFT JOIN t_dep  temp_dep_display ON temp_dep_display.dep_id = temp_warehouse.department_id<!-- 扩展 -->
+   	LEFT JOIN t_user temp_manager_display ON temp_manager_display.user_id = temp_warehouse.warehouse_manager <!-- 扩展 -->
+  </sql>
+  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.basicdatas.WarehouseExample" >
     select
     <if test="distinct" >
@@ -94,6 +107,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_warehouse temp_warehouse
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -108,6 +122,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_warehouse temp_warehouse
+    <include refid="Base_extend" />
     where temp_warehouse.warehouse_id = #{warehouseId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -239,6 +254,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.basicdatas.WarehouseExample" resultType="java.lang.Integer" >
     select count(*) from t_warehouse temp_warehouse
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

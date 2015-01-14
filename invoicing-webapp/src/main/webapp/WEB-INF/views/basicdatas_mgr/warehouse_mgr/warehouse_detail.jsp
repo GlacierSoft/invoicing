@@ -20,8 +20,14 @@
 			<td><input class="spinner" style="width:150px" value="${warehouseDate.address}" readonly="readonly"/></td>
 		</tr>
 		<tr>
+			<td>所属部门：</td>
+			<td><input class="spinner" style="width:150px"  value="${warehouseDate.depDisplay}" readonly="readonly"/></td>
 			<td>仓库管理：</td>
-			<td><input class="spinner" style="width:150px"  value="${warehouseDate.warehouseManager}" readonly="readonly"/></td>
+			<td><input class="spinner" style="width:150px"  value="${warehouseDate.warehouseManagerDisplay}" readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td>负责人员：</td>
+			<td><input class="spinner" style="width:150px" value="${warehouseDate.head}" readonly="readonly"/></td>
 			<td>联系电话：</td>
 			<td ><input class="spinner" style="width:150px"  value="${warehouseDate.phone}" readonly="readonly"/></td>
 		</tr>

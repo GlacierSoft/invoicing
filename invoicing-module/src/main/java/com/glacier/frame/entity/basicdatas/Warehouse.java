@@ -35,7 +35,28 @@ public class Warehouse {
 
     private Date updateTime;
 
-    public String getWarehouseId() {
+    
+    private String depDisplay;
+    
+    private String warehouseManagerDisplay;
+    
+    public String getDepDisplay() {
+		return depDisplay;
+	}
+
+	public void setDepDisplay(String depDisplay) {
+		this.depDisplay = depDisplay;
+	}
+
+	public String getWarehouseManagerDisplay() {
+		return warehouseManagerDisplay;
+	}
+
+	public void setWarehouseManagerDisplay(String warehouseManagerDisplay) {
+		this.warehouseManagerDisplay = warehouseManagerDisplay;
+	}
+
+	public String getWarehouseId() {
         return warehouseId;
     }
 
