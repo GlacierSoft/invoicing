@@ -159,7 +159,7 @@
 		var parClientTypeIds = [];//删除的id标识
 		var parClientTypeNames = [];//日志记录引用名称
 		for(var i =0;i<rows.length;i++){
-			parClientTypeIds.push(rows[i].clientTypeId);
+			parClientTypeIds.push(rows[i].clientTypeid);
 			parClientTypeNames.push(rows[i].clientTypeName);
 		}
 		if(parClientTypeIds.length > 0){
