@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.purchase.PurchaseOrderDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.purchase.PurchaseOrderDetail" >
+    <id column="temp_purchase_order_detail_pur_order_det_id" property="purOrderDetId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_detail_pur_order_id" property="purOrderId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_detail_goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_detail_goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_detail_goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_detail_goods_model" property="goodsModel" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_detail_goods_unit" property="goodsUnit" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_detail_quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="temp_purchase_order_detail_price" property="price" jdbcType="DECIMAL" />
+    <result column="temp_purchase_order_detail_brand" property="brand" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_detail_place_of_origin" property="placeOfOrigin" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_detail_prime_cost" property="primeCost" jdbcType="DECIMAL" />
+    <result column="temp_purchase_order_detail_discount" property="discount" jdbcType="DECIMAL" />
+    <result column="temp_purchase_order_detail_cess" property="cess" jdbcType="DECIMAL" />
+    <result column="temp_purchase_order_detail_money" property="money" jdbcType="DECIMAL" />
+    <result column="temp_purchase_order_detail_deadline" property="deadline" jdbcType="TIMESTAMP" />
+    <result column="temp_purchase_order_detail_not_arr_num" property="notArrNum" jdbcType="INTEGER" />
+    <result column="temp_purchase_order_detail_alr_arr_num" property="alrArrNum" jdbcType="INTEGER" />
+    <result column="temp_purchase_order_detail_not_pay_num" property="notPayNum" jdbcType="INTEGER" />
+    <result column="temp_purchase_order_detail_alr_pay_num" property="alrPayNum" jdbcType="INTEGER" />
+    <result column="temp_purchase_order_detail_not_inv_num" property="notInvNum" jdbcType="INTEGER" />
+    <result column="temp_purchase_order_detail_alr_inv_num" property="alrInvNum" jdbcType="INTEGER" />
+    <result column="temp_purchase_order_detail_not_ter_num" property="notTerNum" jdbcType="INTEGER" />
+    <result column="temp_purchase_order_detail_alr_ter_num" property="alrTerNum" jdbcType="INTEGER" />
+    <result column="temp_purchase_order_detail_not_ter_money" property="notTerMoney" jdbcType="DECIMAL" />
+    <result column="temp_purchase_order_detail_alr_ter_money" property="alrTerMoney" jdbcType="DECIMAL" />
+    <result column="temp_purchase_order_detail_remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_purchase_order_detail.pur_order_det_id as temp_purchase_order_detail_pur_order_det_id, 
+    temp_purchase_order_detail.pur_order_id as temp_purchase_order_detail_pur_order_id, 
+    temp_purchase_order_detail.goods_id as temp_purchase_order_detail_goods_id, temp_purchase_order_detail.goods_code as temp_purchase_order_detail_goods_code, 
+    temp_purchase_order_detail.goods_name as temp_purchase_order_detail_goods_name, temp_purchase_order_detail.goods_model as temp_purchase_order_detail_goods_model, 
+    temp_purchase_order_detail.goods_unit as temp_purchase_order_detail_goods_unit, temp_purchase_order_detail.quantity as temp_purchase_order_detail_quantity, 
+    temp_purchase_order_detail.price as temp_purchase_order_detail_price, temp_purchase_order_detail.brand as temp_purchase_order_detail_brand, 
+    temp_purchase_order_detail.place_of_origin as temp_purchase_order_detail_place_of_origin, 
+    temp_purchase_order_detail.prime_cost as temp_purchase_order_detail_prime_cost, temp_purchase_order_detail.discount as temp_purchase_order_detail_discount, 
+    temp_purchase_order_detail.cess as temp_purchase_order_detail_cess, temp_purchase_order_detail.money as temp_purchase_order_detail_money, 
+    temp_purchase_order_detail.deadline as temp_purchase_order_detail_deadline, temp_purchase_order_detail.not_arr_num as temp_purchase_order_detail_not_arr_num, 
+    temp_purchase_order_detail.alr_arr_num as temp_purchase_order_detail_alr_arr_num, 
+    temp_purchase_order_detail.not_pay_num as temp_purchase_order_detail_not_pay_num, 
+    temp_purchase_order_detail.alr_pay_num as temp_purchase_order_detail_alr_pay_num, 
+    temp_purchase_order_detail.not_inv_num as temp_purchase_order_detail_not_inv_num, 
+    temp_purchase_order_detail.alr_inv_num as temp_purchase_order_detail_alr_inv_num, 
+    temp_purchase_order_detail.not_ter_num as temp_purchase_order_detail_not_ter_num, 
+    temp_purchase_order_detail.alr_ter_num as temp_purchase_order_detail_alr_ter_num, 
+    temp_purchase_order_detail.not_ter_money as temp_purchase_order_detail_not_ter_money, 
+    temp_purchase_order_detail.alr_ter_money as temp_purchase_order_detail_alr_ter_money, 
+    temp_purchase_order_detail.remark as temp_purchase_order_detail_remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_purchase_order_detail temp_purchase_order_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_purchase_order_detail temp_purchase_order_detail
+    where temp_purchase_order_detail.pur_order_det_id = #{purOrderDetId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_purchase_order_detail
+    where pur_order_det_id = #{purOrderDetId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderDetailExample" >
+    delete temp_purchase_order_detail from t_purchase_order_detail temp_purchase_order_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderDetail" >
+    insert into t_purchase_order_detail (pur_order_det_id, pur_order_id, goods_id, 
+      goods_code, goods_name, goods_model, 
+      goods_unit, quantity, price, 
+      brand, place_of_origin, prime_cost, 
+      discount, cess, money, 
+      deadline, not_arr_num, alr_arr_num, 
+      not_pay_num, alr_pay_num, not_inv_num, 
+      alr_inv_num, not_ter_num, alr_ter_num, 
+      not_ter_money, alr_ter_money, remark
+      )
+    values (#{purOrderDetId,jdbcType=VARCHAR}, #{purOrderId,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, 
+      #{goodsCode,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, #{goodsModel,jdbcType=VARCHAR}, 
+      #{goodsUnit,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, 
+      #{brand,jdbcType=VARCHAR}, #{placeOfOrigin,jdbcType=VARCHAR}, #{primeCost,jdbcType=DECIMAL}, 
+      #{discount,jdbcType=DECIMAL}, #{cess,jdbcType=DECIMAL}, #{money,jdbcType=DECIMAL}, 
+      #{deadline,jdbcType=TIMESTAMP}, #{notArrNum,jdbcType=INTEGER}, #{alrArrNum,jdbcType=INTEGER}, 
+      #{notPayNum,jdbcType=INTEGER}, #{alrPayNum,jdbcType=INTEGER}, #{notInvNum,jdbcType=INTEGER}, 
+      #{alrInvNum,jdbcType=INTEGER}, #{notTerNum,jdbcType=INTEGER}, #{alrTerNum,jdbcType=INTEGER}, 
+      #{notTerMoney,jdbcType=DECIMAL}, #{alrTerMoney,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderDetail" >
+    insert into t_purchase_order_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="purOrderDetId != null" >
+        pur_order_det_id,
+      </if>
+      <if test="purOrderId != null" >
+        pur_order_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="goodsCode != null" >
+        goods_code,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="goodsModel != null" >
+        goods_model,
+      </if>
+      <if test="goodsUnit != null" >
+        goods_unit,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="brand != null" >
+        brand,
+      </if>
+      <if test="placeOfOrigin != null" >
+        place_of_origin,
+      </if>
+      <if test="primeCost != null" >
+        prime_cost,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+      <if test="cess != null" >
+        cess,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="deadline != null" >
+        deadline,
+      </if>
+      <if test="notArrNum != null" >
+        not_arr_num,
+      </if>
+      <if test="alrArrNum != null" >
+        alr_arr_num,
+      </if>
+      <if test="notPayNum != null" >
+        not_pay_num,
+      </if>
+      <if test="alrPayNum != null" >
+        alr_pay_num,
+      </if>
+      <if test="notInvNum != null" >
+        not_inv_num,
+      </if>
+      <if test="alrInvNum != null" >
+        alr_inv_num,
+      </if>
+      <if test="notTerNum != null" >
+        not_ter_num,
+      </if>
+      <if test="alrTerNum != null" >
+        alr_ter_num,
+      </if>
+      <if test="notTerMoney != null" >
+        not_ter_money,
+      </if>
+      <if test="alrTerMoney != null" >
+        alr_ter_money,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="purOrderDetId != null" >
+        #{purOrderDetId,jdbcType=VARCHAR},
+      </if>
+      <if test="purOrderId != null" >
+        #{purOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsModel != null" >
+        #{goodsModel,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsUnit != null" >
+        #{goodsUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="brand != null" >
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="placeOfOrigin != null" >
+        #{placeOfOrigin,jdbcType=VARCHAR},
+      </if>
+      <if test="primeCost != null" >
+        #{primeCost,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="cess != null" >
+        #{cess,jdbcType=DECIMAL},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="deadline != null" >
+        #{deadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="notArrNum != null" >
+        #{notArrNum,jdbcType=INTEGER},
+      </if>
+      <if test="alrArrNum != null" >
+        #{alrArrNum,jdbcType=INTEGER},
+      </if>
+      <if test="notPayNum != null" >
+        #{notPayNum,jdbcType=INTEGER},
+      </if>
+      <if test="alrPayNum != null" >
+        #{alrPayNum,jdbcType=INTEGER},
+      </if>
+      <if test="notInvNum != null" >
+        #{notInvNum,jdbcType=INTEGER},
+      </if>
+      <if test="alrInvNum != null" >
+        #{alrInvNum,jdbcType=INTEGER},
+      </if>
+      <if test="notTerNum != null" >
+        #{notTerNum,jdbcType=INTEGER},
+      </if>
+      <if test="alrTerNum != null" >
+        #{alrTerNum,jdbcType=INTEGER},
+      </if>
+      <if test="notTerMoney != null" >
+        #{notTerMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="alrTerMoney != null" >
+        #{alrTerMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderDetailExample" resultType="java.lang.Integer" >
+    select count(*) from t_purchase_order_detail temp_purchase_order_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_purchase_order_detail temp_purchase_order_detail
+    <set >
+      <if test="record.purOrderDetId != null" >
+        temp_purchase_order_detail.pur_order_det_id = #{record.purOrderDetId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purOrderId != null" >
+        temp_purchase_order_detail.pur_order_id = #{record.purOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsId != null" >
+        temp_purchase_order_detail.goods_id = #{record.goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsCode != null" >
+        temp_purchase_order_detail.goods_code = #{record.goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsName != null" >
+        temp_purchase_order_detail.goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsModel != null" >
+        temp_purchase_order_detail.goods_model = #{record.goodsModel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsUnit != null" >
+        temp_purchase_order_detail.goods_unit = #{record.goodsUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.quantity != null" >
+        temp_purchase_order_detail.quantity = #{record.quantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null" >
+        temp_purchase_order_detail.price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.brand != null" >
+        temp_purchase_order_detail.brand = #{record.brand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.placeOfOrigin != null" >
+        temp_purchase_order_detail.place_of_origin = #{record.placeOfOrigin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.primeCost != null" >
+        temp_purchase_order_detail.prime_cost = #{record.primeCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.discount != null" >
+        temp_purchase_order_detail.discount = #{record.discount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cess != null" >
+        temp_purchase_order_detail.cess = #{record.cess,jdbcType=DECIMAL},
+      </if>
+      <if test="record.money != null" >
+        temp_purchase_order_detail.money = #{record.money,jdbcType=DECIMAL},
+      </if>
+      <if test="record.deadline != null" >
+        temp_purchase_order_detail.deadline = #{record.deadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.notArrNum != null" >
+        temp_purchase_order_detail.not_arr_num = #{record.notArrNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.alrArrNum != null" >
+        temp_purchase_order_detail.alr_arr_num = #{record.alrArrNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.notPayNum != null" >
+        temp_purchase_order_detail.not_pay_num = #{record.notPayNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.alrPayNum != null" >
+        temp_purchase_order_detail.alr_pay_num = #{record.alrPayNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.notInvNum != null" >
+        temp_purchase_order_detail.not_inv_num = #{record.notInvNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.alrInvNum != null" >
+        temp_purchase_order_detail.alr_inv_num = #{record.alrInvNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.notTerNum != null" >
+        temp_purchase_order_detail.not_ter_num = #{record.notTerNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.alrTerNum != null" >
+        temp_purchase_order_detail.alr_ter_num = #{record.alrTerNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.notTerMoney != null" >
+        temp_purchase_order_detail.not_ter_money = #{record.notTerMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.alrTerMoney != null" >
+        temp_purchase_order_detail.alr_ter_money = #{record.alrTerMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remark != null" >
+        temp_purchase_order_detail.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_purchase_order_detail temp_purchase_order_detail
+    set temp_purchase_order_detail.pur_order_det_id = #{record.purOrderDetId,jdbcType=VARCHAR},
+      temp_purchase_order_detail.pur_order_id = #{record.purOrderId,jdbcType=VARCHAR},
+      temp_purchase_order_detail.goods_id = #{record.goodsId,jdbcType=VARCHAR},
+      temp_purchase_order_detail.goods_code = #{record.goodsCode,jdbcType=VARCHAR},
+      temp_purchase_order_detail.goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      temp_purchase_order_detail.goods_model = #{record.goodsModel,jdbcType=VARCHAR},
+      temp_purchase_order_detail.goods_unit = #{record.goodsUnit,jdbcType=VARCHAR},
+      temp_purchase_order_detail.quantity = #{record.quantity,jdbcType=INTEGER},
+      temp_purchase_order_detail.price = #{record.price,jdbcType=DECIMAL},
+      temp_purchase_order_detail.brand = #{record.brand,jdbcType=VARCHAR},
+      temp_purchase_order_detail.place_of_origin = #{record.placeOfOrigin,jdbcType=VARCHAR},
+      temp_purchase_order_detail.prime_cost = #{record.primeCost,jdbcType=DECIMAL},
+      temp_purchase_order_detail.discount = #{record.discount,jdbcType=DECIMAL},
+      temp_purchase_order_detail.cess = #{record.cess,jdbcType=DECIMAL},
+      temp_purchase_order_detail.money = #{record.money,jdbcType=DECIMAL},
+      temp_purchase_order_detail.deadline = #{record.deadline,jdbcType=TIMESTAMP},
+      temp_purchase_order_detail.not_arr_num = #{record.notArrNum,jdbcType=INTEGER},
+      temp_purchase_order_detail.alr_arr_num = #{record.alrArrNum,jdbcType=INTEGER},
+      temp_purchase_order_detail.not_pay_num = #{record.notPayNum,jdbcType=INTEGER},
+      temp_purchase_order_detail.alr_pay_num = #{record.alrPayNum,jdbcType=INTEGER},
+      temp_purchase_order_detail.not_inv_num = #{record.notInvNum,jdbcType=INTEGER},
+      temp_purchase_order_detail.alr_inv_num = #{record.alrInvNum,jdbcType=INTEGER},
+      temp_purchase_order_detail.not_ter_num = #{record.notTerNum,jdbcType=INTEGER},
+      temp_purchase_order_detail.alr_ter_num = #{record.alrTerNum,jdbcType=INTEGER},
+      temp_purchase_order_detail.not_ter_money = #{record.notTerMoney,jdbcType=DECIMAL},
+      temp_purchase_order_detail.alr_ter_money = #{record.alrTerMoney,jdbcType=DECIMAL},
+      temp_purchase_order_detail.remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderDetail" >
+    update t_purchase_order_detail
+    <set >
+      <if test="purOrderId != null" >
+        pur_order_id = #{purOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        goods_code = #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsModel != null" >
+        goods_model = #{goodsModel,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsUnit != null" >
+        goods_unit = #{goodsUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="brand != null" >
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="placeOfOrigin != null" >
+        place_of_origin = #{placeOfOrigin,jdbcType=VARCHAR},
+      </if>
+      <if test="primeCost != null" >
+        prime_cost = #{primeCost,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null" >
+        discount = #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="cess != null" >
+        cess = #{cess,jdbcType=DECIMAL},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="deadline != null" >
+        deadline = #{deadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="notArrNum != null" >
+        not_arr_num = #{notArrNum,jdbcType=INTEGER},
+      </if>
+      <if test="alrArrNum != null" >
+        alr_arr_num = #{alrArrNum,jdbcType=INTEGER},
+      </if>
+      <if test="notPayNum != null" >
+        not_pay_num = #{notPayNum,jdbcType=INTEGER},
+      </if>
+      <if test="alrPayNum != null" >
+        alr_pay_num = #{alrPayNum,jdbcType=INTEGER},
+      </if>
+      <if test="notInvNum != null" >
+        not_inv_num = #{notInvNum,jdbcType=INTEGER},
+      </if>
+      <if test="alrInvNum != null" >
+        alr_inv_num = #{alrInvNum,jdbcType=INTEGER},
+      </if>
+      <if test="notTerNum != null" >
+        not_ter_num = #{notTerNum,jdbcType=INTEGER},
+      </if>
+      <if test="alrTerNum != null" >
+        alr_ter_num = #{alrTerNum,jdbcType=INTEGER},
+      </if>
+      <if test="notTerMoney != null" >
+        not_ter_money = #{notTerMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="alrTerMoney != null" >
+        alr_ter_money = #{alrTerMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pur_order_det_id = #{purOrderDetId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderDetail" >
+    update t_purchase_order_detail
+    set pur_order_id = #{purOrderId,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=VARCHAR},
+      goods_code = #{goodsCode,jdbcType=VARCHAR},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_model = #{goodsModel,jdbcType=VARCHAR},
+      goods_unit = #{goodsUnit,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      brand = #{brand,jdbcType=VARCHAR},
+      place_of_origin = #{placeOfOrigin,jdbcType=VARCHAR},
+      prime_cost = #{primeCost,jdbcType=DECIMAL},
+      discount = #{discount,jdbcType=DECIMAL},
+      cess = #{cess,jdbcType=DECIMAL},
+      money = #{money,jdbcType=DECIMAL},
+      deadline = #{deadline,jdbcType=TIMESTAMP},
+      not_arr_num = #{notArrNum,jdbcType=INTEGER},
+      alr_arr_num = #{alrArrNum,jdbcType=INTEGER},
+      not_pay_num = #{notPayNum,jdbcType=INTEGER},
+      alr_pay_num = #{alrPayNum,jdbcType=INTEGER},
+      not_inv_num = #{notInvNum,jdbcType=INTEGER},
+      alr_inv_num = #{alrInvNum,jdbcType=INTEGER},
+      not_ter_num = #{notTerNum,jdbcType=INTEGER},
+      alr_ter_num = #{alrTerNum,jdbcType=INTEGER},
+      not_ter_money = #{notTerMoney,jdbcType=DECIMAL},
+      alr_ter_money = #{alrTerMoney,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR}
+    where pur_order_det_id = #{purOrderDetId,jdbcType=VARCHAR}
+  </update>
+</mapper>

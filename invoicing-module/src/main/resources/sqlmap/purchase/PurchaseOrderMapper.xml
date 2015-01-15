@@ -1,0 +1,986 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.purchase.PurchaseOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.purchase.PurchaseOrder" >
+    <id column="temp_purchase_order_pur_order_id" property="purOrderId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_order_code" property="orderCode" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_contract_code" property="contractCode" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_order_state" property="orderState" jdbcType="CHAR" />
+    <result column="temp_purchase_order_purchase_type_id" property="purchaseTypeId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_order_date" property="orderDate" jdbcType="TIMESTAMP" />
+    <result column="temp_purchase_order_storage" property="storage" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_supplier_code" property="supplierCode" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_supplier_id" property="supplierId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_supplier_add" property="supplierAdd" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_linkman" property="linkman" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_phone" property="phone" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_fax" property="fax" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_payment_type_id" property="paymentTypeId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_payment_agr_id" property="paymentAgrId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_delivery_type" property="deliveryType" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_delivery_dadlines" property="deliveryDadlines" jdbcType="TIMESTAMP" />
+    <result column="temp_purchase_order_delivery_add" property="deliveryAdd" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_invoice" property="invoice" jdbcType="CHAR" />
+    <result column="temp_purchase_order_invoice_type_id" property="invoiceTypeId" jdbcType="CHAR" />
+    <result column="temp_purchase_order_inv_state" property="invState" jdbcType="CHAR" />
+    <result column="temp_purchase_order_total_amount" property="totalAmount" jdbcType="DECIMAL" />
+    <result column="temp_purchase_order_arr_state" property="arrState" jdbcType="CHAR" />
+    <result column="temp_purchase_order_pay_state" property="payState" jdbcType="CHAR" />
+    <result column="temp_purchase_order_not_arr_amo" property="notArrAmo" jdbcType="DECIMAL" />
+    <result column="temp_purchase_order_alr_arr_amo" property="alrArrAmo" jdbcType="DECIMAL" />
+    <result column="temp_purchase_order_not_pay_amo" property="notPayAmo" jdbcType="DECIMAL" />
+    <result column="temp_purchase_order_alr_pay_amo" property="alrPayAmo" jdbcType="DECIMAL" />
+    <result column="temp_purchase_order_not_inv_amo" property="notInvAmo" jdbcType="DECIMAL" />
+    <result column="temp_purchase_order_alr_inv_amo" property="alrInvAmo" jdbcType="DECIMAL" />
+    <result column="temp_purchase_order_accessory" property="accessory" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_shared_people_id" property="sharedPeopleId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_audit_state" property="auditState" jdbcType="CHAR" />
+    <result column="temp_purchase_order_auditor" property="auditor" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_audit_date" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="temp_purchase_order_audit_remark" property="auditRemark" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_enabled" property="enabled" jdbcType="CHAR" />
+    <result column="temp_purchase_order_operators" property="operators" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_operator_dep" property="operatorDep" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_purchase_order_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.glacier.frame.entity.purchase.PurchaseOrder" extends="BaseResultMap" >
+    <result column="temp_purchase_order_contract_terms" property="contractTerms" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_purchase_order.pur_order_id as temp_purchase_order_pur_order_id, temp_purchase_order.order_code as temp_purchase_order_order_code, 
+    temp_purchase_order.contract_code as temp_purchase_order_contract_code, temp_purchase_order.order_state as temp_purchase_order_order_state, 
+    temp_purchase_order.purchase_type_id as temp_purchase_order_purchase_type_id, temp_purchase_order.order_date as temp_purchase_order_order_date, 
+    temp_purchase_order.storage as temp_purchase_order_storage, temp_purchase_order.supplier_code as temp_purchase_order_supplier_code, 
+    temp_purchase_order.supplier_id as temp_purchase_order_supplier_id, temp_purchase_order.supplier_add as temp_purchase_order_supplier_add, 
+    temp_purchase_order.linkman as temp_purchase_order_linkman, temp_purchase_order.phone as temp_purchase_order_phone, 
+    temp_purchase_order.fax as temp_purchase_order_fax, temp_purchase_order.payment_type_id as temp_purchase_order_payment_type_id, 
+    temp_purchase_order.payment_agr_id as temp_purchase_order_payment_agr_id, temp_purchase_order.delivery_type as temp_purchase_order_delivery_type, 
+    temp_purchase_order.delivery_dadlines as temp_purchase_order_delivery_dadlines, temp_purchase_order.delivery_add as temp_purchase_order_delivery_add, 
+    temp_purchase_order.invoice as temp_purchase_order_invoice, temp_purchase_order.invoice_type_id as temp_purchase_order_invoice_type_id, 
+    temp_purchase_order.inv_state as temp_purchase_order_inv_state, temp_purchase_order.total_amount as temp_purchase_order_total_amount, 
+    temp_purchase_order.arr_state as temp_purchase_order_arr_state, temp_purchase_order.pay_state as temp_purchase_order_pay_state, 
+    temp_purchase_order.not_arr_amo as temp_purchase_order_not_arr_amo, temp_purchase_order.alr_arr_amo as temp_purchase_order_alr_arr_amo, 
+    temp_purchase_order.not_pay_amo as temp_purchase_order_not_pay_amo, temp_purchase_order.alr_pay_amo as temp_purchase_order_alr_pay_amo, 
+    temp_purchase_order.not_inv_amo as temp_purchase_order_not_inv_amo, temp_purchase_order.alr_inv_amo as temp_purchase_order_alr_inv_amo, 
+    temp_purchase_order.accessory as temp_purchase_order_accessory, temp_purchase_order.shared_people_id as temp_purchase_order_shared_people_id, 
+    temp_purchase_order.audit_state as temp_purchase_order_audit_state, temp_purchase_order.auditor as temp_purchase_order_auditor, 
+    temp_purchase_order.audit_date as temp_purchase_order_audit_date, temp_purchase_order.audit_remark as temp_purchase_order_audit_remark, 
+    temp_purchase_order.enabled as temp_purchase_order_enabled, temp_purchase_order.operators as temp_purchase_order_operators, 
+    temp_purchase_order.operator_dep as temp_purchase_order_operator_dep, temp_purchase_order.remark as temp_purchase_order_remark, 
+    temp_purchase_order.creater as temp_purchase_order_creater, temp_purchase_order.create_time as temp_purchase_order_create_time, 
+    temp_purchase_order.updater as temp_purchase_order_updater, temp_purchase_order.update_time as temp_purchase_order_update_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    temp_purchase_order.contract_terms as temp_purchase_order_contract_terms
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_purchase_order temp_purchase_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_purchase_order temp_purchase_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_purchase_order temp_purchase_order
+    where temp_purchase_order.pur_order_id = #{purOrderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_purchase_order
+    where pur_order_id = #{purOrderId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderExample" >
+    delete temp_purchase_order from t_purchase_order temp_purchase_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.purchase.PurchaseOrder" >
+    insert into t_purchase_order (pur_order_id, order_code, contract_code, 
+      order_state, purchase_type_id, order_date, 
+      storage, supplier_code, supplier_id, 
+      supplier_add, linkman, phone, 
+      fax, payment_type_id, payment_agr_id, 
+      delivery_type, delivery_dadlines, delivery_add, 
+      invoice, invoice_type_id, inv_state, 
+      total_amount, arr_state, pay_state, 
+      not_arr_amo, alr_arr_amo, not_pay_amo, 
+      alr_pay_amo, not_inv_amo, alr_inv_amo, 
+      accessory, shared_people_id, audit_state, 
+      auditor, audit_date, audit_remark, 
+      enabled, operators, operator_dep, 
+      remark, creater, create_time, 
+      updater, update_time, contract_terms
+      )
+    values (#{purOrderId,jdbcType=VARCHAR}, #{orderCode,jdbcType=VARCHAR}, #{contractCode,jdbcType=VARCHAR}, 
+      #{orderState,jdbcType=CHAR}, #{purchaseTypeId,jdbcType=VARCHAR}, #{orderDate,jdbcType=TIMESTAMP}, 
+      #{storage,jdbcType=VARCHAR}, #{supplierCode,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, 
+      #{supplierAdd,jdbcType=VARCHAR}, #{linkman,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{fax,jdbcType=VARCHAR}, #{paymentTypeId,jdbcType=VARCHAR}, #{paymentAgrId,jdbcType=VARCHAR}, 
+      #{deliveryType,jdbcType=VARCHAR}, #{deliveryDadlines,jdbcType=TIMESTAMP}, #{deliveryAdd,jdbcType=VARCHAR}, 
+      #{invoice,jdbcType=CHAR}, #{invoiceTypeId,jdbcType=CHAR}, #{invState,jdbcType=CHAR}, 
+      #{totalAmount,jdbcType=DECIMAL}, #{arrState,jdbcType=CHAR}, #{payState,jdbcType=CHAR}, 
+      #{notArrAmo,jdbcType=DECIMAL}, #{alrArrAmo,jdbcType=DECIMAL}, #{notPayAmo,jdbcType=DECIMAL}, 
+      #{alrPayAmo,jdbcType=DECIMAL}, #{notInvAmo,jdbcType=DECIMAL}, #{alrInvAmo,jdbcType=DECIMAL}, 
+      #{accessory,jdbcType=VARCHAR}, #{sharedPeopleId,jdbcType=VARCHAR}, #{auditState,jdbcType=CHAR}, 
+      #{auditor,jdbcType=VARCHAR}, #{auditDate,jdbcType=TIMESTAMP}, #{auditRemark,jdbcType=VARCHAR}, 
+      #{enabled,jdbcType=CHAR}, #{operators,jdbcType=VARCHAR}, #{operatorDep,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{contractTerms,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.purchase.PurchaseOrder" >
+    insert into t_purchase_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="purOrderId != null" >
+        pur_order_id,
+      </if>
+      <if test="orderCode != null" >
+        order_code,
+      </if>
+      <if test="contractCode != null" >
+        contract_code,
+      </if>
+      <if test="orderState != null" >
+        order_state,
+      </if>
+      <if test="purchaseTypeId != null" >
+        purchase_type_id,
+      </if>
+      <if test="orderDate != null" >
+        order_date,
+      </if>
+      <if test="storage != null" >
+        storage,
+      </if>
+      <if test="supplierCode != null" >
+        supplier_code,
+      </if>
+      <if test="supplierId != null" >
+        supplier_id,
+      </if>
+      <if test="supplierAdd != null" >
+        supplier_add,
+      </if>
+      <if test="linkman != null" >
+        linkman,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="fax != null" >
+        fax,
+      </if>
+      <if test="paymentTypeId != null" >
+        payment_type_id,
+      </if>
+      <if test="paymentAgrId != null" >
+        payment_agr_id,
+      </if>
+      <if test="deliveryType != null" >
+        delivery_type,
+      </if>
+      <if test="deliveryDadlines != null" >
+        delivery_dadlines,
+      </if>
+      <if test="deliveryAdd != null" >
+        delivery_add,
+      </if>
+      <if test="invoice != null" >
+        invoice,
+      </if>
+      <if test="invoiceTypeId != null" >
+        invoice_type_id,
+      </if>
+      <if test="invState != null" >
+        inv_state,
+      </if>
+      <if test="totalAmount != null" >
+        total_amount,
+      </if>
+      <if test="arrState != null" >
+        arr_state,
+      </if>
+      <if test="payState != null" >
+        pay_state,
+      </if>
+      <if test="notArrAmo != null" >
+        not_arr_amo,
+      </if>
+      <if test="alrArrAmo != null" >
+        alr_arr_amo,
+      </if>
+      <if test="notPayAmo != null" >
+        not_pay_amo,
+      </if>
+      <if test="alrPayAmo != null" >
+        alr_pay_amo,
+      </if>
+      <if test="notInvAmo != null" >
+        not_inv_amo,
+      </if>
+      <if test="alrInvAmo != null" >
+        alr_inv_amo,
+      </if>
+      <if test="accessory != null" >
+        accessory,
+      </if>
+      <if test="sharedPeopleId != null" >
+        shared_people_id,
+      </if>
+      <if test="auditState != null" >
+        audit_state,
+      </if>
+      <if test="auditor != null" >
+        auditor,
+      </if>
+      <if test="auditDate != null" >
+        audit_date,
+      </if>
+      <if test="auditRemark != null" >
+        audit_remark,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="operators != null" >
+        operators,
+      </if>
+      <if test="operatorDep != null" >
+        operator_dep,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="contractTerms != null" >
+        contract_terms,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="purOrderId != null" >
+        #{purOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCode != null" >
+        #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="contractCode != null" >
+        #{contractCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderState != null" >
+        #{orderState,jdbcType=CHAR},
+      </if>
+      <if test="purchaseTypeId != null" >
+        #{purchaseTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderDate != null" >
+        #{orderDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storage != null" >
+        #{storage,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierCode != null" >
+        #{supplierCode,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierAdd != null" >
+        #{supplierAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentTypeId != null" >
+        #{paymentTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentAgrId != null" >
+        #{paymentAgrId,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryType != null" >
+        #{deliveryType,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryDadlines != null" >
+        #{deliveryDadlines,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryAdd != null" >
+        #{deliveryAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="invoice != null" >
+        #{invoice,jdbcType=CHAR},
+      </if>
+      <if test="invoiceTypeId != null" >
+        #{invoiceTypeId,jdbcType=CHAR},
+      </if>
+      <if test="invState != null" >
+        #{invState,jdbcType=CHAR},
+      </if>
+      <if test="totalAmount != null" >
+        #{totalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="arrState != null" >
+        #{arrState,jdbcType=CHAR},
+      </if>
+      <if test="payState != null" >
+        #{payState,jdbcType=CHAR},
+      </if>
+      <if test="notArrAmo != null" >
+        #{notArrAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="alrArrAmo != null" >
+        #{alrArrAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="notPayAmo != null" >
+        #{notPayAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="alrPayAmo != null" >
+        #{alrPayAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="notInvAmo != null" >
+        #{notInvAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="alrInvAmo != null" >
+        #{alrInvAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="accessory != null" >
+        #{accessory,jdbcType=VARCHAR},
+      </if>
+      <if test="sharedPeopleId != null" >
+        #{sharedPeopleId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null" >
+        #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="auditor != null" >
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditRemark != null" >
+        #{auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="operators != null" >
+        #{operators,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorDep != null" >
+        #{operatorDep,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractTerms != null" >
+        #{contractTerms,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderExample" resultType="java.lang.Integer" >
+    select count(*) from t_purchase_order temp_purchase_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_purchase_order temp_purchase_order
+    <set >
+      <if test="record.purOrderId != null" >
+        temp_purchase_order.pur_order_id = #{record.purOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderCode != null" >
+        temp_purchase_order.order_code = #{record.orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractCode != null" >
+        temp_purchase_order.contract_code = #{record.contractCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderState != null" >
+        temp_purchase_order.order_state = #{record.orderState,jdbcType=CHAR},
+      </if>
+      <if test="record.purchaseTypeId != null" >
+        temp_purchase_order.purchase_type_id = #{record.purchaseTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderDate != null" >
+        temp_purchase_order.order_date = #{record.orderDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.storage != null" >
+        temp_purchase_order.storage = #{record.storage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplierCode != null" >
+        temp_purchase_order.supplier_code = #{record.supplierCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplierId != null" >
+        temp_purchase_order.supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplierAdd != null" >
+        temp_purchase_order.supplier_add = #{record.supplierAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkman != null" >
+        temp_purchase_order.linkman = #{record.linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        temp_purchase_order.phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fax != null" >
+        temp_purchase_order.fax = #{record.fax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paymentTypeId != null" >
+        temp_purchase_order.payment_type_id = #{record.paymentTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paymentAgrId != null" >
+        temp_purchase_order.payment_agr_id = #{record.paymentAgrId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryType != null" >
+        temp_purchase_order.delivery_type = #{record.deliveryType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryDadlines != null" >
+        temp_purchase_order.delivery_dadlines = #{record.deliveryDadlines,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deliveryAdd != null" >
+        temp_purchase_order.delivery_add = #{record.deliveryAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.invoice != null" >
+        temp_purchase_order.invoice = #{record.invoice,jdbcType=CHAR},
+      </if>
+      <if test="record.invoiceTypeId != null" >
+        temp_purchase_order.invoice_type_id = #{record.invoiceTypeId,jdbcType=CHAR},
+      </if>
+      <if test="record.invState != null" >
+        temp_purchase_order.inv_state = #{record.invState,jdbcType=CHAR},
+      </if>
+      <if test="record.totalAmount != null" >
+        temp_purchase_order.total_amount = #{record.totalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.arrState != null" >
+        temp_purchase_order.arr_state = #{record.arrState,jdbcType=CHAR},
+      </if>
+      <if test="record.payState != null" >
+        temp_purchase_order.pay_state = #{record.payState,jdbcType=CHAR},
+      </if>
+      <if test="record.notArrAmo != null" >
+        temp_purchase_order.not_arr_amo = #{record.notArrAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.alrArrAmo != null" >
+        temp_purchase_order.alr_arr_amo = #{record.alrArrAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.notPayAmo != null" >
+        temp_purchase_order.not_pay_amo = #{record.notPayAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.alrPayAmo != null" >
+        temp_purchase_order.alr_pay_amo = #{record.alrPayAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.notInvAmo != null" >
+        temp_purchase_order.not_inv_amo = #{record.notInvAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.alrInvAmo != null" >
+        temp_purchase_order.alr_inv_amo = #{record.alrInvAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.accessory != null" >
+        temp_purchase_order.accessory = #{record.accessory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sharedPeopleId != null" >
+        temp_purchase_order.shared_people_id = #{record.sharedPeopleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditState != null" >
+        temp_purchase_order.audit_state = #{record.auditState,jdbcType=CHAR},
+      </if>
+      <if test="record.auditor != null" >
+        temp_purchase_order.auditor = #{record.auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditDate != null" >
+        temp_purchase_order.audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.auditRemark != null" >
+        temp_purchase_order.audit_remark = #{record.auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enabled != null" >
+        temp_purchase_order.enabled = #{record.enabled,jdbcType=CHAR},
+      </if>
+      <if test="record.operators != null" >
+        temp_purchase_order.operators = #{record.operators,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatorDep != null" >
+        temp_purchase_order.operator_dep = #{record.operatorDep,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_purchase_order.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_purchase_order.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_purchase_order.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_purchase_order.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_purchase_order.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.contractTerms != null" >
+        temp_purchase_order.contract_terms = #{record.contractTerms,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update t_purchase_order temp_purchase_order
+    set temp_purchase_order.pur_order_id = #{record.purOrderId,jdbcType=VARCHAR},
+      temp_purchase_order.order_code = #{record.orderCode,jdbcType=VARCHAR},
+      temp_purchase_order.contract_code = #{record.contractCode,jdbcType=VARCHAR},
+      temp_purchase_order.order_state = #{record.orderState,jdbcType=CHAR},
+      temp_purchase_order.purchase_type_id = #{record.purchaseTypeId,jdbcType=VARCHAR},
+      temp_purchase_order.order_date = #{record.orderDate,jdbcType=TIMESTAMP},
+      temp_purchase_order.storage = #{record.storage,jdbcType=VARCHAR},
+      temp_purchase_order.supplier_code = #{record.supplierCode,jdbcType=VARCHAR},
+      temp_purchase_order.supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      temp_purchase_order.supplier_add = #{record.supplierAdd,jdbcType=VARCHAR},
+      temp_purchase_order.linkman = #{record.linkman,jdbcType=VARCHAR},
+      temp_purchase_order.phone = #{record.phone,jdbcType=VARCHAR},
+      temp_purchase_order.fax = #{record.fax,jdbcType=VARCHAR},
+      temp_purchase_order.payment_type_id = #{record.paymentTypeId,jdbcType=VARCHAR},
+      temp_purchase_order.payment_agr_id = #{record.paymentAgrId,jdbcType=VARCHAR},
+      temp_purchase_order.delivery_type = #{record.deliveryType,jdbcType=VARCHAR},
+      temp_purchase_order.delivery_dadlines = #{record.deliveryDadlines,jdbcType=TIMESTAMP},
+      temp_purchase_order.delivery_add = #{record.deliveryAdd,jdbcType=VARCHAR},
+      temp_purchase_order.invoice = #{record.invoice,jdbcType=CHAR},
+      temp_purchase_order.invoice_type_id = #{record.invoiceTypeId,jdbcType=CHAR},
+      temp_purchase_order.inv_state = #{record.invState,jdbcType=CHAR},
+      temp_purchase_order.total_amount = #{record.totalAmount,jdbcType=DECIMAL},
+      temp_purchase_order.arr_state = #{record.arrState,jdbcType=CHAR},
+      temp_purchase_order.pay_state = #{record.payState,jdbcType=CHAR},
+      temp_purchase_order.not_arr_amo = #{record.notArrAmo,jdbcType=DECIMAL},
+      temp_purchase_order.alr_arr_amo = #{record.alrArrAmo,jdbcType=DECIMAL},
+      temp_purchase_order.not_pay_amo = #{record.notPayAmo,jdbcType=DECIMAL},
+      temp_purchase_order.alr_pay_amo = #{record.alrPayAmo,jdbcType=DECIMAL},
+      temp_purchase_order.not_inv_amo = #{record.notInvAmo,jdbcType=DECIMAL},
+      temp_purchase_order.alr_inv_amo = #{record.alrInvAmo,jdbcType=DECIMAL},
+      temp_purchase_order.accessory = #{record.accessory,jdbcType=VARCHAR},
+      temp_purchase_order.shared_people_id = #{record.sharedPeopleId,jdbcType=VARCHAR},
+      temp_purchase_order.audit_state = #{record.auditState,jdbcType=CHAR},
+      temp_purchase_order.auditor = #{record.auditor,jdbcType=VARCHAR},
+      temp_purchase_order.audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
+      temp_purchase_order.audit_remark = #{record.auditRemark,jdbcType=VARCHAR},
+      temp_purchase_order.enabled = #{record.enabled,jdbcType=CHAR},
+      temp_purchase_order.operators = #{record.operators,jdbcType=VARCHAR},
+      temp_purchase_order.operator_dep = #{record.operatorDep,jdbcType=VARCHAR},
+      temp_purchase_order.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_purchase_order.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_purchase_order.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_purchase_order.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_purchase_order.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      temp_purchase_order.contract_terms = #{record.contractTerms,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_purchase_order temp_purchase_order
+    set temp_purchase_order.pur_order_id = #{record.purOrderId,jdbcType=VARCHAR},
+      temp_purchase_order.order_code = #{record.orderCode,jdbcType=VARCHAR},
+      temp_purchase_order.contract_code = #{record.contractCode,jdbcType=VARCHAR},
+      temp_purchase_order.order_state = #{record.orderState,jdbcType=CHAR},
+      temp_purchase_order.purchase_type_id = #{record.purchaseTypeId,jdbcType=VARCHAR},
+      temp_purchase_order.order_date = #{record.orderDate,jdbcType=TIMESTAMP},
+      temp_purchase_order.storage = #{record.storage,jdbcType=VARCHAR},
+      temp_purchase_order.supplier_code = #{record.supplierCode,jdbcType=VARCHAR},
+      temp_purchase_order.supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      temp_purchase_order.supplier_add = #{record.supplierAdd,jdbcType=VARCHAR},
+      temp_purchase_order.linkman = #{record.linkman,jdbcType=VARCHAR},
+      temp_purchase_order.phone = #{record.phone,jdbcType=VARCHAR},
+      temp_purchase_order.fax = #{record.fax,jdbcType=VARCHAR},
+      temp_purchase_order.payment_type_id = #{record.paymentTypeId,jdbcType=VARCHAR},
+      temp_purchase_order.payment_agr_id = #{record.paymentAgrId,jdbcType=VARCHAR},
+      temp_purchase_order.delivery_type = #{record.deliveryType,jdbcType=VARCHAR},
+      temp_purchase_order.delivery_dadlines = #{record.deliveryDadlines,jdbcType=TIMESTAMP},
+      temp_purchase_order.delivery_add = #{record.deliveryAdd,jdbcType=VARCHAR},
+      temp_purchase_order.invoice = #{record.invoice,jdbcType=CHAR},
+      temp_purchase_order.invoice_type_id = #{record.invoiceTypeId,jdbcType=CHAR},
+      temp_purchase_order.inv_state = #{record.invState,jdbcType=CHAR},
+      temp_purchase_order.total_amount = #{record.totalAmount,jdbcType=DECIMAL},
+      temp_purchase_order.arr_state = #{record.arrState,jdbcType=CHAR},
+      temp_purchase_order.pay_state = #{record.payState,jdbcType=CHAR},
+      temp_purchase_order.not_arr_amo = #{record.notArrAmo,jdbcType=DECIMAL},
+      temp_purchase_order.alr_arr_amo = #{record.alrArrAmo,jdbcType=DECIMAL},
+      temp_purchase_order.not_pay_amo = #{record.notPayAmo,jdbcType=DECIMAL},
+      temp_purchase_order.alr_pay_amo = #{record.alrPayAmo,jdbcType=DECIMAL},
+      temp_purchase_order.not_inv_amo = #{record.notInvAmo,jdbcType=DECIMAL},
+      temp_purchase_order.alr_inv_amo = #{record.alrInvAmo,jdbcType=DECIMAL},
+      temp_purchase_order.accessory = #{record.accessory,jdbcType=VARCHAR},
+      temp_purchase_order.shared_people_id = #{record.sharedPeopleId,jdbcType=VARCHAR},
+      temp_purchase_order.audit_state = #{record.auditState,jdbcType=CHAR},
+      temp_purchase_order.auditor = #{record.auditor,jdbcType=VARCHAR},
+      temp_purchase_order.audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
+      temp_purchase_order.audit_remark = #{record.auditRemark,jdbcType=VARCHAR},
+      temp_purchase_order.enabled = #{record.enabled,jdbcType=CHAR},
+      temp_purchase_order.operators = #{record.operators,jdbcType=VARCHAR},
+      temp_purchase_order.operator_dep = #{record.operatorDep,jdbcType=VARCHAR},
+      temp_purchase_order.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_purchase_order.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_purchase_order.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_purchase_order.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_purchase_order.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.purchase.PurchaseOrder" >
+    update t_purchase_order
+    <set >
+      <if test="orderCode != null" >
+        order_code = #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="contractCode != null" >
+        contract_code = #{contractCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderState != null" >
+        order_state = #{orderState,jdbcType=CHAR},
+      </if>
+      <if test="purchaseTypeId != null" >
+        purchase_type_id = #{purchaseTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderDate != null" >
+        order_date = #{orderDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storage != null" >
+        storage = #{storage,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierCode != null" >
+        supplier_code = #{supplierCode,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        supplier_id = #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierAdd != null" >
+        supplier_add = #{supplierAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        linkman = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentTypeId != null" >
+        payment_type_id = #{paymentTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentAgrId != null" >
+        payment_agr_id = #{paymentAgrId,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryType != null" >
+        delivery_type = #{deliveryType,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryDadlines != null" >
+        delivery_dadlines = #{deliveryDadlines,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryAdd != null" >
+        delivery_add = #{deliveryAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="invoice != null" >
+        invoice = #{invoice,jdbcType=CHAR},
+      </if>
+      <if test="invoiceTypeId != null" >
+        invoice_type_id = #{invoiceTypeId,jdbcType=CHAR},
+      </if>
+      <if test="invState != null" >
+        inv_state = #{invState,jdbcType=CHAR},
+      </if>
+      <if test="totalAmount != null" >
+        total_amount = #{totalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="arrState != null" >
+        arr_state = #{arrState,jdbcType=CHAR},
+      </if>
+      <if test="payState != null" >
+        pay_state = #{payState,jdbcType=CHAR},
+      </if>
+      <if test="notArrAmo != null" >
+        not_arr_amo = #{notArrAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="alrArrAmo != null" >
+        alr_arr_amo = #{alrArrAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="notPayAmo != null" >
+        not_pay_amo = #{notPayAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="alrPayAmo != null" >
+        alr_pay_amo = #{alrPayAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="notInvAmo != null" >
+        not_inv_amo = #{notInvAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="alrInvAmo != null" >
+        alr_inv_amo = #{alrInvAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="accessory != null" >
+        accessory = #{accessory,jdbcType=VARCHAR},
+      </if>
+      <if test="sharedPeopleId != null" >
+        shared_people_id = #{sharedPeopleId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null" >
+        audit_state = #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="auditor != null" >
+        auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditRemark != null" >
+        audit_remark = #{auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="operators != null" >
+        operators = #{operators,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorDep != null" >
+        operator_dep = #{operatorDep,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractTerms != null" >
+        contract_terms = #{contractTerms,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where pur_order_id = #{purOrderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.glacier.frame.entity.purchase.PurchaseOrder" >
+    update t_purchase_order
+    set order_code = #{orderCode,jdbcType=VARCHAR},
+      contract_code = #{contractCode,jdbcType=VARCHAR},
+      order_state = #{orderState,jdbcType=CHAR},
+      purchase_type_id = #{purchaseTypeId,jdbcType=VARCHAR},
+      order_date = #{orderDate,jdbcType=TIMESTAMP},
+      storage = #{storage,jdbcType=VARCHAR},
+      supplier_code = #{supplierCode,jdbcType=VARCHAR},
+      supplier_id = #{supplierId,jdbcType=VARCHAR},
+      supplier_add = #{supplierAdd,jdbcType=VARCHAR},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      payment_type_id = #{paymentTypeId,jdbcType=VARCHAR},
+      payment_agr_id = #{paymentAgrId,jdbcType=VARCHAR},
+      delivery_type = #{deliveryType,jdbcType=VARCHAR},
+      delivery_dadlines = #{deliveryDadlines,jdbcType=TIMESTAMP},
+      delivery_add = #{deliveryAdd,jdbcType=VARCHAR},
+      invoice = #{invoice,jdbcType=CHAR},
+      invoice_type_id = #{invoiceTypeId,jdbcType=CHAR},
+      inv_state = #{invState,jdbcType=CHAR},
+      total_amount = #{totalAmount,jdbcType=DECIMAL},
+      arr_state = #{arrState,jdbcType=CHAR},
+      pay_state = #{payState,jdbcType=CHAR},
+      not_arr_amo = #{notArrAmo,jdbcType=DECIMAL},
+      alr_arr_amo = #{alrArrAmo,jdbcType=DECIMAL},
+      not_pay_amo = #{notPayAmo,jdbcType=DECIMAL},
+      alr_pay_amo = #{alrPayAmo,jdbcType=DECIMAL},
+      not_inv_amo = #{notInvAmo,jdbcType=DECIMAL},
+      alr_inv_amo = #{alrInvAmo,jdbcType=DECIMAL},
+      accessory = #{accessory,jdbcType=VARCHAR},
+      shared_people_id = #{sharedPeopleId,jdbcType=VARCHAR},
+      audit_state = #{auditState,jdbcType=CHAR},
+      auditor = #{auditor,jdbcType=VARCHAR},
+      audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      audit_remark = #{auditRemark,jdbcType=VARCHAR},
+      enabled = #{enabled,jdbcType=CHAR},
+      operators = #{operators,jdbcType=VARCHAR},
+      operator_dep = #{operatorDep,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      contract_terms = #{contractTerms,jdbcType=LONGVARCHAR}
+    where pur_order_id = #{purOrderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.purchase.PurchaseOrder" >
+    update t_purchase_order
+    set order_code = #{orderCode,jdbcType=VARCHAR},
+      contract_code = #{contractCode,jdbcType=VARCHAR},
+      order_state = #{orderState,jdbcType=CHAR},
+      purchase_type_id = #{purchaseTypeId,jdbcType=VARCHAR},
+      order_date = #{orderDate,jdbcType=TIMESTAMP},
+      storage = #{storage,jdbcType=VARCHAR},
+      supplier_code = #{supplierCode,jdbcType=VARCHAR},
+      supplier_id = #{supplierId,jdbcType=VARCHAR},
+      supplier_add = #{supplierAdd,jdbcType=VARCHAR},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      payment_type_id = #{paymentTypeId,jdbcType=VARCHAR},
+      payment_agr_id = #{paymentAgrId,jdbcType=VARCHAR},
+      delivery_type = #{deliveryType,jdbcType=VARCHAR},
+      delivery_dadlines = #{deliveryDadlines,jdbcType=TIMESTAMP},
+      delivery_add = #{deliveryAdd,jdbcType=VARCHAR},
+      invoice = #{invoice,jdbcType=CHAR},
+      invoice_type_id = #{invoiceTypeId,jdbcType=CHAR},
+      inv_state = #{invState,jdbcType=CHAR},
+      total_amount = #{totalAmount,jdbcType=DECIMAL},
+      arr_state = #{arrState,jdbcType=CHAR},
+      pay_state = #{payState,jdbcType=CHAR},
+      not_arr_amo = #{notArrAmo,jdbcType=DECIMAL},
+      alr_arr_amo = #{alrArrAmo,jdbcType=DECIMAL},
+      not_pay_amo = #{notPayAmo,jdbcType=DECIMAL},
+      alr_pay_amo = #{alrPayAmo,jdbcType=DECIMAL},
+      not_inv_amo = #{notInvAmo,jdbcType=DECIMAL},
+      alr_inv_amo = #{alrInvAmo,jdbcType=DECIMAL},
+      accessory = #{accessory,jdbcType=VARCHAR},
+      shared_people_id = #{sharedPeopleId,jdbcType=VARCHAR},
+      audit_state = #{auditState,jdbcType=CHAR},
+      auditor = #{auditor,jdbcType=VARCHAR},
+      audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      audit_remark = #{auditRemark,jdbcType=VARCHAR},
+      enabled = #{enabled,jdbcType=CHAR},
+      operators = #{operators,jdbcType=VARCHAR},
+      operator_dep = #{operatorDep,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where pur_order_id = #{purOrderId,jdbcType=VARCHAR}
+  </update>
+</mapper>

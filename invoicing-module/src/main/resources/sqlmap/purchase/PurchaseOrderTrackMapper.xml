@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.purchase.PurchaseOrderTrackMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.purchase.PurchaseOrderTrack" >
+    <id column="temp_purchase_order_track_pur_order_tra_id" property="purOrderTraId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_track_order_track_code" property="orderTrackCode" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_track_pur_order_id" property="purOrderId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_track_track_theme" property="trackTheme" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_track_supplier_id" property="supplierId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_track_track_content" property="trackContent" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_track_linkman" property="linkman" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_track_phone" property="phone" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_track_accessory" property="accessory" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_track_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_track_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_track_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_purchase_order_track_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_track_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_purchase_order_track.pur_order_tra_id as temp_purchase_order_track_pur_order_tra_id, 
+    temp_purchase_order_track.order_track_code as temp_purchase_order_track_order_track_code, 
+    temp_purchase_order_track.pur_order_id as temp_purchase_order_track_pur_order_id, 
+    temp_purchase_order_track.track_theme as temp_purchase_order_track_track_theme, temp_purchase_order_track.supplier_id as temp_purchase_order_track_supplier_id, 
+    temp_purchase_order_track.track_content as temp_purchase_order_track_track_content, 
+    temp_purchase_order_track.linkman as temp_purchase_order_track_linkman, temp_purchase_order_track.phone as temp_purchase_order_track_phone, 
+    temp_purchase_order_track.accessory as temp_purchase_order_track_accessory, temp_purchase_order_track.remark as temp_purchase_order_track_remark, 
+    temp_purchase_order_track.creater as temp_purchase_order_track_creater, temp_purchase_order_track.create_time as temp_purchase_order_track_create_time, 
+    temp_purchase_order_track.updater as temp_purchase_order_track_updater, temp_purchase_order_track.update_time as temp_purchase_order_track_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderTrackExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_purchase_order_track temp_purchase_order_track
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_purchase_order_track temp_purchase_order_track
+    where temp_purchase_order_track.pur_order_tra_id = #{purOrderTraId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_purchase_order_track
+    where pur_order_tra_id = #{purOrderTraId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderTrackExample" >
+    delete temp_purchase_order_track from t_purchase_order_track temp_purchase_order_track
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderTrack" >
+    insert into t_purchase_order_track (pur_order_tra_id, order_track_code, pur_order_id, 
+      track_theme, supplier_id, track_content, 
+      linkman, phone, accessory, 
+      remark, creater, create_time, 
+      updater, update_time)
+    values (#{purOrderTraId,jdbcType=VARCHAR}, #{orderTrackCode,jdbcType=VARCHAR}, #{purOrderId,jdbcType=VARCHAR}, 
+      #{trackTheme,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, #{trackContent,jdbcType=VARCHAR}, 
+      #{linkman,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{accessory,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderTrack" >
+    insert into t_purchase_order_track
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="purOrderTraId != null" >
+        pur_order_tra_id,
+      </if>
+      <if test="orderTrackCode != null" >
+        order_track_code,
+      </if>
+      <if test="purOrderId != null" >
+        pur_order_id,
+      </if>
+      <if test="trackTheme != null" >
+        track_theme,
+      </if>
+      <if test="supplierId != null" >
+        supplier_id,
+      </if>
+      <if test="trackContent != null" >
+        track_content,
+      </if>
+      <if test="linkman != null" >
+        linkman,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="accessory != null" >
+        accessory,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="purOrderTraId != null" >
+        #{purOrderTraId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTrackCode != null" >
+        #{orderTrackCode,jdbcType=VARCHAR},
+      </if>
+      <if test="purOrderId != null" >
+        #{purOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="trackTheme != null" >
+        #{trackTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="trackContent != null" >
+        #{trackContent,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="accessory != null" >
+        #{accessory,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderTrackExample" resultType="java.lang.Integer" >
+    select count(*) from t_purchase_order_track temp_purchase_order_track
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_purchase_order_track temp_purchase_order_track
+    <set >
+      <if test="record.purOrderTraId != null" >
+        temp_purchase_order_track.pur_order_tra_id = #{record.purOrderTraId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderTrackCode != null" >
+        temp_purchase_order_track.order_track_code = #{record.orderTrackCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purOrderId != null" >
+        temp_purchase_order_track.pur_order_id = #{record.purOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trackTheme != null" >
+        temp_purchase_order_track.track_theme = #{record.trackTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplierId != null" >
+        temp_purchase_order_track.supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trackContent != null" >
+        temp_purchase_order_track.track_content = #{record.trackContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkman != null" >
+        temp_purchase_order_track.linkman = #{record.linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        temp_purchase_order_track.phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessory != null" >
+        temp_purchase_order_track.accessory = #{record.accessory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_purchase_order_track.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_purchase_order_track.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_purchase_order_track.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_purchase_order_track.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_purchase_order_track.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_purchase_order_track temp_purchase_order_track
+    set temp_purchase_order_track.pur_order_tra_id = #{record.purOrderTraId,jdbcType=VARCHAR},
+      temp_purchase_order_track.order_track_code = #{record.orderTrackCode,jdbcType=VARCHAR},
+      temp_purchase_order_track.pur_order_id = #{record.purOrderId,jdbcType=VARCHAR},
+      temp_purchase_order_track.track_theme = #{record.trackTheme,jdbcType=VARCHAR},
+      temp_purchase_order_track.supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      temp_purchase_order_track.track_content = #{record.trackContent,jdbcType=VARCHAR},
+      temp_purchase_order_track.linkman = #{record.linkman,jdbcType=VARCHAR},
+      temp_purchase_order_track.phone = #{record.phone,jdbcType=VARCHAR},
+      temp_purchase_order_track.accessory = #{record.accessory,jdbcType=VARCHAR},
+      temp_purchase_order_track.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_purchase_order_track.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_purchase_order_track.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_purchase_order_track.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_purchase_order_track.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderTrack" >
+    update t_purchase_order_track
+    <set >
+      <if test="orderTrackCode != null" >
+        order_track_code = #{orderTrackCode,jdbcType=VARCHAR},
+      </if>
+      <if test="purOrderId != null" >
+        pur_order_id = #{purOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="trackTheme != null" >
+        track_theme = #{trackTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        supplier_id = #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="trackContent != null" >
+        track_content = #{trackContent,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        linkman = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="accessory != null" >
+        accessory = #{accessory,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pur_order_tra_id = #{purOrderTraId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderTrack" >
+    update t_purchase_order_track
+    set order_track_code = #{orderTrackCode,jdbcType=VARCHAR},
+      pur_order_id = #{purOrderId,jdbcType=VARCHAR},
+      track_theme = #{trackTheme,jdbcType=VARCHAR},
+      supplier_id = #{supplierId,jdbcType=VARCHAR},
+      track_content = #{trackContent,jdbcType=VARCHAR},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      accessory = #{accessory,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where pur_order_tra_id = #{purOrderTraId,jdbcType=VARCHAR}
+  </update>
+</mapper>

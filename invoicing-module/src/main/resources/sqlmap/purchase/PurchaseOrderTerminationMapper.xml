@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.purchase.PurchaseOrderTerminationMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.purchase.PurchaseOrderTermination" >
+    <id column="temp_purchase_order_termination_pur_order_ter_id" property="purOrderTerId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_termination_pur_order_id" property="purOrderId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_termination_termination_code" property="terminationCode" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_termination_content" property="content" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_termination_accessory" property="accessory" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_termination_amount" property="amount" jdbcType="DECIMAL" />
+    <result column="temp_purchase_order_termination_operator_dep" property="operatorDep" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_termination_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_termination_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_purchase_order_termination_remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_purchase_order_termination.pur_order_ter_id as temp_purchase_order_termination_pur_order_ter_id, 
+    temp_purchase_order_termination.pur_order_id as temp_purchase_order_termination_pur_order_id, 
+    temp_purchase_order_termination.termination_code as temp_purchase_order_termination_termination_code, 
+    temp_purchase_order_termination.content as temp_purchase_order_termination_content, 
+    temp_purchase_order_termination.accessory as temp_purchase_order_termination_accessory, 
+    temp_purchase_order_termination.amount as temp_purchase_order_termination_amount, 
+    temp_purchase_order_termination.operator_dep as temp_purchase_order_termination_operator_dep, 
+    temp_purchase_order_termination.creater as temp_purchase_order_termination_creater, 
+    temp_purchase_order_termination.create_time as temp_purchase_order_termination_create_time, 
+    temp_purchase_order_termination.remark as temp_purchase_order_termination_remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderTerminationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_purchase_order_termination temp_purchase_order_termination
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_purchase_order_termination temp_purchase_order_termination
+    where temp_purchase_order_termination.pur_order_ter_id = #{purOrderTerId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_purchase_order_termination
+    where pur_order_ter_id = #{purOrderTerId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderTerminationExample" >
+    delete temp_purchase_order_termination from t_purchase_order_termination temp_purchase_order_termination
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderTermination" >
+    insert into t_purchase_order_termination (pur_order_ter_id, pur_order_id, termination_code, 
+      content, accessory, amount, 
+      operator_dep, creater, create_time, 
+      remark)
+    values (#{purOrderTerId,jdbcType=VARCHAR}, #{purOrderId,jdbcType=VARCHAR}, #{terminationCode,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{accessory,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, 
+      #{operatorDep,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderTermination" >
+    insert into t_purchase_order_termination
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="purOrderTerId != null" >
+        pur_order_ter_id,
+      </if>
+      <if test="purOrderId != null" >
+        pur_order_id,
+      </if>
+      <if test="terminationCode != null" >
+        termination_code,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="accessory != null" >
+        accessory,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="operatorDep != null" >
+        operator_dep,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="purOrderTerId != null" >
+        #{purOrderTerId,jdbcType=VARCHAR},
+      </if>
+      <if test="purOrderId != null" >
+        #{purOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="terminationCode != null" >
+        #{terminationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="accessory != null" >
+        #{accessory,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorDep != null" >
+        #{operatorDep,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderTerminationExample" resultType="java.lang.Integer" >
+    select count(*) from t_purchase_order_termination temp_purchase_order_termination
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_purchase_order_termination temp_purchase_order_termination
+    <set >
+      <if test="record.purOrderTerId != null" >
+        temp_purchase_order_termination.pur_order_ter_id = #{record.purOrderTerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purOrderId != null" >
+        temp_purchase_order_termination.pur_order_id = #{record.purOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.terminationCode != null" >
+        temp_purchase_order_termination.termination_code = #{record.terminationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        temp_purchase_order_termination.content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessory != null" >
+        temp_purchase_order_termination.accessory = #{record.accessory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null" >
+        temp_purchase_order_termination.amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.operatorDep != null" >
+        temp_purchase_order_termination.operator_dep = #{record.operatorDep,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_purchase_order_termination.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_purchase_order_termination.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        temp_purchase_order_termination.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_purchase_order_termination temp_purchase_order_termination
+    set temp_purchase_order_termination.pur_order_ter_id = #{record.purOrderTerId,jdbcType=VARCHAR},
+      temp_purchase_order_termination.pur_order_id = #{record.purOrderId,jdbcType=VARCHAR},
+      temp_purchase_order_termination.termination_code = #{record.terminationCode,jdbcType=VARCHAR},
+      temp_purchase_order_termination.content = #{record.content,jdbcType=VARCHAR},
+      temp_purchase_order_termination.accessory = #{record.accessory,jdbcType=VARCHAR},
+      temp_purchase_order_termination.amount = #{record.amount,jdbcType=DECIMAL},
+      temp_purchase_order_termination.operator_dep = #{record.operatorDep,jdbcType=VARCHAR},
+      temp_purchase_order_termination.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_purchase_order_termination.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_purchase_order_termination.remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderTermination" >
+    update t_purchase_order_termination
+    <set >
+      <if test="purOrderId != null" >
+        pur_order_id = #{purOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="terminationCode != null" >
+        termination_code = #{terminationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="accessory != null" >
+        accessory = #{accessory,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorDep != null" >
+        operator_dep = #{operatorDep,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pur_order_ter_id = #{purOrderTerId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderTermination" >
+    update t_purchase_order_termination
+    set pur_order_id = #{purOrderId,jdbcType=VARCHAR},
+      termination_code = #{terminationCode,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      accessory = #{accessory,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      operator_dep = #{operatorDep,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where pur_order_ter_id = #{purOrderTerId,jdbcType=VARCHAR}
+  </update>
+</mapper>

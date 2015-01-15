@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.purchase.PurchaseRequisitionMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.purchase.PurchaseRequisition" >
+    <id column="temp_purchase_requisition_pur_req_id" property="purReqId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_requisition_req_code" property="reqCode" jdbcType="VARCHAR" />
+    <result column="temp_purchase_requisition_purchase_type_id" property="purchaseTypeId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_requisition_req_date" property="reqDate" jdbcType="TIMESTAMP" />
+    <result column="temp_purchase_requisition_storage" property="storage" jdbcType="VARCHAR" />
+    <result column="temp_purchase_requisition_order_state" property="orderState" jdbcType="CHAR" />
+    <result column="temp_purchase_requisition_operators" property="operators" jdbcType="VARCHAR" />
+    <result column="temp_purchase_requisition_operator_dep" property="operatorDep" jdbcType="VARCHAR" />
+    <result column="temp_purchase_requisition_total" property="total" jdbcType="DECIMAL" />
+    <result column="temp_purchase_requisition_accessory" property="accessory" jdbcType="VARCHAR" />
+    <result column="temp_purchase_requisition_audit_state" property="auditState" jdbcType="CHAR" />
+    <result column="temp_purchase_requisition_auditor" property="auditor" jdbcType="VARCHAR" />
+    <result column="temp_purchase_requisition_audit_date" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="temp_purchase_requisition_audit_remark" property="auditRemark" jdbcType="VARCHAR" />
+    <result column="temp_purchase_requisition_enabled" property="enabled" jdbcType="VARCHAR" />
+    <result column="temp_purchase_requisition_summary" property="summary" jdbcType="VARCHAR" />
+    <result column="temp_purchase_requisition_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_purchase_requisition_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_purchase_requisition_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_purchase_requisition_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_purchase_requisition_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_purchase_requisition.pur_req_id as temp_purchase_requisition_pur_req_id, temp_purchase_requisition.req_code as temp_purchase_requisition_req_code, 
+    temp_purchase_requisition.purchase_type_id as temp_purchase_requisition_purchase_type_id, 
+    temp_purchase_requisition.req_date as temp_purchase_requisition_req_date, temp_purchase_requisition.storage as temp_purchase_requisition_storage, 
+    temp_purchase_requisition.order_state as temp_purchase_requisition_order_state, temp_purchase_requisition.operators as temp_purchase_requisition_operators, 
+    temp_purchase_requisition.operator_dep as temp_purchase_requisition_operator_dep, 
+    temp_purchase_requisition.total as temp_purchase_requisition_total, temp_purchase_requisition.accessory as temp_purchase_requisition_accessory, 
+    temp_purchase_requisition.audit_state as temp_purchase_requisition_audit_state, temp_purchase_requisition.auditor as temp_purchase_requisition_auditor, 
+    temp_purchase_requisition.audit_date as temp_purchase_requisition_audit_date, temp_purchase_requisition.audit_remark as temp_purchase_requisition_audit_remark, 
+    temp_purchase_requisition.enabled as temp_purchase_requisition_enabled, temp_purchase_requisition.summary as temp_purchase_requisition_summary, 
+    temp_purchase_requisition.remark as temp_purchase_requisition_remark, temp_purchase_requisition.creater as temp_purchase_requisition_creater, 
+    temp_purchase_requisition.create_time as temp_purchase_requisition_create_time, temp_purchase_requisition.updater as temp_purchase_requisition_updater, 
+    temp_purchase_requisition.update_time as temp_purchase_requisition_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.purchase.PurchaseRequisitionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_purchase_requisition temp_purchase_requisition
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_purchase_requisition temp_purchase_requisition
+    where temp_purchase_requisition.pur_req_id = #{purReqId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_purchase_requisition
+    where pur_req_id = #{purReqId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.purchase.PurchaseRequisitionExample" >
+    delete temp_purchase_requisition from t_purchase_requisition temp_purchase_requisition
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.purchase.PurchaseRequisition" >
+    insert into t_purchase_requisition (pur_req_id, req_code, purchase_type_id, 
+      req_date, storage, order_state, 
+      operators, operator_dep, total, 
+      accessory, audit_state, auditor, 
+      audit_date, audit_remark, enabled, 
+      summary, remark, creater, 
+      create_time, updater, update_time
+      )
+    values (#{purReqId,jdbcType=VARCHAR}, #{reqCode,jdbcType=VARCHAR}, #{purchaseTypeId,jdbcType=VARCHAR}, 
+      #{reqDate,jdbcType=TIMESTAMP}, #{storage,jdbcType=VARCHAR}, #{orderState,jdbcType=CHAR}, 
+      #{operators,jdbcType=VARCHAR}, #{operatorDep,jdbcType=VARCHAR}, #{total,jdbcType=DECIMAL}, 
+      #{accessory,jdbcType=VARCHAR}, #{auditState,jdbcType=CHAR}, #{auditor,jdbcType=VARCHAR}, 
+      #{auditDate,jdbcType=TIMESTAMP}, #{auditRemark,jdbcType=VARCHAR}, #{enabled,jdbcType=VARCHAR}, 
+      #{summary,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.purchase.PurchaseRequisition" >
+    insert into t_purchase_requisition
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="purReqId != null" >
+        pur_req_id,
+      </if>
+      <if test="reqCode != null" >
+        req_code,
+      </if>
+      <if test="purchaseTypeId != null" >
+        purchase_type_id,
+      </if>
+      <if test="reqDate != null" >
+        req_date,
+      </if>
+      <if test="storage != null" >
+        storage,
+      </if>
+      <if test="orderState != null" >
+        order_state,
+      </if>
+      <if test="operators != null" >
+        operators,
+      </if>
+      <if test="operatorDep != null" >
+        operator_dep,
+      </if>
+      <if test="total != null" >
+        total,
+      </if>
+      <if test="accessory != null" >
+        accessory,
+      </if>
+      <if test="auditState != null" >
+        audit_state,
+      </if>
+      <if test="auditor != null" >
+        auditor,
+      </if>
+      <if test="auditDate != null" >
+        audit_date,
+      </if>
+      <if test="auditRemark != null" >
+        audit_remark,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="summary != null" >
+        summary,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="purReqId != null" >
+        #{purReqId,jdbcType=VARCHAR},
+      </if>
+      <if test="reqCode != null" >
+        #{reqCode,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseTypeId != null" >
+        #{purchaseTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="reqDate != null" >
+        #{reqDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storage != null" >
+        #{storage,jdbcType=VARCHAR},
+      </if>
+      <if test="orderState != null" >
+        #{orderState,jdbcType=CHAR},
+      </if>
+      <if test="operators != null" >
+        #{operators,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorDep != null" >
+        #{operatorDep,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="accessory != null" >
+        #{accessory,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null" >
+        #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="auditor != null" >
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditRemark != null" >
+        #{auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.purchase.PurchaseRequisitionExample" resultType="java.lang.Integer" >
+    select count(*) from t_purchase_requisition temp_purchase_requisition
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_purchase_requisition temp_purchase_requisition
+    <set >
+      <if test="record.purReqId != null" >
+        temp_purchase_requisition.pur_req_id = #{record.purReqId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reqCode != null" >
+        temp_purchase_requisition.req_code = #{record.reqCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purchaseTypeId != null" >
+        temp_purchase_requisition.purchase_type_id = #{record.purchaseTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reqDate != null" >
+        temp_purchase_requisition.req_date = #{record.reqDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.storage != null" >
+        temp_purchase_requisition.storage = #{record.storage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderState != null" >
+        temp_purchase_requisition.order_state = #{record.orderState,jdbcType=CHAR},
+      </if>
+      <if test="record.operators != null" >
+        temp_purchase_requisition.operators = #{record.operators,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatorDep != null" >
+        temp_purchase_requisition.operator_dep = #{record.operatorDep,jdbcType=VARCHAR},
+      </if>
+      <if test="record.total != null" >
+        temp_purchase_requisition.total = #{record.total,jdbcType=DECIMAL},
+      </if>
+      <if test="record.accessory != null" >
+        temp_purchase_requisition.accessory = #{record.accessory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditState != null" >
+        temp_purchase_requisition.audit_state = #{record.auditState,jdbcType=CHAR},
+      </if>
+      <if test="record.auditor != null" >
+        temp_purchase_requisition.auditor = #{record.auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditDate != null" >
+        temp_purchase_requisition.audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.auditRemark != null" >
+        temp_purchase_requisition.audit_remark = #{record.auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enabled != null" >
+        temp_purchase_requisition.enabled = #{record.enabled,jdbcType=VARCHAR},
+      </if>
+      <if test="record.summary != null" >
+        temp_purchase_requisition.summary = #{record.summary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_purchase_requisition.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_purchase_requisition.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_purchase_requisition.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_purchase_requisition.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_purchase_requisition.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_purchase_requisition temp_purchase_requisition
+    set temp_purchase_requisition.pur_req_id = #{record.purReqId,jdbcType=VARCHAR},
+      temp_purchase_requisition.req_code = #{record.reqCode,jdbcType=VARCHAR},
+      temp_purchase_requisition.purchase_type_id = #{record.purchaseTypeId,jdbcType=VARCHAR},
+      temp_purchase_requisition.req_date = #{record.reqDate,jdbcType=TIMESTAMP},
+      temp_purchase_requisition.storage = #{record.storage,jdbcType=VARCHAR},
+      temp_purchase_requisition.order_state = #{record.orderState,jdbcType=CHAR},
+      temp_purchase_requisition.operators = #{record.operators,jdbcType=VARCHAR},
+      temp_purchase_requisition.operator_dep = #{record.operatorDep,jdbcType=VARCHAR},
+      temp_purchase_requisition.total = #{record.total,jdbcType=DECIMAL},
+      temp_purchase_requisition.accessory = #{record.accessory,jdbcType=VARCHAR},
+      temp_purchase_requisition.audit_state = #{record.auditState,jdbcType=CHAR},
+      temp_purchase_requisition.auditor = #{record.auditor,jdbcType=VARCHAR},
+      temp_purchase_requisition.audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
+      temp_purchase_requisition.audit_remark = #{record.auditRemark,jdbcType=VARCHAR},
+      temp_purchase_requisition.enabled = #{record.enabled,jdbcType=VARCHAR},
+      temp_purchase_requisition.summary = #{record.summary,jdbcType=VARCHAR},
+      temp_purchase_requisition.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_purchase_requisition.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_purchase_requisition.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_purchase_requisition.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_purchase_requisition.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.purchase.PurchaseRequisition" >
+    update t_purchase_requisition
+    <set >
+      <if test="reqCode != null" >
+        req_code = #{reqCode,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseTypeId != null" >
+        purchase_type_id = #{purchaseTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="reqDate != null" >
+        req_date = #{reqDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storage != null" >
+        storage = #{storage,jdbcType=VARCHAR},
+      </if>
+      <if test="orderState != null" >
+        order_state = #{orderState,jdbcType=CHAR},
+      </if>
+      <if test="operators != null" >
+        operators = #{operators,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorDep != null" >
+        operator_dep = #{operatorDep,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null" >
+        total = #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="accessory != null" >
+        accessory = #{accessory,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null" >
+        audit_state = #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="auditor != null" >
+        auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditRemark != null" >
+        audit_remark = #{auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pur_req_id = #{purReqId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.purchase.PurchaseRequisition" >
+    update t_purchase_requisition
+    set req_code = #{reqCode,jdbcType=VARCHAR},
+      purchase_type_id = #{purchaseTypeId,jdbcType=VARCHAR},
+      req_date = #{reqDate,jdbcType=TIMESTAMP},
+      storage = #{storage,jdbcType=VARCHAR},
+      order_state = #{orderState,jdbcType=CHAR},
+      operators = #{operators,jdbcType=VARCHAR},
+      operator_dep = #{operatorDep,jdbcType=VARCHAR},
+      total = #{total,jdbcType=DECIMAL},
+      accessory = #{accessory,jdbcType=VARCHAR},
+      audit_state = #{auditState,jdbcType=CHAR},
+      auditor = #{auditor,jdbcType=VARCHAR},
+      audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      audit_remark = #{auditRemark,jdbcType=VARCHAR},
+      enabled = #{enabled,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where pur_req_id = #{purReqId,jdbcType=VARCHAR}
+  </update>
+</mapper>

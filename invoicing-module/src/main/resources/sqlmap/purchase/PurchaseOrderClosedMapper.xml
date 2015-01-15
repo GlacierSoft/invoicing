@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.purchase.PurchaseOrderClosedMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.purchase.PurchaseOrderClosed" >
+    <id column="temp_purchase_order_closed_pur_order_col_id" property="purOrderColId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_closed_order_clo_code" property="orderCloCode" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_closed_pur_order_id" property="purOrderId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_closed_content" property="content" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_closed_operator_dep" property="operatorDep" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_closed_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_closed_create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_purchase_order_closed.pur_order_col_id as temp_purchase_order_closed_pur_order_col_id, 
+    temp_purchase_order_closed.order_clo_code as temp_purchase_order_closed_order_clo_code, 
+    temp_purchase_order_closed.pur_order_id as temp_purchase_order_closed_pur_order_id, 
+    temp_purchase_order_closed.content as temp_purchase_order_closed_content, temp_purchase_order_closed.operator_dep as temp_purchase_order_closed_operator_dep, 
+    temp_purchase_order_closed.creater as temp_purchase_order_closed_creater, temp_purchase_order_closed.create_time as temp_purchase_order_closed_create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderClosedExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_purchase_order_closed temp_purchase_order_closed
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_purchase_order_closed temp_purchase_order_closed
+    where temp_purchase_order_closed.pur_order_col_id = #{purOrderColId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_purchase_order_closed
+    where pur_order_col_id = #{purOrderColId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderClosedExample" >
+    delete temp_purchase_order_closed from t_purchase_order_closed temp_purchase_order_closed
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderClosed" >
+    insert into t_purchase_order_closed (pur_order_col_id, order_clo_code, pur_order_id, 
+      content, operator_dep, creater, 
+      create_time)
+    values (#{purOrderColId,jdbcType=VARCHAR}, #{orderCloCode,jdbcType=VARCHAR}, #{purOrderId,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{operatorDep,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderClosed" >
+    insert into t_purchase_order_closed
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="purOrderColId != null" >
+        pur_order_col_id,
+      </if>
+      <if test="orderCloCode != null" >
+        order_clo_code,
+      </if>
+      <if test="purOrderId != null" >
+        pur_order_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="operatorDep != null" >
+        operator_dep,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="purOrderColId != null" >
+        #{purOrderColId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCloCode != null" >
+        #{orderCloCode,jdbcType=VARCHAR},
+      </if>
+      <if test="purOrderId != null" >
+        #{purOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorDep != null" >
+        #{operatorDep,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderClosedExample" resultType="java.lang.Integer" >
+    select count(*) from t_purchase_order_closed temp_purchase_order_closed
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_purchase_order_closed temp_purchase_order_closed
+    <set >
+      <if test="record.purOrderColId != null" >
+        temp_purchase_order_closed.pur_order_col_id = #{record.purOrderColId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderCloCode != null" >
+        temp_purchase_order_closed.order_clo_code = #{record.orderCloCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purOrderId != null" >
+        temp_purchase_order_closed.pur_order_id = #{record.purOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        temp_purchase_order_closed.content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatorDep != null" >
+        temp_purchase_order_closed.operator_dep = #{record.operatorDep,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_purchase_order_closed.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_purchase_order_closed.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_purchase_order_closed temp_purchase_order_closed
+    set temp_purchase_order_closed.pur_order_col_id = #{record.purOrderColId,jdbcType=VARCHAR},
+      temp_purchase_order_closed.order_clo_code = #{record.orderCloCode,jdbcType=VARCHAR},
+      temp_purchase_order_closed.pur_order_id = #{record.purOrderId,jdbcType=VARCHAR},
+      temp_purchase_order_closed.content = #{record.content,jdbcType=VARCHAR},
+      temp_purchase_order_closed.operator_dep = #{record.operatorDep,jdbcType=VARCHAR},
+      temp_purchase_order_closed.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_purchase_order_closed.create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderClosed" >
+    update t_purchase_order_closed
+    <set >
+      <if test="orderCloCode != null" >
+        order_clo_code = #{orderCloCode,jdbcType=VARCHAR},
+      </if>
+      <if test="purOrderId != null" >
+        pur_order_id = #{purOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorDep != null" >
+        operator_dep = #{operatorDep,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pur_order_col_id = #{purOrderColId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.purchase.PurchaseOrderClosed" >
+    update t_purchase_order_closed
+    set order_clo_code = #{orderCloCode,jdbcType=VARCHAR},
+      pur_order_id = #{purOrderId,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      operator_dep = #{operatorDep,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where pur_order_col_id = #{purOrderColId,jdbcType=VARCHAR}
+  </update>
+</mapper>

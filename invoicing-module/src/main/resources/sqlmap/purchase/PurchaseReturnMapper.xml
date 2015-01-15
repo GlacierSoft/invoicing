@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.purchase.PurchaseReturnMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.purchase.PurchaseReturn" >
+    <id column="temp_purchase_return_pur_return_id" property="purReturnId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_return_code" property="returnCode" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_return_date" property="returnDate" jdbcType="TIMESTAMP" />
+    <result column="temp_purchase_return_purchase_type" property="purchaseType" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_pro_came" property="proCame" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_storage" property="storage" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_supplier_id" property="supplierId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_supplier_add" property="supplierAdd" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_linkman" property="linkman" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_phone" property="phone" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_fax" property="fax" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_returned_purchase_type_id" property="returnedPurchaseTypeId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_return_deadlines" property="returnDeadlines" jdbcType="TIMESTAMP" />
+    <result column="temp_purchase_return_return_reason_id" property="returnReasonId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_return_policy" property="returnPolicy" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_refund_deadlines" property="refundDeadlines" jdbcType="TIMESTAMP" />
+    <result column="temp_purchase_return_payment_type_id" property="paymentTypeId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_log_settlement" property="logSettlement" jdbcType="CHAR" />
+    <result column="temp_purchase_return_log_code" property="logCode" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_log_total_amount" property="logTotalAmount" jdbcType="DECIMAL" />
+    <result column="temp_purchase_return_log_company" property="logCompany" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_log_linkman" property="logLinkman" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_log_phone" property="logPhone" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_payment_state" property="paymentState" jdbcType="CHAR" />
+    <result column="temp_purchase_return_not_pay_amo" property="notPayAmo" jdbcType="DECIMAL" />
+    <result column="temp_purchase_return_alr_pay_amo" property="alrPayAmo" jdbcType="DECIMAL" />
+    <result column="temp_purchase_return_inv_state" property="invState" jdbcType="CHAR" />
+    <result column="temp_purchase_return_not_inv_amo" property="notInvAmo" jdbcType="DECIMAL" />
+    <result column="temp_purchase_return_alr_inv_amo" property="alrInvAmo" jdbcType="DECIMAL" />
+    <result column="temp_purchase_return_refund_total" property="refundTotal" jdbcType="DECIMAL" />
+    <result column="temp_purchase_return_enabled" property="enabled" jdbcType="CHAR" />
+    <result column="temp_purchase_return_operators" property="operators" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_operator_dep" property="operatorDep" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_audit_state" property="auditState" jdbcType="CHAR" />
+    <result column="temp_purchase_return_auditor" property="auditor" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_audit_date" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="temp_purchase_return_audit_remark" property="auditRemark" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_summary" property="summary" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_accessory" property="accessory" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_purchase_return_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_purchase_return.pur_return_id as temp_purchase_return_pur_return_id, temp_purchase_return.return_code as temp_purchase_return_return_code, 
+    temp_purchase_return.return_date as temp_purchase_return_return_date, temp_purchase_return.purchase_type as temp_purchase_return_purchase_type, 
+    temp_purchase_return.pro_came as temp_purchase_return_pro_came, temp_purchase_return.storage as temp_purchase_return_storage, 
+    temp_purchase_return.supplier_id as temp_purchase_return_supplier_id, temp_purchase_return.supplier_add as temp_purchase_return_supplier_add, 
+    temp_purchase_return.linkman as temp_purchase_return_linkman, temp_purchase_return.phone as temp_purchase_return_phone, 
+    temp_purchase_return.fax as temp_purchase_return_fax, temp_purchase_return.returned_purchase_type_id as temp_purchase_return_returned_purchase_type_id, 
+    temp_purchase_return.return_deadlines as temp_purchase_return_return_deadlines, temp_purchase_return.return_reason_id as temp_purchase_return_return_reason_id, 
+    temp_purchase_return.return_policy as temp_purchase_return_return_policy, temp_purchase_return.refund_deadlines as temp_purchase_return_refund_deadlines, 
+    temp_purchase_return.payment_type_id as temp_purchase_return_payment_type_id, temp_purchase_return.log_settlement as temp_purchase_return_log_settlement, 
+    temp_purchase_return.log_code as temp_purchase_return_log_code, temp_purchase_return.log_total_amount as temp_purchase_return_log_total_amount, 
+    temp_purchase_return.log_company as temp_purchase_return_log_company, temp_purchase_return.log_linkman as temp_purchase_return_log_linkman, 
+    temp_purchase_return.log_phone as temp_purchase_return_log_phone, temp_purchase_return.payment_state as temp_purchase_return_payment_state, 
+    temp_purchase_return.not_pay_amo as temp_purchase_return_not_pay_amo, temp_purchase_return.alr_pay_amo as temp_purchase_return_alr_pay_amo, 
+    temp_purchase_return.inv_state as temp_purchase_return_inv_state, temp_purchase_return.not_inv_amo as temp_purchase_return_not_inv_amo, 
+    temp_purchase_return.alr_inv_amo as temp_purchase_return_alr_inv_amo, temp_purchase_return.refund_total as temp_purchase_return_refund_total, 
+    temp_purchase_return.enabled as temp_purchase_return_enabled, temp_purchase_return.operators as temp_purchase_return_operators, 
+    temp_purchase_return.operator_dep as temp_purchase_return_operator_dep, temp_purchase_return.audit_state as temp_purchase_return_audit_state, 
+    temp_purchase_return.auditor as temp_purchase_return_auditor, temp_purchase_return.audit_date as temp_purchase_return_audit_date, 
+    temp_purchase_return.audit_remark as temp_purchase_return_audit_remark, temp_purchase_return.summary as temp_purchase_return_summary, 
+    temp_purchase_return.accessory as temp_purchase_return_accessory, temp_purchase_return.remark as temp_purchase_return_remark, 
+    temp_purchase_return.creater as temp_purchase_return_creater, temp_purchase_return.create_time as temp_purchase_return_create_time, 
+    temp_purchase_return.updater as temp_purchase_return_updater, temp_purchase_return.update_time as temp_purchase_return_update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.purchase.PurchaseReturnExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_purchase_return temp_purchase_return
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_purchase_return temp_purchase_return
+    where temp_purchase_return.pur_return_id = #{purReturnId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_purchase_return
+    where pur_return_id = #{purReturnId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.purchase.PurchaseReturnExample" >
+    delete temp_purchase_return from t_purchase_return temp_purchase_return
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.purchase.PurchaseReturn" >
+    insert into t_purchase_return (pur_return_id, return_code, return_date, 
+      purchase_type, pro_came, storage, 
+      supplier_id, supplier_add, linkman, 
+      phone, fax, returned_purchase_type_id, 
+      return_deadlines, return_reason_id, return_policy, 
+      refund_deadlines, payment_type_id, log_settlement, 
+      log_code, log_total_amount, log_company, 
+      log_linkman, log_phone, payment_state, 
+      not_pay_amo, alr_pay_amo, inv_state, 
+      not_inv_amo, alr_inv_amo, refund_total, 
+      enabled, operators, operator_dep, 
+      audit_state, auditor, audit_date, 
+      audit_remark, summary, accessory, 
+      remark, creater, create_time, 
+      updater, update_time)
+    values (#{purReturnId,jdbcType=VARCHAR}, #{returnCode,jdbcType=VARCHAR}, #{returnDate,jdbcType=TIMESTAMP}, 
+      #{purchaseType,jdbcType=VARCHAR}, #{proCame,jdbcType=VARCHAR}, #{storage,jdbcType=VARCHAR}, 
+      #{supplierId,jdbcType=VARCHAR}, #{supplierAdd,jdbcType=VARCHAR}, #{linkman,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, #{returnedPurchaseTypeId,jdbcType=VARCHAR}, 
+      #{returnDeadlines,jdbcType=TIMESTAMP}, #{returnReasonId,jdbcType=VARCHAR}, #{returnPolicy,jdbcType=VARCHAR}, 
+      #{refundDeadlines,jdbcType=TIMESTAMP}, #{paymentTypeId,jdbcType=VARCHAR}, #{logSettlement,jdbcType=CHAR}, 
+      #{logCode,jdbcType=VARCHAR}, #{logTotalAmount,jdbcType=DECIMAL}, #{logCompany,jdbcType=VARCHAR}, 
+      #{logLinkman,jdbcType=VARCHAR}, #{logPhone,jdbcType=VARCHAR}, #{paymentState,jdbcType=CHAR}, 
+      #{notPayAmo,jdbcType=DECIMAL}, #{alrPayAmo,jdbcType=DECIMAL}, #{invState,jdbcType=CHAR}, 
+      #{notInvAmo,jdbcType=DECIMAL}, #{alrInvAmo,jdbcType=DECIMAL}, #{refundTotal,jdbcType=DECIMAL}, 
+      #{enabled,jdbcType=CHAR}, #{operators,jdbcType=VARCHAR}, #{operatorDep,jdbcType=VARCHAR}, 
+      #{auditState,jdbcType=CHAR}, #{auditor,jdbcType=VARCHAR}, #{auditDate,jdbcType=TIMESTAMP}, 
+      #{auditRemark,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{accessory,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.purchase.PurchaseReturn" >
+    insert into t_purchase_return
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="purReturnId != null" >
+        pur_return_id,
+      </if>
+      <if test="returnCode != null" >
+        return_code,
+      </if>
+      <if test="returnDate != null" >
+        return_date,
+      </if>
+      <if test="purchaseType != null" >
+        purchase_type,
+      </if>
+      <if test="proCame != null" >
+        pro_came,
+      </if>
+      <if test="storage != null" >
+        storage,
+      </if>
+      <if test="supplierId != null" >
+        supplier_id,
+      </if>
+      <if test="supplierAdd != null" >
+        supplier_add,
+      </if>
+      <if test="linkman != null" >
+        linkman,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="fax != null" >
+        fax,
+      </if>
+      <if test="returnedPurchaseTypeId != null" >
+        returned_purchase_type_id,
+      </if>
+      <if test="returnDeadlines != null" >
+        return_deadlines,
+      </if>
+      <if test="returnReasonId != null" >
+        return_reason_id,
+      </if>
+      <if test="returnPolicy != null" >
+        return_policy,
+      </if>
+      <if test="refundDeadlines != null" >
+        refund_deadlines,
+      </if>
+      <if test="paymentTypeId != null" >
+        payment_type_id,
+      </if>
+      <if test="logSettlement != null" >
+        log_settlement,
+      </if>
+      <if test="logCode != null" >
+        log_code,
+      </if>
+      <if test="logTotalAmount != null" >
+        log_total_amount,
+      </if>
+      <if test="logCompany != null" >
+        log_company,
+      </if>
+      <if test="logLinkman != null" >
+        log_linkman,
+      </if>
+      <if test="logPhone != null" >
+        log_phone,
+      </if>
+      <if test="paymentState != null" >
+        payment_state,
+      </if>
+      <if test="notPayAmo != null" >
+        not_pay_amo,
+      </if>
+      <if test="alrPayAmo != null" >
+        alr_pay_amo,
+      </if>
+      <if test="invState != null" >
+        inv_state,
+      </if>
+      <if test="notInvAmo != null" >
+        not_inv_amo,
+      </if>
+      <if test="alrInvAmo != null" >
+        alr_inv_amo,
+      </if>
+      <if test="refundTotal != null" >
+        refund_total,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="operators != null" >
+        operators,
+      </if>
+      <if test="operatorDep != null" >
+        operator_dep,
+      </if>
+      <if test="auditState != null" >
+        audit_state,
+      </if>
+      <if test="auditor != null" >
+        auditor,
+      </if>
+      <if test="auditDate != null" >
+        audit_date,
+      </if>
+      <if test="auditRemark != null" >
+        audit_remark,
+      </if>
+      <if test="summary != null" >
+        summary,
+      </if>
+      <if test="accessory != null" >
+        accessory,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="purReturnId != null" >
+        #{purReturnId,jdbcType=VARCHAR},
+      </if>
+      <if test="returnCode != null" >
+        #{returnCode,jdbcType=VARCHAR},
+      </if>
+      <if test="returnDate != null" >
+        #{returnDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="purchaseType != null" >
+        #{purchaseType,jdbcType=VARCHAR},
+      </if>
+      <if test="proCame != null" >
+        #{proCame,jdbcType=VARCHAR},
+      </if>
+      <if test="storage != null" >
+        #{storage,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierAdd != null" >
+        #{supplierAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="returnedPurchaseTypeId != null" >
+        #{returnedPurchaseTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="returnDeadlines != null" >
+        #{returnDeadlines,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnReasonId != null" >
+        #{returnReasonId,jdbcType=VARCHAR},
+      </if>
+      <if test="returnPolicy != null" >
+        #{returnPolicy,jdbcType=VARCHAR},
+      </if>
+      <if test="refundDeadlines != null" >
+        #{refundDeadlines,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paymentTypeId != null" >
+        #{paymentTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="logSettlement != null" >
+        #{logSettlement,jdbcType=CHAR},
+      </if>
+      <if test="logCode != null" >
+        #{logCode,jdbcType=VARCHAR},
+      </if>
+      <if test="logTotalAmount != null" >
+        #{logTotalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="logCompany != null" >
+        #{logCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="logLinkman != null" >
+        #{logLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="logPhone != null" >
+        #{logPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentState != null" >
+        #{paymentState,jdbcType=CHAR},
+      </if>
+      <if test="notPayAmo != null" >
+        #{notPayAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="alrPayAmo != null" >
+        #{alrPayAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="invState != null" >
+        #{invState,jdbcType=CHAR},
+      </if>
+      <if test="notInvAmo != null" >
+        #{notInvAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="alrInvAmo != null" >
+        #{alrInvAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="refundTotal != null" >
+        #{refundTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="operators != null" >
+        #{operators,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorDep != null" >
+        #{operatorDep,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null" >
+        #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="auditor != null" >
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditRemark != null" >
+        #{auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="accessory != null" >
+        #{accessory,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.purchase.PurchaseReturnExample" resultType="java.lang.Integer" >
+    select count(*) from t_purchase_return temp_purchase_return
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_purchase_return temp_purchase_return
+    <set >
+      <if test="record.purReturnId != null" >
+        temp_purchase_return.pur_return_id = #{record.purReturnId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.returnCode != null" >
+        temp_purchase_return.return_code = #{record.returnCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.returnDate != null" >
+        temp_purchase_return.return_date = #{record.returnDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.purchaseType != null" >
+        temp_purchase_return.purchase_type = #{record.purchaseType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proCame != null" >
+        temp_purchase_return.pro_came = #{record.proCame,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storage != null" >
+        temp_purchase_return.storage = #{record.storage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplierId != null" >
+        temp_purchase_return.supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplierAdd != null" >
+        temp_purchase_return.supplier_add = #{record.supplierAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkman != null" >
+        temp_purchase_return.linkman = #{record.linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        temp_purchase_return.phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fax != null" >
+        temp_purchase_return.fax = #{record.fax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.returnedPurchaseTypeId != null" >
+        temp_purchase_return.returned_purchase_type_id = #{record.returnedPurchaseTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.returnDeadlines != null" >
+        temp_purchase_return.return_deadlines = #{record.returnDeadlines,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.returnReasonId != null" >
+        temp_purchase_return.return_reason_id = #{record.returnReasonId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.returnPolicy != null" >
+        temp_purchase_return.return_policy = #{record.returnPolicy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refundDeadlines != null" >
+        temp_purchase_return.refund_deadlines = #{record.refundDeadlines,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.paymentTypeId != null" >
+        temp_purchase_return.payment_type_id = #{record.paymentTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logSettlement != null" >
+        temp_purchase_return.log_settlement = #{record.logSettlement,jdbcType=CHAR},
+      </if>
+      <if test="record.logCode != null" >
+        temp_purchase_return.log_code = #{record.logCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logTotalAmount != null" >
+        temp_purchase_return.log_total_amount = #{record.logTotalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.logCompany != null" >
+        temp_purchase_return.log_company = #{record.logCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logLinkman != null" >
+        temp_purchase_return.log_linkman = #{record.logLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logPhone != null" >
+        temp_purchase_return.log_phone = #{record.logPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paymentState != null" >
+        temp_purchase_return.payment_state = #{record.paymentState,jdbcType=CHAR},
+      </if>
+      <if test="record.notPayAmo != null" >
+        temp_purchase_return.not_pay_amo = #{record.notPayAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.alrPayAmo != null" >
+        temp_purchase_return.alr_pay_amo = #{record.alrPayAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.invState != null" >
+        temp_purchase_return.inv_state = #{record.invState,jdbcType=CHAR},
+      </if>
+      <if test="record.notInvAmo != null" >
+        temp_purchase_return.not_inv_amo = #{record.notInvAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.alrInvAmo != null" >
+        temp_purchase_return.alr_inv_amo = #{record.alrInvAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.refundTotal != null" >
+        temp_purchase_return.refund_total = #{record.refundTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.enabled != null" >
+        temp_purchase_return.enabled = #{record.enabled,jdbcType=CHAR},
+      </if>
+      <if test="record.operators != null" >
+        temp_purchase_return.operators = #{record.operators,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatorDep != null" >
+        temp_purchase_return.operator_dep = #{record.operatorDep,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditState != null" >
+        temp_purchase_return.audit_state = #{record.auditState,jdbcType=CHAR},
+      </if>
+      <if test="record.auditor != null" >
+        temp_purchase_return.auditor = #{record.auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditDate != null" >
+        temp_purchase_return.audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.auditRemark != null" >
+        temp_purchase_return.audit_remark = #{record.auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.summary != null" >
+        temp_purchase_return.summary = #{record.summary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessory != null" >
+        temp_purchase_return.accessory = #{record.accessory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_purchase_return.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_purchase_return.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_purchase_return.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_purchase_return.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_purchase_return.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_purchase_return temp_purchase_return
+    set temp_purchase_return.pur_return_id = #{record.purReturnId,jdbcType=VARCHAR},
+      temp_purchase_return.return_code = #{record.returnCode,jdbcType=VARCHAR},
+      temp_purchase_return.return_date = #{record.returnDate,jdbcType=TIMESTAMP},
+      temp_purchase_return.purchase_type = #{record.purchaseType,jdbcType=VARCHAR},
+      temp_purchase_return.pro_came = #{record.proCame,jdbcType=VARCHAR},
+      temp_purchase_return.storage = #{record.storage,jdbcType=VARCHAR},
+      temp_purchase_return.supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      temp_purchase_return.supplier_add = #{record.supplierAdd,jdbcType=VARCHAR},
+      temp_purchase_return.linkman = #{record.linkman,jdbcType=VARCHAR},
+      temp_purchase_return.phone = #{record.phone,jdbcType=VARCHAR},
+      temp_purchase_return.fax = #{record.fax,jdbcType=VARCHAR},
+      temp_purchase_return.returned_purchase_type_id = #{record.returnedPurchaseTypeId,jdbcType=VARCHAR},
+      temp_purchase_return.return_deadlines = #{record.returnDeadlines,jdbcType=TIMESTAMP},
+      temp_purchase_return.return_reason_id = #{record.returnReasonId,jdbcType=VARCHAR},
+      temp_purchase_return.return_policy = #{record.returnPolicy,jdbcType=VARCHAR},
+      temp_purchase_return.refund_deadlines = #{record.refundDeadlines,jdbcType=TIMESTAMP},
+      temp_purchase_return.payment_type_id = #{record.paymentTypeId,jdbcType=VARCHAR},
+      temp_purchase_return.log_settlement = #{record.logSettlement,jdbcType=CHAR},
+      temp_purchase_return.log_code = #{record.logCode,jdbcType=VARCHAR},
+      temp_purchase_return.log_total_amount = #{record.logTotalAmount,jdbcType=DECIMAL},
+      temp_purchase_return.log_company = #{record.logCompany,jdbcType=VARCHAR},
+      temp_purchase_return.log_linkman = #{record.logLinkman,jdbcType=VARCHAR},
+      temp_purchase_return.log_phone = #{record.logPhone,jdbcType=VARCHAR},
+      temp_purchase_return.payment_state = #{record.paymentState,jdbcType=CHAR},
+      temp_purchase_return.not_pay_amo = #{record.notPayAmo,jdbcType=DECIMAL},
+      temp_purchase_return.alr_pay_amo = #{record.alrPayAmo,jdbcType=DECIMAL},
+      temp_purchase_return.inv_state = #{record.invState,jdbcType=CHAR},
+      temp_purchase_return.not_inv_amo = #{record.notInvAmo,jdbcType=DECIMAL},
+      temp_purchase_return.alr_inv_amo = #{record.alrInvAmo,jdbcType=DECIMAL},
+      temp_purchase_return.refund_total = #{record.refundTotal,jdbcType=DECIMAL},
+      temp_purchase_return.enabled = #{record.enabled,jdbcType=CHAR},
+      temp_purchase_return.operators = #{record.operators,jdbcType=VARCHAR},
+      temp_purchase_return.operator_dep = #{record.operatorDep,jdbcType=VARCHAR},
+      temp_purchase_return.audit_state = #{record.auditState,jdbcType=CHAR},
+      temp_purchase_return.auditor = #{record.auditor,jdbcType=VARCHAR},
+      temp_purchase_return.audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
+      temp_purchase_return.audit_remark = #{record.auditRemark,jdbcType=VARCHAR},
+      temp_purchase_return.summary = #{record.summary,jdbcType=VARCHAR},
+      temp_purchase_return.accessory = #{record.accessory,jdbcType=VARCHAR},
+      temp_purchase_return.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_purchase_return.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_purchase_return.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_purchase_return.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_purchase_return.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.purchase.PurchaseReturn" >
+    update t_purchase_return
+    <set >
+      <if test="returnCode != null" >
+        return_code = #{returnCode,jdbcType=VARCHAR},
+      </if>
+      <if test="returnDate != null" >
+        return_date = #{returnDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="purchaseType != null" >
+        purchase_type = #{purchaseType,jdbcType=VARCHAR},
+      </if>
+      <if test="proCame != null" >
+        pro_came = #{proCame,jdbcType=VARCHAR},
+      </if>
+      <if test="storage != null" >
+        storage = #{storage,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        supplier_id = #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierAdd != null" >
+        supplier_add = #{supplierAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        linkman = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="returnedPurchaseTypeId != null" >
+        returned_purchase_type_id = #{returnedPurchaseTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="returnDeadlines != null" >
+        return_deadlines = #{returnDeadlines,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnReasonId != null" >
+        return_reason_id = #{returnReasonId,jdbcType=VARCHAR},
+      </if>
+      <if test="returnPolicy != null" >
+        return_policy = #{returnPolicy,jdbcType=VARCHAR},
+      </if>
+      <if test="refundDeadlines != null" >
+        refund_deadlines = #{refundDeadlines,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paymentTypeId != null" >
+        payment_type_id = #{paymentTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="logSettlement != null" >
+        log_settlement = #{logSettlement,jdbcType=CHAR},
+      </if>
+      <if test="logCode != null" >
+        log_code = #{logCode,jdbcType=VARCHAR},
+      </if>
+      <if test="logTotalAmount != null" >
+        log_total_amount = #{logTotalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="logCompany != null" >
+        log_company = #{logCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="logLinkman != null" >
+        log_linkman = #{logLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="logPhone != null" >
+        log_phone = #{logPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentState != null" >
+        payment_state = #{paymentState,jdbcType=CHAR},
+      </if>
+      <if test="notPayAmo != null" >
+        not_pay_amo = #{notPayAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="alrPayAmo != null" >
+        alr_pay_amo = #{alrPayAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="invState != null" >
+        inv_state = #{invState,jdbcType=CHAR},
+      </if>
+      <if test="notInvAmo != null" >
+        not_inv_amo = #{notInvAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="alrInvAmo != null" >
+        alr_inv_amo = #{alrInvAmo,jdbcType=DECIMAL},
+      </if>
+      <if test="refundTotal != null" >
+        refund_total = #{refundTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="operators != null" >
+        operators = #{operators,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorDep != null" >
+        operator_dep = #{operatorDep,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null" >
+        audit_state = #{auditState,jdbcType=CHAR},
+      </if>
+      <if test="auditor != null" >
+        auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditRemark != null" >
+        audit_remark = #{auditRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="accessory != null" >
+        accessory = #{accessory,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pur_return_id = #{purReturnId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.purchase.PurchaseReturn" >
+    update t_purchase_return
+    set return_code = #{returnCode,jdbcType=VARCHAR},
+      return_date = #{returnDate,jdbcType=TIMESTAMP},
+      purchase_type = #{purchaseType,jdbcType=VARCHAR},
+      pro_came = #{proCame,jdbcType=VARCHAR},
+      storage = #{storage,jdbcType=VARCHAR},
+      supplier_id = #{supplierId,jdbcType=VARCHAR},
+      supplier_add = #{supplierAdd,jdbcType=VARCHAR},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      returned_purchase_type_id = #{returnedPurchaseTypeId,jdbcType=VARCHAR},
+      return_deadlines = #{returnDeadlines,jdbcType=TIMESTAMP},
+      return_reason_id = #{returnReasonId,jdbcType=VARCHAR},
+      return_policy = #{returnPolicy,jdbcType=VARCHAR},
+      refund_deadlines = #{refundDeadlines,jdbcType=TIMESTAMP},
+      payment_type_id = #{paymentTypeId,jdbcType=VARCHAR},
+      log_settlement = #{logSettlement,jdbcType=CHAR},
+      log_code = #{logCode,jdbcType=VARCHAR},
+      log_total_amount = #{logTotalAmount,jdbcType=DECIMAL},
+      log_company = #{logCompany,jdbcType=VARCHAR},
+      log_linkman = #{logLinkman,jdbcType=VARCHAR},
+      log_phone = #{logPhone,jdbcType=VARCHAR},
+      payment_state = #{paymentState,jdbcType=CHAR},
+      not_pay_amo = #{notPayAmo,jdbcType=DECIMAL},
+      alr_pay_amo = #{alrPayAmo,jdbcType=DECIMAL},
+      inv_state = #{invState,jdbcType=CHAR},
+      not_inv_amo = #{notInvAmo,jdbcType=DECIMAL},
+      alr_inv_amo = #{alrInvAmo,jdbcType=DECIMAL},
+      refund_total = #{refundTotal,jdbcType=DECIMAL},
+      enabled = #{enabled,jdbcType=CHAR},
+      operators = #{operators,jdbcType=VARCHAR},
+      operator_dep = #{operatorDep,jdbcType=VARCHAR},
+      audit_state = #{auditState,jdbcType=CHAR},
+      auditor = #{auditor,jdbcType=VARCHAR},
+      audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      audit_remark = #{auditRemark,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      accessory = #{accessory,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where pur_return_id = #{purReturnId,jdbcType=VARCHAR}
+  </update>
+</mapper>

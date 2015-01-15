@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.purchase.PurchaseArrivalAffirmMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.purchase.PurchaseArrivalAffirm" >
+    <id column="temp_purchase_arrival_affirm_pur_arr_aff_id" property="purArrAffId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_arrival_affirm_pur_arrival_id" property="purArrivalId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_arrival_affirm_sign_date" property="signDate" jdbcType="TIMESTAMP" />
+    <result column="temp_purchase_arrival_affirm_sign_person" property="signPerson" jdbcType="VARCHAR" />
+    <result column="temp_purchase_arrival_affirm_affirm_date" property="affirmDate" jdbcType="TIMESTAMP" />
+    <result column="temp_purchase_arrival_affirm_affirm_person" property="affirmPerson" jdbcType="VARCHAR" />
+    <result column="temp_purchase_arrival_affirm_affirm_dep" property="affirmDep" jdbcType="VARCHAR" />
+    <result column="temp_purchase_arrival_affirm_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_purchase_arrival_affirm_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_purchase_arrival_affirm_create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_purchase_arrival_affirm.pur_arr_aff_id as temp_purchase_arrival_affirm_pur_arr_aff_id, 
+    temp_purchase_arrival_affirm.pur_arrival_id as temp_purchase_arrival_affirm_pur_arrival_id, 
+    temp_purchase_arrival_affirm.sign_date as temp_purchase_arrival_affirm_sign_date, 
+    temp_purchase_arrival_affirm.sign_person as temp_purchase_arrival_affirm_sign_person, 
+    temp_purchase_arrival_affirm.affirm_date as temp_purchase_arrival_affirm_affirm_date, 
+    temp_purchase_arrival_affirm.affirm_person as temp_purchase_arrival_affirm_affirm_person, 
+    temp_purchase_arrival_affirm.affirm_dep as temp_purchase_arrival_affirm_affirm_dep, 
+    temp_purchase_arrival_affirm.remark as temp_purchase_arrival_affirm_remark, temp_purchase_arrival_affirm.creater as temp_purchase_arrival_affirm_creater, 
+    temp_purchase_arrival_affirm.create_time as temp_purchase_arrival_affirm_create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.purchase.PurchaseArrivalAffirmExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_purchase_arrival_affirm temp_purchase_arrival_affirm
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_purchase_arrival_affirm temp_purchase_arrival_affirm
+    where temp_purchase_arrival_affirm.pur_arr_aff_id = #{purArrAffId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_purchase_arrival_affirm
+    where pur_arr_aff_id = #{purArrAffId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.purchase.PurchaseArrivalAffirmExample" >
+    delete temp_purchase_arrival_affirm from t_purchase_arrival_affirm temp_purchase_arrival_affirm
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.purchase.PurchaseArrivalAffirm" >
+    insert into t_purchase_arrival_affirm (pur_arr_aff_id, pur_arrival_id, sign_date, 
+      sign_person, affirm_date, affirm_person, 
+      affirm_dep, remark, creater, 
+      create_time)
+    values (#{purArrAffId,jdbcType=VARCHAR}, #{purArrivalId,jdbcType=VARCHAR}, #{signDate,jdbcType=TIMESTAMP}, 
+      #{signPerson,jdbcType=VARCHAR}, #{affirmDate,jdbcType=TIMESTAMP}, #{affirmPerson,jdbcType=VARCHAR}, 
+      #{affirmDep,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.purchase.PurchaseArrivalAffirm" >
+    insert into t_purchase_arrival_affirm
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="purArrAffId != null" >
+        pur_arr_aff_id,
+      </if>
+      <if test="purArrivalId != null" >
+        pur_arrival_id,
+      </if>
+      <if test="signDate != null" >
+        sign_date,
+      </if>
+      <if test="signPerson != null" >
+        sign_person,
+      </if>
+      <if test="affirmDate != null" >
+        affirm_date,
+      </if>
+      <if test="affirmPerson != null" >
+        affirm_person,
+      </if>
+      <if test="affirmDep != null" >
+        affirm_dep,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="purArrAffId != null" >
+        #{purArrAffId,jdbcType=VARCHAR},
+      </if>
+      <if test="purArrivalId != null" >
+        #{purArrivalId,jdbcType=VARCHAR},
+      </if>
+      <if test="signDate != null" >
+        #{signDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signPerson != null" >
+        #{signPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="affirmDate != null" >
+        #{affirmDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="affirmPerson != null" >
+        #{affirmPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="affirmDep != null" >
+        #{affirmDep,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.purchase.PurchaseArrivalAffirmExample" resultType="java.lang.Integer" >
+    select count(*) from t_purchase_arrival_affirm temp_purchase_arrival_affirm
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_purchase_arrival_affirm temp_purchase_arrival_affirm
+    <set >
+      <if test="record.purArrAffId != null" >
+        temp_purchase_arrival_affirm.pur_arr_aff_id = #{record.purArrAffId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purArrivalId != null" >
+        temp_purchase_arrival_affirm.pur_arrival_id = #{record.purArrivalId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signDate != null" >
+        temp_purchase_arrival_affirm.sign_date = #{record.signDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.signPerson != null" >
+        temp_purchase_arrival_affirm.sign_person = #{record.signPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.affirmDate != null" >
+        temp_purchase_arrival_affirm.affirm_date = #{record.affirmDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.affirmPerson != null" >
+        temp_purchase_arrival_affirm.affirm_person = #{record.affirmPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.affirmDep != null" >
+        temp_purchase_arrival_affirm.affirm_dep = #{record.affirmDep,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_purchase_arrival_affirm.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_purchase_arrival_affirm.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_purchase_arrival_affirm.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_purchase_arrival_affirm temp_purchase_arrival_affirm
+    set temp_purchase_arrival_affirm.pur_arr_aff_id = #{record.purArrAffId,jdbcType=VARCHAR},
+      temp_purchase_arrival_affirm.pur_arrival_id = #{record.purArrivalId,jdbcType=VARCHAR},
+      temp_purchase_arrival_affirm.sign_date = #{record.signDate,jdbcType=TIMESTAMP},
+      temp_purchase_arrival_affirm.sign_person = #{record.signPerson,jdbcType=VARCHAR},
+      temp_purchase_arrival_affirm.affirm_date = #{record.affirmDate,jdbcType=TIMESTAMP},
+      temp_purchase_arrival_affirm.affirm_person = #{record.affirmPerson,jdbcType=VARCHAR},
+      temp_purchase_arrival_affirm.affirm_dep = #{record.affirmDep,jdbcType=VARCHAR},
+      temp_purchase_arrival_affirm.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_purchase_arrival_affirm.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_purchase_arrival_affirm.create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.purchase.PurchaseArrivalAffirm" >
+    update t_purchase_arrival_affirm
+    <set >
+      <if test="purArrivalId != null" >
+        pur_arrival_id = #{purArrivalId,jdbcType=VARCHAR},
+      </if>
+      <if test="signDate != null" >
+        sign_date = #{signDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signPerson != null" >
+        sign_person = #{signPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="affirmDate != null" >
+        affirm_date = #{affirmDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="affirmPerson != null" >
+        affirm_person = #{affirmPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="affirmDep != null" >
+        affirm_dep = #{affirmDep,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pur_arr_aff_id = #{purArrAffId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.purchase.PurchaseArrivalAffirm" >
+    update t_purchase_arrival_affirm
+    set pur_arrival_id = #{purArrivalId,jdbcType=VARCHAR},
+      sign_date = #{signDate,jdbcType=TIMESTAMP},
+      sign_person = #{signPerson,jdbcType=VARCHAR},
+      affirm_date = #{affirmDate,jdbcType=TIMESTAMP},
+      affirm_person = #{affirmPerson,jdbcType=VARCHAR},
+      affirm_dep = #{affirmDep,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where pur_arr_aff_id = #{purArrAffId,jdbcType=VARCHAR}
+  </update>
+</mapper>

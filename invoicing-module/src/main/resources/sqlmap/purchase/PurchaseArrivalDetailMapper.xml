@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.purchase.PurchaseArrivalDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.purchase.PurchaseArrivalDetail" >
+    <id column="temp_purchase_arrival_detail_pur_arrival_det_id" property="purArrivalDetId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_arrival_detail_pur_arrival_id" property="purArrivalId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_arrival_detail_goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="temp_purchase_arrival_detail_goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="temp_purchase_arrival_detail_goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="temp_purchase_arrival_detail_goods_model" property="goodsModel" jdbcType="VARCHAR" />
+    <result column="temp_purchase_arrival_detail_goods_unit" property="goodsUnit" jdbcType="VARCHAR" />
+    <result column="temp_purchase_arrival_detail_quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="temp_purchase_arrival_detail_price" property="price" jdbcType="DECIMAL" />
+    <result column="temp_purchase_arrival_detail_goods_money" property="goodsMoney" jdbcType="DECIMAL" />
+    <result column="temp_purchase_arrival_detail_deadline" property="deadline" jdbcType="TIMESTAMP" />
+    <result column="temp_purchase_arrival_detail_not_return_num" property="notReturnNum" jdbcType="INTEGER" />
+    <result column="temp_purchase_arrival_detail_alr_return_num" property="alrReturnNum" jdbcType="INTEGER" />
+    <result column="temp_purchase_arrival_detail_not_pay_num" property="notPayNum" jdbcType="INTEGER" />
+    <result column="temp_purchase_arrival_detail_alr_pay_num" property="alrPayNum" jdbcType="INTEGER" />
+    <result column="temp_purchase_arrival_detail_not_inv_num" property="notInvNum" jdbcType="INTEGER" />
+    <result column="temp_purchase_arrival_detail_alr_inv_num" property="alrInvNum" jdbcType="INTEGER" />
+    <result column="temp_purchase_arrival_detail_brand" property="brand" jdbcType="VARCHAR" />
+    <result column="temp_purchase_arrival_detail_place_of_origin" property="placeOfOrigin" jdbcType="VARCHAR" />
+    <result column="temp_purchase_arrival_detail_batch_information" property="batchInformation" jdbcType="VARCHAR" />
+    <result column="temp_purchase_arrival_detail_arrival" property="arrival" jdbcType="INTEGER" />
+    <result column="temp_purchase_arrival_detail_delivery" property="delivery" jdbcType="INTEGER" />
+    <result column="temp_purchase_arrival_detail_rejection" property="rejection" jdbcType="INTEGER" />
+    <result column="temp_purchase_arrival_detail_original_cost" property="originalCost" jdbcType="DECIMAL" />
+    <result column="temp_purchase_arrival_detail_deposit_rate" property="depositRate" jdbcType="DECIMAL" />
+    <result column="temp_purchase_arrival_detail_putstorage" property="putstorage" jdbcType="INTEGER" />
+    <result column="temp_purchase_arrival_detail_takestorage" property="takestorage" jdbcType="INTEGER" />
+    <result column="temp_purchase_arrival_detail_remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_purchase_arrival_detail.pur_arrival_det_id as temp_purchase_arrival_detail_pur_arrival_det_id, 
+    temp_purchase_arrival_detail.pur_arrival_id as temp_purchase_arrival_detail_pur_arrival_id, 
+    temp_purchase_arrival_detail.goods_id as temp_purchase_arrival_detail_goods_id, temp_purchase_arrival_detail.goods_code as temp_purchase_arrival_detail_goods_code, 
+    temp_purchase_arrival_detail.goods_name as temp_purchase_arrival_detail_goods_name, 
+    temp_purchase_arrival_detail.goods_model as temp_purchase_arrival_detail_goods_model, 
+    temp_purchase_arrival_detail.goods_unit as temp_purchase_arrival_detail_goods_unit, 
+    temp_purchase_arrival_detail.quantity as temp_purchase_arrival_detail_quantity, temp_purchase_arrival_detail.price as temp_purchase_arrival_detail_price, 
+    temp_purchase_arrival_detail.goods_money as temp_purchase_arrival_detail_goods_money, 
+    temp_purchase_arrival_detail.deadline as temp_purchase_arrival_detail_deadline, temp_purchase_arrival_detail.not_return_num as temp_purchase_arrival_detail_not_return_num, 
+    temp_purchase_arrival_detail.alr_return_num as temp_purchase_arrival_detail_alr_return_num, 
+    temp_purchase_arrival_detail.not_pay_num as temp_purchase_arrival_detail_not_pay_num, 
+    temp_purchase_arrival_detail.alr_pay_num as temp_purchase_arrival_detail_alr_pay_num, 
+    temp_purchase_arrival_detail.not_inv_num as temp_purchase_arrival_detail_not_inv_num, 
+    temp_purchase_arrival_detail.alr_inv_num as temp_purchase_arrival_detail_alr_inv_num, 
+    temp_purchase_arrival_detail.brand as temp_purchase_arrival_detail_brand, temp_purchase_arrival_detail.place_of_origin as temp_purchase_arrival_detail_place_of_origin, 
+    temp_purchase_arrival_detail.batch_information as temp_purchase_arrival_detail_batch_information, 
+    temp_purchase_arrival_detail.arrival as temp_purchase_arrival_detail_arrival, temp_purchase_arrival_detail.delivery as temp_purchase_arrival_detail_delivery, 
+    temp_purchase_arrival_detail.rejection as temp_purchase_arrival_detail_rejection, 
+    temp_purchase_arrival_detail.original_cost as temp_purchase_arrival_detail_original_cost, 
+    temp_purchase_arrival_detail.deposit_rate as temp_purchase_arrival_detail_deposit_rate, 
+    temp_purchase_arrival_detail.putstorage as temp_purchase_arrival_detail_putstorage, 
+    temp_purchase_arrival_detail.takestorage as temp_purchase_arrival_detail_takestorage, 
+    temp_purchase_arrival_detail.remark as temp_purchase_arrival_detail_remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.purchase.PurchaseArrivalDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_purchase_arrival_detail temp_purchase_arrival_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_purchase_arrival_detail temp_purchase_arrival_detail
+    where temp_purchase_arrival_detail.pur_arrival_det_id = #{purArrivalDetId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_purchase_arrival_detail
+    where pur_arrival_det_id = #{purArrivalDetId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.purchase.PurchaseArrivalDetailExample" >
+    delete temp_purchase_arrival_detail from t_purchase_arrival_detail temp_purchase_arrival_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.purchase.PurchaseArrivalDetail" >
+    insert into t_purchase_arrival_detail (pur_arrival_det_id, pur_arrival_id, goods_id, 
+      goods_code, goods_name, goods_model, 
+      goods_unit, quantity, price, 
+      goods_money, deadline, not_return_num, 
+      alr_return_num, not_pay_num, alr_pay_num, 
+      not_inv_num, alr_inv_num, brand, 
+      place_of_origin, batch_information, arrival, 
+      delivery, rejection, original_cost, 
+      deposit_rate, putstorage, takestorage, 
+      remark)
+    values (#{purArrivalDetId,jdbcType=VARCHAR}, #{purArrivalId,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, 
+      #{goodsCode,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, #{goodsModel,jdbcType=VARCHAR}, 
+      #{goodsUnit,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, 
+      #{goodsMoney,jdbcType=DECIMAL}, #{deadline,jdbcType=TIMESTAMP}, #{notReturnNum,jdbcType=INTEGER}, 
+      #{alrReturnNum,jdbcType=INTEGER}, #{notPayNum,jdbcType=INTEGER}, #{alrPayNum,jdbcType=INTEGER}, 
+      #{notInvNum,jdbcType=INTEGER}, #{alrInvNum,jdbcType=INTEGER}, #{brand,jdbcType=VARCHAR}, 
+      #{placeOfOrigin,jdbcType=VARCHAR}, #{batchInformation,jdbcType=VARCHAR}, #{arrival,jdbcType=INTEGER}, 
+      #{delivery,jdbcType=INTEGER}, #{rejection,jdbcType=INTEGER}, #{originalCost,jdbcType=DECIMAL}, 
+      #{depositRate,jdbcType=DECIMAL}, #{putstorage,jdbcType=INTEGER}, #{takestorage,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.purchase.PurchaseArrivalDetail" >
+    insert into t_purchase_arrival_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="purArrivalDetId != null" >
+        pur_arrival_det_id,
+      </if>
+      <if test="purArrivalId != null" >
+        pur_arrival_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="goodsCode != null" >
+        goods_code,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="goodsModel != null" >
+        goods_model,
+      </if>
+      <if test="goodsUnit != null" >
+        goods_unit,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="goodsMoney != null" >
+        goods_money,
+      </if>
+      <if test="deadline != null" >
+        deadline,
+      </if>
+      <if test="notReturnNum != null" >
+        not_return_num,
+      </if>
+      <if test="alrReturnNum != null" >
+        alr_return_num,
+      </if>
+      <if test="notPayNum != null" >
+        not_pay_num,
+      </if>
+      <if test="alrPayNum != null" >
+        alr_pay_num,
+      </if>
+      <if test="notInvNum != null" >
+        not_inv_num,
+      </if>
+      <if test="alrInvNum != null" >
+        alr_inv_num,
+      </if>
+      <if test="brand != null" >
+        brand,
+      </if>
+      <if test="placeOfOrigin != null" >
+        place_of_origin,
+      </if>
+      <if test="batchInformation != null" >
+        batch_information,
+      </if>
+      <if test="arrival != null" >
+        arrival,
+      </if>
+      <if test="delivery != null" >
+        delivery,
+      </if>
+      <if test="rejection != null" >
+        rejection,
+      </if>
+      <if test="originalCost != null" >
+        original_cost,
+      </if>
+      <if test="depositRate != null" >
+        deposit_rate,
+      </if>
+      <if test="putstorage != null" >
+        putstorage,
+      </if>
+      <if test="takestorage != null" >
+        takestorage,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="purArrivalDetId != null" >
+        #{purArrivalDetId,jdbcType=VARCHAR},
+      </if>
+      <if test="purArrivalId != null" >
+        #{purArrivalId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsModel != null" >
+        #{goodsModel,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsUnit != null" >
+        #{goodsUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsMoney != null" >
+        #{goodsMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="deadline != null" >
+        #{deadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="notReturnNum != null" >
+        #{notReturnNum,jdbcType=INTEGER},
+      </if>
+      <if test="alrReturnNum != null" >
+        #{alrReturnNum,jdbcType=INTEGER},
+      </if>
+      <if test="notPayNum != null" >
+        #{notPayNum,jdbcType=INTEGER},
+      </if>
+      <if test="alrPayNum != null" >
+        #{alrPayNum,jdbcType=INTEGER},
+      </if>
+      <if test="notInvNum != null" >
+        #{notInvNum,jdbcType=INTEGER},
+      </if>
+      <if test="alrInvNum != null" >
+        #{alrInvNum,jdbcType=INTEGER},
+      </if>
+      <if test="brand != null" >
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="placeOfOrigin != null" >
+        #{placeOfOrigin,jdbcType=VARCHAR},
+      </if>
+      <if test="batchInformation != null" >
+        #{batchInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="arrival != null" >
+        #{arrival,jdbcType=INTEGER},
+      </if>
+      <if test="delivery != null" >
+        #{delivery,jdbcType=INTEGER},
+      </if>
+      <if test="rejection != null" >
+        #{rejection,jdbcType=INTEGER},
+      </if>
+      <if test="originalCost != null" >
+        #{originalCost,jdbcType=DECIMAL},
+      </if>
+      <if test="depositRate != null" >
+        #{depositRate,jdbcType=DECIMAL},
+      </if>
+      <if test="putstorage != null" >
+        #{putstorage,jdbcType=INTEGER},
+      </if>
+      <if test="takestorage != null" >
+        #{takestorage,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.purchase.PurchaseArrivalDetailExample" resultType="java.lang.Integer" >
+    select count(*) from t_purchase_arrival_detail temp_purchase_arrival_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_purchase_arrival_detail temp_purchase_arrival_detail
+    <set >
+      <if test="record.purArrivalDetId != null" >
+        temp_purchase_arrival_detail.pur_arrival_det_id = #{record.purArrivalDetId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purArrivalId != null" >
+        temp_purchase_arrival_detail.pur_arrival_id = #{record.purArrivalId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsId != null" >
+        temp_purchase_arrival_detail.goods_id = #{record.goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsCode != null" >
+        temp_purchase_arrival_detail.goods_code = #{record.goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsName != null" >
+        temp_purchase_arrival_detail.goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsModel != null" >
+        temp_purchase_arrival_detail.goods_model = #{record.goodsModel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsUnit != null" >
+        temp_purchase_arrival_detail.goods_unit = #{record.goodsUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.quantity != null" >
+        temp_purchase_arrival_detail.quantity = #{record.quantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null" >
+        temp_purchase_arrival_detail.price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.goodsMoney != null" >
+        temp_purchase_arrival_detail.goods_money = #{record.goodsMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.deadline != null" >
+        temp_purchase_arrival_detail.deadline = #{record.deadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.notReturnNum != null" >
+        temp_purchase_arrival_detail.not_return_num = #{record.notReturnNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.alrReturnNum != null" >
+        temp_purchase_arrival_detail.alr_return_num = #{record.alrReturnNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.notPayNum != null" >
+        temp_purchase_arrival_detail.not_pay_num = #{record.notPayNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.alrPayNum != null" >
+        temp_purchase_arrival_detail.alr_pay_num = #{record.alrPayNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.notInvNum != null" >
+        temp_purchase_arrival_detail.not_inv_num = #{record.notInvNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.alrInvNum != null" >
+        temp_purchase_arrival_detail.alr_inv_num = #{record.alrInvNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.brand != null" >
+        temp_purchase_arrival_detail.brand = #{record.brand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.placeOfOrigin != null" >
+        temp_purchase_arrival_detail.place_of_origin = #{record.placeOfOrigin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.batchInformation != null" >
+        temp_purchase_arrival_detail.batch_information = #{record.batchInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.arrival != null" >
+        temp_purchase_arrival_detail.arrival = #{record.arrival,jdbcType=INTEGER},
+      </if>
+      <if test="record.delivery != null" >
+        temp_purchase_arrival_detail.delivery = #{record.delivery,jdbcType=INTEGER},
+      </if>
+      <if test="record.rejection != null" >
+        temp_purchase_arrival_detail.rejection = #{record.rejection,jdbcType=INTEGER},
+      </if>
+      <if test="record.originalCost != null" >
+        temp_purchase_arrival_detail.original_cost = #{record.originalCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.depositRate != null" >
+        temp_purchase_arrival_detail.deposit_rate = #{record.depositRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.putstorage != null" >
+        temp_purchase_arrival_detail.putstorage = #{record.putstorage,jdbcType=INTEGER},
+      </if>
+      <if test="record.takestorage != null" >
+        temp_purchase_arrival_detail.takestorage = #{record.takestorage,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        temp_purchase_arrival_detail.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_purchase_arrival_detail temp_purchase_arrival_detail
+    set temp_purchase_arrival_detail.pur_arrival_det_id = #{record.purArrivalDetId,jdbcType=VARCHAR},
+      temp_purchase_arrival_detail.pur_arrival_id = #{record.purArrivalId,jdbcType=VARCHAR},
+      temp_purchase_arrival_detail.goods_id = #{record.goodsId,jdbcType=VARCHAR},
+      temp_purchase_arrival_detail.goods_code = #{record.goodsCode,jdbcType=VARCHAR},
+      temp_purchase_arrival_detail.goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      temp_purchase_arrival_detail.goods_model = #{record.goodsModel,jdbcType=VARCHAR},
+      temp_purchase_arrival_detail.goods_unit = #{record.goodsUnit,jdbcType=VARCHAR},
+      temp_purchase_arrival_detail.quantity = #{record.quantity,jdbcType=INTEGER},
+      temp_purchase_arrival_detail.price = #{record.price,jdbcType=DECIMAL},
+      temp_purchase_arrival_detail.goods_money = #{record.goodsMoney,jdbcType=DECIMAL},
+      temp_purchase_arrival_detail.deadline = #{record.deadline,jdbcType=TIMESTAMP},
+      temp_purchase_arrival_detail.not_return_num = #{record.notReturnNum,jdbcType=INTEGER},
+      temp_purchase_arrival_detail.alr_return_num = #{record.alrReturnNum,jdbcType=INTEGER},
+      temp_purchase_arrival_detail.not_pay_num = #{record.notPayNum,jdbcType=INTEGER},
+      temp_purchase_arrival_detail.alr_pay_num = #{record.alrPayNum,jdbcType=INTEGER},
+      temp_purchase_arrival_detail.not_inv_num = #{record.notInvNum,jdbcType=INTEGER},
+      temp_purchase_arrival_detail.alr_inv_num = #{record.alrInvNum,jdbcType=INTEGER},
+      temp_purchase_arrival_detail.brand = #{record.brand,jdbcType=VARCHAR},
+      temp_purchase_arrival_detail.place_of_origin = #{record.placeOfOrigin,jdbcType=VARCHAR},
+      temp_purchase_arrival_detail.batch_information = #{record.batchInformation,jdbcType=VARCHAR},
+      temp_purchase_arrival_detail.arrival = #{record.arrival,jdbcType=INTEGER},
+      temp_purchase_arrival_detail.delivery = #{record.delivery,jdbcType=INTEGER},
+      temp_purchase_arrival_detail.rejection = #{record.rejection,jdbcType=INTEGER},
+      temp_purchase_arrival_detail.original_cost = #{record.originalCost,jdbcType=DECIMAL},
+      temp_purchase_arrival_detail.deposit_rate = #{record.depositRate,jdbcType=DECIMAL},
+      temp_purchase_arrival_detail.putstorage = #{record.putstorage,jdbcType=INTEGER},
+      temp_purchase_arrival_detail.takestorage = #{record.takestorage,jdbcType=INTEGER},
+      temp_purchase_arrival_detail.remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.purchase.PurchaseArrivalDetail" >
+    update t_purchase_arrival_detail
+    <set >
+      <if test="purArrivalId != null" >
+        pur_arrival_id = #{purArrivalId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        goods_code = #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsModel != null" >
+        goods_model = #{goodsModel,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsUnit != null" >
+        goods_unit = #{goodsUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsMoney != null" >
+        goods_money = #{goodsMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="deadline != null" >
+        deadline = #{deadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="notReturnNum != null" >
+        not_return_num = #{notReturnNum,jdbcType=INTEGER},
+      </if>
+      <if test="alrReturnNum != null" >
+        alr_return_num = #{alrReturnNum,jdbcType=INTEGER},
+      </if>
+      <if test="notPayNum != null" >
+        not_pay_num = #{notPayNum,jdbcType=INTEGER},
+      </if>
+      <if test="alrPayNum != null" >
+        alr_pay_num = #{alrPayNum,jdbcType=INTEGER},
+      </if>
+      <if test="notInvNum != null" >
+        not_inv_num = #{notInvNum,jdbcType=INTEGER},
+      </if>
+      <if test="alrInvNum != null" >
+        alr_inv_num = #{alrInvNum,jdbcType=INTEGER},
+      </if>
+      <if test="brand != null" >
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="placeOfOrigin != null" >
+        place_of_origin = #{placeOfOrigin,jdbcType=VARCHAR},
+      </if>
+      <if test="batchInformation != null" >
+        batch_information = #{batchInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="arrival != null" >
+        arrival = #{arrival,jdbcType=INTEGER},
+      </if>
+      <if test="delivery != null" >
+        delivery = #{delivery,jdbcType=INTEGER},
+      </if>
+      <if test="rejection != null" >
+        rejection = #{rejection,jdbcType=INTEGER},
+      </if>
+      <if test="originalCost != null" >
+        original_cost = #{originalCost,jdbcType=DECIMAL},
+      </if>
+      <if test="depositRate != null" >
+        deposit_rate = #{depositRate,jdbcType=DECIMAL},
+      </if>
+      <if test="putstorage != null" >
+        putstorage = #{putstorage,jdbcType=INTEGER},
+      </if>
+      <if test="takestorage != null" >
+        takestorage = #{takestorage,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pur_arrival_det_id = #{purArrivalDetId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.purchase.PurchaseArrivalDetail" >
+    update t_purchase_arrival_detail
+    set pur_arrival_id = #{purArrivalId,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=VARCHAR},
+      goods_code = #{goodsCode,jdbcType=VARCHAR},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_model = #{goodsModel,jdbcType=VARCHAR},
+      goods_unit = #{goodsUnit,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      goods_money = #{goodsMoney,jdbcType=DECIMAL},
+      deadline = #{deadline,jdbcType=TIMESTAMP},
+      not_return_num = #{notReturnNum,jdbcType=INTEGER},
+      alr_return_num = #{alrReturnNum,jdbcType=INTEGER},
+      not_pay_num = #{notPayNum,jdbcType=INTEGER},
+      alr_pay_num = #{alrPayNum,jdbcType=INTEGER},
+      not_inv_num = #{notInvNum,jdbcType=INTEGER},
+      alr_inv_num = #{alrInvNum,jdbcType=INTEGER},
+      brand = #{brand,jdbcType=VARCHAR},
+      place_of_origin = #{placeOfOrigin,jdbcType=VARCHAR},
+      batch_information = #{batchInformation,jdbcType=VARCHAR},
+      arrival = #{arrival,jdbcType=INTEGER},
+      delivery = #{delivery,jdbcType=INTEGER},
+      rejection = #{rejection,jdbcType=INTEGER},
+      original_cost = #{originalCost,jdbcType=DECIMAL},
+      deposit_rate = #{depositRate,jdbcType=DECIMAL},
+      putstorage = #{putstorage,jdbcType=INTEGER},
+      takestorage = #{takestorage,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where pur_arrival_det_id = #{purArrivalDetId,jdbcType=VARCHAR}
+  </update>
+</mapper>
