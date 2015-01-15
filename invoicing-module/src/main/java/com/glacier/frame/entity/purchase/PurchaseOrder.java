@@ -3,6 +3,8 @@ package com.glacier.frame.entity.purchase;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class PurchaseOrder {
     private String purOrderId;
 
@@ -14,6 +16,7 @@ public class PurchaseOrder {
 
     private String purchaseTypeId;
 
+    @JSONField(format="yyyy-MM-dd")
     private Date orderDate;
 
     private String storage;
@@ -36,6 +39,7 @@ public class PurchaseOrder {
 
     private String deliveryType;
 
+    @JSONField(format="yyyy-MM-dd")
     private Date deliveryDadlines;
 
     private String deliveryAdd;
@@ -72,6 +76,7 @@ public class PurchaseOrder {
 
     private String auditor;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditDate;
 
     private String auditRemark;
@@ -86,10 +91,12 @@ public class PurchaseOrder {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     private String contractTerms;
