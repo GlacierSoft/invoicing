@@ -105,12 +105,18 @@ public class WarehouseService {
 	 */
 	@Transactional(readOnly = false)
 	@MethodLog(opera = "Warehouse_add")
-	public Object addWarehouse(Warehouse warehouse) {
+	public Object addWarehouse(Warehouse warehouse,String[] warehouseTypeName) {
 		Subject pricipalSubject = SecurityUtils.getSubject();
 		User pricipalUser = (User) pricipalSubject.getPrincipal();
 		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
 		WarehouseExample warehouseExample = new WarehouseExample();
 		int count = 0;
+		//防止仓库类型未赋值
+		if(warehouseTypeName.length<=0){
+			returnResult.setMsg("仓库类型为空,请选择仓库类型!");
+			returnResult.setSuccess(false);
+			return returnResult;
+		}
 		// 防止仓库名称重复
 		warehouseExample.createCriteria().andWarehouseNameEqualTo(warehouse.getWarehouseName());
 		count = warehouseMapper.countByExample(warehouseExample);
@@ -119,6 +125,7 @@ public class WarehouseService {
 			returnResult.setSuccess(false);
 			return returnResult;
 		}
+		//仓库信息赋值
 		warehouse.setWarehouseId(RandomGUID.getRandomGUID());
 		warehouse.setWarehouseCode("WH_"+(int)(Math.random()*9000+1000));
 		warehouse.setEnabled("enable");
@@ -127,6 +134,13 @@ public class WarehouseService {
 		warehouse.setUpdater(pricipalUser.getUserCnName());
 		warehouse.setUpdateTime(new Date());
 		count = warehouseMapper.insert(warehouse);
+		//仓库信息主键
+		String id=warehouse.getWarehouseId();
+		//类型信息赋值
+		for(int i=0;i<warehouseTypeName.length;i++){
+			
+		}
+		
 		if (count == 1) {
 			returnResult.setSuccess(true);
 			returnResult.setMsg("【" + warehouse.getWarehouseName()+ "】仓库信息已保存");

@@ -100,9 +100,9 @@ public class WarehouseController {
     //增加库存信息
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addGrade(@Valid Warehouse warehouse, BindingResult bindingResult,String warehouseTypeName) {
-    	System.out.println("warehouseTypeName=========================="+warehouseTypeName);
-        return warehouseService.addWarehouse(warehouse);
+    private Object addGrade(@Valid Warehouse warehouse, BindingResult bindingResult,String[] warehouseTypeName) {
+    	System.out.println("warehouseTypeName:"+warehouseTypeName.length);
+        return warehouseService.addWarehouse(warehouse,warehouseTypeName);
     }
     
     //修改库存信息

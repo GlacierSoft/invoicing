@@ -2,11 +2,18 @@
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %> 
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<style>
+        #formtable tr td{padding:2px;} 
+        
+        #waresort_td{
+            padding:2px;
+        }
+</style>
 
 <form id="creditType_mgr_creditType_form" method="POST" modelAttribute="parameterCredit" style="padding:15px" enctype="multipart/form-data">
-	<table class="formtable" >
+	<table class="formtable" id="formtable">
 		<tr>
-			<td>仓库名称：</td>
+			<td style="width:120px;">仓库名称：</td>
 			<td>
 				<input type="hidden" name="warehouseId" value="${warehouseDate.warehouseId}" />
 				<input name="warehouseName"  class="easyui-validatebox spinner" style="width:168px;height: 20px;" required="true" value="${warehouseDate.warehouseName}"/>
@@ -37,9 +44,11 @@
 		     <td style="padding-left: 15px;">仓库地址：</td>
 			<td><input name="address" class="easyui-validatebox spinner" style="width:168px;height: 20px;" value="${warehouseDate.address}" required="true"/></td>
 		</tr>
-		<tr>
+		<tr style="height: 120px;">
 		  <td>仓库分类：</td>
-		  <td colspan="3" id="waresort_td"></td>
+		  <td colspan="3" >
+		       <div id="waresort_td" style="width:420px;height:85px;border-top:1px solid #ABADB3;overflow-y:auto;" ></div>
+		  </td>
 	    </tr>
 		<tr>
 		  <td>备注信息：</td>
@@ -64,11 +73,18 @@
      
         if($.parseJSON('${allTypeTreeNodeData}').length>0){
        	     $.each($.parseJSON('${allTypeTreeNodeData}'),function(i,v){
-           		  var listHtml="<label style='padding:5px;'><input type='checkbox' name='warehouseTypeName' value='"+v.warGoodsTypeId+"'/>&nbsp;&nbsp;"+v.name+"</label >";  
+       	    	  if((i+1)%4==0){
+           			var listHtml="<label style='padding:6px;'><input type='checkbox' name='warehouseTypeName' value='"+v.warGoodsTypeId+"'/>&nbsp;&nbsp;"+v.name+"</label ><br/><br/>";
+           		  }else{
+           			var listHtml="<label style='padding:6px;'><input type='checkbox' name='warehouseTypeName' value='"+v.warGoodsTypeId+"'/>&nbsp;&nbsp;"+v.name+"</label >";
+           		  }
            		  $(listHtml).appendTo("#waresort_td");
            	 });    	
           }    
        
+        $("input[name='warehouseTypeName'][value='2f1bdfd481cf74f29ebad99e599c22d9'],[value='371044b50dabec3ffe93790226e3b644']").attr("checked","checked");
+        
+        
         //初始化上级部门
 		$("#departmentId").combotree({
 			data :$.parseJSON('${allDepTreeNodeData}'),

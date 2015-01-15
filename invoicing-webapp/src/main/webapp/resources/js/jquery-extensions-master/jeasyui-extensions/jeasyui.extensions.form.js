@@ -39,7 +39,7 @@
         var opts = $.extend({}, $.fn.form.defaults, options || {});
         if (opts.onSubmit && opts.onSubmit.call(target, param) == false) { return; }
         if (!opts.url) { return; }
-        var param = form.form("getData");
+        var param = form.form("getData",{transcript:'overlay'});
         $.post(opts.url, param, function (data) { if (opts.success) { opts.success(data); } });
     };
 
