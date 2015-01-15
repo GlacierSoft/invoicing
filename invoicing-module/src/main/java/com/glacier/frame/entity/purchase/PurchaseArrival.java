@@ -6,77 +6,77 @@ import java.util.Date;
 public class PurchaseArrival {
     private String purArrivalId;
 
-    private String purchaseTypeId;
+    private String purchaseTypeId;//采购类型
 
-    private String arrivalCode;
+    private String arrivalCode;//到货单号
 
-    private String contractCode;
+    private String contractCode;//合同编号
 
-    private String supplierId;
+    private String supplierId;//供应商编号
 
-    private String fax;
+    private String fax;//传真
 
-    private String linkman;
+    private String linkman;//联系人
 
-    private String phone;
+    private String phone;//联系电话
 
-    private String supplierAdd;
+    private String supplierAdd;//供应商地址
 
-    private String storage;
+    private String storage;//仓库
 
-    private String deliveryType;
+    private String deliveryType;//交货方式
 
-    private Date deliveryDead;
+    private Date deliveryDead;//交货期限
 
-    private String paymentAgrId;
+    private String paymentAgrId;//付款约定ID
 
-    private String deliveryAdd;
+    private String deliveryAdd;//交货地址
 
-    private String invoice;
+    private String invoice;//是否开票
 
-    private String invoiceTypeId;
+    private String invoiceTypeId;//发票类别
 
-    private String paymentTypeId;
+    private String paymentTypeId;//支付方式
 
-    private String logSettlementId;
+    private String logSettlementId;//运费结算方式ID
 
-    private String logCode;
+    private String logCode;//运单号
 
-    private BigDecimal logTotalTmount;
+    private BigDecimal logTotalTmount;//运费总额
 
-    private String logCompany;
+    private String logCompany;//物流公司ID
 
-    private String logLinkman;
+    private String logLinkman;//物流联系人
 
-    private String logPhone;
+    private String logPhone;//物流联系电话
 
-    private BigDecimal totalAmount;
+    private BigDecimal totalAmount;//总金额
 
-    private BigDecimal derateMoney;
+    private BigDecimal derateMoney;//应付减免金额
 
-    private Date arrivalDate;
+    private Date arrivalDate;//到货时间
 
-    private String acceptor;
+    private String acceptor;//验收人
 
-    private String accessory;
+    private String accessory;//附件
 
-    private BigDecimal notPayAmo;
+    private BigDecimal notPayAmo;//未付款金额
 
-    private BigDecimal alrPayAmo;
+    private BigDecimal alrPayAmo;//已付款金额
 
-    private String invState;
+    private String invState;//开票状态
 
-    private BigDecimal notInvAmo;
+    private BigDecimal notInvAmo;//为开票金额
 
-    private BigDecimal alrInvAmo;
+    private BigDecimal alrInvAmo;//已开票金额
 
-    private String returnState;
+    private String returnState;//退货状态
 
-    private BigDecimal notReturnAmo;
+    private BigDecimal notReturnAmo;//未退货金额
 
-    private BigDecimal alrReturnAmo;
+    private BigDecimal alrReturnAmo;//已退货金额
 
-    private String payState;
+    private String payState;//付款状态
 
     private String auditState;
 
@@ -88,19 +88,19 @@ public class PurchaseArrival {
 
     private String enabled;
 
-    private String operators;
+    private String operators;//经办人
 
-    private String operatorDep;
+    private String operatorDep;//经办部分
 
-    private String confirmor;
+    private String confirmor;//运费确认人
 
-    private String confirmorDepartment;
+    private String confirmorDepartment;//运费确认部门
 
-    private Date confirmorTime;
+    private Date confirmorTime;//确认日期
 
-    private String tailAfterStatus;
+    private String tailAfterStatus;//货物跟踪状态
 
-    private String summary;
+    private String summary;//物品摘要
 
     private String remark;
 

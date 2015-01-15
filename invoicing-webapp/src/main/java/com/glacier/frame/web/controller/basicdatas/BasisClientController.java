@@ -83,7 +83,7 @@ public class BasisClientController extends AbstractController{
     @RequestMapping(value = "/intoForm.htm")
     private Object intoGradeFormPnews(String clientId) {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/basisClient_mgr/basisClient_form");
-        mav.addObject("clientCountDate", basisClientService.getClientCombo(clientId));//所有客户档案信息
+        mav.addObject("clientCountDate", basisClientService.getClientCombo());//所有客户档案信息
     	mav.addObject("clientTypeDate", clientTypeService.getClientTypeCombo(null));//客户类型信息
     	mav.addObject("clientLevelDate", clientLevelService.getClientLevelCombo(null));//客户级别信息
     	mav.addObject("clientSourceDate", clientSourceService.getClientSourceCombo(null));//客户来源信息

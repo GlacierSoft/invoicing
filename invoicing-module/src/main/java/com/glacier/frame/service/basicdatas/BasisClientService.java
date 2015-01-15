@@ -83,11 +83,9 @@ public class BasisClientService {
      * @throws 
      * 备注<p>已检查测试:Green<p>
      */
-    public Object getClientCombo(String clientId) {
+    public Object getClientCombo() {
     	BasisClientExample parClientExample = new BasisClientExample();
-        if (StringUtils.isNotBlank(clientId)) {// 可以根据ID查找，如果参数Id为空，则查找所有的数据
-        	parClientExample.createCriteria().andClientIdEqualTo(clientId);
-        }
+        parClientExample.createCriteria().andEnabledEqualTo("enable");
         List<BasisClient> parClients = basisClientMapper.selectByExample(parClientExample);
         return JackJson.fromObjectToJson(parClients);
     }

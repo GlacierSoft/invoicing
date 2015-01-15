@@ -30,6 +30,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.CollectionsUtil;
+import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;  
 import com.glacier.frame.dao.basicdatas.SuppliersMapper;
 import com.glacier.frame.dto.query.basicdatas.SuppliersQueryDTO; 
@@ -94,6 +95,21 @@ public class SuppliersService {
         returnResult.setRows(carrierCarTypeList);
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
+    }
+    
+    /**
+     * @Title: getSuppliersCombo 
+     * @Description: TODO(用于供应商Combo的数据绑定) 
+     * @param  @param suppliersId
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getSuppliersCombo() {
+    	SuppliersExample parSuppliersExample = new SuppliersExample();
+    	parSuppliersExample.createCriteria().andEnabledEqualTo("enable");
+        List<Suppliers> parSupplierss = suppliersMapper.selectByExample(parSuppliersExample);
+        return JackJson.fromObjectToJson(parSupplierss);
     }
     
      /**

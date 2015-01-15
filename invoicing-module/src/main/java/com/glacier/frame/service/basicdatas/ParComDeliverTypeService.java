@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional; 
 
 import com.glacier.basic.util.CollectionsUtil;
+import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.ParComDeliverTypeMapper;
 import com.glacier.frame.dto.query.basicdatas.ParComDeliverTypeQueryDTO;
@@ -35,7 +36,7 @@ import com.glacier.frame.entity.basicdatas.ParComDeliverTypeExample.Criteria;
 import com.glacier.frame.util.MethodLog;
 /*** 
  * @ClassName:  ParComDeliverTypeService
- * @Description: TODO(交换方式表业务类)
+ * @Description: TODO(交货方式表业务类)
  * @author wuting
  * @email 920339213@QQ.com
  * @date 2015-1-8
@@ -72,6 +73,21 @@ public class ParComDeliverTypeService {
         returnResult.setRows(parComDeliverTypeList);
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
+    }
+    
+    /**
+     * @Title: getDeliverTypeCombo 
+     * @Description: TODO(用于交货方式Combo的数据绑定) 
+     * @param  @param clientId
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getDeliverTypeCombo() {
+    	ParComDeliverTypeExample parComDeliverTypeExample = new ParComDeliverTypeExample();
+        parComDeliverTypeExample.createCriteria().andEnabledEqualTo("enable");
+        List<ParComDeliverType> parComDeliverTypes = parComDeliverTypeMapper.selectByExample(parComDeliverTypeExample);
+        return JackJson.fromObjectToJson(parComDeliverTypes);
     }
     
     /**

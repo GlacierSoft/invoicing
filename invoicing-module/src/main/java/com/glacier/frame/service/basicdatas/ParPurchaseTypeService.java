@@ -30,6 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.ParPurchaseTypeMapper;
 import com.glacier.frame.dto.query.basicdatas.ParPurchaseTypeQueryDTO;
@@ -84,6 +85,21 @@ public class ParPurchaseTypeService {
 	}
 
 	/**
+     * @Title: getParPurchaseTypeCombo 
+     * @Description: TODO(用于采购类型Combo的数据绑定) 
+     * @param  @param suppliersId
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getParPurchaseTypeCombo() {
+    	ParPurchaseTypeExample parPurchaseTypeExample = new ParPurchaseTypeExample();
+    	parPurchaseTypeExample.createCriteria().andEnabledEqualTo("enable");
+        List<ParPurchaseType> parPurchaseTypes = purchaseTypeMapper.selectByExample(parPurchaseTypeExample);
+        return JackJson.fromObjectToJson(parPurchaseTypes);
+    }
+	
+	/**
 	 * @Title: getPurchaseType
 	 * @Description: TODO(获取采购类型对象)
 	 * @param @param industryId
@@ -97,7 +113,7 @@ public class ParPurchaseTypeService {
 	}
 
 	/**
-	 * @Title: addSuppliersGrade
+	 * @Title: addParPurchaseTypeGrade
 	 * @Description: TODO(新增采购类型)
 	 * @param @param suppliersGrade
 	 * @param @return 设定文件
@@ -136,7 +152,7 @@ public class ParPurchaseTypeService {
 	}
 
 	/**
-	 * @Title: editSuppliersGrade
+	 * @Title: editParPurchaseTypeGrade
 	 * @Description: TODO(修改采购类型信息)
 	 * @param @param purchaseType
 	 * @param @return 设定文件
