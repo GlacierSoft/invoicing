@@ -101,7 +101,29 @@ public class PurchaseOrder {
 
     private String contractTerms;
 
-    public String getPurOrderId() {
+    //自定义字段
+    private String suppliersName;//供应商名字
+    
+    private String storageName;//仓库名
+     
+    
+    public String getSuppliersName() {
+		return suppliersName;
+	}
+
+	public void setSuppliersName(String suppliersName) {
+		this.suppliersName = suppliersName;
+	}
+
+	public String getStorageName() {
+		return storageName;
+	}
+
+	public void setStorageName(String storageName) {
+		this.storageName = storageName;
+	}
+
+	public String getPurOrderId() {
         return purOrderId;
     }
 

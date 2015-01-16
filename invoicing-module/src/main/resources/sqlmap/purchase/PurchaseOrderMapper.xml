@@ -46,6 +46,9 @@
     <result column="temp_purchase_order_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_purchase_order_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_purchase_order_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <!-- 自定义字段 --> 
+    <result column="temp_purchase_order_suppliers_name" property="suppliersName" jdbcType="VARCHAR" />
+    <result column="temp_purchase_order_storage_name" property="storageName" jdbcType="VARCHAR" /> 
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.glacier.frame.entity.purchase.PurchaseOrder" extends="BaseResultMap" >
     <result column="temp_purchase_order_contract_terms" property="contractTerms" jdbcType="LONGVARCHAR" />
@@ -131,6 +134,14 @@
     temp_purchase_order.operator_dep as temp_purchase_order_operator_dep, temp_purchase_order.remark as temp_purchase_order_remark, 
     temp_purchase_order.creater as temp_purchase_order_creater, temp_purchase_order.create_time as temp_purchase_order_create_time, 
     temp_purchase_order.updater as temp_purchase_order_updater, temp_purchase_order.update_time as temp_purchase_order_update_time
+      
+    ,temp_suppliers.suppliers_name as temp_purchase_order_suppliers_name  
+    ,temp_warehouse.warehouse_name as temp_purchase_order_storage_name
+  </sql>
+  
+  <sql id="Base_extend">
+    LEFT JOIN t_suppliers  temp_suppliers ON temp_suppliers.supplier_id =temp_purchase_order.supplier_id<!-- 扩展 -->
+   	LEFT JOIN t_warehouse temp_warehouse ON temp_warehouse.warehouse_id =temp_purchase_order.storage <!-- 扩展 -->
   </sql>
   <sql id="Blob_Column_List" >
     temp_purchase_order.contract_terms as temp_purchase_order_contract_terms
@@ -144,6 +155,7 @@
     ,
     <include refid="Blob_Column_List" />
     from t_purchase_order temp_purchase_order
+     <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -161,6 +173,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_purchase_order temp_purchase_order
+     <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -177,6 +190,7 @@
     ,
     <include refid="Blob_Column_List" />
     from t_purchase_order temp_purchase_order
+     <include refid="Base_extend" />
     where temp_purchase_order.pur_order_id = #{purOrderId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >

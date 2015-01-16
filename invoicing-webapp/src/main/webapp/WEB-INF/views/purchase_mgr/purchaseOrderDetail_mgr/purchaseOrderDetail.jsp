@@ -146,10 +146,8 @@
 				body.find('table tbody').append('<tr><td width="' + body.width() + '" style="height: 25px; text-align: center;color:red">暂时没有记录</td></tr>');
 			}
 		},
-		onDblClickRow : function(rowIndex, rowData){ 
-			$("#layout_center_panel").panel("setTitle","订购合同明细");
-			$('#layout_center_panel').panel('refresh',ctx +'/do/purchaseOrder/intoDetail.htm?purOrderId='+ rowData.purOrderId);
-	      /*   $.easyui.showDialog({
+		onDblClickRow : function(rowIndex, rowData){
+          $.easyui.showDialog({
 				title : '【' + rowData.orderCode + '】详细信息',
 				href : ctx+ '/do/purchaseOrder/intoDetail.htm?purOrderId='+ rowData.purOrderId,//从controller请求jsp页面进行渲染
 				width : 750,
@@ -157,7 +155,7 @@
 				resizable : false,
 				enableApplyButton : false,
 				enableSaveButton : false
-			}); */
+			});
 		}
 	});
 	

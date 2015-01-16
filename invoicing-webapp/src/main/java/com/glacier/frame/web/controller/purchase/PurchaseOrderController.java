@@ -34,8 +34,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController; 
+import com.glacier.frame.dto.query.purchase.PurchaseOrderDetailQueryDTO;
 import com.glacier.frame.dto.query.purchase.PurchaseOrderQueryDTO;
 import com.glacier.frame.entity.purchase.PurchaseOrder;
+import com.glacier.frame.service.purchase.PurchaseOrderDetailService;
 import com.glacier.frame.service.purchase.PurchaseOrderService;
 import com.glacier.jqueryui.util.JqPager;
 
@@ -48,11 +50,13 @@ import com.glacier.jqueryui.util.JqPager;
  */ 
 @Controller
 @RequestMapping(value = "/purchaseOrder")
-public class PurchaseOrderController extends AbstractController{
-
+public class PurchaseOrderController extends AbstractController{ 
 	 
     @Autowired
     private PurchaseOrderService purchaseOrderService;// 注入service
+ 
+    @Autowired
+    private PurchaseOrderDetailService purchaseOrderDetailService;// 注入service
     
     //进入列表展示页面
     @RequestMapping(value = "/index.htm")
@@ -68,6 +72,14 @@ public class PurchaseOrderController extends AbstractController{
         return purchaseOrderService.listAsGrid(jqPager, purchaseOrderQueryDTO);
     }
     
+    //获取订购合同详细信息
+    @RequestMapping(value = "/orderDetail.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object listOrderDetail(JqPager jqPager,PurchaseOrderDetailQueryDTO purchaseOrderDetailQueryDTO,String orderId) {
+    	purchaseOrderDetailQueryDTO.setPurOrderId(orderId);
+    	return purchaseOrderDetailService.listAsGrid(jqPager, purchaseOrderDetailQueryDTO);
+    }
+    
     //进入表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object inForme(String purOrderId) {
@@ -81,7 +93,7 @@ public class PurchaseOrderController extends AbstractController{
     //进入Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoPurchaseOrder(String purOrderId) {
-        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/purchaseOrder_detail");
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/test");
         if(StringUtils.isNotBlank(purOrderId)){
             mav.addObject("purchaseOrderData", purchaseOrderService.getPurchaseOrder(purOrderId));
         }
