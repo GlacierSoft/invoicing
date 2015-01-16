@@ -93,6 +93,7 @@ public class WarehouseController {
         //主键标志判断
         if(StringUtils.isNotBlank(warehouseId)){
             mav.addObject("warehouseDate", warehouseService.getWarehouse(warehouseId));
+            mav.addObject("allClassifyDate",warehouseService.listAsGoodsClassify(warehouseId));
         }
         return mav;
     }
@@ -101,15 +102,15 @@ public class WarehouseController {
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
     private Object addGrade(@Valid Warehouse warehouse, BindingResult bindingResult,String[] warehouseTypeName) {
-    	System.out.println("warehouseTypeName:"+warehouseTypeName.length);
-        return warehouseService.addWarehouse(warehouse,warehouseTypeName);
+    	return warehouseService.addWarehouse(warehouse,warehouseTypeName);
     }
     
     //修改库存信息
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object editGrade(@Valid Warehouse warehouse, BindingResult bindingResult) {
-        return warehouseService.editWarehouse(warehouse);
+    private Object editGrade(@Valid Warehouse warehouse, BindingResult bindingResult,String[] warehouseTypeName) {
+    	System.out.println("==============="+warehouseTypeName.length);
+        return warehouseService.editWarehouse(warehouse,warehouseTypeName);
     }
     
     //删除库存信息

@@ -82,10 +82,15 @@
            	 });    	
           }    
        
-        $("input[name='warehouseTypeName'][value='2f1bdfd481cf74f29ebad99e599c22d9'],[value='371044b50dabec3ffe93790226e3b644']").attr("checked","checked");
-        
-        
-        //初始化上级部门
+       if('${allClassifyDate}'){
+			if($.parseJSON('${allClassifyDate}').length>0){
+	        	 $.each($.parseJSON('${allClassifyDate}'),function(i,v){
+	        		 $("input[name='warehouseTypeName'][value='"+v.warGoodsTypeId+"']").attr("checked","checked");
+	        	 });
+	         }
+		}
+         
+         //初始化上级部门
 		$("#departmentId").combotree({
 			data :$.parseJSON('${allDepTreeNodeData}'),
 			width:168,

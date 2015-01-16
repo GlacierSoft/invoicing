@@ -30,12 +30,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.WarehouseMapper;
+import com.glacier.frame.dao.basicdatas.ParWarGoodsClassifyMapper;
+
 import com.glacier.frame.dto.query.basicdatas.WarehouseQueryDTO;
+import com.glacier.frame.entity.basicdatas.ParWarGoodsClassifyExample;
 import com.glacier.frame.entity.basicdatas.Warehouse;
+import com.glacier.frame.entity.basicdatas.ParWarGoodsClassify;
 import com.glacier.frame.entity.basicdatas.WarehouseExample;
 import com.glacier.frame.entity.basicdatas.WarehouseExample.Criteria;
+
 import com.glacier.frame.entity.system.User;
 import com.glacier.frame.util.MethodLog;
 import com.glacier.jqueryui.util.JqGridReturn;
@@ -52,8 +58,13 @@ import com.glacier.jqueryui.util.JqReturnJson;
 @Service
 @Transactional(readOnly=true,propagation = Propagation.REQUIRED)
 public class WarehouseService {
+	
 	@Autowired
 	private WarehouseMapper warehouseMapper;
+	
+	@Autowired
+	private ParWarGoodsClassifyMapper warGoodsClassifyMapper;
+	
 	
 	/**
 	 * @Title: listAsGrid
@@ -81,7 +92,22 @@ public class WarehouseService {
 		returnResult.setTotal(total);
 		return returnResult;// 返回ExtGrid表
 	}
-
+	
+	/**
+	 * @Title: listAsGoodsClassify
+	 * @Description: TODO(获取仓库信息对象)
+	 * @param @param goodsId
+	 * @param @return 设定文件
+	 * @return Object 返回类型
+	 * @throws
+	 */
+	public Object listAsGoodsClassify(String warehouseId) {
+		ParWarGoodsClassifyExample warGoodsClassifyExample = new ParWarGoodsClassifyExample();
+		warGoodsClassifyExample.createCriteria().andWarehouseIdEqualTo(warehouseId);
+		List<ParWarGoodsClassify> list=warGoodsClassifyMapper.selectByExample(warGoodsClassifyExample);
+		return JackJson.fromObjectToJson(list);
+	}
+	
 	/**
 	 * @Title: getWarehouse
 	 * @Description: TODO(获取仓库信息对象)
@@ -138,7 +164,11 @@ public class WarehouseService {
 		String id=warehouse.getWarehouseId();
 		//类型信息赋值
 		for(int i=0;i<warehouseTypeName.length;i++){
-			
+			ParWarGoodsClassify warGoodsClassify=new ParWarGoodsClassify();
+			warGoodsClassify.setWarehouseClassifyId(RandomGUID.getRandomGUID());
+			warGoodsClassify.setWarehouseId(id);
+			warGoodsClassify.setWarGoodsTypeId(warehouseTypeName[i]);
+			warGoodsClassifyMapper.insert(warGoodsClassify);
 		}
 		
 		if (count == 1) {
@@ -160,7 +190,7 @@ public class WarehouseService {
 	 */
 	@Transactional(readOnly = false)
 	@MethodLog(opera = "Warehouse_edit")
-	public Object editWarehouse(Warehouse warehouse) {
+	public Object editWarehouse(Warehouse warehouse,String[] warehouseTypeName) {
 		Subject pricipalSubject = SecurityUtils.getSubject();
 		User pricipalUser = (User) pricipalSubject.getPrincipal();
 		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
@@ -179,6 +209,22 @@ public class WarehouseService {
 		warehouse.setUpdater(pricipalUser.getUserCnName());
 		warehouse.setUpdateTime(new Date());
 		count = warehouseMapper.updateByPrimaryKeySelective(warehouse);
+		//修改仓库货品类型
+		if(warehouseTypeName.length>0){
+			ParWarGoodsClassifyExample warGoodsClassifyExample=new ParWarGoodsClassifyExample();
+			warGoodsClassifyExample.createCriteria().andWarehouseIdEqualTo(warehouse.getWarehouseId());
+			int num=warGoodsClassifyMapper.deleteByExample(warGoodsClassifyExample);
+			if(num>0){
+				for(int i=0;i<warehouseTypeName.length;i++){
+					ParWarGoodsClassify warGoodsClassify_Add=new ParWarGoodsClassify();
+					warGoodsClassify_Add.setWarehouseClassifyId(RandomGUID.getRandomGUID());
+					warGoodsClassify_Add.setWarehouseId(warehouse.getWarehouseId());
+					warGoodsClassify_Add.setWarGoodsTypeId(warehouseTypeName[i]);
+					warGoodsClassifyMapper.insert(warGoodsClassify_Add);
+				}
+			}
+		}
+		//判断结果集
 		if (count == 1) {
 			returnResult.setSuccess(true);
 			returnResult.setMsg("【" + warehouse.getWarehouseName()+ "】仓库信息已保存");
