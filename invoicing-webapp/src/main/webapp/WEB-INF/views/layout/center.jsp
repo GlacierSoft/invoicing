@@ -9,8 +9,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 pageContext.setAttribute("basePath",basePath);    
 %> 
 
-<div style="margin:10px 10px 40px 20px;">
-	<div id="newsDataGridPanel" class="easyui-panel" title="提醒消息框"    
-	        style="width:1000%;height:300px;background:#fafafa; "> 
+<script type="text/javascript">
 
+//panel切换
+function  doClick(str,url){
+    $("#layout_center_panel").panel("setTitle",str);
+	$('#layout_center_panel').panel('refresh',ctx +url);
+}
+	
+</script>
+<div style="margin:10px 10px 40px 20px;">
+	<div id="newsDataGridPanel" class="easyui-panel" title="提醒管理"    
+	        style="width:1000%;height:300px;background:#fafafa; "> 
 </div>
