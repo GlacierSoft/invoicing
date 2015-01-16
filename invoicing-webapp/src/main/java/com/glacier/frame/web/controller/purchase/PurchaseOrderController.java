@@ -93,7 +93,7 @@ public class PurchaseOrderController extends AbstractController{
     //进入Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoPurchaseOrder(String purOrderId) {
-        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/test");
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/purchaseOrder_detail");
         if(StringUtils.isNotBlank(purOrderId)){
             mav.addObject("purchaseOrderData", purchaseOrderService.getPurchaseOrder(purOrderId));
         }

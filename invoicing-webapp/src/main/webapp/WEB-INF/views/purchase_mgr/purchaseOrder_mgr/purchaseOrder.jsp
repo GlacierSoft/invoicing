@@ -147,7 +147,7 @@
 			}
 		},
 		onDblClickRow : function(rowIndex, rowData){ 
-			$("#layout_center_panel").panel("setTitle","订购合同明细");
+			$("#layout_center_panel").panel("setTitle","订购订货合同");
 			$('#layout_center_panel').panel('refresh',ctx +'/do/purchaseOrder/intoDetail.htm?purOrderId='+ rowData.purOrderId);
 	      /*   $.easyui.showDialog({
 				title : '【' + rowData.orderCode + '】详细信息',
