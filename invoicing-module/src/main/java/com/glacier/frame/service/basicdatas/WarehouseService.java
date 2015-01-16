@@ -19,6 +19,7 @@
  */
 package com.glacier.frame.service.basicdatas;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,12 +33,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
+import com.glacier.frame.dao.basicdatas.ParWarGoodsTypeMapper;
 import com.glacier.frame.dao.basicdatas.WarehouseMapper;
 import com.glacier.frame.dao.basicdatas.ParWarGoodsClassifyMapper;
 
 import com.glacier.frame.dto.query.basicdatas.WarehouseQueryDTO;
 import com.glacier.frame.entity.basicdatas.ParWarGoodsClassifyExample;
+import com.glacier.frame.entity.basicdatas.ParWarGoodsTypeExample;
 import com.glacier.frame.entity.basicdatas.Warehouse;
+import com.glacier.frame.entity.basicdatas.ParWarGoodsType;
 import com.glacier.frame.entity.basicdatas.ParWarGoodsClassify;
 import com.glacier.frame.entity.basicdatas.WarehouseExample;
 import com.glacier.frame.entity.basicdatas.WarehouseExample.Criteria;
@@ -61,6 +65,9 @@ public class WarehouseService {
 	
 	@Autowired
 	private WarehouseMapper warehouseMapper;
+	
+	@Autowired
+	private ParWarGoodsTypeMapper warGoodsTypeMapper;
 	
 	@Autowired
 	private ParWarGoodsClassifyMapper warGoodsClassifyMapper;
@@ -119,6 +126,28 @@ public class WarehouseService {
 	public Object getWarehouse(String warehouseId) {
 		Warehouse warehouse = warehouseMapper.selectByPrimaryKey(warehouseId);
 		return warehouse;
+	}
+	
+	/**
+	 * @Title: getWarehouseGoodsDetail
+	 * @Description: TODO(获取仓库货品类型信息)
+	 * @param @param goodsId
+	 * @param @return 设定文件
+	 * @return Object 返回类型
+	 * @throws
+	 */
+	public Object getWarehouseGoodsDetail(String warehouseId) {
+		ParWarGoodsClassifyExample warGoodsClassifyExample = new ParWarGoodsClassifyExample();
+		warGoodsClassifyExample.createCriteria().andWarehouseIdEqualTo(warehouseId);
+		List<ParWarGoodsClassify> listWarGoodsClassify=warGoodsClassifyMapper.selectByExample(warGoodsClassifyExample);
+		List<String> listId=new ArrayList<String>();
+		for(int i=0;i<listWarGoodsClassify.size();i++){
+			listId.add(listWarGoodsClassify.get(i).getWarGoodsTypeId());
+		}
+		ParWarGoodsTypeExample warGoodsTypeExample=new ParWarGoodsTypeExample();
+		warGoodsTypeExample.createCriteria().andWarGoodsTypeIdIn(listId);
+		List<ParWarGoodsType> listParWarGoodsType=warGoodsTypeMapper.selectByExample(warGoodsTypeExample);
+		return JackJson.fromObjectToJson(listParWarGoodsType);
 	}
 	
 	/**

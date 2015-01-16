@@ -48,7 +48,7 @@
 		  <td>仓库分类：</td>
 		  <td colspan="3" >
 		      <div style="width:420px;height:100px;border-top:1px solid #ABADB3;" >
-		       <div id="waresort_td" style="width:420px;height:90px;overflow-y:auto;margin-top: 15px;" ></div>
+		       <div id="waresort_td" style="width:420px;height:87px;overflow-y:auto;margin-top: 15px;" ></div>
 		     </div>
 		  </td>
 	    </tr>

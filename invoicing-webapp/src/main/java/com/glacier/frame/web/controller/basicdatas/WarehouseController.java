@@ -79,7 +79,8 @@ public class WarehouseController {
     	ModelAndView mav = new ModelAndView("basicdatas_mgr/warehouse_mgr/warehouse_detail");
         if(StringUtils.isNotBlank(warehouseId)){
             mav.addObject("warehouseDate", warehouseService.getWarehouse(warehouseId));
-        }
+            mav.addObject("warehouseTypeDate",warehouseService.getWarehouseGoodsDetail(warehouseId));
+         }
 	    return mav;
     }
     
@@ -109,8 +110,7 @@ public class WarehouseController {
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
     private Object editGrade(@Valid Warehouse warehouse, BindingResult bindingResult,String[] warehouseTypeName) {
-    	System.out.println("==============="+warehouseTypeName.length);
-        return warehouseService.editWarehouse(warehouse,warehouseTypeName);
+    	return warehouseService.editWarehouse(warehouse,warehouseTypeName);
     }
     
     //删除库存信息

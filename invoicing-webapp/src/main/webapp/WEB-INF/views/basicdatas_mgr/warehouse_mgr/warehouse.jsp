@@ -124,8 +124,8 @@
           $.easyui.showDialog({
 				title : '【' + rowData.warehouseName + '】详细信息',
 				href : ctx+ '/do/warehouse/intoDetail.htm?warehouseId='+ rowData.warehouseId,//从controller请求jsp页面进行渲染
-				width : 480,
-				height : 300,
+				width : 520,
+				height : 420,
 				resizable : false,
 				enableApplyButton : false,
 				enableSaveButton : false

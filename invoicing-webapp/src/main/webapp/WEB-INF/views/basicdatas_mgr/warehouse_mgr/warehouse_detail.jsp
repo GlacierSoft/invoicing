@@ -6,11 +6,11 @@
 <form method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
-			<td>仓库名称：</td> 
+			<td style="width:80px;">仓库名称：</td> 
 			<td>
 				<input class="spinner" style="width:150px" value="${warehouseDate.warehouseName}"  readonly="readonly"/>
 			</td>
-			<td>仓库编号：</td>
+			<td style="width:80px;">仓库编号：</td>
 			<td><input class="spinner" style="width:150px"  value="${warehouseDate.warehouseCode}" readonly="readonly"/></td>
 		</tr>
 		<tr>
@@ -49,8 +49,30 @@
 			     <input class="spinner" style="width:320px" value="${warehouseDate.remark}" readonly="readonly"/>
 		   </td>
 		</tr>
+		<tr style="height: 120px;">
+		  <td>仓库分类：</td>
+		  <td colspan="3" id="GoodsWareSort_td">
+		     
+		  </td>
+	    </tr>
 	</table>
 </form>
 <script type="text/javascript">
+	
+	//仓库状态信息绑定
 	$('#enabled').val(renderGridValue('${suppliersGradeDate.enabled}',fields.status));
+	
+	//仓库货品类型信息绑定
+	if($.parseJSON('${warehouseTypeDate}').length>0){
+       	     $.each($.parseJSON('${warehouseTypeDate}'),function(i,v){
+       	    	  if((i+1)%4==0){
+           			var listHtml="<label style='padding:6px;'><input type='checkbox' checked disabled='disabled' name='warehouseTypeName' value='"+v.warGoodsTypeId+"'/>&nbsp;&nbsp;"+v.name+"</label ><br/><br/>";
+           		  }else{
+           			var listHtml="<label style='padding:6px;'><input type='checkbox' checked disabled='disabled' name='warehouseTypeName' value='"+v.warGoodsTypeId+"'/>&nbsp;&nbsp;"+v.name+"</label >";
+           		  }
+           		  $(listHtml).appendTo("#GoodsWareSort_td");
+           	 });    	
+          }    
+	
+	
 </script>
