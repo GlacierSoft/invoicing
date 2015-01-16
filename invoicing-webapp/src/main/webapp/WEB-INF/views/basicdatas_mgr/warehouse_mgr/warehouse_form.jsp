@@ -47,12 +47,14 @@
 		<tr style="height: 120px;">
 		  <td>仓库分类：</td>
 		  <td colspan="3" >
-		       <div id="waresort_td" style="width:420px;height:85px;border-top:1px solid #ABADB3;overflow-y:auto;" ></div>
+		      <div style="width:420px;height:100px;border-top:1px solid #ABADB3;" >
+		       <div id="waresort_td" style="width:420px;height:90px;overflow-y:auto;margin-top: 15px;" ></div>
+		     </div>
 		  </td>
 	    </tr>
-		<tr>
+		<tr >
 		  <td>备注信息：</td>
-		  <td colspan="3">
+		  <td colspan="3" style="height:65px;">
 		        <textarea style="width:420px;height: 40px;">${warehouseDate.remark}</textarea>
 		   </td>
 	    </tr>

@@ -138,7 +138,7 @@
 		glacier.basicAddOrEditDialog({
 			title : '【货物档案】- 增加',
 			width : 560,
-			height : 400,
+			height : 410,
 			queryUrl : ctx + '/do/warehouse/intoForm.htm',
 			submitUrl : ctx + '/do/warehouse/add.json',
 			successFun : function (){
@@ -152,7 +152,7 @@
 		glacier.basicAddOrEditDialog({
 			title : '【货物档案】- 编辑',
 			width : 560,
-			height : 400,
+			height : 410,
 			queryUrl : ctx + '/do/warehouse/intoForm.htm',
 			submitUrl : ctx + '/do/warehouse/edit.json',
 			queryParams : {
