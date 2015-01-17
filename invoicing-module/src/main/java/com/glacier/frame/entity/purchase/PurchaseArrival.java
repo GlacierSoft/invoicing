@@ -111,6 +111,17 @@ public class PurchaseArrival {
     private String updater;
 
     private Date updateTime;
+    
+    //自定义字段
+    private String purchaseTypeDisplay;
+    
+    private String storageDisplay;
+    
+    private String supplierDisplay;
+    
+    private String operatorsDisplay;
+    
+    private String paymentTypeDisplay;
 
     public String getPurArrivalId() {
         return purArrivalId;
@@ -543,8 +554,48 @@ public class PurchaseArrival {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+    
+    public String getPurchaseTypeDisplay() {
+		return purchaseTypeDisplay;
+	}
 
-    @Override
+	public void setPurchaseTypeDisplay(String purchaseTypeDisplay) {
+		this.purchaseTypeDisplay = purchaseTypeDisplay;
+	}
+
+	public String getStorageDisplay() {
+		return storageDisplay;
+	}
+
+	public void setStorageDisplay(String storageDisplay) {
+		this.storageDisplay = storageDisplay;
+	}
+
+	public String getSupplierDisplay() {
+		return supplierDisplay;
+	}
+
+	public void setSupplierDisplay(String supplierDisplay) {
+		this.supplierDisplay = supplierDisplay;
+	}
+
+	public String getOperatorsDisplay() {
+		return operatorsDisplay;
+	}
+
+	public void setOperatorsDisplay(String operatorsDisplay) {
+		this.operatorsDisplay = operatorsDisplay;
+	}
+
+	public String getPaymentTypeDisplay() {
+		return paymentTypeDisplay;
+	}
+
+	public void setPaymentTypeDisplay(String paymentTypeDisplay) {
+		this.paymentTypeDisplay = paymentTypeDisplay;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

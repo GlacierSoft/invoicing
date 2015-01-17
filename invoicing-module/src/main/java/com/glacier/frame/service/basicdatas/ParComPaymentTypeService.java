@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional; 
 import com.glacier.basic.util.CollectionsUtil;
+import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.ParComPaymentTypeMapper;
 import com.glacier.frame.dto.query.basicdatas.ParComPaymentTypeQueryDTO;
@@ -71,6 +72,21 @@ public class ParComPaymentTypeService {
         returnResult.setRows(parComPaymentTypeList);
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
+    }
+    
+    /**
+     * @Title: getParComPaymentTypeCombo 
+     * @Description: TODO(用于支付方式Combo的数据绑定) 
+     * @param  @param clientId
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getParComPaymentTypeCombo() {
+    	ParComPaymentTypeExample parComPaymentTypeExample = new ParComPaymentTypeExample();
+    	parComPaymentTypeExample.createCriteria().andEnabledEqualTo("enable");
+        List<ParComPaymentType> parComPaymentTypes = parComPaymentTypeMapper.selectByExample(parComPaymentTypeExample);
+        return JackJson.fromObjectToJson(parComPaymentTypes);
     }
     
     /**

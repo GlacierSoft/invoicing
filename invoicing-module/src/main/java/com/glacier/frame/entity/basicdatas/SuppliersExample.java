@@ -105,6 +105,11 @@ public class SuppliersExample {
             return criteria;
         }
 
+        public Criteria andSupplierTypeNameEqualTo(String value) {
+            addCriterion("temp_par_suppliers_type.type_name =", value, "suppliersTypeName");
+            return (Criteria) this;
+        }
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");

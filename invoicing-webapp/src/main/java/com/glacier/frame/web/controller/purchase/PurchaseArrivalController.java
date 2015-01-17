@@ -15,6 +15,7 @@ import com.glacier.core.controller.AbstractController;
 import com.glacier.frame.dto.query.purchase.PurchaseArrivalQueryDTO;
 import com.glacier.frame.entity.purchase.PurchaseArrival;
 import com.glacier.frame.service.basicdatas.ParComDeliverTypeService;
+import com.glacier.frame.service.basicdatas.ParComPaymentTypeService;
 import com.glacier.frame.service.basicdatas.ParPurchaseTypeService;
 import com.glacier.frame.service.basicdatas.SuppliersService;
 import com.glacier.frame.service.purchase.PurchaseArrivalService;
@@ -46,6 +47,9 @@ public class PurchaseArrivalController extends AbstractController{
 	
 	@Autowired
 	private ParComDeliverTypeService deliverTypeService;
+	
+	@Autowired
+	private ParComPaymentTypeService paymentTypeService;
 	
 	//进入采购到货信息列表展示页面
     @RequestMapping(value = "/index.htm")
@@ -80,6 +84,8 @@ public class PurchaseArrivalController extends AbstractController{
     	mav.addObject("deliverTypeDate", deliverTypeService.getDeliverTypeCombo());//所属仓库
     	mav.addObject("purchaseTypeDate", purchaseTypeService.getParPurchaseTypeCombo());//采购类型
     	mav.addObject("suppliersDate", suppliersService.getSuppliersCombo());//供应商
+    	mav.addObject("suppliersLogisticsDate", suppliersService.getSuppliersLogisticsCombo());//物流供应商
+    	mav.addObject("paymentTypeDate", paymentTypeService.getParComPaymentTypeCombo());//约定支付
         if(StringUtils.isNotBlank(purchaseId)){
             mav.addObject("purchaseDate", purchaseArrivalService.getPurchaseArrival(purchaseId));
         }

@@ -98,6 +98,21 @@ public class SuppliersService {
     }
     
     /**
+     * @Title: getSuppliersLogisticsCombo 
+     * @Description: TODO(用于支付方式Combo的数据绑定) 
+     * @param  @param clientId
+     * @param  @return
+     * @throws 
+     * 备注<p>已检查测试:Green<p>
+     */
+    public Object getSuppliersLogisticsCombo() {
+    	SuppliersExample SuppliersLogisticsExample = new SuppliersExample();
+    	SuppliersLogisticsExample.createCriteria().andEnabledEqualTo("enable").andSupplierTypeNameEqualTo("物流公司");
+        List<Suppliers> SuppliersLogisticss = suppliersMapper.selectByExample(SuppliersLogisticsExample);
+        return JackJson.fromObjectToJson(SuppliersLogisticss);
+    }
+    
+    /**
      * @Title: getSuppliersCombo 
      * @Description: TODO(用于供应商Combo的数据绑定) 
      * @param  @param suppliersId

@@ -102,6 +102,8 @@ public class Suppliers {
       
     private String suppliersUpName;//上级供应商 
     
+    private String suppliersTypeId;//供应商类型Id
+    
     public String getSuppliersUpName() {
 		return suppliersUpName;
 	}
@@ -461,8 +463,16 @@ public class Suppliers {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+    
+    public String getSuppliersTypeId() {
+		return suppliersTypeId;
+	}
 
-    @Override
+	public void setSuppliersTypeId(String suppliersTypeId) {
+		this.suppliersTypeId = suppliersTypeId;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

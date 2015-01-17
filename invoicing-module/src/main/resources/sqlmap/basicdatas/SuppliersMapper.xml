@@ -40,7 +40,6 @@
     <result column="temp_suppliers_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_suppliers_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_suppliers_update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    
     <!-- 自定义字段 --> 
     <result column="temp_suppliers_type_name" property="suppliersTypeName" jdbcType="VARCHAR" /> 
     <result column="temp_suppliers_grade_name" property="suppliersGradeName" jdbcType="VARCHAR" />  
@@ -49,6 +48,7 @@
     <result column="temp_suppliers_industrye_name" property="suppliersIndustryeName" jdbcType="VARCHAR" />
     <result column="temp_suppliers_pany_size_name" property="suppliersPanySizeName" jdbcType="VARCHAR" />  
     <result column="temp_suppliers_suppliers_up_name" property="suppliersUpName" jdbcType="VARCHAR" />  
+    <result column="temp_suppliers_suppliers_type_id" property="suppliersTypeId" jdbcType="VARCHAR" />
  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -136,6 +136,7 @@
     ,temp_par_com_industry.industry_name as temp_suppliers_industrye_name 
     ,temp_par_com_company_size.company_size_name as temp_suppliers_pany_size_name  
     ,temp_suppliersTwo.suppliers_name as temp_suppliers_suppliers_up_name
+    ,temp_par_suppliers_type.type_id as temp_suppliers_suppliers_type_id
   </sql>
   
   <sql id="Base_extend">
