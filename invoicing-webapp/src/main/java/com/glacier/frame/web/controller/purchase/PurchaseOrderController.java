@@ -37,6 +37,10 @@ import com.glacier.core.controller.AbstractController;
 import com.glacier.frame.dto.query.purchase.PurchaseOrderDetailQueryDTO;
 import com.glacier.frame.dto.query.purchase.PurchaseOrderQueryDTO;
 import com.glacier.frame.entity.purchase.PurchaseOrder;
+import com.glacier.frame.service.basicdatas.ParComDeliverTypeService;
+import com.glacier.frame.service.basicdatas.ParComPaymentTypeService;
+import com.glacier.frame.service.basicdatas.ParPurchaseTypeService;
+import com.glacier.frame.service.basicdatas.WarehouseService;
 import com.glacier.frame.service.purchase.PurchaseOrderDetailService;
 import com.glacier.frame.service.purchase.PurchaseOrderService;
 import com.glacier.jqueryui.util.JqPager;
@@ -57,6 +61,18 @@ public class PurchaseOrderController extends AbstractController{
  
     @Autowired
     private PurchaseOrderDetailService purchaseOrderDetailService;// 注入service
+    
+	@Autowired
+	private ParPurchaseTypeService purchaseTypeService;
+	
+	@Autowired
+	private ParComDeliverTypeService deliverTypeService;
+	
+	@Autowired
+	private ParComPaymentTypeService paymentTypeService;
+	
+	@Autowired
+	private WarehouseService warehouseService;
     
     //进入列表展示页面
     @RequestMapping(value = "/index.htm")
@@ -86,8 +102,13 @@ public class PurchaseOrderController extends AbstractController{
         ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/purchaseOrder_form");
         if(StringUtils.isNotBlank(purOrderId)){
             mav.addObject("purchaseOrderData", purchaseOrderService.getPurchaseOrder(purOrderId));
-        }
-        return mav;
+        } 
+    	mav.addObject("warehouseDate", warehouseService.getWareHouseCombo());//仓库
+    	mav.addObject("deliverTypeDate", deliverTypeService.getDeliverTypeCombo());//交货方式
+    	mav.addObject("purchaseTypeDate", purchaseTypeService.getParPurchaseTypeCombo());//采购类型
+    	mav.addObject("paymentTypeDate", paymentTypeService.getParComPaymentTypeCombo());//约定支付
+    	
+    	return mav;
     }
     
     //进入Detail信息页面

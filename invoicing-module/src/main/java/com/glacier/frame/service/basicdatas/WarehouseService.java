@@ -71,8 +71,7 @@ public class WarehouseService {
 	
 	@Autowired
 	private ParWarGoodsClassifyMapper warGoodsClassifyMapper;
-	
-	
+	 
 	/**
 	 * @Title: listAsGrid
 	 * @Description: TODO(获取所有仓库信息)
@@ -112,6 +111,20 @@ public class WarehouseService {
 		ParWarGoodsClassifyExample warGoodsClassifyExample = new ParWarGoodsClassifyExample();
 		warGoodsClassifyExample.createCriteria().andWarehouseIdEqualTo(warehouseId);
 		List<ParWarGoodsClassify> list=warGoodsClassifyMapper.selectByExample(warGoodsClassifyExample);
+		return JackJson.fromObjectToJson(list);
+	}
+	
+	/** 
+	 * @Title: getWareHouseCombo  
+	 * @Description: TODO(仓库下拉项)  
+	 * @param @return    设定文件  
+	 * @return Object    返回类型  
+	 * @throws
+	 */
+	public Object getWareHouseCombo(){
+		WarehouseExample warehouseExample = new WarehouseExample();
+		warehouseExample.createCriteria().andEnabledEqualTo("enable");
+		List<Warehouse> list=warehouseMapper.selectByExample(warehouseExample);
 		return JackJson.fromObjectToJson(list);
 	}
 	
