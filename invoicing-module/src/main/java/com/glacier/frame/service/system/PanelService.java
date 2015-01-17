@@ -74,7 +74,7 @@ public class PanelService {
                 panelExample.setLimitEnd(pager.getRows());
             }
             if (StringUtils.isNotBlank(pager.getSort()) && StringUtils.isNotBlank(pager.getOrder())) {// 设置排序信息
-                panelExample.setOrderByClause(pager.getOrderBy("temp_panel_"));
+                panelExample.setOrderByClause("temp_panel.order_num asc");
             }
             List<Panel> panels = panelMapper.selectByExample(panelExample); // 查询所有操作列表
             int total = panelMapper.countByExample(panelExample); // 查询总页数
