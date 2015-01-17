@@ -11,17 +11,17 @@
 				        <td>到货日期：</td>
 						<td>
 							<input type="hidden" id="purchaseArrival_mgr_purchaseArrival_form_purArrivalId" name="purArrivalId" value="${purchaseDate.purArrivalId}" />
-							<input id="purchaseArrival_mgr_purchaseArrival_form_arrivalDate" name="clientName" class="easyui-datebox" 
+							<input id="purchaseArrival_mgr_purchaseArrival_form_arrivalDate" name="arrivalDate" class="easyui-datebox" 
 							value="<fmt:formatDate value="${purchaseDate.arrivalDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"  required="true" style="width:168px;height: 18px;" />
 						</td>
 						<td style="padding-left:10px;">采购类型：</td>
-						<td><input id="purchaseArrival_mgr_purchaseArrival_form_purchaseTypeId" name="purchaseTypeId" value='${purchaseDate.purchaseTypeId}' /></td>
+						<td><input id="purchaseArrival_mgr_purchaseArrival_form_purchaseTypeId" name="purchaseTypeId" value='${purchaseDate.purchaseTypeDisplay}' /></td>
 					</tr> 
 					<tr>
 					    <td>所属仓库：</td>
-						<td ><input id="purchaseArrival_mgr_purchaseArrival_form_storage" name="storage" value="${purchaseDate.storage}" /></td>
+						<td ><input id="purchaseArrival_mgr_purchaseArrival_form_storage" name="storage" value="${purchaseDate.storageDisplay}" /></td>
 					    <td style="padding-left:10px;">供应商：</td>
-						<td><input id="purchaseArrival_mgr_purchaseArrival_form_supplierId" name="supplierId" value="${purchaseDate.supplierId}" /></td>
+						<td><input id="purchaseArrival_mgr_purchaseArrival_form_supplierId" name="supplierId" value="${purchaseDate.supplierDisplay}" /></td>
 					 </tr>
 					 <tr>
 					    <td>合同编号：</td>
@@ -58,7 +58,7 @@
 				    </tr> 
 				    <tr>   
 				     <td>经办人：</td>
-					 <td><input id="purchaseArrival_mgr_purchaseArrival_form_operators" name="operators"  value="${purchaseDate.operators}" /></td>
+					 <td><input id="purchaseArrival_mgr_purchaseArrival_form_operators" name="operators"  value="${purchaseDate.operatorsDisplay}" /></td>
 				     <td style="padding-left:10px;">经办部门：</td>
 					 <td>
 					 	<input id="operatorDep" class="easyui-validatebox spinner" style="width:168px;height: 18px;" name="operatorDep"  value="${purchaseDate.operatorDep}" disabled="disabled"/>
@@ -86,14 +86,14 @@
 					 <tr>
 					    <td>发票类型：</td>
 						<td><input style="width:168px" value="${purchaseDate.invoiceTypeId}" name="invoiceTypeId" class="easyui-combobox" 
-					  	  data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/></td>
+					  	  data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.invoiceTypeId"/></td>
 					    <td style="padding-left:10px;">约定支付方式：</td>
-						<td><input id="purchaseArrival_mgr_purchaseArrival_form_paymentTypeId" name="paymentTypeId"  value="${purchaseDate.paymentTypeId}" /></td>
+						<td><input id="purchaseArrival_mgr_purchaseArrival_form_paymentTypeId" name="paymentTypeId"  value="${purchaseDate.paymentTypeDisplay}" /></td>
 					 </tr>
 					  <tr>
 					    <td>运费结算方式：</td>
 						<td><input id="purchaseArrival_mgr_purchaseArrival_form_logSettlementId" style="width:168px" value="${purchaseDate.logSettlementId}" name="logSettlementId" class="easyui-combobox" 
-					  	  data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/></td>
+					  	  data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.logSettlementId"/></td>
 					    <td style="padding-left:10px;">运单号：</td>
 						<td><input name="logCode" class="spinner" style="width:168px;height: 18px;" value="${purchaseDate.logCode}" /></td>
 					  </tr>
@@ -121,7 +121,6 @@
 		</fieldset>
     </div> 
 </form>
-
 <script type="text/javascript">
 	$('#purchaseArrival_mgr_purchaseArrival_form').tabs({
 		border:true,
@@ -150,8 +149,8 @@
 	    required:true,
 	    editable : false,
 	    missingMessage:'请选供应商',
-		textField : 'name',//这里为名称
-		valueField: 'purchaseTypeId'//这里为IduserDate
+		textField : 'suppliersName',//这里为名称
+		valueField: 'supplierId'//这里为IduserDate
 	});
 	
 	//初始化交货方式下拉项
@@ -164,6 +163,30 @@
 	    missingMessage:'请选交货方式',
 		textField : 'deliverTypeName',//这里为名称
 		valueField: 'deliverTypeId'//这里为IduserDate
+	});
+	
+	//初始化约定支付下拉项
+	$("#purchaseArrival_mgr_purchaseArrival_form_paymentTypeId").combobox({
+		data : $.parseJSON('${paymentTypeDate}'),//controller传来的数据源
+		height:18,
+		width:170,
+	    required:true,
+	    editable : false,
+	    missingMessage:'请选约定支付',
+		textField : 'paymentTypeName',//这里为名称
+		valueField: 'paymentTypeId'//这里为IduserDate
+	});
+	
+	//初始化物流公司下拉项
+	$("#purchaseArrival_mgr_purchaseArrival_form_logCompany").combobox({
+		data : $.parseJSON('${suppliersLogisticsDate}'),//controller传来的数据源
+		height:18,
+		width:170,
+	    required:true,
+	    editable : false,
+	    missingMessage:'请选物流公司',
+		textField : 'suppliersName',//这里为名称
+		valueField: 'supplierId'//这里为IduserDate
 	});
 	 
 	//初始化员工下拉项
@@ -190,6 +213,6 @@
 	    editable : false,
 	    missingMessage:'请选员工',
 		textField : 'userCnName',//这里为名称
-		valueField: 'userId',//这里为Id
+		valueField: 'userCnName',//这里为Id
 	});
 </script>

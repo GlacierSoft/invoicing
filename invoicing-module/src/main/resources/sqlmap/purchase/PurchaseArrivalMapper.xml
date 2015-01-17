@@ -62,6 +62,7 @@
     <result column="temp_purchase_arrival_supplier_display" property="supplierDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
     <result column="temp_purchase_arrival_operators_display" property="operatorsDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
     <result column="temp_purchase_arrival_payment_type_display" property="paymentTypeDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_purchase_arrival_delivery_type_display" property="deliveryTypeDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >

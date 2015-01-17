@@ -122,6 +122,8 @@ public class PurchaseArrival {
     private String operatorsDisplay;
     
     private String paymentTypeDisplay;
+    
+    private String deliveryTypeDisplay;
 
     public String getPurArrivalId() {
         return purArrivalId;
@@ -593,6 +595,14 @@ public class PurchaseArrival {
 
 	public void setPaymentTypeDisplay(String paymentTypeDisplay) {
 		this.paymentTypeDisplay = paymentTypeDisplay;
+	}
+
+	public String getDeliveryTypeDisplay() {
+		return deliveryTypeDisplay;
+	}
+
+	public void setDeliveryTypeDisplay(String deliveryTypeDisplay) {
+		this.deliveryTypeDisplay = deliveryTypeDisplay;
 	}
 
 	@Override

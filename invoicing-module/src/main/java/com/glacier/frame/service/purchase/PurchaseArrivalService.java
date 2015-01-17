@@ -82,8 +82,8 @@ public class PurchaseArrivalService {
 	 * @return Object    返回类型 
 	 * @throws
 	 */
-    public Object getPurchaseArrival(String deliverTypeId) {
-    	PurchaseArrival purchaseArrival = purchaseArrivalMapper.selectByPrimaryKey(deliverTypeId);
+    public Object getPurchaseArrival(String purchaseId) {
+    	PurchaseArrival purchaseArrival = purchaseArrivalMapper.selectByPrimaryKey(purchaseId);
         return purchaseArrival;
     }
     
@@ -160,12 +160,12 @@ public class PurchaseArrivalService {
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "PurchaseArrivalList_del")
-    public Object delPurchaseArrival(List<String> clientIds, List<String> ArrivalCodes) {
+    public Object delPurchaseArrival(List<String> purchaseIds, List<String> ArrivalCodes) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
-        if (clientIds.size() > 0) {
+        if (purchaseIds.size() > 0) {
         	PurchaseArrivalExample purchaseArrivalExample = new PurchaseArrivalExample();
-        	purchaseArrivalExample.createCriteria().andPurArrivalIdIn(clientIds);
+        	purchaseArrivalExample.createCriteria().andPurArrivalIdIn(purchaseIds);
             count = purchaseArrivalMapper.deleteByExample(purchaseArrivalExample);
             if (count > 0) {
                 returnResult.setSuccess(true);

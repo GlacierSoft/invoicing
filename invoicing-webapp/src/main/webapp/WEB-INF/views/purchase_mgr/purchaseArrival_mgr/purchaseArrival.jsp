@@ -162,15 +162,16 @@
 			}
 		},
 		onDblClickRow:function(rowIndex, rowData){
-			$.easyui.showDialog({
+			$("#layout_center_panel").panel("setTitle","采购到货详细信息").panel('refresh',ctx + '/do/purchaseArrival/intoDetail.htm?purchaseId='+rowData.purArrivalId);
+			/* $.easyui.showDialog({
 				title: "采购到货详细信息",
-				href : ctx + '/do/purchaseArrival/intoDetail.htm?purchaseArrivalId='+rowData.purchaseArrivalId,//从controller请求jsp页面进行渲染
+				href : ctx + '/do/purchaseArrival/intoDetail.htm?purchaseId='+rowData.purArrivalId,//从controller请求jsp页面进行渲染
 				width : 620,
 				height : 500,
 				resizable: false,
 				enableApplyButton : false,
 				enableSaveButton : false
-			});
+			}); */
 		}
 	});
 	//点击增加按钮触发方法
@@ -197,7 +198,7 @@
 			queryUrl : ctx + '/do/purchaseArrival/intoForm.htm',
 			submitUrl : ctx + '/do/purchaseArrival/edit.json',
 			queryParams : {
-				purchaseArrivalId : row.purchaseArrivalId
+				purchaseId : row.purArrivalId
 			},
 			successFun : function (){
 				glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.purchaseArrivalDataGrid.datagrid('reload');

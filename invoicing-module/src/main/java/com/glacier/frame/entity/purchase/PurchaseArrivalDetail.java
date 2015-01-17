@@ -6,57 +6,57 @@ import java.util.Date;
 public class PurchaseArrivalDetail {
     private String purArrivalDetId;
 
-    private String purArrivalId;
+    private String purArrivalId;//采购到货Id
 
-    private String goodsId;
+    private String goodsId;//货物Id
 
-    private String goodsCode;
+    private String goodsCode;//货物编码
 
-    private String goodsName;
+    private String goodsName;//货品名称
 
-    private String goodsModel;
+    private String goodsModel;//货品规格
 
-    private String goodsUnit;
+    private String goodsUnit;//货物单位
 
-    private Integer quantity;
+    private Integer quantity;//货物数量
 
-    private BigDecimal price;
+    private BigDecimal price;//货物单价
 
-    private BigDecimal goodsMoney;
+    private BigDecimal goodsMoney;//货品金额
 
-    private Date deadline;
+    private Date deadline;//交货期限
 
-    private Integer notReturnNum;
+    private Integer notReturnNum;//未退数量
 
-    private Integer alrReturnNum;
+    private Integer alrReturnNum;//已退数量
 
-    private Integer notPayNum;
+    private Integer notPayNum;//已付款数量
 
-    private Integer alrPayNum;
+    private Integer alrPayNum;//未付款数量
 
-    private Integer notInvNum;
+    private Integer notInvNum;//未开票数量
 
-    private Integer alrInvNum;
+    private Integer alrInvNum;//已开票数量
 
-    private String brand;
+    private String brand;//品牌
 
-    private String placeOfOrigin;
+    private String placeOfOrigin;//产地
 
-    private String batchInformation;
+    private String batchInformation;//批次
 
-    private Integer arrival;
+    private Integer arrival;//到货数量
 
-    private Integer delivery;
+    private Integer delivery;//收货数量
 
-    private Integer rejection;
+    private Integer rejection;//拒收数量
 
-    private BigDecimal originalCost;
+    private BigDecimal originalCost;//原价
 
-    private BigDecimal depositRate;
+    private BigDecimal depositRate;//折扣率
 
-    private Integer putstorage;
+    private Integer putstorage;//已入库数量
 
-    private Integer takestorage;
+    private Integer takestorage;//未入库数量
 
     private String remark;
 
