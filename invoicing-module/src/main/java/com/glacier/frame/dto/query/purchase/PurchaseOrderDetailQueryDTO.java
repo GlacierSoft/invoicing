@@ -19,6 +19,8 @@
  */
 package com.glacier.frame.dto.query.purchase;
  
+import java.util.Date;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
@@ -33,12 +35,34 @@ import com.glacier.frame.entity.purchase.PurchaseOrderDetailExample.Criteria;
  * @date 2015-1-16  上午10:35:36
  */
 public class PurchaseOrderDetailQueryDTO extends PurchaseOrderDetail{
-  
+	
+	//到货期限查询
+    private Date deadlineEndTime;  
+	
+	public Date getDeadlineEndTime() {
+		return deadlineEndTime;
+	}
+
+	public void setDeadlineEndTime(Date deadlineEndTime) {
+		this.deadlineEndTime = deadlineEndTime;
+	}
+
 	public void setQueryCondition(Criteria queryCriteria) { 
 		// 合同编号查询
 		if (null != this.getPurOrderId()&& StringUtils.isNotBlank(this.getPurOrderId())) {
 			queryCriteria.andPurOrderIdEqualTo(this.getPurOrderId());
 		}  
+		
+		 if(null != this.getDeadline() && null != deadlineEndTime){//创建时间段查询
+	           queryCriteria.andDeadlineBetween(this.getDeadline(), deadlineEndTime); 
+	     }else{
+	          if(null != this.getDeadline()){
+	              queryCriteria.andDeadlineGreaterThanOrEqualTo(this.getDeadline());
+	          }
+	          if(null != deadlineEndTime){
+	              queryCriteria.andDeadlineLessThanOrEqualTo(deadlineEndTime);
+	          } 
+	       }
 	}
 
 	@Override

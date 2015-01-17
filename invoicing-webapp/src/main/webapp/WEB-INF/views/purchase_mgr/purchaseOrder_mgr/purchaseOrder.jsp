@@ -50,12 +50,12 @@
 			sortable : true,
 			width : 120
 		},{
-			field : 'storage',
+			field : 'storageName',
 			title : '仓库',
 			sortable : true,
 			width : 120
 		},{
-			field : 'supplierId',
+			field : 'suppliersName',
 			title : '供应商',
 			sortable : true,
 			width : 120

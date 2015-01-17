@@ -6,7 +6,7 @@
 	uri="http://com.glacier.permissions.com.cn/tag/easyui"%>
 <script type="text/javascript">
 
-$.util.namespace('glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
+$.util.namespace('glacier.purchase_mgr.purchaseOrderDetail_mgr.purchaseOrderDetail');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 
 //定义toolbar的操作，对操作进行控制
 glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
@@ -45,7 +45,7 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 				 		<td style="padding-left:10px;">供应商编号：</td>
 						<td ><input name="supplierCode" class="spinner" style="width:168px" value="${purchaseOrderData.supplierCode}" readonly="readonly"/></td>
 				 	    <td style="padding-left:10px;">供应商：</td>
-						<td ><input  name="supplierId" class="spinner" style="width:168px" value="${purchaseOrderData.suppliersName}" readonly="readonly"/></td>
+						<td ><input  name="suppliersName" class="spinner" style="width:168px" value="${purchaseOrderData.suppliersName}" readonly="readonly"/></td>
 				    </tr>
 				 	<tr>
 					     <td style="padding-left:10px;">是否启用：</td>
@@ -157,30 +157,29 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 	         <font size="3" style="margin-top: 30px"><b>货品详情</b></font> 
 	      </div> 
 	      <hr>     
-	      
+  </form> 
 	      <!-- 所有列表面板和表格 -->
 <div class="easyui-layout" data-options="fit:true,height:300"  > 
 	<div data-options="region:'north',split:true"
 		style="height: 40px; padding-left: 10px;">
-		<form id="purchaseOrderSearchForm">
+		<form id="purchaseOrderDetailSearchForm">
+		 <input type="hidden" name="orderId" value="${purchaseOrderData.purOrderId }">
 			<table>
 				<tr>
 					<td>货品编码：</td>
-					<td><input name="orderCode" style="width: 80px;"class="spinner" /></td>
+					<td><input name="goodsCode" style="width: 80px;"class="spinner" /></td>
 					<td>货品名称：</td>
-					<td><input name="storage" style="width: 80px;"class="spinner" /></td> 
-					<td>供应商：</td>
-					<td><input name="supplierId" style="width: 80px;"class="spinner" /></td> 
+					<td><input name="goodsName" style="width: 80px;"class="spinner" /></td> 
 					<td>到期时间：</td>
-					<td><input name="createStartTime" class="easyui-datetimebox"
-						style="width: 100px;" /> - <input name="createEndTime"
+					<td><input name="deadline" class="easyui-datetimebox"
+						style="width: 100px;" /> - <input name="deadlineEndTime"
 						class="easyui-datetimebox" style="width: 100px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
-						onclick="glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.purchaseOrderDataGrid.datagrid('load',glacier.serializeObject($('#purchaseOrderSearchForm')));">查询</a>
+						onclick="glacier.purchase_mgr.purchaseOrderDetail_mgr.purchaseOrderDetail.purchaseOrderDetailDataGrid.datagrid('load',glacier.serializeObject($('#purchaseOrderDetailSearchForm')));">查询</a>
 						<a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-out',plain:true"
-						onclick="$('#purchaseOrderSearchForm input').val('');glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.purchaseOrderDataGrid.datagrid('load',{});">重置条件</a>
+						onclick="$('#purchaseOrderDetailSearchForm input').val('');glacier.purchase_mgr.purchaseOrderDetail_mgr.purchaseOrderDetail.purchaseOrderDetailDataGrid.datagrid('load',{});">重置条件</a>
 					</td>
 				</tr>
 			</table>
@@ -191,9 +190,9 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 		</table>
 	</div>
 </div>  
-</form> 
+
 <script type="text/javascript">  
-$('#purchase_order_detail').datagrid({  
+glacier.purchase_mgr.purchaseOrderDetail_mgr.purchaseOrderDetail.purchaseOrderDetailDataGrid = $('#purchase_order_detail').datagrid({  
 	fit : false,//控件自动resize占满窗口大小
 	iconCls : 'icon-save',//图标样式
 	border : true,//是否存在边框 
