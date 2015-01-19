@@ -128,27 +128,27 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 	      </div> 
 	      <hr>      
 	      
-  </form> 
+
      <!-- 所有列表面板和表格 -->
-<div class="easyui-layout" data-options="fit:true"  > 
+<div class="easyui-layout" data-options="fit:true" > 
 <!-- 	<div id="tb">
 <a href="#" onclick="add()" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">添加行</a> 
 <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-help',plain:true">批量添加</a>
 </div> -->
 	<div id="purchaseOrderPanel" data-options="region:'center',border:true">
-		<table id="purchase_order_detail" style="height: 400px">  
+		<table id="goodsList" >  
 		</table>
 	</div>
 </div> 
-
+  </form> 
 <script type="text/javascript"> 
-/* $('#purchase_order_detail').datagrid({
+/* $('#goodsList').datagrid({
 	toolbar: '#tb'
 }); */ 
 var editRow = undefined;
  
  //货品详情添加行
-glacier.purchase_mgr.purchaseOrderDetail_mgr.purchaseOrderDetail.purchaseOrderDetailDataGrid = $('#purchase_order_detail').datagrid({  
+$('#goodsList').datagrid({  
 	fit : false,//控件自动resize占满窗口大小
 	iconCls : 'icon-save',//图标样式
 	border : true,//是否存在边框 
@@ -158,7 +158,7 @@ glacier.purchase_mgr.purchaseOrderDetail_mgr.purchaseOrderDetail.purchaseOrderDe
 	striped : true,//true就是把行条纹化。（即奇偶行使用不同背景色）
 	singleSelect : true,//限制单选
 	checkOnSelect : false,//选择复选框的时候选择该行
-	selectOnCheck : false,//选择的时候复选框打勾 
+	selectOnCheck : true,//选择的时候复选框打勾 
     //url: ctx + '/do/purchaseOrder/orderDetail.json',   
 	sortName : 'goodsCode',//排序字段名称
 	sortOrder : 'DESC',//升序还是降序
@@ -166,7 +166,94 @@ glacier.purchase_mgr.purchaseOrderDetail_mgr.purchaseOrderDetail.purchaseOrderDe
 	idField : 'purOrderDetId', 
     columns:[[    
       {field :'purOrderDetId', title : 'ID', checkbox : true}, 
-      {field:'goodsCode',title:'货品编码',width:100,editor: { type: 'text', options: { required: true } } },   
+      {field:'goodsCode',title:'货品编码',width:200, 
+    	  editor:{
+				type:'combogrid', 
+				width:200,
+				options:{
+					panelWidth:570,  
+					border:true,//是否存在边框
+					fitColumns:true,//自动填充行
+					nowrap: true,//禁止单元格中的文字自动换行
+					autoRowHeight: false,//禁止设置自动行高以适应内容
+					striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
+					singleSelect:true,//限制单选
+					selectOnCheck:false,//选择的时候复选框打勾
+				    idField:'goodsId',    
+				    textField:'goodsName',     
+					url : ctx + '/do/goodsList/list.json',
+					sortName : 'createTime',//排序字段名称
+					sortOrder : 'DESC',//升序还是降序 
+					columns : [ [ {
+						field : 'goodsId',
+						title : 'ID',
+						checkbox : true
+					}, {
+						field : 'goodsCode',
+						title : '货物编码',
+						width : 120,
+						sortable : true
+					},{
+						field : 'goodsName',
+						title : '货物名称',
+						sortable : true,
+						width : 120
+					},{
+						field : 'enabled',
+						title : '状态',
+						width : 120,
+						sortable : true,
+						formatter : function(value, row, index) {
+							return renderGridValue(value, fields.status);
+						}
+					},{
+						field : 'creater',
+						title : '创建人',
+						sortable : true,
+						width : 120
+					},{
+						field : 'createTime',
+						title : '创建时间',
+						sortable : true,
+						width : 200
+					},{
+						field : 'updater',
+						title : '更新人',
+						sortable : true,
+						width : 120
+					}, {
+						field : 'updateTime',
+						title : '更新时间',
+						sortable : true,
+						width : 200
+					},{
+						field : 'remark',
+						title : '备注',
+						sortable : true
+					} ] ],
+						pagination : true,//True 就会在 datagrid 的底部显示分页栏
+						pageSize : 10,//注意，pageSize必须在pageList存在
+						pageList : [2,10,50,100],//从session中获取
+						rownumbers : true,//True 就会显示行号的列
+						onClickRow : function(rows) {  
+							$('#goodsList').datagrid('reloadFooter',[
+							                              	{name: 'goodsName', salary: "ss"} 
+							                              ]);
+
+						alert($(this).datagrid('getColumnOption','goodsName'));
+						var	row =getRowIndex(this); 
+						   $('#goodsList').datagrid('getEditor', { index: 2, field: 'goodsName' }).target.val("----");
+							/* var  = $('#').datagrid("getChecked");
+							var tr = $(target).closest('tr.datagrid-row'); 
+							$("#supplierAdd").attr("value",$(this).datagrid("getSelected").adress); 
+							$("#phone").attr("value",$(this).datagrid("getSelected").companyPhone); */
+							
+						},
+					loadMsg : '数据加载中....',  
+				}
+			} 
+      
+      },   
       {field:'goodsName',title:'名称',width:100},    
       {field:'goodsModel',title:'规格型号',width:100},   
       {field:'brand',title:'品牌',width:100},  
@@ -179,61 +266,117 @@ glacier.purchase_mgr.purchaseOrderDetail_mgr.purchaseOrderDetail.purchaseOrderDe
       {field:'quantity',title:'数量',width:100,editor: { type: 'numberbox', options: { required: true } } }, 
       {field:'money',title:'金额',width:100},  
       {field:'deadline',title:'交货期限',width:100,editor: { type: 'datebox', options: { required: true } } },
-      {field:'remark',title:'备注',width:100}
+      {field:'remark',title:'备注',width:100},
+      {field:'s',title:'操作',width:100,
+    	  formatter:function(value,row,index){
+    		  
+    		var e = '<a href="javascript:void(0)" onclick="editrow(this)">修改</a> ';
+			var d = '<a href="javascript:void(0)" onclick="deleterow(this)">删除</a>';
+			return e+d; 
+			} 
+    /*   editor: { type: 'text', options: { required: true } }  */}, 
       ]],
       toolbar: [{
       text: '添加行', iconCls: 'icon-add', handler: function () { 
-          if (editRow != undefined) {
-              $("#purchase_order_detail").datagrid('endEdit', editRow);
-          }
-          if (editRow == undefined) {
-              $("#purchase_order_detail").datagrid('insertRow', {
-                  index: 0,
-                  row: {  
-                  }
-              }); 
-              $("#purchase_order_detail").datagrid('beginEdit', 0);
-              editRow = 0;
-          }
+    	  insert(); 
       }
-    }], 
+    },{
+        text: '删除', iconCls: 'icon-add', handler: function () { 
+        	var rows = $('#goodsList').datagrid("getChecked"); 
+        	alert("选中的长度"+rows.length);
+        	var row;
+        	$.messager.confirm('提示','确认删除数据?',function(r){
+        		if (r){
+        			for(var i=0;i<rows.length;i++){
+            		    row=$('#goodsList').datagrid('getRowIndex', rows[i]);
+            			$('#goodsList').datagrid('deleteRow',row);
+            			alert("这是第"+row+"行");
+            		} 
+        		
+        		}
+        	});
+    		
+        }
+      }], 
 	pagination : true,//True 就会在 datagrid 的底部显示分页栏
 	pcarrierCarTypeSize : 10,//注意，pcarrierCarTypeSize必须在pcarrierCarTypeList存在
 	pcarrierCarTypeList : [ 2, 10, 50, 100 ],//从session中获取
 	rownumbers : true,//True 就会显示行号的列
 	 onBeforeEdit:function(index,row){  
 	        row.editing = true;  
-	        $('#purchase_order_detail').datagrid('refreshRow', index);  
+	        $('#goodsList').datagrid('refreshRow', index);  
 	    },  
 	    onAfterEdit:function(index,row){  
 	        row.editing = false;  
-	        $('#purchase_order_detail').datagrid('refreshRow', index);  
+	        $('#goodsList').datagrid('refreshRow', index);  
 	    },  
 	    onCancelEdit:function(index,row){  
 	        row.editing = false;  
-	        $('#purchase_order_detail').datagrid('refreshRow', index);  
+	        $('#goodsList').datagrid('refreshRow', index);  
 	    } ,
         onAfterEdit: function (rowIndex, rowData, changes) {
             editRow = undefined;
         },
         onDblClickRow:function (rowIndex, rowData) {
             if (editRow != undefined) {
-                $("#Student_Table").datagrid('endEdit', editRow);
+                $("#goodsList").datagrid('endEdit', editRow);
             }
  
             if (editRow == undefined) {
-                $("#Student_Table").datagrid('beginEdit', rowIndex);
+                $("#goodsList").datagrid('beginEdit', rowIndex);
                 editRow = rowIndex;
             }
         },
         onClickRow:function(rowIndex,rowData){
+        	
             if (editRow != undefined) {
-                $("#Student_Table").datagrid('endEdit', editRow);
+                $("#goodsList").datagrid('endEdit', editRow);
  
             }
             
-        }
+        } 
 });   
+ 
+/*  
+ function getGoods(){
+	 var tr = $(target).closest('tr.datagrid-row'); 
+	 $('#goodsList').datagrid('beginEdit', rowIndex);
+     //$.each(rowData, function(k, v) { alert(k+":"+v); });
+     $("input.datagrid-editable-input").eq(0).focus(function() { alert('hello'+rowIndex); });
+ } */
+ 
+  //添加行
+function insert(){
+	var row = $('#goodsList').datagrid('getSelected');
+	if (row){
+		var index = $('#goodsList').datagrid('getRowIndex', row);
+	} else {
+		index = 0;
+	}
+	$('#goodsList').datagrid('insertRow', {
+		index: index,
+		row:{
+			 
+		}
+	});
+	$('#goodsList').datagrid('selectRow',index);
+	$('#goodsList').datagrid('beginEdit',index);
+}
+
+ //删除行
+function deleterow(target){
+	$.messager.confirm('提示','确认删除数据?',function(r){
+		if (r){
+			$('#goodsList').datagrid('deleteRow', getRowIndex(target));
+		}
+	});
+}
+
+//获取行号
+function getRowIndex(target){
+	var tr = $(target).closest('tr.datagrid-row'); 
+	return parseInt(tr.attr('datagrid-row-index'));
+}
 
  
 //初始化采购类型下拉项
