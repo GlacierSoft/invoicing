@@ -96,7 +96,10 @@
 </form>
 <script type="text/javascript">
 
-var storageVal="";
+var storageVal="";//保存仓库ID
+var stRows="";//保存行数
+var divs = "";//保存goodsDetail中的dialog节点
+var setRowData="";//保存选中的值
 
 $('#purchase_arrival_form').datagrid({  
 	fit : false,//控件自动resize占满窗口大小
@@ -114,66 +117,48 @@ $('#purchase_arrival_form').datagrid({
 	remoteSort : true,//开启远程排序，默认为false
 	idField : 'purOrderDetId', 
     columns:[[    
-		{field :'codes', title : 'ID2'}, 
-        {field :'purArrivalDetId', title : 'ID', checkbox : true}, 
-        {field:'goodsCode',title:'货品编码',width:100,editor: { type: 'text' }},    
-        {field:'goodsName',title:'名称',width:100,editor: { type: 'text' }},    
+        {field:'goodsCode',title:'货品编码',width:100},    
+        {field:'goodsName',title:'货品名称',width:100},
+        {field:'goodsId',title:'货品编号',width:100,hidden:true},    
         {field:'goodsModel',title:'规格型号',width:100},   
-        {field:'brand',title:'品牌',width:100},  
-        {field:'placeOfOrigin',title:'产地',width:100}, 
+        {field:'goodsUnit',title:'单位',width:100}, 
         {field:'price',title:'批次信息',width:100},
-        {field:'arrival',title:'到货数量',width:100},
-        {field:'delivery',title:'收货数量',width:100},
+        {field:'arrival',title:'到货数量',width:100,editor: { type: 'numberbox', options: { required: true } } },
+        {field:'delivery',title:'收货数量',width:100,editor: { type: 'numberbox', options: { required: true } } },
         {field:'rejection',title:'拒收数量',width:100},
         {field:'originalCost',title:'原价',width:100}, 
-        {field:'depositRate',title:'折扣率',width:100}, 
-        {field:'price',title:'单价',width:100}, 
-        {field:'money',title:'金额',width:100},
-        {field:'cess',title:'税率',width:100}, 
-        {field:'deadline',title:'交货期限',width:100},
-        {field:'putstorage',title:'已入库数量',width:100},
-        {field:'takestorage',title:'未入库数量',width:100},
-        {field:'alrInvNum',title:'已开票数量',width:100},
-        {field:'notInvNum',title:'未开票数量',width:100},
-        {field:'remark',title:'备注',width:100}
-    ]]
+        {field:'depositRate',title:'折扣率',width:100,editor: { type: 'numberbox', options: { required: true } } }, 
+        {field:'prices',title:'单价',width:100,editor: { type: 'numberbox', options: { required: true } } }, 
+        {field:'money',title:'金额',width:100,editor: { type: 'numberbox', options: { required: true } } },
+        {field:'cess',title:'税率',width:100,editor: { type: 'numberbox', options: { required: true } } }, 
+        {field:'deadline',title:'交货期限',width:100,editor: { type: 'datebox', options: { required: true } } },
+        {field:'remark',title:'备注',width:100,editor: { type: 'text' }}
+    ]], 
+    onSelect:function(rowIndex, rowData){
+    	stRows=rowIndex;
+    	goodsDetail(rowIndex,rowData);
+    }
 });
-
 //增加行
 function addRow(){
-	var row = $('#purchase_arrival_form').datagrid('getSelected');
-	if (row){
-		var index = $('#purchase_arrival_form').datagrid('getRowIndex', row);
-	} else {
-		index = 0;
-	}
-	var rowsCount = $("#purchase_arrival_form").datagrid("getRows"); 
-	$('#purchase_arrival_form').datagrid('insertRow', {
-		index: index,
-		row:{
-			//填写对应的字段
-			codes:rowsCount.length+1
-		}
-	});
-	$('#purchase_arrival_form').datagrid('selectRow',index);
-	$('#purchase_arrival_form').datagrid('beginEdit',index);
-	var editors = $('#purchase_arrival_form').datagrid('getEditors', index);
-	editors[0].target.bind('click', function(){
-		storageClick();
-	});
-}
-
-function storageClick(){
-	//先获取用户是否选择仓库
 	storageVal = $('#purchaseArrival_mgr_purchaseArrival_form_storage').combobox('getValue');
-	console.log(storageVal);
-	if(storageVal!=''){
-		glacier.basicAddOrEditDialog({
-			title : '货品目录',
-			width : 720,
-			height : 500,
-			queryUrl : ctx + '/do/purchaseArrival/goodsDetail.htm',
+	if(storageVal!=''){//判断
+		var row = $('#purchase_arrival_form').datagrid('getSelected');
+		if(row){
+			var index = $('#purchase_arrival_form').datagrid('getRowIndex', row);
+		} else {
+			index = 0;
+		}
+		var rowsCount = $("#purchase_arrival_form").datagrid("getRows"); 
+		$('#purchase_arrival_form').datagrid('insertRow', {
+			index: index,
+			row:{
+				//填写对应的字段
+				codes:rowsCount.length+1
+			}
 		});
+		$('#purchase_arrival_form').datagrid('selectRow',index);
+		$('#purchase_arrival_form').datagrid('beginEdit',index);
 	}else{
 		alert("仓库不能为空");
 		return false;
@@ -181,9 +166,67 @@ function storageClick(){
 }
 
 function cheshi(){
-	//var one = $("#purchase_arrival_form").datagrid('getEditor',{index:0,field:'goodsCode'})；
-	//$(one.target).disabled()；
+	console.log($('#purchase_arrival_form').datagrid('getData'));
+	console.log($("#purchaseArrival_mgr_purchaseArrival_form").serialize());
+	/* $('#ff').form('submit', {    
+	    url:...,    
+	    onSubmit: function(){    
+	    },    
+	    success:function(data){    
+	        alert(data)    
+	    }    
+	}); */
 }
+//去到货品目录方法
+function goodsDetail(rowIndex,rowData){
+	$.easyui.showDialog({
+		href : ctx + '/do/purchaseArrival/goodsDetail.htm',//从controller请求jsp页面进行渲染
+		width : 530,
+		height : 300,
+		resizable: false,
+		enableSaveButton : false,
+		enableApplyButton : false,
+		title : "货品目录",
+		buttons : [ 
+		 {
+			text : '取消',
+			iconCls : 'icon-save',
+			handler : function(dia) {
+				//判断是否有值
+				if(!rowData.goodsName){
+					$("#purchase_arrival_form").datagrid("deleteRow",rowIndex);
+					dia.dialog("close"); 
+				}else{
+					dia.dialog("close");
+				}
+			}
+		},{
+			text : '确认',
+			iconCls : 'icon-save',
+			handler : function(dia) {
+				var ed = $('#purchase_arrival_form').datagrid('updateRow', {
+					index:stRows,
+					row:{
+						goodsCode:setRowData.goodsCode,
+						goodsName:setRowData.goodsName,
+						goodsModel:setRowData.specification,
+						goodsUnit:setRowData.unit,
+						arrival:0,
+						delivery:0,
+						rejection:0,
+						money:0,
+						cess:setRowData.taxRate,
+						depositRate:0,
+						originalCost:0,
+						prices:0
+					}
+				});
+				dia.dialog("close"); 
+				$('#purchase_arrival_form').datagrid('endEdit', stRows).datagrid('refreshRow', stRows).datagrid('beginEdit', stRows);
+			}
+		}]
+	});
+};
 
 //初始化采购类型下拉项
 $("#purchaseArrival_mgr_purchaseArrival_form_purchaseTypeId").combobox({

@@ -25,16 +25,17 @@ $('#purchase_goods').datagrid({
         {field:'goodsCode',title:'货品编码',width:100},    
         {field:'goodsName',title:'名称',width:100},    
         {field:'goodsTypeId',title:'货品分类',width:100},
-        {field:'goodsModel',title:'规格型号',width:100},   
-        {field:'brand',title:'品牌',width:100},  
-        {field:'placeOfOrigin',title:'产地',width:100}, 
+        {field:'specification',title:'规格型号',width:100}, 
+        {field:'unit',title:'单位',width:100},
+        {field:'origin',title:'产地',width:100},
+        {field:'taxRate',title:'税率',width:100,hidden:true}
     ]],
     pagination : true,//True 就会在 datagrid 的底部显示分页栏
 	pageSize : 10,//注意，pageSize必须在pageList存在
 	pageList : [2,10,50,100],//从session中获取
 	rownumbers:true,//True 就会显示行号的列
-	onDblClickRow:function(rowIndex, rowData){
-
+	onSelect:function(rowIndex, rowData){
+		setRowData=rowData;
 	}
 });
 </script>
