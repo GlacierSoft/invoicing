@@ -136,16 +136,8 @@
 	});
 	//点击增加按钮触发方法
 	glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.addPurchaseReturn = function(){
-		glacier.basicAddOrEditDialog({
-			title : '【采购到货】 - 增加',
-			width : 620,
-			height : 500,
-			queryUrl : ctx + '/do/purchaseReturn/intoForm.htm',
-			submitUrl : ctx + '/do/purchaseReturn/add.json',
-			successFun : function (){
-				glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.purchaseReturnDataGrid.datagrid('reload');
-			}
-		});
+		$("#layout_center_panel").panel("setTitle","【采购退货】添加");
+		$('#layout_center_panel').panel('refresh', ctx + '/do/purchaseReturn/intoForm.htm');
 	};
 	
 	//点击编辑按钮触发方法
