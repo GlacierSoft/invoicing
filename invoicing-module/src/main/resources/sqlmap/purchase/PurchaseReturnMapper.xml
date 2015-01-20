@@ -46,7 +46,12 @@
     <result column="temp_purchase_return_create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="temp_purchase_return_updater" property="updater" jdbcType="VARCHAR" />
     <result column="temp_purchase_return_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    
+    <result column="temp_purchase_return_returned_purchase_type_display" property="returnedPurchaseTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_purchase_return_return_reason_display" property="returnReasonDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+  
   </resultMap>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -128,7 +133,16 @@
     temp_purchase_return.accessory as temp_purchase_return_accessory, temp_purchase_return.remark as temp_purchase_return_remark, 
     temp_purchase_return.creater as temp_purchase_return_creater, temp_purchase_return.create_time as temp_purchase_return_create_time, 
     temp_purchase_return.updater as temp_purchase_return_updater, temp_purchase_return.update_time as temp_purchase_return_update_time
+    
+    ,temp_returned_display.name as temp_purchase_return_returned_purchase_type_display 
+    ,temp_reason_display.name as  temp_purchase_return_return_reason_display
   </sql>
+  
+   <sql id="Base_extend">
+    LEFT JOIN t_par_purchase_returned_type  temp_returned_display ON temp_returned_display.returned_purchase_type_id = temp_purchase_return.returned_purchase_type_id<!-- 扩展 -->
+   	LEFT JOIN t_par_purchase_return_reason temp_reason_display ON temp_reason_display.return_reason_id =  temp_purchase_return.return_reason_id <!-- 扩展 -->
+  </sql>
+  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.purchase.PurchaseReturnExample" >
     select
     <if test="distinct" >
@@ -136,6 +150,7 @@
     </if>
     <include refid="Base_Column_List" />
     from t_purchase_return temp_purchase_return
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -150,6 +165,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_purchase_return temp_purchase_return
+    <include refid="Base_extend" />
     where temp_purchase_return.pur_return_id = #{purReturnId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -467,6 +483,7 @@
   </insert>
   <select id="countByExample" parameterType="com.glacier.frame.entity.purchase.PurchaseReturnExample" resultType="java.lang.Integer" >
     select count(*) from t_purchase_return temp_purchase_return
+    <include refid="Base_extend" />
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

@@ -91,8 +91,29 @@ public class PurchaseReturn {
     private String updater;
 
     private Date updateTime;
+    
+    
+    private String returnedPurchaseTypeDisplay;
+    
+    private String returnReasonDisplay;
+    
+    public String getReturnedPurchaseTypeDisplay() {
+		return returnedPurchaseTypeDisplay;
+	}
 
-    public String getPurReturnId() {
+	public void setReturnedPurchaseTypeDisplay(String returnedPurchaseTypeDisplay) {
+		this.returnedPurchaseTypeDisplay = returnedPurchaseTypeDisplay;
+	}
+
+	public String getReturnReasonDisplay() {
+		return returnReasonDisplay;
+	}
+
+	public void setReturnReasonDisplay(String returnReasonDisplay) {
+		this.returnReasonDisplay = returnReasonDisplay;
+	}
+
+	public String getPurReturnId() {
         return purReturnId;
     }
 

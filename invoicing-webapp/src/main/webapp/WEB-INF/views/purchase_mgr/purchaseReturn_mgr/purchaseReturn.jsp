@@ -130,15 +130,8 @@
 			}
 		},
 		onDblClickRow:function(rowIndex, rowData){
-			$.easyui.showDialog({
-				title: "采购到货详细信息",
-				href : ctx + '/do/purchaseReturn/intoDetail.htm?purReturnId='+rowData.purReturnId,//从controller请求jsp页面进行渲染
-				width : 620,
-				height : 500,
-				resizable: false,
-				enableApplyButton : false,
-				enableSaveButton : false
-			});
+			$("#layout_center_panel").panel("setTitle","采购退货");
+			$('#layout_center_panel').panel('refresh',ctx + '/do/purchaseReturn/intoDetail.htm?purReturnId='+rowData.purReturnId);
 		}
 	});
 	//点击增加按钮触发方法
