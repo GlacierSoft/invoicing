@@ -181,8 +181,8 @@ function storageClick(){
 }
 
 function cheshi(){
-	var one = $("#purchase_arrival_form").datagrid('getEditor',{index:0,field:'goodsCode'})；
-	$(one.target).disabled()；
+	//var one = $("#purchase_arrival_form").datagrid('getEditor',{index:0,field:'goodsCode'})；
+	//$(one.target).disabled()；
 }
 
 //初始化采购类型下拉项
