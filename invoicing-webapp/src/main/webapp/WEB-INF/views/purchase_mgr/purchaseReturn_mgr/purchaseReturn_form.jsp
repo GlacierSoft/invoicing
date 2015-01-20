@@ -27,7 +27,7 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 			      <div style="margin-left: 410px">
 			         <font size="3" style="margin-top: 30px"><b>【采购退货】编辑</b></font> 
 			      </div> 
-   					 <hr> 
+   				<hr> 
 		     </td>
 		 </tr>
 		<tr> 
@@ -38,7 +38,80 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 	      </tr>   
 	</table> 
 </form> 
+ 
+<hr> 
+  <div style="margin-left: 410px">
+     <font size="3" style="margin-top: 30px"><b>【采购退货】操作</b></font> 
+  </div> 
+<hr> 
 
-<SCRIPT>
-       
+<hr>
+  <input type="button" value="增行" onclick="doCheck();">   	 
+<hr>
+
+<!--自定义货物档案信息选择框-->
+<div id="chooseGoods" class="easyui-dialog" closed="true" >
+    <div id="contentDiv"></div>
+</div>
+
+
+<script>
+
+   
+
+    //仓库信息绑定
+	$("#warehouseTypeId").combobox({
+		data : $.parseJSON('${allWareHouseDate}'),//controller传来的数据源
+		height:18,
+		panelHeight : 'auto',
+	    required:true,
+	    editable : false,
+	    missingMessage:'请选择仓库',
+		textField : 'warehouseName',
+		valueField: 'warehouseId',
+		onSelect:function(node){
+			$.ajax({
+			    type:"post",
+			    url:ctx + "/do//goodsList/listPartGoods.json?warehouseTypeId="+node.warehouseId,
+	    		dataType:"json",
+	    		success:function(date){
+	    			$("#contentDiv").empty();
+	    		    if($.parseJSON(date).length>0){
+	    		    	$("<lable>有数据</lable>").appendTo("#contentDiv");
+	    		    }else{
+	    		    	$("<lable>该仓库暂时未存放商品，请稍后来试</lable>").appendTo("#contentDiv");
+	    		    }
+	    		}
+			});
+		}
+	 }); 
+ 
+     //增行操作
+     function doCheck(){
+    	 if($("#warehouseTypeId").combobox('getValue')){
+    		 $('#chooseGoods').dialog({    
+     		    title: '【货物档案】筛选',    
+     		    width: 400,    
+     		    height: 200,    
+     		    closed: false,    
+     		    cache: false,    
+     		    modal: true,
+     		    buttons:[{
+     				text:'保存',
+     				iconCls:'icon-save',
+     				handler:function(){
+     					alert("保存测试!!!");
+     				}
+     			},{
+     				text:'关闭',
+     				iconCls:'icon-cancel',
+     				handler:function(){
+     					$("#chooseGoods").dialog('close');
+     				}
+     			}]
+     		});  
+    	 }else{
+    		 $.messager.alert('警告','请先选择仓库信息!','info');
+		}
+     }
 </script>  

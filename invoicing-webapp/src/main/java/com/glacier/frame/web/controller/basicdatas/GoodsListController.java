@@ -75,6 +75,14 @@ public class GoodsListController {
     	return goodsListService.listAsGrid(jqPager, goodsListQueryDTO);
     }
     
+    //获取特定仓库下的所有货物档案信息
+    @RequestMapping(value = "/listPartGoods.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object listPartGoods(String warehouseTypeId) {
+    	return goodsListService.listPartGoodsList(warehouseTypeId);
+    }
+    
+    
     //进入货物档案信息Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoSuppliersIndustryDetail(String goodsId) { 

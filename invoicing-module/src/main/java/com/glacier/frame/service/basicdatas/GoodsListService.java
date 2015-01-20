@@ -30,6 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.GoodsListMapper;
 import com.glacier.frame.dto.query.basicdatas.GoodsListQueryDTO;
@@ -83,6 +84,21 @@ public class GoodsListService {
 		return returnResult;// 返回ExtGrid表
 	}
 
+	/**
+	 * @Title: listPartGoodsList
+	 * @Description: TODO(获取仓库下的所有货物档案信息)
+	 * @param @param pager
+	 * @param @return 设定文件
+	 * @return Object 返回类型
+	 * @throws
+	 */
+	 public Object listPartGoodsList(String warehouseTypeId){
+		GoodsListExample goodsListExample = new GoodsListExample();
+		goodsListExample.createCriteria().andWarehouseTypeIdEqualTo(warehouseTypeId);
+		List<GoodsList> list=goodsListMapper.selectByExample(goodsListExample);
+		return JackJson.fromObjectToJson(list);
+	}
+	
 	/**
 	 * @Title: getGoodsList
 	 * @Description: TODO(获取货物档案信息对象)
