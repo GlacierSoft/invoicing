@@ -187,9 +187,7 @@
 				url:ctx + "/do/warehouse/listWarehouse.json?warehouseTypeId="+record.warGoodsTypeId,
 				dataType:"json",
 				success:function(date){
-					if(date!=null&&date!=""){
-		    		  console.info(date);
-			    	  if($.parseJSON(date).length>0){
+					 if($.parseJSON(date).length>0){
 			    		  $("#warehouseTypeId").combobox({
 		    				 	data:$.parseJSON(date),
 		    					valueField:'warehouseId',    
@@ -197,14 +195,11 @@
 		    				    panelHeight : 'auto',
 		    				    editable:false 
 		    			   });
-			    		  if($.parseJSON(date).length==0){
-		    				   $("#warehouseTypeId").combobox('setValue', '');
-						   }else{
-							   $("#warehouseTypeId").combobox('select', $.parseJSON(date)[0].warehouseId);
-						   }
+			    		  $("#warehouseTypeId").combobox('select', $.parseJSON(date)[0].warehouseId);
+						}else{
+						  $("#warehouseTypeId").combobox('setValue', '');
 					  }
-		    	  }
-		 		}
+					}
 			});
 		}
      });
