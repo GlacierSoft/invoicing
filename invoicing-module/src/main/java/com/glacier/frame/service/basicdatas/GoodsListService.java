@@ -142,6 +142,7 @@ public class GoodsListService {
 		goodsList.setAuditState("pass");
 		goodsList.setAuditTime(new Date());
 		goodsList.setEnabled("enable");
+		goodsList.setGoodsTypeId(goodsList.getGoodsSortId());
 		goodsList.setCreater(pricipalUser.getUserCnName());
 		goodsList.setCreateTime(new Date());
 		goodsList.setUpdater(pricipalUser.getUserCnName());

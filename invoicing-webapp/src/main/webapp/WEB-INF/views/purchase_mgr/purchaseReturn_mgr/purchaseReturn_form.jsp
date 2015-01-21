@@ -18,100 +18,309 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
          }
  };
 </script>
-<form id="purchaseReturn_detail_form" method="post" >
-<table class="detailtable">
- <glacierui:toolbar panelEnName="PurchaseReturnList" toolbarId="purchaseReturnDataGrid_toolbar" menuEnName="purchaseReturn"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
-		 <tr>
-		     <td colspan="8">
-		       <hr> 
-			      <div style="margin-left: 410px">
-			         <font size="3" style="margin-top: 30px"><b>【采购退货】编辑</b></font> 
-			      </div> 
-   				<hr> 
-		     </td>
-		 </tr>
-		<tr> 
-	        <td style="padding-left:10px;">仓库：</td>
-			<td>
-			     <input id="warehouseTypeId" name="warehouseTypeId" class="easyui-combobox spinner" style="width:168px" value="${goodsListDate.warehouseTypeId}" required="true"/>
-			</td>
-	      </tr>   
-	</table> 
-</form> 
- 
-<hr> 
-  <div style="margin-left: 410px">
-     <font size="3" style="margin-top: 30px"><b>【采购退货】操作</b></font> 
-  </div> 
-<hr> 
-
-<hr>
-  <input type="button" value="增行" onclick="doCheck();">   	 
-<hr>
-
-<!--自定义货物档案信息选择框-->
-<div id="chooseGoods" class="easyui-dialog" closed="false" >
-    <div id="contentDiv"></div>
-</div>
-
+<form id="purchaseArrival_mgr_purchaseArrival_form" method="post">
+<table  class="formtable" style="margin-left: 20px;margin-top: 20px;">
+<tr>
+    <td colspan="8">
+      <hr> 
+      <div style="margin-left: 410px">
+         <font size="3" style="margin-top: 30px"><b>采购退货单</b></font> 
+	      </div> 
+ 	  <hr> 
+     </td>
+ </tr>
+<tr> 
+         <td style="padding-left:10px;">所属仓库：</td>
+		<td>
+			<input id="storage" name="storage" class="easyui-combobox spinner" style="width:168px" value="${purchaseReturnDate.storage }"   required="true"/>
+		</td> 
+		<td style="padding-left:10px;">运费总额：</td>
+		<td>
+		  <input id="logTotalAmount" name="logTotalAmount" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${purchaseReturnDate.logTotalAmount }' pattern="#,#00.00元"/>" required="true"/>
+		</td>
+		<td style="padding-left:10px;">经办部门：</td>
+		<td>
+		     <input id="operatorDep" name="operatorDep" class="easyui-combobox spinner" style="width:168px;" value="${purchaseReturnDate.operatorDep}" required="true"/>
+		</td>
+		<td style="padding-left:10px;">经办人员：</td>
+	    <td >
+	        <input id="logCode" name="logCode" class="easyui-combobox spinner" style="width:168px;" value="${purchaseReturnDate.logCode}" required="true"/>
+	    </td>
+</tr>   
+ <tr>
+     <td style="padding-left:10px;">联系人：</td>
+	 <td >
+	 		<input name="linkman" class="easyui-validatebox spinner" style="width:168px" value="${purchaseReturnDate.linkman}" required="true"/>
+	 </td>
+     <td style="padding-left:10px;">联系电话：</td>
+     <td>
+     	<input id="phone" name="phone" class="easyui-validatebox spinner" style="width:168px" value="${purchaseReturnDate.phone}" required="true"/>
+     </td>
+    <td style="padding-left:10px;">联系传真：</td>
+	<td>
+	    <input  name="fax" class="easyui-validatebox spinner" style="width:168px" value="${purchaseReturnDate.fax}" required="true"/>
+	</td>
+      <td style="padding-left:10px;">退货金额：</td>
+    <td>
+       <input id="refundTotal" name="refundTotal" class="easyui-validatebox spinner" style="width:168px;" value="<fmt:formatNumber value='${purchaseReturnDate.refundTotal}' pattern="#,#00.00元"/>" required="true"/>
+   </td> 
+  </tr>
+<tr>
+    <td style="padding-left:10px;">退货方式：</td>
+	<td>
+	    <input class="easyui-validatebox spinner" style="width:168px" value="${ purchaseReturnDate.returnedPurchaseTypeDisplay}" required="true"/>
+	</td>
+    <td style="padding-left:10px;">退货期限：</td>
+	<td>
+		<input class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatDate value='${purchaseReturnDate.returnDeadlines}' pattern="yyyy-MM-dd HH:mm:ss"/>" required="true"/>
+	</td>
+    <td style="padding-left:10px;">退货原因：</td>
+    <td>
+       <input class="easyui-validatebox spinner" style="width:168px" value="${purchaseReturnDate.returnReasonDisplay}" required="true"/>
+    </td>
+    <td style="padding-left:10px;">退货说明：</td>
+    <td>
+    	<input  id="returnPolicy" name="returnPolicy" class="spinner" style="width:168px" value="${purchaseReturnDate.returnPolicy }" required="true"/>
+    </td>
+</tr> 
+<tr> 
+    <td style="padding-left:10px;">供应商：</td>
+		<td>
+		    <input id="supplierId" name="supplierId" class="easyui-combobox spinner" style="width:168px" value="${purchaseReturnDate.supplierId }" required="true"/>
+	</td>
+	<td style="padding-left:10px;">供应地址：</td>
+	<td>
+		<input id="supplierAdd" name="supplierAdd" class="easyui-validatebox spinner" style="width:168px" value="${purchaseReturnDate.supplierAdd}" required="true"/>
+	</td>
+	<td style="padding-left:10px;">物流公司：</td>
+	<td >
+		<input name="logCompany" class="easyui-validatebox spinner" style="width:168px"  value='${purchaseReturnDate.logCompany}'  required="true"/>
+	</td>
+	<td style="padding-left:10px;">物流联系人：</td>
+	<td>
+		<input id="logLinkman" name="logLinkman" class="easyui-validatebox spinner" style="width:168px" value="${purchaseReturnDate.logLinkman}"  required="true"/>
+    </td>
+</tr>
+<tr> 
+    <td style="padding-left:10px;">物流电话：</td>
+	<td >
+	    <input id="logPhone" name="logPhone" class="easyui-validatebox spinner" style="width:168px;" value="${purchaseReturnDate.logPhone}" required="true"/>
+	</td>
+    <td style="padding-left:10px;">跟踪状态：</td>
+	<td>
+		<input id="paymentState" name="paymentState" class="easyui-validatebox spinner" style="width:168px" value="${purchaseReturnDate.paymentState }"  required="true"/>
+	</td>  
+	<td style="padding-left:10px;">结算方式：</td>
+	<td>
+		<input id="logSettlement"  name="logSettlement" class="easyui-validatebox spinner" style="width:168px" value='${purchaseReturnDate.logSettlement}' required="true"/>
+	</td>
+	<td style="padding-left:10px;">未付款金额：</td>
+	<td>
+		<input id="notPayAmo" name="notPayAmo" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${purchaseReturnDate.notPayAmo }' pattern="#,#00.00元"/>" required="true"/>
+	</td>
+</tr> 
+ <tr> 
+     <td style="padding-left:10px;">已付款金额：</td>
+     <td >
+        <input id="alrPayAmo" name="alrPayAmo" class="easyui-validatebox spinner" style="width:168px;" value="<fmt:formatNumber value='${purchaseReturnDate.alrPayAmo}' pattern="#,#00.00元"/>" required="true"/>
+     </td>
+      <td style="padding-left:10px;">开票状态：</td>
+   <td>
+	<input id="invState" name="invState" class="easyui-validatebox spinner" style="width:168px" value="${purchaseReturnDate.invState }"  required="true"/>
+   </td> 
+   <td style="padding-left:10px;">未开票金额：</td>
+   <td><input id="notInvAmo"  name="notInvAmo" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${purchaseReturnDate.notInvAmo}' pattern="#,#00.00元"/>" required="true"/></td>
+   <td style="padding-left:10px;">已开票金额：</td>
+   <td><input name="alrInvAmo" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${purchaseReturnDate.alrInvAmo}' pattern="#,#00.00元"/>" required="true"/></td>
+</tr>
+<tr> 
+   <td style="padding-left:10px;">备 注：</td>
+   <td colspan="7"> <textarea   name="remark" class="easyui-validatebox spinner" style="width:920px;" readonly="readonly" >${purchaseReturnDate.remark}</textarea></td>
+</tr> 
+<tr>
+   <td style="padding-left:10px;">附件：</td>
+   <td colspan="7"> <textarea   name="accessory" class="easyui-validatebox spinner" style="width:920px;" readonly="readonly" >${purchaseReturnDate.accessory}</textarea></td>
+</tr>
+</table>
+<br/>
+<a id="btn" href="#" class="easyui-linkbutton" onclick="addRow();" data-options="iconCls:'icon-search'">增加一行</a>
+<a id="btn" href="#" class="easyui-linkbutton" onclick="cheshi();" data-options="iconCls:'icon-search'">测试</a>
+<br/>
+<table id="purchase_return_form" style="height: 200px;margin-top: 10px;">  
+</table>
+</form>
 
 <script>
 
-   
+var storageVal="";//保存仓库ID
+var stRows="";//保存行数
+var divs = "";//保存goodsDetail中的dialog节点
+var setRowData="";//保存选中的值
 
-    //仓库信息绑定
-	$("#warehouseTypeId").combobox({
-		data : $.parseJSON('${allWareHouseDate}'),//controller传来的数据源
-		height:18,
-		panelHeight : 'auto',
-	    required:true,
-	    editable : false,
-	    missingMessage:'请选择仓库',
-		textField : 'warehouseName',
-		valueField: 'warehouseId',
-		onSelect:function(node){
-			$.ajax({
-			    type:"post",
-			    url:ctx + "/do//goodsList/listPartGoods.json?warehouseTypeId="+node.warehouseId,
-	    		dataType:"json",
-	    		success:function(date){
-	    			$("#contentDiv").empty();
-	    		    if($.parseJSON(date).length>0){
-	    		    	$("<lable>有数据</lable>").appendTo("#contentDiv");
-	    		    }else{
-	    		    	$("<lable>该仓库暂时未存放商品，请稍后来试</lable>").appendTo("#contentDiv");
-	    		    }
-	    		}
-			});
+$('#purchase_return_form').datagrid({  
+	fit : false,//控件自动resize占满窗口大小
+	iconCls : 'icon-save',//图标样式
+	barrival : true,//是否存在边框 
+	fitColumns : false,//自动填充行
+	nowrap : true,//禁止单元格中的文字自动换行
+	autoRowHeight : false,//禁止设置自动行高以适应内容
+	striped : true,//true就是把行条纹化。（即奇偶行使用不同背景色）
+	singleSelect : true,//限制单选
+	checkOnSelect : false,//选择复选框的时候选择该行
+	selectOnCheck : false,//选择的时候复选框打勾 
+	sortName : 'goodsCode',//排序字段名称
+	sortOrder : 'DESC',//升序还是降序
+	remoteSort : true,//开启远程排序，默认为false
+	idField : 'purOrderDetId', 
+    columns:[[    
+        {field:'goodsCode',title:'货品编码',width:100},    
+        {field:'goodsName',title:'货品名称',width:100},
+        {field:'goodsId',title:'货品编号',width:100,hidden:true},    
+        {field:'goodsModel',title:'规格型号',width:100},   
+        {field:'goodsUnit',title:'单位',width:100}, 
+        {field:'batchInformation',title:'批次信息',width:100},
+        {field:'quantity',title:'退货数量',width:100,editor: { type: 'numberbox', options: { required: true } } },
+        {field:'price',title:'退货单价',width:100,editor: { type: 'numberbox', options: { required: true } } },
+        {field:'money',title:'退货金额',width:100},
+        {field:'cess',title:'税率',width:100,editor: { type: 'numberbox', options: { required: true } } }, 
+        {field:'remark',title:'备注',width:100,editor: { type: 'text' }}
+    ]], 
+    onSelect:function(rowIndex, rowData){
+    	stRows=rowIndex;
+    	goodsDetail(rowIndex,rowData);
+    }
+  });
+  
+//增加行
+function addRow(){
+	storageVal = $('#storage').combobox('getValue');
+	if(storageVal!=''){//判断
+		var row = $('#purchase_return_form').datagrid('getSelected');
+	    if(row){
+			var index = $('#purchase_return_form').datagrid('getRowIndex', row);
+		}else {
+			index = 0;
 		}
-	 }); 
- 
-     //增行操作
-     function doCheck(){
-    	 if($("#warehouseTypeId").combobox('getValue')){
-    		 $('#chooseGoods').dialog({    
-     		    title: '【货物档案】筛选',    
-     		    width: 400,    
-     		    height: 200,    
-     		    closed: false,    
-     		    cache: false,    
-     		    modal: true,
-     		    buttons:[{
-     				text:'保存',
-     				iconCls:'icon-save',
-     				handler:function(){
-     					alert("保存测试!!!");
-     				}
-     			},{
-     				text:'关闭',
-     				iconCls:'icon-cancel',
-     				handler:function(){
-     					$("#chooseGoods").dialog('close');
-     				}
-     			}]
-     		});  
-    	 }else{
-    		 $.messager.alert('警告','请先选择仓库信息!','info');
-		}
-     }
-</script>  
+		var rowsCount = $("#purchase_return_form").datagrid("getRows"); 
+		$('#purchase_arrival_form').datagrid('insertRow', {
+			index: index,
+			row:{
+				//填写对应的字段
+				codes:rowsCount.length+1
+			}
+		});
+		$('#purchase_return_form').datagrid('selectRow',index);
+		$('#purchase_return_form').datagrid('beginEdit',index);
+	}else{
+		$.messager.alert('警告','请先选择仓库信息！','info');
+		return false;
+	}
+}
+	//去到货品目录方法
+	function goodsDetail(rowIndex,rowData){
+		$.easyui.showDialog({
+			href : ctx + '/do/purchaseArrival/goodsDetail.htm',//从controller请求jsp页面进行渲染
+			width : 530,
+			height : 300,
+			resizable: false,
+			title : "货品目录",
+			enableSaveButton : false,
+			enableApplyButton : false,
+			enableCloseButton:false,
+			buttons : [ 
+			 {
+				text : '取消',
+				iconCls : 'icon-save',
+				handler : function(dia) {
+					//判断是否有值
+					if(!rowData.goodsName){
+						$("#purchase_return_form").datagrid("deleteRow",rowIndex);
+						dia.dialog("close"); 
+					}else{
+						dia.dialog("close");
+					}
+				}
+			},{
+				text : '确认',
+				iconCls : 'icon-save',
+				handler : function(dia) {
+					var ed = $('#purchase_return_form').datagrid('updateRow', {
+						index:stRows,
+						row:{
+							goodsCode:setRowData.goodsCode,
+							goodsName:setRowData.goodsName,
+							goodsModel:setRowData.specification,
+							goodsUnit:setRowData.unit,
+							quantity:0,
+							price:0,
+							rejection:0,
+							money:0,
+							cess:setRowData.taxRate,
+							prices:0
+						}
+					});
+					dia.dialog("close"); 
+					$('#purchase_return_form').datagrid('endEdit', stRows).datagrid('refreshRow', stRows).datagrid('beginEdit', stRows);
+				}
+			}]
+		});
+	};
+  
+     //仓库列表
+     $("#storage").combobox({
+		 	data:$.parseJSON('${allWareHouseDate}'),
+			valueField:'warehouseId',    
+		    textField:'warehouseName',
+		    panelHeight : 'auto',
+		    editable:false 
+	   });
+     
+     //经办部门
+     $("#operatorDep").combotree({
+			data :$.parseJSON('${allDepTreeNodeData}'),
+			width:168,
+			panelHeight : 'auto',
+		    missingMessage:'请选择上级部门',
+		    smooth: true,       //该属性用以启用当前 easyui-tree 控件对平滑数据格式的支持
+		    lines : true,
+		    editable:false,
+		    onBeforeSelect:function(node){
+		    	if(node.state){
+                     $("#operatorDep").combotree("unselect");
+                 }
+		    },
+		    onSelect:function(record){
+		    	$.ajax({
+		    		type: "post", 
+		    		url:ctx + "/do/user/dept.json?depId="+record.id,
+		    		dataType:"json",
+		    		success: function (date){
+		    			   console.info(date);
+		    			   $("#logCode").combobox({
+		    				 	data:$.parseJSON(date),
+		    					valueField:'id',    
+		    				    textField:'text',
+		    				    panelHeight : 'auto',
+		    				    editable:false 
+		    			   });
+		    			   if($.parseJSON(date).length>0){
+				    		   $("#logCode").combobox('select', $.parseJSON(date)[0].id);
+						   }else{
+							   $("#logCode").combobox('setValue', '');
+						   }
+		    			}
+		    	});
+		        
+		    }
+		});	
+     
+     //供应商信息
+     $("#supplierId").combobox({
+		 	data:$.parseJSON('${allSuppliesTreeNodeData}'),
+			valueField:'supplierId',    
+		    textField:'suppliersName',
+		    panelHeight : 'auto',
+		    editable:false 
+	  });
+</script>
+

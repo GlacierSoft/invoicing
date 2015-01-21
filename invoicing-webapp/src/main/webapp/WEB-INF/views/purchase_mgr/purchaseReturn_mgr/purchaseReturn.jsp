@@ -136,7 +136,7 @@
 	});
 	//点击增加按钮触发方法
 	glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.addPurchaseReturn = function(){
-		$("#layout_center_panel").panel("setTitle","【采购退货】添加");
+		$("#layout_center_panel").panel("setTitle","【采购退货】新增");
 		$('#layout_center_panel').panel('refresh', ctx + '/do/purchaseReturn/intoForm.htm');
 	};
 	
