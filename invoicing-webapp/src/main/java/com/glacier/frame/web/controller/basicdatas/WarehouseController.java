@@ -73,6 +73,20 @@ public class WarehouseController {
         return warehouseService.listAsGrid(jqPager, warehouseQueryDTO);
     }
     
+    //获取特定类型下的仓库数据
+    @RequestMapping(value = "/listWarehouse.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object listWarehouse(String warehouseTypeId){
+    	return warehouseService.listWarehouse(warehouseTypeId);
+    }
+    
+    //获取所有仓库信息
+    @RequestMapping(value = "/listAllWarehouse.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object listAllWarehouse(){
+    	return warehouseService.getWareHouseCombo();
+    }
+    
     //进入库存信息Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoSuppliersIndustryDetail(String warehouseId) { 

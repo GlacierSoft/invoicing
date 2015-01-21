@@ -18,6 +18,7 @@ import com.glacier.frame.service.basicdatas.ParComDeliverTypeService;
 import com.glacier.frame.service.basicdatas.ParComPaymentTypeService;
 import com.glacier.frame.service.basicdatas.ParPurchaseTypeService;
 import com.glacier.frame.service.basicdatas.SuppliersService;
+import com.glacier.frame.service.basicdatas.WarehouseService;
 import com.glacier.frame.service.purchase.PurchaseArrivalService;
 import com.glacier.frame.service.system.UserService;
 import com.glacier.jqueryui.util.JqPager;
@@ -51,12 +52,22 @@ public class PurchaseArrivalController extends AbstractController{
 	@Autowired
 	private ParComPaymentTypeService paymentTypeService;
 	
+	@Autowired
+	private WarehouseService warehouseService;
+	
 	//进入采购到货信息列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPmember() {
         ModelAndView mav = new ModelAndView("purchase_mgr/purchaseArrival_mgr/purchaseArrival");
         return mav;
     } 
+    
+    //根据仓库ID查询出所有货物信息展示页面
+    @RequestMapping(value = "/goodsDetail.htm")
+    private Object storageList() {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseArrival_mgr/purchaseGoods");
+        return mav;
+    }
     
     //获取表格结构的所有采购到货数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
@@ -78,7 +89,7 @@ public class PurchaseArrivalController extends AbstractController{
     //进入采购到货信息Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoGradeFormPnews(String purchaseId) {
-        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseArrival_mgr/purchaseArrival_form");
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseArrival_mgr/purchaseArrival_form2");
     	mav.addObject("userDate", userService.getUserCombo(null));//员工信息
     	//mav.addObject("userDate", userService.getUserCombo(null));//所属仓库
     	mav.addObject("deliverTypeDate", deliverTypeService.getDeliverTypeCombo());//所属仓库
@@ -86,7 +97,8 @@ public class PurchaseArrivalController extends AbstractController{
     	mav.addObject("suppliersDate", suppliersService.getSuppliersCombo());//供应商
     	mav.addObject("suppliersLogisticsDate", suppliersService.getSuppliersLogisticsCombo());//物流供应商
     	mav.addObject("paymentTypeDate", paymentTypeService.getParComPaymentTypeCombo());//约定支付
-        if(StringUtils.isNotBlank(purchaseId)){
+    	mav.addObject("warehouseDate", warehouseService.getWareHouseCombo());//仓库
+    	if(StringUtils.isNotBlank(purchaseId)){
             mav.addObject("purchaseDate", purchaseArrivalService.getPurchaseArrival(purchaseId));
         }
         return mav;

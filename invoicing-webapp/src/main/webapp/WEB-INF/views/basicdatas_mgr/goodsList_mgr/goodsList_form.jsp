@@ -137,6 +137,39 @@
 		}
 	}); 
 	
+	//初始化填充数据
+	
+	var warehouseTypeId='${goodsListDate.warehouseTypeId}';
+	
+	var goodsSortId='${goodsListDate.goodsSortId}';
+	
+	if('${goodsListDate.goodsTypeId }'!=null){
+		$.ajax({
+			type:"post",
+			url:ctx + "/do/warehouse/listWarehouse.json?warehouseTypeId="+goodsSortId,
+			dataType:"json",
+			success:function(date){
+				if(date!=null&&date!=""){
+	    		 if($.parseJSON(date).length>0){
+		    		  $("#warehouseTypeId").combobox({
+	    				 	data:$.parseJSON(date),
+	    					valueField:'warehouseId',    
+	    				    textField:'warehouseName',
+	    				    panelHeight : 'auto',
+	    				    editable:false 
+	    			   });
+		    		  if($.parseJSON(date).length==0){
+	    				   $("#warehouseTypeId").combobox('setValue', '');
+					   }else{
+						   $("#warehouseTypeId").combobox('select', warehouseTypeId);
+					   }
+				  }
+	    	  }
+	 		}
+		});
+	        	
+	}
+	
 	//货品类型一级
 	$("#goodsTypeId").combobox({
 		data : $.parseJSON('${allTypeTreeNodeData}'),//controller传来的数据源
@@ -149,6 +182,25 @@
 		valueField: 'warGoodsTypeId',
 		onSelect:function(record){
 			$("#goodsSortId").combobox('setValue',record.warGoodsTypeId);
+			$.ajax({
+				type:"post",
+				url:ctx + "/do/warehouse/listWarehouse.json?warehouseTypeId="+record.warGoodsTypeId,
+				dataType:"json",
+				success:function(date){
+					 if($.parseJSON(date).length>0){
+			    		  $("#warehouseTypeId").combobox({
+		    				 	data:$.parseJSON(date),
+		    					valueField:'warehouseId',    
+		    				    textField:'warehouseName',
+		    				    panelHeight : 'auto',
+		    				    editable:false 
+		    			   });
+			    		  $("#warehouseTypeId").combobox('select', $.parseJSON(date)[0].warehouseId);
+						}else{
+						  $("#warehouseTypeId").combobox('setValue', '');
+					  }
+					}
+			});
 		}
      });
 	
@@ -164,10 +216,28 @@
 		valueField: 'warGoodsTypeId',
 		onSelect:function(record){
 			$("#goodsTypeId").combobox('setValue',record.warGoodsTypeId);
+			//仓库类型信息三级关联
+			$.ajax({
+				type:"post",
+				url:ctx + "/do/warehouse/listWarehouse.json?warehouseTypeId="+record.warGoodsTypeId,
+				dataType:"json",
+				success:function(date){
+				      if($.parseJSON(date).length>0){
+			    		  $("#warehouseTypeId").combobox({
+		    				 	data:$.parseJSON(date),
+		    					valueField:'warehouseId',    
+		    				    textField:'warehouseName',
+		    				    panelHeight : 'auto',
+		    				    editable:false 
+		    			   });
+			    		   $("#warehouseTypeId").combobox('select', $.parseJSON(date)[0].warehouseId);
+					   }else{
+						    $("#warehouseTypeId").combobox('setValue', '');
+					   }
+		    	}
+			});
 		}
 	});
-	
-	//仓库信息三级
 	
 	$('#member_mgr_member_form_status').val(renderGridValue('${goodsListDate.auditState}',fields.auditState));
 	

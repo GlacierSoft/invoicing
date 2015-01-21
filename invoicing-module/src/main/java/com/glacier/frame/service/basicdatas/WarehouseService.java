@@ -114,6 +114,33 @@ public class WarehouseService {
 		return JackJson.fromObjectToJson(list);
 	}
 	
+	/**
+	 * @Title: listWarehouse
+	 * @Description: TODO(获取特定类型下仓库信息)
+	 * @param @param warehouseTypeId
+	 * @param @return 设定文件
+	 * @return Object 返回类型
+	 * @throws
+	 */
+	
+	public Object listWarehouse(String warehouseTypeId){
+	    //获取特定类型下仓库ID
+		ParWarGoodsClassifyExample warGoodsClassifyExample = new ParWarGoodsClassifyExample();
+		warGoodsClassifyExample.createCriteria().andWarGoodsTypeIdEqualTo(warehouseTypeId);
+		List<ParWarGoodsClassify> listWarGoodsClassify=warGoodsClassifyMapper.selectByExample(warGoodsClassifyExample);
+		List<Warehouse> Warehouse=new ArrayList<Warehouse>();
+		List<String> listId=new ArrayList<String>();
+		if(listWarGoodsClassify.size()>0){
+		   for(int i=0;i<listWarGoodsClassify.size();i++){
+				listId.add(listWarGoodsClassify.get(i).getWarehouseId());
+		   }
+		   WarehouseExample warehouseExample = new WarehouseExample();
+		   warehouseExample.createCriteria().andWarehouseIdIn(listId);
+		   Warehouse=warehouseMapper.selectByExample(warehouseExample);
+		}
+		return JackJson.fromObjectToJson(Warehouse);
+	}
+	
 	/** 
 	 * @Title: getWareHouseCombo  
 	 * @Description: TODO(仓库下拉项)  

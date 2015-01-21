@@ -35,6 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.frame.dto.query.purchase.PurchaseReturnQueryDTO;
 import com.glacier.frame.entity.purchase.PurchaseReturn;
+import com.glacier.frame.service.basicdatas.WarehouseService;
 import com.glacier.frame.service.purchase.PurchaseReturnService;
 import com.glacier.jqueryui.util.JqPager;
 
@@ -50,6 +51,9 @@ import com.glacier.jqueryui.util.JqPager;
 public class PurchaseReturnController {
 	@Autowired
     private PurchaseReturnService purchaseReturnService;
+	
+	@Autowired
+	private WarehouseService warehouseService;
 	
 	// 进入采购退货信息列表展示页面
     @RequestMapping(value = "/index.htm")
@@ -79,6 +83,9 @@ public class PurchaseReturnController {
     @RequestMapping(value = "/intoForm.htm")
     private Object intoGradeFormPnews(String purReturnId) {
         ModelAndView mav = new ModelAndView("purchase_mgr/purchaseReturn_mgr/purchaseReturn_form");
+        //仓库信息获取
+        mav.addObject("allWareHouseDate",warehouseService.getWareHouseCombo());
+        //判断主键标志
         if(StringUtils.isNotBlank(purReturnId)){
             mav.addObject("purchaseReturnDate", purchaseReturnService.getPurchaseReturn(purReturnId));
         }

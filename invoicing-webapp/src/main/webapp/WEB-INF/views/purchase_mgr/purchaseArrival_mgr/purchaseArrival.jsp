@@ -176,7 +176,7 @@
 	});
 	//点击增加按钮触发方法
 	glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.addPurchaseArrival = function(){
-		glacier.basicAddOrEditDialog({
+		/* glacier.basicAddOrEditDialog({
 			title : '【采购到货】 - 增加',
 			width : 620,
 			height : 500,
@@ -185,7 +185,8 @@
 			successFun : function (){
 				glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.purchaseArrivalDataGrid.datagrid('reload');
 			}
-		});
+		}); */
+		$("#layout_center_panel").panel("setTitle","新增采购到货").panel('refresh',ctx + '/do/purchaseArrival/intoForm.htm');
 	};
 	
 	//点击编辑按钮触发方法

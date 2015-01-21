@@ -70,9 +70,18 @@ public class GoodsListController {
     //获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByMenuId(JqPager jqPager, GoodsListQueryDTO goodsListQueryDTO) {
-        return goodsListService.listAsGrid(jqPager, goodsListQueryDTO);
+    private Object listActionAsGridByMenuId(JqPager jqPager, GoodsListQueryDTO goodsListQueryDTO,String storageVal) {
+    	goodsListQueryDTO.setWarehouseTypeId(storageVal);
+    	return goodsListService.listAsGrid(jqPager, goodsListQueryDTO);
     }
+    
+    //获取特定仓库下的所有货物档案信息
+    @RequestMapping(value = "/listPartGoods.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object listPartGoods(String warehouseTypeId) {
+    	return goodsListService.listPartGoodsList(warehouseTypeId);
+    }
+    
     
     //进入货物档案信息Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
