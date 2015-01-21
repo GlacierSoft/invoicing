@@ -50,7 +50,7 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 <hr>
 
 <!--自定义货物档案信息选择框-->
-<div id="chooseGoods" class="easyui-dialog" closed="true" >
+<div id="chooseGoods" class="easyui-dialog" closed="false" >
     <div id="contentDiv"></div>
 </div>
 

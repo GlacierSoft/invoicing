@@ -13,11 +13,11 @@
 						    <input type="hidden" id="goodsId" name="goodsId" value="${goodsListDate.goodsId }" /> 
 						    <input id="goodsName" name="goodsName" class="easyui-validatebox spinner" required="true" style="width:168px;height: 18px;" value="${goodsListDate.goodsName}"  />
 						</td>
-				        <td style="padding-left:10px;">货品类型：</td>
-						<td><input id="goodsTypeId" name="goodsTypeId" class="easyui-combobox spinner" style="width:168px" value="${goodsListDate.goodsTypeId }" required="true"/></td>
+				        <td style="padding-left:10px;">货物单位：</td>
+						<td><input class="easyui-validatebox spinner"  name="unit" style="width:168px" value="${goodsListDate.unit}"  required="true"/></td>
 					</tr> 
 					<tr> 
-					    <td> 仓库类型：</td>
+					    <td> 货物类型：</td>
 						<td><input id="goodsSortId" name="goodsSortId" class="easyui-combobox spinner" style="width:168px" value="${goodsListDate.goodsSortId }" required="true"/></td>
 					    <td style="padding-left:10px;">所属仓库：</td>
 						<td><input id="warehouseTypeId" name="warehouseTypeId" class="easyui-combobox spinner" style="width:168px" value="${goodsListDate.warehouseTypeId}" required="true"/></td>
@@ -35,10 +35,10 @@
 						<td ><input  name="manufacturers" class="easyui-validatebox spinner" style="width:168px" value="${goodsListDate.manufacturers}" required="true"/></td>
 				   </tr> 
 				   <tr>
-						<td>货物单位：</td>
-						<td><input class="easyui-validatebox spinner"  name="unit" style="width:168px" value="${goodsListDate.unit}"  required="true"/></td>
-						<td style="padding-left:10px;">包装单位：</td>
+				        <td >包装单位：</td>
 						<td><input class="easyui-validatebox spinner" name="bulkUnit"  style="width:168px" value="${goodsListDate.bulkUnit}" required="true"/></td>
+					    <td style="padding-left:10px;">货物摘要：</td>
+						<td><input id="remark" name="remark" class="easyui-validatebox spinner" style="width:168px" value="${goodsListDate.remark }" /></td>
 					</tr>
 					<tr>
 						<td>备 注：</td>
@@ -143,15 +143,13 @@
 	
 	var goodsSortId='${goodsListDate.goodsSortId}';
 	
-	if('${goodsListDate.goodsTypeId }'!=null){
+	if('${goodsListDate.goodsSortId }'!=null){
 		$.ajax({
 			type:"post",
 			url:ctx + "/do/warehouse/listWarehouse.json?warehouseTypeId="+goodsSortId,
 			dataType:"json",
 			success:function(date){
-				if(date!=null&&date!=""){
-	    		 if($.parseJSON(date).length>0){
-		    		  $("#warehouseTypeId").combobox({
+					  $("#warehouseTypeId").combobox({
 	    				 	data:$.parseJSON(date),
 	    					valueField:'warehouseId',    
 	    				    textField:'warehouseName',
@@ -159,51 +157,17 @@
 	    				    editable:false 
 	    			   });
 		    		  if($.parseJSON(date).length==0){
+		    			   $("#warehouseTypeId").combobox('clear');
 	    				   $("#warehouseTypeId").combobox('setValue', '');
 					   }else{
 						   $("#warehouseTypeId").combobox('select', warehouseTypeId);
 					   }
-				  }
-	    	  }
-	 		}
+				}
 		});
 	        	
 	}
 	
-	//货品类型一级
-	$("#goodsTypeId").combobox({
-		data : $.parseJSON('${allTypeTreeNodeData}'),//controller传来的数据源
-		height:18,
-		panelHeight : 'auto',
-	    required:true,
-	    editable : false,
-	    missingMessage:'请选择货品类型',
-		textField : 'name',
-		valueField: 'warGoodsTypeId',
-		onSelect:function(record){
-			$("#goodsSortId").combobox('setValue',record.warGoodsTypeId);
-			$.ajax({
-				type:"post",
-				url:ctx + "/do/warehouse/listWarehouse.json?warehouseTypeId="+record.warGoodsTypeId,
-				dataType:"json",
-				success:function(date){
-					 if($.parseJSON(date).length>0){
-			    		  $("#warehouseTypeId").combobox({
-		    				 	data:$.parseJSON(date),
-		    					valueField:'warehouseId',    
-		    				    textField:'warehouseName',
-		    				    panelHeight : 'auto',
-		    				    editable:false 
-		    			   });
-			    		  $("#warehouseTypeId").combobox('select', $.parseJSON(date)[0].warehouseId);
-						}else{
-						  $("#warehouseTypeId").combobox('setValue', '');
-					  }
-					}
-			});
-		}
-     });
-	
+
 	//仓库类型信息二级
 	$("#goodsSortId").combobox({
 		data : $.parseJSON('${allTypeTreeNodeData}'),//controller传来的数据源
@@ -222,17 +186,17 @@
 				url:ctx + "/do/warehouse/listWarehouse.json?warehouseTypeId="+record.warGoodsTypeId,
 				dataType:"json",
 				success:function(date){
-				      if($.parseJSON(date).length>0){
-			    		  $("#warehouseTypeId").combobox({
-		    				 	data:$.parseJSON(date),
-		    					valueField:'warehouseId',    
-		    				    textField:'warehouseName',
-		    				    panelHeight : 'auto',
-		    				    editable:false 
-		    			   });
+					   $("#warehouseTypeId").combobox({
+	    				 	data:$.parseJSON(date),
+	    					valueField:'warehouseId',    
+	    				    textField:'warehouseName',
+	    				    panelHeight : 'auto',
+	    				    editable:false 
+	    			    });
+					    if($.parseJSON(date).length>0){
 			    		   $("#warehouseTypeId").combobox('select', $.parseJSON(date)[0].warehouseId);
 					   }else{
-						    $("#warehouseTypeId").combobox('setValue', '');
+						  $("#warehouseTypeId").combobox('setValue', '');
 					   }
 		    	}
 			});
@@ -293,11 +257,11 @@
 	    				    panelHeight : 'auto',
 	    				    editable:false 
 	    			   });
-	    			   if($.parseJSON(date).length==0){
-	    				   $("#attn").combobox('setValue', '');
+	    			   
+	    			   if($.parseJSON(date).length>0){
+			    		   $("#attn").combobox('select', $.parseJSON(date)[0].id);
 					   }else{
-						   if(str==null||str=="")
-						        $("#attn").combobox('select', $.parseJSON(date)[0].id);
+						   $("#attn").combobox('setValue', '');
 					   }
 	    			}
 	    	});

@@ -52,6 +52,9 @@
     <result column="temp_goods_list_dep_display" property="depDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_goods_list_warehouse_manager_display" property="warehouseManagerDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     
+    <result column="temp_goods_list_goods_sort_display" property="goodsSortDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    <result column="temp_goods_list_warehouse_type_display" property="warehouseTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
+    
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -137,12 +140,18 @@
     temp_goods_list.updater as temp_goods_list_updater, temp_goods_list.update_time as temp_goods_list_update_time
     
     ,temp_dep_display.cn_name as temp_goods_list_dep_display 
-    ,temp_manager_display.username as  temp_goods_list_warehouse_manager_display
+    ,temp_manager_display.user_cn_name as  temp_goods_list_warehouse_manager_display
+    
+    ,temp_warehouse_display.warehouse_name as temp_goods_list_goods_sort_display
+    ,temp_war_display.name as  temp_goods_list_warehouse_type_display
   </sql>
   
    <sql id="Base_extend">
     LEFT JOIN t_dep  temp_dep_display ON temp_dep_display.dep_id = temp_goods_list.department<!-- 扩展 -->
    	LEFT JOIN t_user temp_manager_display ON temp_manager_display.user_id = temp_goods_list.attn <!-- 扩展 -->
+   	
+   	LEFT JOIN t_warehouse  temp_warehouse_display ON temp_warehouse_display.warehouse_id= temp_goods_list.warehouse_type_id<!-- 扩展 -->
+   	LEFT JOIN t_par_war_goods_type temp_war_display ON temp_war_display.war_goods_type_id = temp_goods_list.goods_sort_id<!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.basicdatas.GoodsListExample" >
     select

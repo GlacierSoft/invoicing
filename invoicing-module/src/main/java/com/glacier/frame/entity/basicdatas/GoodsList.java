@@ -106,8 +106,30 @@ public class GoodsList {
     private String depDisplay;
     
     private String warehouseManagerDisplay;
+    
+    //仓库类型
+    private String goodsSortDisplay;
+    
+    //货物类型
+    private String warehouseTypeDisplay;
+    
+    public String getGoodsSortDisplay() {
+		return goodsSortDisplay;
+	}
 
-    public String getDepDisplay() {
+	public void setGoodsSortDisplay(String goodsSortDisplay) {
+		this.goodsSortDisplay = goodsSortDisplay;
+	}
+
+	public String getWarehouseTypeDisplay() {
+		return warehouseTypeDisplay;
+	}
+
+	public void setWarehouseTypeDisplay(String warehouseTypeDisplay) {
+		this.warehouseTypeDisplay = warehouseTypeDisplay;
+	}
+
+	public String getDepDisplay() {
 		return depDisplay;
 	}
 

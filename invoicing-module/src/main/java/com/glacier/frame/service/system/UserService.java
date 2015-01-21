@@ -215,7 +215,7 @@ public class UserService {
         	for(int i=0;i<users.size();i++){
         		Map<String,Object> map=new HashMap<String,Object>();
         		map.put("id",users.get(i).getUserId() );
-        		map.put("text", users.get(i).getUsername());
+        		map.put("text", users.get(i).getUserCnName());
         		list.add(map);
         	}
         }
