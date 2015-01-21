@@ -20,8 +20,9 @@ $('#purchase_goods').datagrid({
 	sortName : 'goodsCode',//排序字段名称
 	sortOrder : 'DESC',//升序还是降序
 	remoteSort : true,//开启远程排序，默认为false
-	idField : 'goodsCode', 
+	idField : 'goodsId', 
     columns:[[    
+		{field:'goodsId',title:'货物编号',width:100,hidden:true},
         {field:'goodsCode',title:'货品编码',width:100},    
         {field:'goodsName',title:'名称',width:100},    
         {field:'goodsTypeId',title:'货品分类',width:100},

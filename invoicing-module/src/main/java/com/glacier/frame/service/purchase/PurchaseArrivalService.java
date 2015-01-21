@@ -11,9 +11,14 @@
  * 
  */
 package com.glacier.frame.service.purchase; 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import org.apache.commons.lang3.StringUtils; 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -23,13 +28,16 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional; 
 import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
+import com.glacier.frame.dao.basicdatas.GoodsListMapper;
 import com.glacier.frame.dao.purchase.PurchaseArrivalMapper;
 import com.glacier.frame.dto.query.purchase.PurchaseArrivalQueryDTO;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager; 
 import com.glacier.jqueryui.util.JqReturnJson;
 import com.glacier.frame.entity.system.User;
+import com.glacier.frame.entity.basicdatas.GoodsList;
 import com.glacier.frame.entity.purchase.PurchaseArrival;
+import com.glacier.frame.entity.purchase.PurchaseArrivalDetail;
 import com.glacier.frame.entity.purchase.PurchaseArrivalExample;
 import com.glacier.frame.entity.purchase.PurchaseArrivalExample.Criteria;
 import com.glacier.frame.util.MethodLog;
@@ -46,6 +54,9 @@ public class PurchaseArrivalService {
 
 	@Autowired
 	private PurchaseArrivalMapper purchaseArrivalMapper;
+	
+	@Autowired
+	private GoodsListMapper goodsListMapper;
 	
 	/**
      * @Title: listAsGrid 
@@ -97,22 +108,63 @@ public class PurchaseArrivalService {
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "PurchaseArrivalList_add")
-    public Object addPurchaseArrival(PurchaseArrival purchaseArrival) {
+    public Object addPurchaseArrival(PurchaseArrival purchaseArrival,String rows) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+        JSONArray array = JSONArray.fromObject(rows);//将Json字符串转换成json数组
         PurchaseArrivalExample purchaseArrivalExample = new PurchaseArrivalExample();
         int count = 0;
+        BigDecimal allAmount= new BigDecimal(0);//存储总金额
+        for (int i = 0; i < array.toArray().length; i++) {//遍历循环
+			JSONObject json = JSONObject.fromObject(array.toArray()[i]);
+			BigDecimal Amount= BigDecimal.valueOf(json.getDouble("money"));//转换成BigDecimal
+			allAmount = allAmount.add(Amount);
+		}
         count = purchaseArrivalMapper.countByExample(purchaseArrivalExample);
         //采购到货编号格式:表名_年_月_日_分_秒
         SimpleDateFormat formatDate = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
         purchaseArrival.setPurArrivalId(RandomGUID.getRandomGUID());
+        purchaseArrival.setDerateMoney(new BigDecimal(0));//应付减免金额
+        purchaseArrival.setAlrPayAmo(new BigDecimal(0));//已付款金额
+        purchaseArrival.setNotPayAmo(allAmount);//未付款金额
+        purchaseArrival.setNotInvAmo(new BigDecimal(0));//未开票金额
+        purchaseArrival.setAlrInvAmo(allAmount);//已开票金额
+        purchaseArrival.setAlrReturnAmo(new BigDecimal(0));//已退货金额
+        purchaseArrival.setNotReturnAmo(allAmount);//未退货金额
+        purchaseArrival.setReturnState("noneCancel");//退货状态
+        purchaseArrival.setPayState("nonePay");//付款状态
+        purchaseArrival.setAuditState("authstr");//审核状态
+        purchaseArrival.setInvState("noneInv");//开票状态
         purchaseArrival.setArrivalCode("arrival"+formatDate.format(new Date()));
         purchaseArrival.setCreater(pricipalUser.getUserCnName());
         purchaseArrival.setCreateTime(new Date());
         purchaseArrival.setUpdater(pricipalUser.getUserCnName());
         purchaseArrival.setUpdateTime(new Date());
-        count = purchaseArrivalMapper.insert(purchaseArrival);
+        //count = purchaseArrivalMapper.insert(purchaseArrival);
+        //采购到货详情信息增加
+        for (int i = 0; i < array.toArray().length; i++) {//遍历循环
+			JSONObject json = JSONObject.fromObject(array.toArray()[i]);
+			GoodsList goodsList = goodsListMapper.selectByPrimaryKey(json.getString("goodsId"));
+			PurchaseArrivalDetail purchaseArrivalDetail = new PurchaseArrivalDetail();
+			purchaseArrivalDetail.setPurArrivalDetId(RandomGUID.getRandomGUID());
+			purchaseArrivalDetail.setPurArrivalId(purchaseArrival.getPurArrivalId());
+			purchaseArrivalDetail.setGoodsId(goodsList.getGoodsId());
+			purchaseArrivalDetail.setGoodsCode(goodsList.getGoodsCode());
+			purchaseArrivalDetail.setGoodsName(goodsList.getGoodsName());
+			purchaseArrivalDetail.setGoodsModel(goodsList.getSpecification());
+			purchaseArrivalDetail.setGoodsUnit(goodsList.getUnit());
+			purchaseArrivalDetail.setPrice(BigDecimal.valueOf(json.getDouble("prices")));
+			purchaseArrivalDetail.setGoodsMoney(BigDecimal.valueOf(json.getDouble("money")));
+			//purchaseArrivalDetail.setDeadline(json.get);
+			purchaseArrivalDetail.setNotReturnNum(json.getInt("arrival"));
+			purchaseArrivalDetail.setAlrReturnNum(0);
+			purchaseArrivalDetail.setAlrPayNum(0);
+			purchaseArrivalDetail.setNotPayNum(json.getInt("arrival"));
+			purchaseArrivalDetail.setNotInvNum(0);
+			purchaseArrivalDetail.setAlrInvNum(json.getInt("arrival"));
+			purchaseArrivalDetail.setArrival(json.getInt("arrival"));
+		}
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + purchaseArrival.getArrivalCode() + "] 采购到货信息已保存");

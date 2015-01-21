@@ -127,10 +127,10 @@ $('#purchase_arrival_form').datagrid({
         {field:'delivery',title:'收货数量',width:100,editor: { type: 'numberbox', options: { required: true } } },
         {field:'rejection',title:'拒收数量',width:100},
         {field:'originalCost',title:'原价',width:100}, 
-        {field:'depositRate',title:'折扣率',width:100,editor: { type: 'numberbox', options: { required: true } } }, 
+        {field:'depositRate',title:'折扣率',width:100,editor: { type: 'numberbox', options: { required: true,precision: 1 } } }, 
         {field:'prices',title:'单价',width:100,editor: { type: 'numberbox', options: { required: true } } }, 
-        {field:'money',title:'金额',width:100,editor: { type: 'numberbox', options: { required: true } } },
-        {field:'cess',title:'税率',width:100,editor: { type: 'numberbox', options: { required: true } } }, 
+        {field:'money',title:'总金额',width:100,editor: { type: 'numberbox', options: { required: true,precision: 4 } } },
+        {field:'cess',title:'税率',width:100,editor: { type: 'numberbox', options: { required: true,precision: 4 } } }, 
         {field:'deadline',title:'交货期限',width:100,editor: { type: 'datebox', options: { required: true } } },
         {field:'remark',title:'备注',width:100,editor: { type: 'text' }}
     ]], 
@@ -166,16 +166,36 @@ function addRow(){
 }
 
 function cheshi(){
-	console.log($('#purchase_arrival_form').datagrid('getData'));
-	console.log($("#purchaseArrival_mgr_purchaseArrival_form").serialize());
-	/* $('#ff').form('submit', {    
-	    url:...,    
+	/* if($('#purchaseArrival_mgr_purchaseArrival_form').form("validate")){
+		
+	}else{
+		alert(false);
+	} */
+	var rowsCount = $("#purchase_arrival_form").datagrid("getRows"); 
+	for(var i=0;i<rowsCount.length;i++){
+		var moneyTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'money'}).target;
+		$('#purchase_arrival_form').datagrid('updateRow',{
+			index: i,
+			row: {
+				money: moneyTarget.val()
+			}
+		});
+		$('#purchase_arrival_form').datagrid('endEdit', i).datagrid('refreshRow', i);
+	}
+	var rows = $('#purchase_arrival_form').datagrid('getData').rows;
+	var json = JSON.stringify(rows);
+	console.log(json);
+	//console.log($("#purchaseArrival_mgr_purchaseArrival_form").serialize());
+	$('#purchaseArrival_mgr_purchaseArrival_form').form('submit', {    
+	    url: ctx + '/do/purchaseArrival/add.json?rows='+json,    
 	    onSubmit: function(){    
+	    	
+	    	
 	    },    
 	    success:function(data){    
-	        alert(data)    
+	        //alert(data)    
 	    }    
-	}); */
+	});
 }
 //去到货品目录方法
 function goodsDetail(rowIndex,rowData){
@@ -186,6 +206,7 @@ function goodsDetail(rowIndex,rowData){
 		resizable: false,
 		enableSaveButton : false,
 		enableApplyButton : false,
+		enableCloseButton : false,
 		title : "货品目录",
 		buttons : [ 
 		 {
@@ -218,7 +239,8 @@ function goodsDetail(rowIndex,rowData){
 						cess:setRowData.taxRate,
 						depositRate:0,
 						originalCost:0,
-						prices:0
+						prices:0,
+						goodsId:setRowData.goodsId
 					}
 				});
 				dia.dialog("close"); 

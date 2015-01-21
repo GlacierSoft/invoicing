@@ -107,11 +107,11 @@ public class PurchaseArrivalController extends AbstractController{
     //增加采购到货信息
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addGrade(@Valid PurchaseArrival purchaseArrival, BindingResult bindingResult) {
+    private Object addGrade(@Valid PurchaseArrival purchaseArrival, BindingResult bindingResult,String rows) {
         if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
-        return purchaseArrivalService.addPurchaseArrival(purchaseArrival);
+        return purchaseArrivalService.addPurchaseArrival(purchaseArrival,rows);
     }
     
     //修改采购到货信息
