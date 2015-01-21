@@ -44,6 +44,7 @@ import com.glacier.frame.service.basicdatas.WarehouseService;
 import com.glacier.frame.service.purchase.PurchaseOrderDetailService;
 import com.glacier.frame.service.purchase.PurchaseOrderService;
 import com.glacier.jqueryui.util.JqPager;
+import com.glacier.jqueryui.util.JqReturnJson;
 
 /**
  * @ClassName:  PurchaseOrderController
@@ -106,7 +107,7 @@ public class PurchaseOrderController extends AbstractController{
     //进入表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object inForme(String purOrderId) {
-        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/purchaseOrder_form");
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/form");
         if(StringUtils.isNotBlank(purOrderId)){
             mav.addObject("purchaseOrderData", purchaseOrderService.getPurchaseOrder(purOrderId));
         } 
@@ -131,11 +132,19 @@ public class PurchaseOrderController extends AbstractController{
     //新增订购合同
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addPurchaseOrder(@Valid PurchaseOrder purchaseOrder, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {// 后台校验的错误信息
+    private Object addPurchaseOrder(@Valid PurchaseOrder purchaseOrder,@RequestParam List<String> goodsId, BindingResult bindingResult) {
+        /*if (bindingResult.hasErrors()) {// 后台校验的错误信息
             return returnErrorBindingResult(bindingResult);
         }
-        return purchaseOrderService.addPurchaseOrder(purchaseOrder);
+        return purchaseOrderService.addPurchaseOrder(purchaseOrder);*/
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
+    	returnResult.setMsg("数据到了后台...");
+    	System.out.println(">>>>>>>>>>>>>>>>>>>>>>数据到了后台："+purchaseOrder.getStorage());
+    	returnResult.setSuccess(true);
+    	for (String id : goodsId) {
+			System.out.println(">>>>>>>>>>>商品id:"+id);
+		}
+    	return returnResult;
     }  
     
     //修改订购合同
