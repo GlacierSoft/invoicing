@@ -273,8 +273,6 @@ public class WarehouseService {
 			returnResult.setSuccess(false);
 			return returnResult;
 		}
-		warehouse.setCreater(pricipalUser.getUserCnName());
-		warehouse.setCreateTime(new Date());
 		warehouse.setUpdater(pricipalUser.getUserCnName());
 		warehouse.setUpdateTime(new Date());
 		count = warehouseMapper.updateByPrimaryKeySelective(warehouse);

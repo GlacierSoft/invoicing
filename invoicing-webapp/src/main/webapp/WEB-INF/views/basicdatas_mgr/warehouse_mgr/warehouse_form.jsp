@@ -120,11 +120,10 @@
 		    				    panelHeight : 'auto',
 		    				    editable:false 
 		    			   });
-		    			   if($.parseJSON(date).length==0){
-		    				   $("#warehouseManager").combobox('setValue', '');
+		    			   if($.parseJSON(date).length>0){
+				    		   $("#warehouseManager").combobox('select', $.parseJSON(date)[0].id);
 						   }else{
-							   if(str==null||str=="")
-							        $("#warehouseManager").combobox('select', $.parseJSON(date)[0].id);
+							   $("#warehouseManager").combobox('setValue', '');
 						   }
 		    			}
 		    	});

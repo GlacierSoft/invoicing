@@ -37,8 +37,6 @@
 				   <tr>
 				        <td >包装单位：</td>
 						<td><input class="easyui-validatebox spinner" name="bulkUnit"  style="width:168px" value="${goodsListDate.bulkUnit}" required="true"/></td>
-					    <td style="padding-left:10px;">货物摘要：</td>
-						<td><input id="remark" name="remark" class="easyui-validatebox spinner" style="width:168px" value="${goodsListDate.remark }" /></td>
 					</tr>
 					<tr>
 						<td>备 注：</td>

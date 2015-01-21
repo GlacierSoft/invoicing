@@ -137,6 +137,11 @@ public class GoodsListService {
 			return returnResult;
 		}
 		goodsList.setGoodsId(RandomGUID.getRandomGUID());
+		goodsList.setGoodsCode("GD_"+(int)(Math.random()*9000+1000));
+		goodsList.setAuditor("超级管理员");
+		goodsList.setAuditState("pass");
+		goodsList.setAuditTime(new Date());
+		goodsList.setEnabled("enable");
 		goodsList.setCreater(pricipalUser.getUserCnName());
 		goodsList.setCreateTime(new Date());
 		goodsList.setUpdater(pricipalUser.getUserCnName());
@@ -166,8 +171,6 @@ public class GoodsListService {
 		User pricipalUser = (User) pricipalSubject.getPrincipal();
 		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
 		int count = 0;
-		goodsList.setCreater(pricipalUser.getUserCnName());
-		goodsList.setCreateTime(new Date());
 		goodsList.setUpdater(pricipalUser.getUserCnName());
 		goodsList.setUpdateTime(new Date());
 		count = goodsListMapper.updateByPrimaryKeySelective(goodsList);
