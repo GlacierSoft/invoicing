@@ -33,7 +33,7 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 				
 				        <td style="padding-left:10px;">合同编号：</td>
 						<td>
-							<input id="contractCode" name="contractCode" class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseOrderData.contractCode }"   />
+							<input id="contractCode" name="contractCode"  class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseOrderData.contractCode }"   />
 						</td> 
 					   <td style="padding-left:10px;">仓库：</td>
 					  	<td ><input id="purchaseOrder_mgr_purchaseOrder_form_storage" name="storage" value="${purchaseDate.storageName}" /></td>
@@ -142,11 +142,52 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 </div> 
   </form> 
 <script type="text/javascript"> 
-/* $('#goodsList').datagrid({
-	toolbar: '#tb'
-}); */ 
-var editRow = undefined;
- 
+
+//自定义combogrid
+$.extend($.fn.datagrid.defaults.editors, {
+	 
+	    combogrid: {
+	 
+	        init: function(container, options){
+	 
+	            var input = $('<input type="text" class="datagrid-editable-input">').appendTo(container);
+	 
+	            input.combogrid(options);
+	 
+	            return input;
+	 
+	        },
+	 
+	        destroy: function(target){
+	 
+	            $(target).combogrid('destroy');
+	 
+	        },
+	 
+	        getValue: function(target){
+	 
+	            return $(target).combogrid('getValue');
+	 
+	        },
+	 
+	        setValue: function(target, value){
+	 
+	            $(target).combogrid('setValue', value);
+	 
+	        },
+	 
+	        resize: function(target, width){
+	 
+	            $(target).combogrid('resize',width);
+	 
+	        } 
+	    }
+	 
+	}); 
+//------------------分割线-------------------------- 
+var $dg = $('#goodsList');
+
+
  //货品详情添加行
 $('#goodsList').datagrid({  
 	fit : false,//控件自动resize占满窗口大小
@@ -155,32 +196,30 @@ $('#goodsList').datagrid({
 	fitColumns : true,//自动填充行
 	nowrap : true,//禁止单元格中的文字自动换行
 	autoRowHeight : false,//禁止设置自动行高以适应内容
-	striped : true,//true就是把行条纹化。（即奇偶行使用不同背景色）
+	striped : false,//true就是把行条纹化。（即奇偶行使用不同背景色）
 	singleSelect : true,//限制单选
-	checkOnSelect : false,//选择复选框的时候选择该行
-	selectOnCheck : true,//选择的时候复选框打勾 
+	checkOnSelect : true,//选择复选框的时候选择该行
+	selectOnCheck : false,//选择的时候复选框打勾 
     //url: ctx + '/do/purchaseOrder/orderDetail.json',   
-	sortName : 'goodsCode',//排序字段名称
-	sortOrder : 'DESC',//升序还是降序
-	remoteSort : true,//开启远程排序，默认为false
 	idField : 'purOrderDetId', 
     columns:[[    
-      {field :'purOrderDetId', title : 'ID', checkbox : true}, 
+     /*  {field :'purOrderDetId', title : 'ID', checkbox : true},  */
       {field:'goodsCode',title:'货品编码',width:200, 
     	  editor:{
-				type:'combogrid', 
+				type:'combogrid', //combobox
 				width:200,
+				required : true, 
 				options:{
-					panelWidth:570,  
+					panelWidth:770,  
 					border:true,//是否存在边框
-					fitColumns:true,//自动填充行
+					//fitColumns:true,//自动填充行
 					nowrap: true,//禁止单元格中的文字自动换行
 					autoRowHeight: false,//禁止设置自动行高以适应内容
 					striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
 					singleSelect:true,//限制单选
 					selectOnCheck:false,//选择的时候复选框打勾
 				    idField:'goodsId',    
-				    textField:'goodsName',     
+				    textField:'goodsCode',     
 					url : ctx + '/do/goodsList/list.json',
 					sortName : 'createTime',//排序字段名称
 					sortOrder : 'DESC',//升序还是降序 
@@ -191,90 +230,135 @@ $('#goodsList').datagrid({
 					}, {
 						field : 'goodsCode',
 						title : '货物编码',
-						width : 120,
+						width : 100,
 						sortable : true
 					},{
 						field : 'goodsName',
 						title : '货物名称',
 						sortable : true,
-						width : 120
+						width : 100
 					},{
-						field : 'enabled',
-						title : '状态',
-						width : 120,
+						field : 'goodsCategoryId',
+						title : '商品类别',
 						sortable : true,
-						formatter : function(value, row, index) {
-							return renderGridValue(value, fields.status);
-						}
+						width : 100
 					},{
-						field : 'creater',
-						title : '创建人',
+						field : 'specification',
+						title : '规格型号',
 						sortable : true,
-						width : 120
+						width : 100
 					},{
-						field : 'createTime',
-						title : '创建时间',
+						field : 'unit',
+						title : '单位',
 						sortable : true,
-						width : 200
+						width : 100  
 					},{
-						field : 'updater',
-						title : '更新人',
+						field : 'referenceCost',
+						title : '成本价',
 						sortable : true,
-						width : 120
+						width : 100 ,
+						hidden:true
+					},{
+						field : 'taxRate',
+						title : '税率',
+						sortable : true,
+						width : 100,
+						hidden:true
 					}, {
-						field : 'updateTime',
-						title : '更新时间',
+						field : 'brands',
+						title : '品牌',
 						sortable : true,
-						width : 200
+						width :100 
 					},{
-						field : 'remark',
-						title : '备注',
-						sortable : true
-					} ] ],
+						field : 'origin',
+						title : '产地',
+						sortable : true,
+						width : 100 
+					}  
+					] ],
 						pagination : true,//True 就会在 datagrid 的底部显示分页栏
 						pageSize : 10,//注意，pageSize必须在pageList存在
 						pageList : [2,10,50,100],//从session中获取
 						rownumbers : true,//True 就会显示行号的列
-						onClickRow : function(rows) {  
-							$('#goodsList').datagrid('reloadFooter',[
-							                              	{name: 'goodsName', salary: "ss"} 
-							                              ]);
+					    onClickRow : function(rows) {  
+					    	
+						alert(">>>>选中的值："+ $(this).datagrid("getSelected").brands);
+						
+						var row = $('#goodsList').datagrid('getSelected');
+						  //row[0]['']='';
+						
+						var rindex = $('#goodsList').datagrid('getRowIndex', row); 
+						 
+						//设置品牌
+ 						var ed = $('#goodsList').datagrid('getEditor', {index:rindex,field:'brand'}); 
+						$(ed.target).val($(this).datagrid("getSelected").brands);
+						$(ed.target).attr("readonly","readonly"); 
+						
+						//设置税率
+ 						var ed = $('#goodsList').datagrid('getEditor', {index:rindex,field:'cess'}); 
+						$(ed.target).val($(this).datagrid("getSelected").taxRate);
+						$(ed.target).attr("readonly","readonly"); 
+						
+						
+						//设置原价
+ 						var ed = $('#goodsList').datagrid('getEditor', {index:rindex,field:'primeCost'}); 
+						$(ed.target).val($(this).datagrid("getSelected").referenceCost);
+						$(ed.target).attr("readonly","readonly"); 
+						
+						//设置产地
+ 						var ed = $('#goodsList').datagrid('getEditor', {index:rindex,field:'placeOfOrigin'}); 
+						$(ed.target).val($(this).datagrid("getSelected").origin);
+						$(ed.target).attr("readonly","readonly"); 
+						
+						//设置规格型号
+ 						var ed = $('#goodsList').datagrid('getEditor', {index:rindex,field:'goodsModel'}); 
+						$(ed.target).val($(this).datagrid("getSelected").specification);
+						$(ed.target).attr("readonly","readonly"); 
+						
+						//设置名称
+ 						var ed = $('#goodsList').datagrid('getEditor', {index:rindex,field:'goodsName'}); 
+						$(ed.target).val($(this).datagrid("getSelected").goodsName);
+						$(ed.target).attr("readonly","readonly"); 
+						
+						//设置单价
+ 						var ed = $('#goodsList').datagrid('getEditor', {index:rindex,field:'price'}); 
+						$(ed.target).val($(this).datagrid("getSelected").referenceCost);   
+								 
+						//设置单价
+ 						var ed = $('#goodsList').datagrid('updateRow', {index:rindex,field:'goodsName'}); 
+						$(ed.target).val($(this).datagrid("getSelected").referenceCost);   
+ 							/* var productname = $(ed.target).combobox('getText');
+							   alert("<<<"+productname);
 
-						alert($(this).datagrid('getColumnOption','goodsName'));
-						var	row =getRowIndex(this); 
-						   $('#goodsList').datagrid('getEditor', { index: 2, field: 'goodsName' }).target.val("----");
-							/* var  = $('#').datagrid("getChecked");
-							var tr = $(target).closest('tr.datagrid-row'); 
-							$("#supplierAdd").attr("value",$(this).datagrid("getSelected").adress); 
-							$("#phone").attr("value",$(this).datagrid("getSelected").companyPhone); */
-							
-						},
+							   $('#goodsList').datagrid('getRows')[rindex]['brand'] = productname; */
+							   
+					},
 					loadMsg : '数据加载中....',  
-				}
+				},
+				
 			} 
       
       },   
-      {field:'goodsName',title:'名称',width:100},    
-      {field:'goodsModel',title:'规格型号',width:100},   
-      {field:'brand',title:'品牌',width:100},  
-      {field:'placeOfOrigin',title:'产地',width:100}, 
-      {field:'primeCost',title:'原价',width:100},   
-      {field:'discount',title:'折扣率',width:100,editor: { type: 'numberbox', options: { required: true } } },
-      {field:'cess',title:'税率',width:100}, 
-      {field:'deadline',title:'交货期限',width:100},
-      {field:'price',title:'单价',width:100,editor: { type: 'numberbox', options: { required: true } } },    
-      {field:'quantity',title:'数量',width:100,editor: { type: 'numberbox', options: { required: true } } }, 
-      {field:'money',title:'金额',width:100},  
-      {field:'deadline',title:'交货期限',width:100,editor: { type: 'datebox', options: { required: true } } },
-      {field:'remark',title:'备注',width:100},
+      {field:'goodsName',title:'名称',width:100,editor: {
+    	   type: 'validatebox',  
+      }},    
+      {field:'goodsModel',title:'规格型号',width:100,editor: { type: 'validatebox'  }},   
+      {field:'brand',title:'品牌',width:100,editor: { type: 'validatebox'  } },  
+      {field:'placeOfOrigin',title:'产地',width:100,editor: { type: 'validatebox'  }}, 
+      {field:'primeCost',title:'原价',width:100,editor: { type: 'validatebox'  }},   
+      {field:'discount',title:'折扣率',width:100,editor: { type: 'numberbox'} },
+      {field:'cess',title:'税率',width:100,editor: { type: 'validatebox'  }}, 
+      {field:'deadline',title:'交货期限',width:100,editor: { type: 'validatebox'  }},
+      {field:'price',title:'单价',width:100,editor: { type: 'numberbox'} },    
+      {field:'quantity',title:'数量',width:100,editor: { type: 'numberbox'} }, 
+      {field:'money',title:'金额',width:100,editor: { type: 'validatebox'  }},  
+      {field:'deadline',title:'交货期限',width:100,editor: { type: 'datebox'  } },
+      {field:'remark',title:'备注',width:100,editor: { type: 'validatebox'  }},
       {field:'s',title:'操作',width:100,
-    	  formatter:function(value,row,index){
-    		  
-    		var e = '<a href="javascript:void(0)" onclick="editrow(this)">修改</a> ';
+    	  formatter:function(value,row,index){ 
 			var d = '<a href="javascript:void(0)" onclick="deleterow(this)">删除</a>';
-			return e+d; 
-			} 
-    /*   editor: { type: 'text', options: { required: true } }  */}, 
+			return d; 
+			}  }, 
       ]],
       toolbar: [{
       text: '添加行', iconCls: 'icon-add', handler: function () { 
@@ -297,70 +381,37 @@ $('#goodsList').datagrid({
         	});
     		
         }
-      }], 
-	pagination : true,//True 就会在 datagrid 的底部显示分页栏
-	pcarrierCarTypeSize : 10,//注意，pcarrierCarTypeSize必须在pcarrierCarTypeList存在
-	pcarrierCarTypeList : [ 2, 10, 50, 100 ],//从session中获取
-	rownumbers : true,//True 就会显示行号的列
-	 onBeforeEdit:function(index,row){  
-	        row.editing = true;  
-	        $('#goodsList').datagrid('refreshRow', index);  
-	    },  
-	    onAfterEdit:function(index,row){  
-	        row.editing = false;  
-	        $('#goodsList').datagrid('refreshRow', index);  
-	    },  
-	    onCancelEdit:function(index,row){  
-	        row.editing = false;  
-	        $('#goodsList').datagrid('refreshRow', index);  
-	    } ,
-        onAfterEdit: function (rowIndex, rowData, changes) {
-            editRow = undefined;
-        },
-        onDblClickRow:function (rowIndex, rowData) {
-            if (editRow != undefined) {
-                $("#goodsList").datagrid('endEdit', editRow);
-            }
- 
-            if (editRow == undefined) {
-                $("#goodsList").datagrid('beginEdit', rowIndex);
-                editRow = rowIndex;
-            }
-        },
-        onClickRow:function(rowIndex,rowData){
-        	
-            if (editRow != undefined) {
-                $("#goodsList").datagrid('endEdit', editRow);
- 
-            }
-            
-        } 
+      }],  
+      onClickRow:function(index,field,value){alert("腻害");},
+    onClickCell:function(index,field,value){
+    	alert("点击单元格");
+    	$(this).datagrid('selectRow', index);
+    	
+		/* $(this).datagrid('beginEdit', index);
+		var ed = $(this).datagrid('getEditor', {index:index,field:field});
+		$(ed.target).focus(); */
+	},
+
+	rownumbers : true, 
 });   
- 
-/*  
- function getGoods(){
-	 var tr = $(target).closest('tr.datagrid-row'); 
-	 $('#goodsList').datagrid('beginEdit', rowIndex);
-     //$.each(rowData, function(k, v) { alert(k+":"+v); });
-     $("input.datagrid-editable-input").eq(0).focus(function() { alert('hello'+rowIndex); });
- } */
+   
  
   //添加行
 function insert(){
-	var row = $('#goodsList').datagrid('getSelected');
+    var row = $('#goodsList').datagrid('getSelected'); 
 	if (row){
 		var index = $('#goodsList').datagrid('getRowIndex', row);
 	} else {
 		index = 0;
-	}
-	$('#goodsList').datagrid('insertRow', {
+	}   
+	$dg.datagrid( 'insertRow', {
 		index: index,
-		row:{
-			 
+		row: { 
 		}
+
 	});
-	$('#goodsList').datagrid('selectRow',index);
-	$('#goodsList').datagrid('beginEdit',index);
+  	$('#goodsList').datagrid('selectRow',index);
+	$('#goodsList').datagrid('beginEdit',index);  
 }
 
  //删除行
@@ -378,6 +429,9 @@ function getRowIndex(target){
 	return parseInt(tr.attr('datagrid-row-index'));
 }
 
+
+
+//-------------------------------分割线-------以完善------------
  
 //初始化采购类型下拉项
 $("#purchaseOrder_mgr_purchaseOrder_form_purchaseTypeId").combobox({

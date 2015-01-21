@@ -80,6 +80,13 @@ public class PurchaseOrderController extends AbstractController{
         ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/purchaseOrder");
         return mav;
     }
+    
+    //进入货品展示页面
+    @RequestMapping(value = "/goodsIndex.htm")
+    private Object goodsIndex() {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/goods");
+        return mav;
+    }
      
     //获取表格结构的所有订购合同数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
