@@ -136,8 +136,11 @@ public class GoodsListService {
 			returnResult.setSuccess(false);
 			return returnResult;
 		}
+		//随机编码
+		int numb=(int)(Math.random()*9000+1000);
 		goodsList.setGoodsId(RandomGUID.getRandomGUID());
-		goodsList.setGoodsCode("GD_"+(int)(Math.random()*9000+1000));
+		goodsList.setGoodsCode("GD_"+numb);
+		goodsList.setSpecification("SP_"+numb);
 		goodsList.setAuditor("超级管理员");
 		goodsList.setAuditState("pass");
 		goodsList.setAuditTime(new Date());
