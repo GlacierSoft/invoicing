@@ -178,7 +178,7 @@ public class PurchaseArrivalService {
     			purchaseArrivalDetail.setDepositRate(BigDecimal.valueOf(json.getDouble("depositRate")));
     			purchaseArrivalDetail.setPutstorage(json.getInt("delivery"));
     			purchaseArrivalDetail.setTakestorage(purchaseArrivalDetail.getRejection());
-    			purchaseArrivalDetail.setRemark(json.getString("remarks"));
+    			purchaseArrivalDetail.setRemark(json.getString("remark"));
     			purchaseArrivalDetailMapper.insert(purchaseArrivalDetail);//执行增加操作
     		}
             returnResult.setSuccess(true);
