@@ -191,7 +191,7 @@ glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.param = {
 			</table>
 		</form>
 	</div>
-	<div id="purchaseArrivalPanel" data-options="region:'center',barrival:true,height:100px;">
+	<div id="purchaseArrivalPanel" data-options="region:'center',barrival:true">
 		<table id="purchase_arrival_detail" style="height: 200px;margin-top: 50px;">  
 		</table>
 	</div>

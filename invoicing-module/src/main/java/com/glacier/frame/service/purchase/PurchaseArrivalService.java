@@ -29,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.GoodsListMapper;
+import com.glacier.frame.dao.purchase.PurchaseArrivalDetailMapper;
 import com.glacier.frame.dao.purchase.PurchaseArrivalMapper;
 import com.glacier.frame.dto.query.purchase.PurchaseArrivalQueryDTO;
 import com.glacier.jqueryui.util.JqGridReturn;
@@ -57,6 +58,9 @@ public class PurchaseArrivalService {
 	
 	@Autowired
 	private GoodsListMapper goodsListMapper;
+	
+	@Autowired
+	private PurchaseArrivalDetailMapper purchaseArrivalDetailMapper;
 	
 	/**
      * @Title: listAsGrid 
@@ -121,6 +125,7 @@ public class PurchaseArrivalService {
 			BigDecimal Amount= BigDecimal.valueOf(json.getDouble("money"));//转换成BigDecimal
 			allAmount = allAmount.add(Amount);
 		}
+        System.out.println("-----------------------------------:"+purchaseArrival.getInvoice());
         count = purchaseArrivalMapper.countByExample(purchaseArrivalExample);
         //采购到货编号格式:表名_年_月_日_分_秒
         SimpleDateFormat formatDate = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
@@ -141,31 +146,41 @@ public class PurchaseArrivalService {
         purchaseArrival.setCreateTime(new Date());
         purchaseArrival.setUpdater(pricipalUser.getUserCnName());
         purchaseArrival.setUpdateTime(new Date());
-        //count = purchaseArrivalMapper.insert(purchaseArrival);
-        //采购到货详情信息增加
-        for (int i = 0; i < array.toArray().length; i++) {//遍历循环
-			JSONObject json = JSONObject.fromObject(array.toArray()[i]);
-			GoodsList goodsList = goodsListMapper.selectByPrimaryKey(json.getString("goodsId"));
-			PurchaseArrivalDetail purchaseArrivalDetail = new PurchaseArrivalDetail();
-			purchaseArrivalDetail.setPurArrivalDetId(RandomGUID.getRandomGUID());
-			purchaseArrivalDetail.setPurArrivalId(purchaseArrival.getPurArrivalId());
-			purchaseArrivalDetail.setGoodsId(goodsList.getGoodsId());
-			purchaseArrivalDetail.setGoodsCode(goodsList.getGoodsCode());
-			purchaseArrivalDetail.setGoodsName(goodsList.getGoodsName());
-			purchaseArrivalDetail.setGoodsModel(goodsList.getSpecification());
-			purchaseArrivalDetail.setGoodsUnit(goodsList.getUnit());
-			purchaseArrivalDetail.setPrice(BigDecimal.valueOf(json.getDouble("prices")));
-			purchaseArrivalDetail.setGoodsMoney(BigDecimal.valueOf(json.getDouble("money")));
-			//purchaseArrivalDetail.setDeadline(json.get);
-			purchaseArrivalDetail.setNotReturnNum(json.getInt("arrival"));
-			purchaseArrivalDetail.setAlrReturnNum(0);
-			purchaseArrivalDetail.setAlrPayNum(0);
-			purchaseArrivalDetail.setNotPayNum(json.getInt("arrival"));
-			purchaseArrivalDetail.setNotInvNum(0);
-			purchaseArrivalDetail.setAlrInvNum(json.getInt("arrival"));
-			purchaseArrivalDetail.setArrival(json.getInt("arrival"));
-		}
+        count = purchaseArrivalMapper.insert(purchaseArrival);
         if (count == 1) {
+        	//采购到货详情信息增加
+            for (int i = 0; i < array.toArray().length; i++) {//遍历循环
+    			JSONObject json = JSONObject.fromObject(array.toArray()[i]);
+    			GoodsList goodsList = goodsListMapper.selectByPrimaryKey(json.getString("goodsId"));
+    			PurchaseArrivalDetail purchaseArrivalDetail = new PurchaseArrivalDetail();
+    			purchaseArrivalDetail.setPurArrivalDetId(RandomGUID.getRandomGUID());
+    			purchaseArrivalDetail.setPurArrivalId(purchaseArrival.getPurArrivalId());
+    			purchaseArrivalDetail.setGoodsId(goodsList.getGoodsId());
+    			purchaseArrivalDetail.setGoodsCode(goodsList.getGoodsCode());
+    			purchaseArrivalDetail.setGoodsName(goodsList.getGoodsName());
+    			purchaseArrivalDetail.setGoodsModel(goodsList.getSpecification());
+    			purchaseArrivalDetail.setGoodsUnit(goodsList.getUnit());
+    			purchaseArrivalDetail.setPrice(BigDecimal.valueOf(json.getDouble("price")));
+    			purchaseArrivalDetail.setGoodsMoney(BigDecimal.valueOf(json.getDouble("money")));
+    			//purchaseArrivalDetail.setDeadline(json.getString("deadline"));
+    			purchaseArrivalDetail.setNotReturnNum(json.getInt("arrival"));
+    			purchaseArrivalDetail.setAlrReturnNum(0);
+    			purchaseArrivalDetail.setAlrPayNum(0);
+    			purchaseArrivalDetail.setNotPayNum(json.getInt("arrival"));
+    			purchaseArrivalDetail.setNotInvNum(0);
+    			purchaseArrivalDetail.setAlrInvNum(json.getInt("arrival"));
+    			purchaseArrivalDetail.setPlaceOfOrigin(json.getString("placeOfOrigin"));
+    			purchaseArrivalDetail.setBatchInformation("batchInformation");
+    			purchaseArrivalDetail.setArrival(json.getInt("arrival"));
+    			purchaseArrivalDetail.setDelivery(json.getInt("delivery"));
+    			purchaseArrivalDetail.setRejection(json.getInt("arrival")-json.getInt("delivery"));
+    			purchaseArrivalDetail.setOriginalCost(BigDecimal.valueOf(json.getDouble("originalCost")));
+    			purchaseArrivalDetail.setDepositRate(BigDecimal.valueOf(json.getDouble("depositRate")));
+    			purchaseArrivalDetail.setPutstorage(json.getInt("delivery"));
+    			purchaseArrivalDetail.setTakestorage(purchaseArrivalDetail.getRejection());
+    			purchaseArrivalDetail.setRemark(json.getString("remarks"));
+    			purchaseArrivalDetailMapper.insert(purchaseArrivalDetail);//执行增加操作
+    		}
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + purchaseArrival.getArrivalCode() + "] 采购到货信息已保存");
         } else {

@@ -89,11 +89,17 @@
 	<td colspan="3"><input id="purchaseArrival_mgr_purchaseArrival_form_paymentAgrId" name="paymentAgrId" value="${purchaseDate.paymentAgrId}" /></td>
 </tr>
 </table>
-<a id="btn" href="#" class="easyui-linkbutton" onclick="addRow();" data-options="iconCls:'icon-search'">增加一行</a>
-<a id="btn" href="#" class="easyui-linkbutton" onclick="cheshi();" data-options="iconCls:'icon-search'">测试</a>
+<div style="margin-top: 25px;">
 	<table id="purchase_arrival_form" style="height: 200px;margin-top: 50px;">  
 	</table>
+	<hr> 
+	<div style= "text-align:center ;margin-top: 30px;margin-bottom: 30px">
+       <a id="save" href="javascript:goSave();" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">保存</a> 
+       <a style="margin-left: 30px" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-undo'">返回</a> 
+    </div>
+</div>
 </form>
+
 <script type="text/javascript">
 
 var storageVal="";//保存仓库ID
@@ -119,26 +125,45 @@ $('#purchase_arrival_form').datagrid({
     columns:[[    
         {field:'goodsCode',title:'货品编码',width:100},    
         {field:'goodsName',title:'货品名称',width:100},
-        {field:'goodsId',title:'货品编号',width:100,hidden:true},    
+        {field:'goodsId',title:'货品编号',width:100,hidden:true},
+        {field:'placeOfOrigin',title:'产地',width:100,hidden:true},
         {field:'goodsModel',title:'规格型号',width:100},   
         {field:'goodsUnit',title:'单位',width:100}, 
-        {field:'price',title:'批次信息',width:100},
+        {field:'batchInformation',title:'批次信息',width:100,editor: { type: 'text' }},
         {field:'arrival',title:'到货数量',width:100,editor: { type: 'numberbox', options: { required: true } } },
         {field:'delivery',title:'收货数量',width:100,editor: { type: 'numberbox', options: { required: true } } },
         {field:'rejection',title:'拒收数量',width:100},
         {field:'originalCost',title:'原价',width:100}, 
         {field:'depositRate',title:'折扣率',width:100,editor: { type: 'numberbox', options: { required: true,precision: 1 } } }, 
-        {field:'prices',title:'单价',width:100,editor: { type: 'numberbox', options: { required: true } } }, 
+        {field:'price',title:'单价',width:100,editor: { type: 'numberbox', options: { required: true,precision: 4 } } }, 
         {field:'money',title:'总金额',width:100,editor: { type: 'numberbox', options: { required: true,precision: 4 } } },
         {field:'cess',title:'税率',width:100,editor: { type: 'numberbox', options: { required: true,precision: 4 } } }, 
         {field:'deadline',title:'交货期限',width:100,editor: { type: 'datebox', options: { required: true } } },
-        {field:'remark',title:'备注',width:100,editor: { type: 'text' }}
-    ]], 
+        {field:'remark',title:'备注',width:100,editor: { type: 'text' } }
+    ]],
+    toolbar: [{
+      text: '添加商品', iconCls: 'icon-standard-pencil-add', handler: function () { 
+      	addRow();
+      }
+    },{
+        text: '删除商品', iconCls: 'icon-standard-pencil-delete', handler: function () {  
+        	$.messager.confirm('提示','确认删除数据?',function(r){
+        		if (r){
+        			var rows = $dg.datagrid("getSelected"); 
+                  var	row=$dg.datagrid('getRowIndex', rows);
+          		$dg.datagrid('deleteRow',row); 
+        		
+        		}
+        	});  
+    		
+        }
+      }],
     onSelect:function(rowIndex, rowData){
     	stRows=rowIndex;
     	goodsDetail(rowIndex,rowData);
     }
 });
+
 //增加行
 function addRow(){
 	storageVal = $('#purchaseArrival_mgr_purchaseArrival_form_storage').combobox('getValue');
@@ -153,8 +178,6 @@ function addRow(){
 		$('#purchase_arrival_form').datagrid('insertRow', {
 			index: index,
 			row:{
-				//填写对应的字段
-				codes:rowsCount.length+1
 			}
 		});
 		$('#purchase_arrival_form').datagrid('selectRow',index);
@@ -165,38 +188,55 @@ function addRow(){
 	}
 }
 
-function cheshi(){
-	/* if($('#purchaseArrival_mgr_purchaseArrival_form').form("validate")){
-		
-	}else{
-		alert(false);
-	} */
-	var rowsCount = $("#purchase_arrival_form").datagrid("getRows"); 
-	for(var i=0;i<rowsCount.length;i++){
-		var moneyTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'money'}).target;
-		$('#purchase_arrival_form').datagrid('updateRow',{
-			index: i,
-			row: {
-				money: moneyTarget.val()
-			}
-		});
-		$('#purchase_arrival_form').datagrid('endEdit', i).datagrid('refreshRow', i);
+//根据编辑框返回行数
+function getRowIndex(target){
+	var tr = $(target).closest('tr.datagrid-row');
+	return parseInt(tr.attr('datagrid-row-index'));
+}
+
+function goSave(){
+	if($('#purchaseArrival_mgr_purchaseArrival_form').form("validate")){//验证判断
+		var rowsCount = $("#purchase_arrival_form").datagrid("getRows"); 
+		for(var i=0;i<rowsCount.length;i++){
+			var moneyTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'money'}).target;
+			var deadlineTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'deadline'}).target;
+			var remarkTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'remark'}).target;
+			var depositRateTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'depositRate'}).target;
+			var arrivalTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'arrival'}).target;
+			var deliveryTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'delivery'}).target;
+			var batchInformationTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'batchInformation'}).target;
+			var cessTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'cess'}).target;
+			var priceTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'price'}).target;
+			$('#purchase_arrival_form').datagrid('updateRow',{
+				index: i,
+				row: {
+					money: moneyTarget.val(),
+					deadline:$(deadlineTarget).datebox('getValue'),
+					remark:remarkTarget.val(),
+					depositRate:depositRateTarget.val(),
+					arrival:arrivalTarget.val(),
+					delivery:deliveryTarget.val(),
+					batchInformation:batchInformationTarget.val(),
+					cess:cessTarget.val(),
+					price:priceTarget.val()
+				}
+			});
+			$('#purchase_arrival_form').datagrid('endEdit', i).datagrid('refreshRow', i);
+		}
 	}
+	//取出datagrid中所有值
 	var rows = $('#purchase_arrival_form').datagrid('getData').rows;
+	//转化为json
 	var json = JSON.stringify(rows);
 	console.log(json);
-	//console.log($("#purchaseArrival_mgr_purchaseArrival_form").serialize());
 	$('#purchaseArrival_mgr_purchaseArrival_form').form('submit', {    
 	    url: ctx + '/do/purchaseArrival/add.json?rows='+json,    
-	    onSubmit: function(){    
-	    	
-	    	
-	    },    
-	    success:function(data){    
-	        //alert(data)    
+	    success:function(data){//增加成功去到查询页面  
+	    	$("#layout_center_panel").panel("setTitle","采购到货").panel('refresh',ctx + '/do/purchaseArrival/index.htm');
 	    }    
 	});
 }
+
 //去到货品目录方法
 function goodsDetail(rowIndex,rowData){
 	$.easyui.showDialog({
@@ -225,30 +265,119 @@ function goodsDetail(rowIndex,rowData){
 			text : '确认',
 			iconCls : 'icon-save',
 			handler : function(dia) {
-				var ed = $('#purchase_arrival_form').datagrid('updateRow', {
+				//确认后赋值
+				$('#purchase_arrival_form').datagrid('updateRow', {
 					index:stRows,
 					row:{
-						goodsCode:setRowData.goodsCode,
-						goodsName:setRowData.goodsName,
-						goodsModel:setRowData.specification,
-						goodsUnit:setRowData.unit,
-						arrival:0,
-						delivery:0,
-						rejection:0,
-						money:0,
-						cess:setRowData.taxRate,
-						depositRate:0,
-						originalCost:0,
-						prices:0,
-						goodsId:setRowData.goodsId
+						goodsCode:setRowData.goodsCode,goodsName:setRowData.goodsName,
+						goodsModel:setRowData.specification,goodsUnit:setRowData.unit,
+						arrival:0,delivery:0,rejection:0,money:0,
+						cess:setRowData.taxRate,depositRate:0,
+						originalCost:0,price:0,
+						goodsId:setRowData.goodsId,placeOfOrigin:setRowData.origin,
+						remark:"",deadline:"",batchInformation:""
 					}
 				});
 				dia.dialog("close"); 
 				$('#purchase_arrival_form').datagrid('endEdit', stRows).datagrid('refreshRow', stRows).datagrid('beginEdit', stRows);
+				var deliveryTarget = $("#purchase_arrival_form").datagrid('getEditor', {index:stRows,field:'delivery'}).target;
+				var priceTarget = $("#purchase_arrival_form").datagrid('getEditor', {index:stRows,field:'price'}).target;
+				var moneyTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:stRows,field:'money'}).target;
+				//绑定事件
+				$(deliveryTarget).bind("blur",function(){
+					deliverysBlur(this);
+				});
+				$(priceTarget).bind("blur",function(){
+					priceBlur(this);
+				});
+				$(moneyTarget).bind("blur",function(){
+					moneyBlur(this);
+				});
 			}
 		}]
 	});
 };
+
+//收货数量编辑框绑定事件
+function deliverysBlur(obj){
+	var indexRows = getRowIndex(obj);
+	//-------------------------------取编辑框对象------------------------------
+	var priceTarget = $("#purchase_arrival_form").datagrid('getEditor', {index:indexRows,field:'price'}).target;
+	var deliveryTarget = $("#purchase_arrival_form").datagrid('getEditor', {index:indexRows,field:'delivery'}).target;
+	var moneyTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'money'}).target;
+	var arrivalTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'arrival'}).target;
+	var deadlineTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'deadline'}).target;
+	var remarkTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'remark'}).target;
+	var depositRateTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'depositRate'}).target;
+	var batchInformationTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'batchInformation'}).target;
+	var cessTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'cess'}).target;
+	//-----------------------------------自定义变量-----------------------------------
+	var arrival = parseInt(arrivalTarget.val());
+	var delivery = parseInt(deliveryTarget.val());
+	var price = parseFloat(priceTarget.val());
+	var money = parseFloat(moneyTarget.val());
+	if(delivery > 0 && price > 0){
+		moneyTarget.val(delivery*price);
+	}
+	if(delivery > 0){//填写收货数量失去焦点拒收数量改变
+		if(money > 0){//当客户输入总金额是再输入收货数量自动计算出单价
+			priceTarget.val(money/delivery);
+		}
+		$('#purchase_arrival_form').datagrid('updateRow', {
+			index:indexRows,
+			row:{
+				rejection:arrival-delivery,
+				arrival:arrival,delivery:delivery,money:moneyTarget.val(),
+				cess:cessTarget.val(),depositRate:depositRateTarget.val(),
+				price:priceTarget.val(),remark:"",deadline:$(deadlineTarget).datebox('getValue'),
+				batchInformation:batchInformationTarget.val()
+			}
+		});
+		$('#purchase_arrival_form').datagrid('endEdit', indexRows).datagrid('refreshRow', indexRows).datagrid('beginEdit', indexRows);
+		//绑定事件-再次绑定
+		var deliverysTarget = $("#purchase_arrival_form").datagrid('getEditor', {index:indexRows,field:'delivery'}).target;
+		var pricesTarget = $("#purchase_arrival_form").datagrid('getEditor', {index:indexRows,field:'price'}).target;
+		var moneysTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'money'}).target;
+		$(deliverysTarget).bind("blur",function(){
+			deliverysBlur(this);
+		});
+		$(pricesTarget).bind("blur",function(){
+			priceBlur(this);
+		});
+		$(moneysTarget).bind("blur",function(){
+			moneyBlur(this);
+		});
+	}
+}
+
+//总金额编辑框失去焦点绑定事件
+function moneyBlur(obj){
+	var indexRows = getRowIndex(obj);
+	//-------------------------------取编辑框对象------------------------------
+	var priceTarget = $("#purchase_arrival_form").datagrid('getEditor', {index:indexRows,field:'price'}).target;
+	var deliveryTarget = $("#purchase_arrival_form").datagrid('getEditor', {index:indexRows,field:'delivery'}).target;
+	var moneyTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'money'}).target;
+	var delivery = parseInt(deliveryTarget.val());
+	var price = parseFloat(priceTarget.val());
+	var money = parseFloat(moneyTarget.val());
+	if(delivery > 0){
+		priceTarget.val(money/delivery);
+	}
+}
+
+//单价编辑框失去焦点绑定事件
+function priceBlur(obj){
+	var indexRows = getRowIndex(obj);
+	//-------------------------------取编辑框对象------------------------------
+	var priceTarget = $("#purchase_arrival_form").datagrid('getEditor', {index:indexRows,field:'price'}).target;
+	var deliveryTarget = $("#purchase_arrival_form").datagrid('getEditor', {index:indexRows,field:'delivery'}).target;
+	var moneyTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'money'}).target;
+	var delivery = parseInt(deliveryTarget.val());
+	var price = parseFloat(priceTarget.val());
+	if(price > 0 && delivery > 0){
+		moneyTarget.val(delivery*price);
+	}
+}
 
 //初始化采购类型下拉项
 $("#purchaseArrival_mgr_purchaseArrival_form_purchaseTypeId").combobox({
