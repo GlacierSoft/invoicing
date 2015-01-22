@@ -19,32 +19,33 @@
  */
 package com.glacier.frame.web.controller.purchase;
 
-import java.util.List;
-
+import java.util.ArrayList;
+import java.util.List; 
 import javax.validation.Valid;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject; 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.BindingResult; 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.servlet.ModelAndView; 
 import com.glacier.core.controller.AbstractController; 
 import com.glacier.frame.dto.query.purchase.PurchaseOrderDetailQueryDTO;
 import com.glacier.frame.dto.query.purchase.PurchaseOrderQueryDTO;
 import com.glacier.frame.entity.purchase.PurchaseOrder;
+import com.glacier.frame.entity.purchase.PurchaseOrderDetail;
 import com.glacier.frame.service.basicdatas.ParComDeliverTypeService;
 import com.glacier.frame.service.basicdatas.ParComPaymentTypeService;
 import com.glacier.frame.service.basicdatas.ParPurchaseTypeService;
 import com.glacier.frame.service.basicdatas.WarehouseService;
 import com.glacier.frame.service.purchase.PurchaseOrderDetailService;
 import com.glacier.frame.service.purchase.PurchaseOrderService;
-import com.glacier.jqueryui.util.JqPager;
-import com.glacier.jqueryui.util.JqReturnJson;
+import com.glacier.jqueryui.util.JqPager; 
 
 /**
  * @ClassName:  PurchaseOrderController
@@ -107,7 +108,7 @@ public class PurchaseOrderController extends AbstractController{
     //进入表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object inForme(String purOrderId) {
-        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/form");
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/purchaseOrder_form");
         if(StringUtils.isNotBlank(purOrderId)){
             mav.addObject("purchaseOrderData", purchaseOrderService.getPurchaseOrder(purOrderId));
         } 
@@ -132,19 +133,15 @@ public class PurchaseOrderController extends AbstractController{
     //新增订购合同
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addPurchaseOrder(@Valid PurchaseOrder purchaseOrder,@RequestParam List<String> goodsId, BindingResult bindingResult) {
-        /*if (bindingResult.hasErrors()) {// 后台校验的错误信息
-            return returnErrorBindingResult(bindingResult);
-        }
-        return purchaseOrderService.addPurchaseOrder(purchaseOrder);*/
-    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
-    	returnResult.setMsg("数据到了后台...");
-    	System.out.println(">>>>>>>>>>>>>>>>>>>>>>数据到了后台："+purchaseOrder.getStorage());
-    	returnResult.setSuccess(true);
-    	for (String id : goodsId) {
-			System.out.println(">>>>>>>>>>>商品id:"+id);
-		}
-    	return returnResult;
+    private Object addPurchaseOrder(PurchaseOrder purchaseOrder,String data) { 
+    	JSONArray array = JSONArray.fromObject(data); 
+    	List<PurchaseOrderDetail> list=new ArrayList<PurchaseOrderDetail>();
+    	for (int i = 0; i < array.toArray().length; i++) {//遍历循环
+		   JSONObject json = JSONObject.fromObject(array.toArray()[i]);
+		   PurchaseOrderDetail resourceBean = (PurchaseOrderDetail) JSONObject.toBean(json,PurchaseOrderDetail.class);
+		   list.add(resourceBean); 
+		}   
+     	return purchaseOrderService.addPurchaseOrder(purchaseOrder,list);
     }  
     
     //修改订购合同

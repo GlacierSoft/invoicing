@@ -19,6 +19,7 @@
  */
 package com.glacier.frame.service.purchase;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -34,8 +35,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID; 
 import com.glacier.frame.dao.purchase.PurchaseOrderMapper;
+import com.glacier.frame.dao.purchase.PurchaseOrderDetailMapper;
 import com.glacier.frame.dto.query.purchase.PurchaseOrderQueryDTO;
 import com.glacier.frame.entity.purchase.PurchaseOrder;
+import com.glacier.frame.entity.purchase.PurchaseOrderDetail;
 import com.glacier.frame.entity.purchase.PurchaseOrderExample;
 import com.glacier.frame.entity.purchase.PurchaseOrderExample.Criteria;
 import com.glacier.frame.entity.system.User;
@@ -59,6 +62,8 @@ public class PurchaseOrderService {
 	@Autowired
     private PurchaseOrderMapper chaseOrderMapper;
 	 
+	@Autowired
+    private PurchaseOrderDetailMapper chaseOrderDetailMapper;
 	 /***
 	  * @Title: getPurchaseOrder  
 	  * @Description: TODO(根据id获取采购订购合同)  
@@ -110,21 +115,51 @@ public class PurchaseOrderService {
       */
     @Transactional(readOnly = false)
     @MethodLog(opera = "PurchaseOrderList_add")
-    public Object addPurchaseOrder(PurchaseOrder purchaseOrder) {
+    public Object addPurchaseOrder(PurchaseOrder purchaseOrder,List<PurchaseOrderDetail> list) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
         int count = 0; 
         SimpleDateFormat sf=new SimpleDateFormat("dd-hh-ss");
-        purchaseOrder.setSupplierId(RandomGUID.getRandomGUID()); 
-        purchaseOrder.setOrderCode("CGDD-"+sf.format(new Date()));
+        purchaseOrder.setPurOrderId(RandomGUID.getRandomGUID()); 
+        if(purchaseOrder.getInvoice().equals("启用")){
+        	purchaseOrder.setInvoice("yes");
+        }else{
+        	purchaseOrder.setInvoice("no");
+        } 
+        purchaseOrder.setOrderCode("CGDD-"+sf.format(new Date()));//采购订单编号
+        purchaseOrder.setOrderState("exeIng");//合同状态，默认执行中
+        purchaseOrder.setArrState("noneArr");//到货状态，默认未到货
+        purchaseOrder.setPayState("nonePay");//付款状态，默认未付款
+        purchaseOrder.setNotArrAmo(new BigDecimal(0));//未到货金额
+        purchaseOrder.setAlrArrAmo(new BigDecimal(0));//已到货金额
+        purchaseOrder.setNotPayAmo(purchaseOrder.getTotalAmount());//未付款金额
+        purchaseOrder.setAlrPayAmo(new BigDecimal(0));//已付款金额
+        purchaseOrder.setNotInvAmo(new BigDecimal(0));//未开发票金额
+        purchaseOrder.setAlrInvAmo(new BigDecimal(0));//已开发票金额
         purchaseOrder.setAuditState("authstr");
         purchaseOrder.setEnabled("enable");
         purchaseOrder.setCreater(pricipalUser.getUserCnName());
         purchaseOrder.setCreateTime(new Date());
         purchaseOrder.setUpdater(pricipalUser.getUserCnName());
         purchaseOrder.setUpdateTime(new Date());
-        count = chaseOrderMapper.insert(purchaseOrder);
+        count = chaseOrderMapper.insert(purchaseOrder); 
+        //添加合同明细
+        for (PurchaseOrderDetail detail : list) {
+        	detail.setPurOrderDetId(RandomGUID.getRandomGUID());
+        	detail.setPurOrderId(purchaseOrder.getPurOrderId());//订购合同id
+        	detail.setNotArrNum(0);//未到货数量
+        	detail.setAlrArrNum(0);//已到货数量
+        	detail.setNotPayNum(0);//未付款数量
+        	detail.setAlrPayNum(0);//已付款数量
+        	detail.setNotInvNum(0);//未开票数量
+        	detail.setAlrInvNum(0);//已开票数量
+        	detail.setNotTerNum(0);//未终止数量
+        	detail.setAlrTerNum(0);//已终止数量
+        	detail.setNotTerMoney(new BigDecimal(0));//未终止金额
+        	detail.setAlrTerMoney(new BigDecimal(0));//已终止金额
+        	chaseOrderDetailMapper.insert(detail);
+		}
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("信息已保存");

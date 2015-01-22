@@ -19,7 +19,7 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
  };
 </script> 
 <form id="purchase_mgr_purchaseOrder_form" method="post" >
- <table  class="formtable"> 
+ <table  class="formtable" > 
  <glacierui:toolbar panelEnName="PurchaseOrderList"
 				toolbarId="purchaseOrderDataGrid_toolbar" menuEnName="purchaseOrder" />
  <caption style="height:50px;color: blue;"><font size="4" style="padding-top: 30px;">新增采购订货合同</font></caption>
@@ -44,7 +44,7 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 						   <input name="deliveryDadlines"  required="true" class="easyui-datetimebox" style="width:168px;height:20px"  value="<fmt:formatDate value="${purchaseOrderData.deliveryDadlines}" pattern="yyyy-MM-dd"/>" /> 
 					 	<td style="padding-left:10px;">供应商：</td>
 						<td >
-					 	<input id="suppliers_mgr_suppliers_form_supplierType" value="${purchaseOrderData.suppliersName}" style="width: 168px;height:20px" name="suppliersName"  class="easyui-combogrid"  />
+					 	<input id="suppliers_mgr_suppliers_form_supplierType" value="${purchaseOrderData.suppliersName}" style="width: 168px;height:20px" name="supplierId"  class="easyui-combogrid"  />
 						</td>
 						<td style="padding-left:10px;">供应商地址：</td>
 						<td><input id="supplierAdd" class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseOrderData.supplierAdd}"  /></td>
@@ -113,7 +113,7 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 				       	<input id="suppliers_mgr_suppliers_form_operators" value="${purchaseOrderData.operators}" style="width: 168px;height:20px" name="operators"  class="easyui-combogrid"  />
 					   </td>
 				      <td style="padding-left:10px;">经办部门：</td>
-					  <td><input id="operatorDep" class="easyui-validatebox spinner" style="width:168px;height:20px;border-left-style: none;border-right-style: none;border-top-style: none;"  value="${purchaseOrderData.operatorDep}"  /></td>
+					  <td><input id="operatorDep" class="easyui-validatebox spinner" readonly="readonly" style="width:168px;height:20px;border-left-style: none;border-right-style: none;border-top-style: none;"  value="${purchaseOrderData.operatorDep}"  /></td>
 				       <td style="padding-left:10px;">附件：</td> 
 				       <td style="padding-left:10px;"><input type="button" name="accessory" value="上传"></td>
 				     </tr>
@@ -122,29 +122,26 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 						<td colspan="7"> <textarea   name="remark" class="easyui-validatebox spinner"style="width:920px;height: 50px"   >${purchaseOrderData.remark}</textarea></td>
 					 </tr>  
 	              </table> 
-	     <hr> 
-	      <div style="margin-left: 410px">
-	         <font size="3" style="margin-top: 30px"><b>货品详情</b></font> 
-	      </div> 
-	      <hr>      
-	      
-
-     <!-- 所有列表面板和表格 -->
-<div class="easyui-layout" data-options="fit:true" > 
-<!-- 	<div id="tb">
-<a href="#" onclick="add()" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">添加行</a> 
-<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-help',plain:true">批量添加</a>
-</div> -->
-	<div id="purchaseOrderPanel" data-options="region:'center',border:true">
-		<table id="goodsList" >  
-		</table>
-	</div>
-</div> 
-  </form> 
-<script type="text/javascript"> 
-
+			     <hr> 
+			      <div style="text-align: center;">
+			         <font size="3" style="margin-top: 30px"><b>货品详情</b></font> 
+			      </div> 
+			      <hr>       
+</form> 
+			     <!-- 所有列表面板和表格 -->  
+				<div id="purchaseOrderPanel" data-options="region:'center',border:true">
+					<table id="goodsList" style="margin-bottom: 50px">  
+					</table>
+					<hr> 
+					<div style= "text-align:center ;margin-top: 30px;margin-bottom: 30px">
+				        <a id="saveOk" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">保存</a> 
+				        <a style="margin-left: 30px" id="unbo" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-undo'">关闭</a> 
+				      </div> 
+				</div>  
+  
+<script type="text/javascript">  
 //自定义combogrid
-$.extend($.fn.datagrid.defaults.editors, {
+/* $.extend($.fn.datagrid.defaults.editors, {
 	 
 	    combogrid: {
 	 
@@ -183,236 +180,166 @@ $.extend($.fn.datagrid.defaults.editors, {
 	        } 
 	    }
 	 
-	}); 
+	});  */
 //------------------分割线-------------------------- 
-var $dg = $('#goodsList');
+var $dg = $("#goodsList");
 
+var storageVal="";//保存仓库ID
+var stRows="";//保存行数
+var divs = "";//保存goodsDetail中的dialog节点
+var setRowData="";//保存选中的值
 
- //货品详情添加行
-$('#goodsList').datagrid({  
+$dg.datagrid({  
 	fit : false,//控件自动resize占满窗口大小
 	iconCls : 'icon-save',//图标样式
-	border : true,//是否存在边框 
-	fitColumns : true,//自动填充行
+	barrival : true,//是否存在边框 
+	fitColumns : false,//自动填充行
 	nowrap : true,//禁止单元格中的文字自动换行
 	autoRowHeight : false,//禁止设置自动行高以适应内容
-	striped : false,//true就是把行条纹化。（即奇偶行使用不同背景色）
+	striped : true,//true就是把行条纹化。（即奇偶行使用不同背景色）
 	singleSelect : true,//限制单选
-	checkOnSelect : true,//选择复选框的时候选择该行
+	checkOnSelect : false,//选择复选框的时候选择该行
 	selectOnCheck : false,//选择的时候复选框打勾 
-    //url: ctx + '/do/purchaseOrder/orderDetail.json',   
+	sortName : 'goodsCode',//排序字段名称
+	sortOrder : 'DESC',//升序还是降序
+	remoteSort : true,//开启远程排序，默认为false
 	idField : 'purOrderDetId', 
-    columns:[[    
-     /*  {field :'purOrderDetId', title : 'ID', checkbox : true},  */
-      {field:'goodsCode',title:'货品编码',width:200, 
-    	  editor:{
-				type:'combogrid', //combobox
-				width:200,
-				required : true, 
-				options:{
-					panelWidth:770,  
-					border:true,//是否存在边框
-					//fitColumns:true,//自动填充行
-					nowrap: true,//禁止单元格中的文字自动换行
-					autoRowHeight: false,//禁止设置自动行高以适应内容
-					striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
-					singleSelect:true,//限制单选
-					selectOnCheck:false,//选择的时候复选框打勾
-				    idField:'goodsId',    
-				    textField:'goodsCode',     
-					url : ctx + '/do/goodsList/list.json',
-					sortName : 'createTime',//排序字段名称
-					sortOrder : 'DESC',//升序还是降序 
-					columns : [ [ {
-						field : 'goodsId',
-						title : 'ID',
-						checkbox : true
-					}, {
-						field : 'goodsCode',
-						title : '货物编码',
-						width : 100,
-						sortable : true
-					},{
-						field : 'goodsName',
-						title : '货物名称',
-						sortable : true,
-						width : 100
-					},{
-						field : 'goodsCategoryId',
-						title : '商品类别',
-						sortable : true,
-						width : 100
-					},{
-						field : 'specification',
-						title : '规格型号',
-						sortable : true,
-						width : 100
-					},{
-						field : 'unit',
-						title : '单位',
-						sortable : true,
-						width : 100  
-					},{
-						field : 'referenceCost',
-						title : '成本价',
-						sortable : true,
-						width : 100 ,
-						hidden:true
-					},{
-						field : 'taxRate',
-						title : '税率',
-						sortable : true,
-						width : 100,
-						hidden:true
-					}, {
-						field : 'brands',
-						title : '品牌',
-						sortable : true,
-						width :100 
-					},{
-						field : 'origin',
-						title : '产地',
-						sortable : true,
-						width : 100 
-					}  
-					] ],
-						pagination : true,//True 就会在 datagrid 的底部显示分页栏
-						pageSize : 10,//注意，pageSize必须在pageList存在
-						pageList : [2,10,50,100],//从session中获取
-						rownumbers : true,//True 就会显示行号的列
-					    onClickRow : function(rows) {  
-					    var code=	$(this).datagrid("getSelected").goodsCode;
-					    	var stRows = $('#goodsList').datagrid('getSelected');
-					    	$('#goodsList').datagrid('updateRow', {
-								index:0,
-								row:{ 
-									brand:$(this).datagrid("getSelected").brands
-								}
-							}); 
-							$('#goodsList').datagrid('endEdit', 1).datagrid('refreshRow', stRows).datagrid('beginEdit', 2);
-							
-						//	$('#goodsList').datagrid('endEdit', stRows).datagrid('refreshRow', stRows).datagrid('beginEdit', stRows);
-					    	
-					    	
-						/* alert(">>>>选中的值："+ $(this).datagrid("getSelected").brands);
-						
-						var row = $('#goodsList').datagrid('getSelected');
-						  //row[0]['']='';
-						
-						var rindex = $('#goodsList').datagrid('getRowIndex', row); 
-						 
-						//设置品牌
- 						var ed = $('#goodsList').datagrid('getEditor', {index:rindex,field:'brand'}); 
-						$(ed.target).val($(this).datagrid("getSelected").brands);
-						$(ed.target).attr("readonly","readonly"); 
-						
-						//设置税率
- 						var ed = $('#goodsList').datagrid('getEditor', {index:rindex,field:'cess'}); 
-						$(ed.target).val($(this).datagrid("getSelected").taxRate);
-						$(ed.target).attr("readonly","readonly"); 
-						
-						
-						//设置原价
- 						var ed = $('#goodsList').datagrid('getEditor', {index:rindex,field:'primeCost'}); 
-						$(ed.target).val($(this).datagrid("getSelected").referenceCost);
-						$(ed.target).attr("readonly","readonly"); 
-						
-						//设置产地
- 						var ed = $('#goodsList').datagrid('getEditor', {index:rindex,field:'placeOfOrigin'}); 
-						$(ed.target).val($(this).datagrid("getSelected").origin);
-						$(ed.target).attr("readonly","readonly"); 
-						
-						//设置规格型号
- 						var ed = $('#goodsList').datagrid('getEditor', {index:rindex,field:'goodsModel'}); 
-						$(ed.target).val($(this).datagrid("getSelected").specification);
-						$(ed.target).attr("readonly","readonly"); 
-						
-						//设置名称
- 						var ed = $('#goodsList').datagrid('getEditor', {index:rindex,field:'goodsName'}); 
-						$(ed.target).val($(this).datagrid("getSelected").goodsName);
-						$(ed.target).attr("readonly","readonly"); 
-						
-						//设置单价
- 						var ed = $('#goodsList').datagrid('getEditor', {index:rindex,field:'price'}); 
-						$(ed.target).val($(this).datagrid("getSelected").referenceCost);   
-								 
-						//设置单价
- 						var ed = $('#goodsList').datagrid('updateRow', {index:rindex,field:'goodsName'}); 
-						$(ed.target).val($(this).datagrid("getSelected").referenceCost);    */
- 							/* var productname = $(ed.target).combobox('getText');
-							   alert("<<<"+productname);
-
-							   $('#goodsList').datagrid('getRows')[rindex]['brand'] = productname; */
-							   
-					},
-					loadMsg : '数据加载中....',  
-				},
-				
-			} 
-      
-      },   
-      {field:'goodsName',title:'名称',width:100,editor: {
-    	   type: 'validatebox',  
-      }},    
-      {field:'goodsModel',title:'规格型号',width:100},   
-      {field:'brand',title:'品牌',width:100},  
-      {field:'placeOfOrigin',title:'产地',width:100,editor: { type: 'validatebox'  }}, 
-      {field:'primeCost',title:'原价',width:100,editor: { type: 'validatebox'  }},   
-      {field:'discount',title:'折扣率',width:100,editor: { type: 'numberbox'} },
-      {field:'cess',title:'税率',width:100,editor: { type: 'validatebox'  }}, 
-      {field:'deadline',title:'交货期限',width:100,editor: { type: 'validatebox'  }},
-      {field:'price',title:'单价',width:100,editor: { type: 'numberbox'} },    
-      {field:'quantity',title:'数量',width:100,editor: { type: 'numberbox'} }, 
-      {field:'money',title:'金额',width:100,editor: { type: 'validatebox'  }},  
-      {field:'deadline',title:'交货期限',width:100,editor: { type: 'datebox'  } },
-      {field:'remark',title:'备注',width:100,editor: { type: 'validatebox'  }},
-      {field:'s',title:'操作',width:100,
-    	  formatter:function(value,row,index){ 
-			var d = '<a href="javascript:void(0)" onclick="deleterow(this)">删除</a>';
-			return d; 
-			}  }, 
-      ]],
-      toolbar: [{
-      text: '添加行', iconCls: 'icon-add', handler: function () { 
-    	  insert(); 
-      }
-    },{
-        text: '删除', iconCls: 'icon-add', handler: function () { 
-        	var rows = $('#goodsList').datagrid("getChecked"); 
-        	alert("选中的长度"+rows.length);
-        	var row;
-        	$.messager.confirm('提示','确认删除数据?',function(r){
-        		if (r){
-        			for(var i=0;i<rows.length;i++){
-            		    row=$('#goodsList').datagrid('getRowIndex', rows[i]);
-            			$('#goodsList').datagrid('deleteRow',row);
-            			alert("这是第"+row+"行");
-            		} 
-        		
-        		}
-        	});
-    		
+    columns:[[   
+        {field:'goodsId',title:'货品id',width:100,hidden:true},  
+        {field:'goodsCode',title:'货品编码',width:100},    
+        {field:'goodsName',title:'名称',width:100},    
+       {field:'goodsModel',title:'规格型号',width:100},   
+       {field:'brand',title:'品牌',width:100},  
+       {field:'placeOfOrigin',title:'产地',width:100}, 
+       {field:'primeCost',title:'成本价',width:100},   
+       {field:'discount',title:'折扣率',width:100, editor: { type: 'numberbox' }}, 
+       {field:'price',title:'单价',width:100,editor: { type: 'numberbox'} },   
+       {field:'quantity',title:'数量',width:100,editor: { type: 'numberbox'} }, 
+       {field:'money',title:'金额',width:100},   
+       {field:'cess',title:'税率',width:100,editor: { type: 'numberbox'  }}, 
+       {field:'deadline',title:'交货期限',width:100,editor: { type: 'datebox'  }},
+       {field:'remark',title:'备注',width:100} 
+    ]], 
+    toolbar: [{
+        text: '添加商品', iconCls: 'icon-standard-pencil-add', handler: function () { 
+      	  //insert(); 
+        	addRow();
         }
-      }],  
-      onClickRow:function(index,field,value){alert("腻害");},
-      onClickCell:function(index,field,value){
-    	alert("点击单元格");
-    	$(this).datagrid('selectRow', index);
-    	
-		/* $(this).datagrid('beginEdit', index);
-		var ed = $(this).datagrid('getEditor', {index:index,field:field});
-		$(ed.target).focus(); */
-	},
-
-	rownumbers : true, 
-});   
+      },{
+          text: '删除商品', iconCls: 'icon-standard-pencil-delete', handler: function () {  
+          	$.messager.confirm('提示','确认删除数据?',function(r){
+          		if (r){
+          			var rows = $dg.datagrid("getSelected"); 
+                    var	row=$dg.datagrid('getRowIndex', rows);
+            		$dg.datagrid('deleteRow',row); 
+          		
+          		}
+          	});  
+      		
+          }
+        }],  
+    rownumbers : true,//True 就会显示行号的列
+    onDblClickRow:function(rowIndex, rowData){
+    	stRows=rowIndex; 
+    },
+    onSelect:function(rowIndex, rowData){
+    	stRows=rowIndex;  
+    }
+});
+//增加行
+function addRow(){
+	storageVal = $('#purchaseOrder_mgr_purchaseOrder_form_storage').combobox('getValue');
+    if(storageVal!=''){//判断 
+		var row = $dg.datagrid('getSelected');
+		var rowData=$dg.datagrid('getData');
+		if(row){
+			var index = $dg.datagrid('getRowIndex', row);
+		} else {
+			index = 0;
+		}
+		var rowsCount = $dg.datagrid("getRows"); 
+		$dg.datagrid('insertRow', {
+			index: index,
+			row:{
+				//填写对应的字段
+				codes:rowsCount.length+1
+			}
+		});
+		$dg.datagrid('selectRow',index);
+		$dg.datagrid('beginEdit',index);
+		goodsDetail(row,rowData);
+	}else{
+		$.messager.alert('提示信息','请先选择仓库！','info'); 
+		$('#purchaseOrder_mgr_purchaseOrder_form_storage').focus(); 
+		return false;
+	}
+}
+ 
+//去到货品目录方法
+function goodsDetail(rowIndex,rowData){
+	$.easyui.showDialog({
+		href : ctx + '/do/purchaseOrder/goodsIndex.htm',//从controller请求jsp页面进行渲染
+		width : 730,
+		height : 400,
+		resizable: false,
+		enableSaveButton : false,
+		enableCloseButton :false,
+		enableApplyButton : false,
+		title : "货品目录",
+		buttons : [ 
+		{
+			text : '保存',
+			iconCls : 'icon-ok',
+			handler : function(dia) { 
+				if(setRowData==''){
+					$.messager.alert('提示信息','请先选择商品信息！','info'); 
+					return false;
+				}
+				var ed = $dg.datagrid('updateRow', {
+					index:stRows,
+					row:{
+						goodsId:setRowData.goodsId,
+						goodsCode:setRowData.goodsCode,
+						goodsName:setRowData.goodsName,
+						goodsModel:setRowData.specification,
+						brand:setRowData.brands,
+						placeOfOrigin:setRowData.origin,
+						primeCost:setRowData.referenceCost,
+						discount:1.00,
+						price:setRowData.referenceRetailPrice,
+						quantity:0,
+						money:0.00,
+						cess:setRowData.taxRate,
+						remark:setRowData.remark
+					}
+				});
+				dia.dialog("close"); 
+				$dg.datagrid('endEdit', stRows).datagrid('refreshRow', stRows).datagrid('beginEdit', stRows);
+			}
+		}, {
+			text : '取消',
+			iconCls : 'icon-undo',
+			handler : function(dia) {
+				var rows = $dg.datagrid("getSelected"); 
+                var	row=$dg.datagrid('getRowIndex', rows); 
+        		$dg.datagrid('deleteRow',row);  
+				dia.dialog("close"); 
+			}
+		}]
+	});
+};
    
  
   //添加行
 function insert(){
-    var row = $('#goodsList').datagrid('getSelected'); 
+	storageVal = $('#purchaseOrder_mgr_purchaseOrder_form_storage').combobox('getValue');
+	 if(storageVal==''){
+		 alert("请选择仓库");
+	     return false;
+	 }
+    var row = $dg.datagrid('getSelected'); 
 	if (row){
-		var index = $('#goodsList').datagrid('getRowIndex', row);
+		var index = $dg.datagrid('getRowIndex', row);
 	} else {
 		index = 0;
 	}   
@@ -422,15 +349,15 @@ function insert(){
 		}
 
 	});
-  	$('#goodsList').datagrid('selectRow',index);
-	$('#goodsList').datagrid('beginEdit',index);  
+  	$dg.datagrid('selectRow',index);
+	$dg.datagrid('beginEdit',index);  
 }
 
  //删除行
 function deleterow(target){
 	$.messager.confirm('提示','确认删除数据?',function(r){
 		if (r){
-			$('#goodsList').datagrid('deleteRow', getRowIndex(target));
+			$dg.datagrid('deleteRow', getRowIndex(target));
 		}
 	});
 }
@@ -441,7 +368,43 @@ function getRowIndex(target){
 	return parseInt(tr.attr('datagrid-row-index'));
 }
 
+//放弃添加订购合同，返回订购合同显示页面
+$("#unbo").click(function(){ 
+	$("#layout_center_panel").panel("setTitle","采购订货合同");
+	$('#layout_center_panel').panel('refresh',ctx +'/do/purchaseOrder/index.htm');
+});
 
+//点击保存，获取表格的数据
+$("#saveOk").click(function(){ 
+    var row=$dg.datagrid('getRows'); 
+	for ( var i = 0; i < row.length; i++) { 
+		//关闭所有的编辑器，保存数据到后台
+		$dg.datagrid('endEdit', i).datagrid('refreshRow', i).datagrid('beginEdit', i); 
+	  } 
+	var date= $dg.datagrid('getData').rows; 
+	var jsonDate=JSON.stringify(date);   
+	var order=$("#purchase_mgr_purchaseOrder_form").serialize();  
+	var str = jQuery.param(date);
+	console.log(jsonDate);
+	$('#purchase_mgr_purchaseOrder_form').form('submit', {    
+	    url: ctx + '/do/purchaseOrder/add.json?data='+jsonDate,   
+	    success:function(data){    
+	    	$.messager.show({
+	    		title:'提示信息',
+	    		msg:'货物订购成功!',
+	    		showType:'show',
+	    		style:{
+	    			right:'',
+	    			top:document.body.scrollTop+document.documentElement.scrollTop,
+	    			bottom:''
+	    		}
+	    	});
+	    	$("#layout_center_panel").panel("setTitle","采购订货合同");
+	    	$('#layout_center_panel').panel('refresh',ctx +'/do/purchaseOrder/index.htm'); 
+	    }    
+	}); 
+});
+ 
 
 //-------------------------------分割线-------以完善------------
  

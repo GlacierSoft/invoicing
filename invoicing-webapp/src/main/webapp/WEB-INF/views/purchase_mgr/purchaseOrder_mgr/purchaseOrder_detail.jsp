@@ -187,8 +187,7 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 	</div>
 	<div id="purchaseOrderPanel" style="height: 200px" data-options="region:'center',border:true">
 		<table id="purchase_order_detail" style="height: 200px">  
-		</table>
-	</div>
+		</table> 
 </div>  
 
 <script type="text/javascript">  
@@ -227,10 +226,7 @@ glacier.purchase_mgr.purchaseOrderDetail_mgr.purchaseOrderDetail.purchaseOrderDe
         {field:'alrTerNum',title:'已终止数量',width:100},
         {field:'alrTerMoney',title:'已终止金额',width:100},
         {field:'remark',title:'备注',width:100}
-    ]],
-	pagination : true,//True 就会在 datagrid 的底部显示分页栏
-	pcarrierCarTypeSize : 10,//注意，pcarrierCarTypeSize必须在pcarrierCarTypeList存在
-	pcarrierCarTypeList : [ 2, 10, 50, 100 ],//从session中获取
+    ]], 
 	rownumbers : true,//True 就会显示行号的列
 	onDblClickRow : function(rowIndex, rowData){
         $.easyui.showDialog({
