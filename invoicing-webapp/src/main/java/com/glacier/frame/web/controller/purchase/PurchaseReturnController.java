@@ -69,6 +69,12 @@ public class PurchaseReturnController {
         ModelAndView mav = new ModelAndView("purchase_mgr/purchaseReturn_mgr/purchaseReturn");
         return mav;
     } 
+    
+    @RequestMapping(value="/showGoods.htm")
+    private Object goodsIndex() {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseReturn_mgr/goods");
+        return mav;
+    }
 
     // 获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)

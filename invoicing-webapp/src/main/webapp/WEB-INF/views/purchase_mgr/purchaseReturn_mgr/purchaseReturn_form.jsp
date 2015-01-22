@@ -143,18 +143,15 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 </tr>
 </table>
 <br/>
-<a id="btn" href="#" class="easyui-linkbutton" onclick="addRow();" data-options="iconCls:'icon-search'">增加一行</a>
-<a id="btn" href="#" class="easyui-linkbutton" onclick="cheshi();" data-options="iconCls:'icon-search'">测试</a>
-<br/>
+<!--采购退货明细  -->
 <table id="purchase_return_form" style="height: 200px;margin-top: 10px;">  
 </table>
 </form>
 
 <script>
 
-var storageVal="";//保存仓库ID
-var stRows="";//保存行数
-var divs = "";//保存goodsDetail中的dialog节点
+var setWarehouse="";//保存仓库ID
+var setRows="";//保存行数
 var setRowData="";//保存选中的值
 
 $('#purchase_return_form').datagrid({  
@@ -172,7 +169,16 @@ $('#purchase_return_form').datagrid({
 	sortOrder : 'DESC',//升序还是降序
 	remoteSort : true,//开启远程排序，默认为false
 	idField : 'purOrderDetId', 
-    columns:[[    
+	toolbar: [{
+		 text:'货物添加',
+		iconCls: 'icon-standard-pencil-add',
+		handler: function(){addRow();}
+	 },'-',{
+		text:'货物删除',
+		iconCls: 'icon-standard-pencil-delete',
+		handler: function(){deleteRow();}
+	}],
+   columns:[[    
         {field:'goodsCode',title:'货品编码',width:100},    
         {field:'goodsName',title:'货品名称',width:100},
         {field:'goodsId',title:'货品编号',width:100,hidden:true},    
@@ -186,15 +192,15 @@ $('#purchase_return_form').datagrid({
         {field:'remark',title:'备注',width:100,editor: { type: 'text' }}
     ]], 
     onSelect:function(rowIndex, rowData){
-    	stRows=rowIndex;
-    	goodsDetail(rowIndex,rowData);
+    	setRows=rowIndex;
+    	showDetail(rowIndex,rowData);
     }
   });
   
 //增加行
 function addRow(){
-	storageVal = $('#storage').combobox('getValue');
-	if(storageVal!=''){//判断
+	setWarehouse = $('#storage').combobox('getValue');
+	if(setWarehouse!=''){//判断
 		var row = $('#purchase_return_form').datagrid('getSelected');
 	    if(row){
 			var index = $('#purchase_return_form').datagrid('getRowIndex', row);
@@ -202,12 +208,9 @@ function addRow(){
 			index = 0;
 		}
 		var rowsCount = $("#purchase_return_form").datagrid("getRows"); 
-		$('#purchase_arrival_form').datagrid('insertRow', {
+		$('#purchase_return_form').datagrid('insertRow', {
 			index: index,
-			row:{
-				//填写对应的字段
-				codes:rowsCount.length+1
-			}
+			row:{}
 		});
 		$('#purchase_return_form').datagrid('selectRow',index);
 		$('#purchase_return_form').datagrid('beginEdit',index);
@@ -217,9 +220,9 @@ function addRow(){
 	}
 }
 	//去到货品目录方法
-	function goodsDetail(rowIndex,rowData){
+	function showDetail(rowIndex,rowData){
 		$.easyui.showDialog({
-			href : ctx + '/do/purchaseArrival/goodsDetail.htm',//从controller请求jsp页面进行渲染
+			href : ctx + '/do/purchaseReturn/showGoods.htm',//从controller请求jsp页面进行渲染
 			width : 530,
 			height : 300,
 			resizable: false,
@@ -245,7 +248,7 @@ function addRow(){
 				iconCls : 'icon-save',
 				handler : function(dia) {
 					var ed = $('#purchase_return_form').datagrid('updateRow', {
-						index:stRows,
+						index:setRows,
 						row:{
 							goodsCode:setRowData.goodsCode,
 							goodsName:setRowData.goodsName,
@@ -262,7 +265,12 @@ function addRow(){
 					dia.dialog("close"); 
 					$('#purchase_return_form').datagrid('endEdit', stRows).datagrid('refreshRow', stRows).datagrid('beginEdit', stRows);
 				}
-			}]
+			}],
+			onClose:function(){
+				if(!rowData.goodsName){
+					$("#purchase_return_form").datagrid("deleteRow",rowIndex);
+				}
+			}
 		});
 	};
   
