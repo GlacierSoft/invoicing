@@ -151,7 +151,6 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 <script>
 
 var setWarehouse="";//保存仓库ID
-var setRows="";//保存行数
 var setRowData="";//保存选中的值
 
 $('#purchase_return_form').datagrid({  
@@ -179,10 +178,12 @@ $('#purchase_return_form').datagrid({
 		handler: function(){
 			$.messager.confirm('提示','确认删除数据?',function(r){
         		if (r){
-        			var rows = $('#purchase_return_form').datagrid("getSelected"); 
-                    var	row=$('#purchase_return_form').datagrid('getRowIndex', rows);
-                    $('#purchase_return_form').datagrid('deleteRow',row); 
-        		
+        			var row= $('#purchase_return_form').datagrid("getSelected"); 
+        			if(row){
+                    	$('#purchase_return_form').datagrid('deleteRow',row);
+                    }else{
+                    	$('#purchase_return_form').datagrid('deleteRow',0);
+                    }
         		}
         	});  
 		}
@@ -200,33 +201,85 @@ $('#purchase_return_form').datagrid({
         {field:'cess',title:'税率',width:100,editor: { type: 'numberbox', options: { required: true } } }, 
         {field:'remark',title:'备注',width:100,editor: { type: 'text' }}
     ]], 
-    onSelect:function(rowIndex, rowData){
-    	setRows=rowIndex;
+    onDblClickRow:function(rowIndex, rowData){
     	showDetail(rowIndex,rowData);
     }
   });
   
 //增加行
 function addRow(){
-	setWarehouse = $('#storage').combobox('getValue');
-	if(setWarehouse!=''){//判断
-		var row = $('#purchase_return_form').datagrid('getSelected');
-	    if(row){
-			var index = $('#purchase_return_form').datagrid('getRowIndex', row);
-		}else {
-			index = 0;
-		}
-		$('#purchase_return_form').datagrid('insertRow', {
-			index: index,
-			row:{}
-		});
-		$('#purchase_return_form').datagrid('selectRow',index);
-		$('#purchase_return_form').datagrid('beginEdit',index);
-	}else{
-		$.messager.alert('警告','请先选择仓库信息！','info');
-		return false;
-	}
-}
+	$.easyui.showDialog({
+		href : ctx + '/do/purchaseReturn/showGoods.htm',//从controller请求jsp页面进行渲染
+		width : 530,
+		height : 300,
+		resizable: false,
+		title : "货品目录",
+		enableSaveButton : false,
+		enableApplyButton : false,
+		enableCloseButton:false,
+		buttons : [ 
+		 {
+			text : '取消',
+			iconCls : 'icon-save',
+			handler : function(target) {
+				target.dialog("close");
+			}
+		},{
+			text : '确认',
+			iconCls : 'icon-save',
+			handler : function(target) {
+				if($("#goodsListDataGrid").datagrid('getSelected')){
+				  var numbers=$("#purchase_return_form").datagrid("getRows").length;
+				  var setName=$("#goodsListDataGrid").datagrid('getSelected').goodsName;
+				  if(numbers==0){
+					  $('#purchase_return_form').datagrid('insertRow', {
+							index:0,
+							row:{
+								goodsCode:$("#goodsListDataGrid").datagrid('getSelected').goodsCode,
+								goodsName:$("#goodsListDataGrid").datagrid('getSelected').goodsName,
+								goodsModel:$("#goodsListDataGrid").datagrid('getSelected').specification,
+								goodsUnit:$("#goodsListDataGrid").datagrid('getSelected').unit,
+								quantity:0,
+								price:0,
+								rejection:0,
+								money:0,
+								cess:$("#goodsListDataGrid").datagrid('getSelected').taxRate,
+								prices:0
+							}
+						});
+					    target.dialog("close");
+					    $('#purchase_return_form').datagrid('endEdit', 0).datagrid('refreshRow', 0).datagrid('beginEdit', 0);
+				    }else{
+					  for(var i=0;i<numbers;i++){
+						  if(setName!=$('#purchase_return_form').datagrid('selectRow',i).goodsName){
+							  $('#purchase_return_form').datagrid('insertRow', {
+									index:0,
+									row:{
+										goodsCode:$("#goodsListDataGrid").datagrid('getSelected').goodsCode,
+										goodsName:$("#goodsListDataGrid").datagrid('getSelected').goodsName,
+										goodsModel:$("#goodsListDataGrid").datagrid('getSelected').specification,
+										goodsUnit:$("#goodsListDataGrid").datagrid('getSelected').unit,
+										quantity:0,
+										price:0,
+										rejection:0,
+										money:0,
+										cess:$("#goodsListDataGrid").datagrid('getSelected').taxRate,
+										prices:0
+									}
+								});
+							  $('#purchase_return_form').datagrid('endEdit', 0).datagrid('refreshRow', 0).datagrid('beginEdit', 0);
+							}
+						 }
+					       target.dialog("close");
+				  }
+				}else{
+				  target.dialog("close");
+			  }
+			  
+			}
+		}]
+	});
+ }
 	//去到货品目录方法
 	function showDetail(rowIndex,rowData){
 		$.easyui.showDialog({
@@ -243,20 +296,14 @@ function addRow(){
 				text : '取消',
 				iconCls : 'icon-save',
 				handler : function(dia) {
-					//判断是否有值
-					if(!rowData.goodsName){
-						$("#purchase_return_form").datagrid("deleteRow",rowIndex);
-						dia.dialog("close"); 
-					}else{
-						dia.dialog("close");
-					}
+					dia.dialog("close");
 				}
 			},{
 				text : '确认',
 				iconCls : 'icon-save',
-				handler : function(dia) {
+				handler : function(target) {
 					var ed = $('#purchase_return_form').datagrid('updateRow', {
-						index:setRows,
+						index:rowIndex,
 						row:{
 							goodsCode:setRowData.goodsCode,
 							goodsName:setRowData.goodsName,
@@ -270,15 +317,10 @@ function addRow(){
 							prices:0
 						}
 					});
-					dia.dialog("close"); 
-					$('#purchase_return_form').datagrid('endEdit', stRows).datagrid('refreshRow', stRows).datagrid('beginEdit', stRows);
+					target.dialog("close"); 
+					$('#purchase_return_form').datagrid('endEdit', rowIndex).datagrid('refreshRow', rowIndex).datagrid('beginEdit', rowIndex);
 				}
-			}],
-			onClose:function(){
-				if(!rowData.goodsName){
-					$("#purchase_return_form").datagrid("deleteRow",rowIndex);
-				}
-			}
+			}]
 		});
 	};
   
