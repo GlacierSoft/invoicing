@@ -69,6 +69,13 @@ public class PurchaseArrivalController extends AbstractController{
         return mav;
     }
     
+    //批量货物信息展示页面
+    @RequestMapping(value = "/batchGoodsDetail.htm")
+    private Object storageBatchList() {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseArrival_mgr/purchaseBatchGoods");
+        return mav;
+    }
+    
     //获取表格结构的所有采购到货数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
