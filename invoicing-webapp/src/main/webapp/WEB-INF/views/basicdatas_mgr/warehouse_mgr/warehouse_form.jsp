@@ -55,7 +55,7 @@
 		<tr >
 		  <td>备注信息：</td>
 		  <td colspan="3" style="height:65px;">
-		        <textarea style="width:420px;height: 40px;">${warehouseDate.remark}</textarea>
+		         <textarea   name="remark" class="easyui-validatebox spinner" style="width:420px;height:50px;" >${warehouseDate.remark}</textarea>
 		   </td>
 	    </tr>
 	</table>
@@ -112,7 +112,6 @@
 		    		url:ctx + "/do/user/dept.json?depId="+record.id,
 		    		dataType:"json",
 		    		success: function (date){
-		    			   console.info(date);
 		    			   $("#warehouseManager").combobox({
 		    				 	data:$.parseJSON(date),
 		    					valueField:'id',    

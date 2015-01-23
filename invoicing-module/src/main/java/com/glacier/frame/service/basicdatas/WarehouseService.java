@@ -19,6 +19,7 @@
  */
 package com.glacier.frame.service.basicdatas;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -220,9 +221,11 @@ public class WarehouseService {
 			returnResult.setSuccess(false);
 			return returnResult;
 		}
+		//随机号生成
+		SimpleDateFormat SF=new SimpleDateFormat("yyyy-MM-DD-HHmmss");
 		//仓库信息赋值
 		warehouse.setWarehouseId(RandomGUID.getRandomGUID());
-		warehouse.setWarehouseCode("WH_"+(int)(Math.random()*9000+1000));
+		warehouse.setWarehouseCode("WH_"+SF.format(new Date()));
 		warehouse.setEnabled("enable");
 		warehouse.setCreater(pricipalUser.getUserCnName());
 		warehouse.setCreateTime(new Date());
@@ -290,6 +293,10 @@ public class WarehouseService {
 					warGoodsClassifyMapper.insert(warGoodsClassify_Add);
 				}
 			}
+		}else{
+			returnResult.setMsg("仓库货品分类不允许为空!");
+			returnResult.setSuccess(false);
+			return returnResult;
 		}
 		//判断结果集
 		if (count == 1) {

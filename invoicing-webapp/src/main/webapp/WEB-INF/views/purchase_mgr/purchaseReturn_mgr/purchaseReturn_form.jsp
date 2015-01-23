@@ -176,7 +176,16 @@ $('#purchase_return_form').datagrid({
 	 },'-',{
 		text:'货物删除',
 		iconCls: 'icon-standard-pencil-delete',
-		handler: function(){deleteRow();}
+		handler: function(){
+			$.messager.confirm('提示','确认删除数据?',function(r){
+        		if (r){
+        			var rows = $('#purchase_return_form').datagrid("getSelected"); 
+                    var	row=$('#purchase_return_form').datagrid('getRowIndex', rows);
+                    $('#purchase_return_form').datagrid('deleteRow',row); 
+        		
+        		}
+        	});  
+		}
 	}],
    columns:[[    
         {field:'goodsCode',title:'货品编码',width:100},    
