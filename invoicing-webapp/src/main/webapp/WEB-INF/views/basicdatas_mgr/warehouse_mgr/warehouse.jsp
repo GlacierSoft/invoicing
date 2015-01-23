@@ -39,16 +39,21 @@
 			field : 'warehouseId',
 			title : 'ID',
 			checkbox : true
+		},{
+			field : 'warehouseCode',
+			title : '仓库编号',
+			sortable : true,
+			width : 120
 		}, {
 			field : 'warehouseName',
 			title : '仓库名称',
 			width : 120,
 			sortable : true
 		},{
-			field : 'warehouseCode',
-			title : '仓库编号',
-			sortable : true,
-			width : 120
+			field : 'orderNum',
+			title : '仓库排序',
+			width : 120,
+			sortable : true
 		},{
 			field : 'enabled',
 			title : '状态',
@@ -124,7 +129,7 @@
           $.easyui.showDialog({
 				title : '【' + rowData.warehouseName + '】详细信息',
 				href : ctx+ '/do/warehouse/intoDetail.htm?warehouseId='+ rowData.warehouseId,//从controller请求jsp页面进行渲染
-				width : 520,
+				width : 535,
 				height : 420,
 				resizable : false,
 				enableApplyButton : false,
@@ -136,7 +141,7 @@
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.warehouse_mgr.warehouse.addWarehouse= function(){
 		glacier.basicAddOrEditDialog({
-			title : '【货物档案】- 增加',
+			title : '【仓库信息】- 增加',
 			width : 560,
 			height : 410,
 			queryUrl : ctx + '/do/warehouse/intoForm.htm',
@@ -150,7 +155,7 @@
 	glacier.basicdatas_mgr.warehouse_mgr.warehouse.editWarehouse= function(){
 		var row =glacier.basicdatas_mgr.warehouse_mgr.warehouse.warehouseDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '【货物档案】- 编辑',
+			title : '【仓库信息】- 编辑',
 			width : 560,
 			height : 410,
 			queryUrl : ctx + '/do/warehouse/intoForm.htm',

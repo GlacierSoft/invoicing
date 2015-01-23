@@ -18,7 +18,7 @@
 		</tr>
 		<tr>
 			<td>状态：</td>
-			<td><input id="deliverType_from_deliverType" name="enabled" style="width:268px" value="${warGoodsTypeDate.enabled}"  class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/></td>
+			<td><input id="deliverType_from_deliverType" name="enabled" style="width:271px" value="${warGoodsTypeDate.enabled}"  class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/></td>
 		</tr>
 	</table>
 </form>

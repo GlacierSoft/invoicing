@@ -21,21 +21,21 @@
 					<tr> 
 					    <td>货品类型：</td>
 						<td><input id="goodsTypeId" name="goodsTypeId" class="spinner" style="width:168px" value="${goodsListDate.goodsSortDisplay }" readonly="readonly"/></td>
-					    <td style="padding-left:10px;">仓库类型：</td>
-						<td><input id="goodsSortId" name="goodsSortId" class="spinner" style="width:168px" value="${goodsListDate.goodsSortDisplay }" readonly="readonly"/></td>
+					   <td style="padding-left:10px;"> 所属仓库：</td>
+						<td><input id="warehouseTypeId" name="warehouseTypeId" class="spinner" style="width:168px" value="${goodsListDate.warehouseTypeDisplay}" readonly="readonly"/></td>
 					 </tr>
 					 <tr>
-						<td> 所属仓库：</td>
-						<td><input id="warehouseTypeId" name="warehouseTypeId" class="spinner" style="width:168px" value="${goodsListDate.warehouseTypeDisplay}" readonly="readonly"/></td>
-					    <td style="padding-left:10px;">规格型号：</td>
+					     <td>规格型号：</td>
 					    <td><input id="specification" name="specification" class="spinner" style="width:168px" value="${goodsListDate.specification}" readonly="readonly"/></td>
-				 	</tr>
+						<td style="padding-left:10px;"> 初始编号：</td>
+						<td><input id="originalCode" name="originalCode" class="spinner" style="width:168px" value="${goodsListDate.originalCode}" readonly="readonly"/></td>
+					</tr>
 				 	<tr>
-						<td>货物产地：</td>
-						<td ><input name="origin" class="spinner" style="width:168px" value="${goodsListDate.origin}" readonly="readonly"/></td>
-						<td style="padding-left:10px;">生产厂家：</td>
+				 		<td>生产厂家：</td>
 						<td ><input  name="manufacturers" class="spinner" style="width:168px" value="${goodsListDate.manufacturers}" readonly="readonly"/></td>
-				   </tr> 
+						<td style="padding-left:10px;">货物产地：</td>
+						<td ><input name="origin" class="spinner" style="width:168px" value="${goodsListDate.origin}" readonly="readonly"/></td>
+					</tr> 
 				   <tr>
 						<td>货物单位：</td>
 						<td><input class="spinner" style="width:168px" value="${goodsListDate.unit}"  readonly="readonly"/></td>
@@ -56,7 +56,7 @@
 				    </tr>
 					<tr>
 						<td>备 注：</td>
-						<td colspan="3"> <textarea   name="remark" class="spinner" style="width:435px;" readonly="readonly" >${goodsListDate.remark}</textarea></td>
+						<td colspan="3"> <textarea   name="remark" class="spinner" style="width:415px;" readonly="readonly" >${goodsListDate.remark}</textarea></td>
 					</tr>
 				</table>
 		</fieldset>
@@ -173,7 +173,7 @@
 					 <tr>
 					 <tr>
 						<td style="padding-left:10px;">备 注：</td>
-						<td colspan="3"> <textarea   name="remark" class="spinner" style="width:435px;" readonly="readonly" >${goodsListDate.auditRemark}</textarea></td>
+						<td colspan="3"> <textarea   name="remark" class="spinner" style="width:420px;" readonly="readonly" >${goodsListDate.auditRemark}</textarea></td>
 					</tr>
 			</table>
 		</fieldset>

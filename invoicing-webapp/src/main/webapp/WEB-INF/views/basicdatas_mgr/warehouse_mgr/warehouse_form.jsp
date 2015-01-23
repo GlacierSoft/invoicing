@@ -16,33 +16,33 @@
 			<td style="width:120px;">仓库名称：</td>
 			<td>
 				<input type="hidden" name="warehouseId" value="${warehouseDate.warehouseId}" />
-				<input name="warehouseName"  class="easyui-validatebox spinner" style="width:168px;height: 20px;" required="true" value="${warehouseDate.warehouseName}"/>
+				<input name="warehouseName"  class="easyui-validatebox spinner" style="width:168px;height: 18px;"  required="true" value="${warehouseDate.warehouseName}"/>
 			</td>
-			 <td style="padding-left: 15px;">仓库序号：</td>
+			 <td style="padding-left: 15px;">仓库排序：</td>
 			<td>
-			    <input maxlength="3" name="orderNum" class="easyui-numberspinner spinner" style="width:168px;height: 20px;"  value="${warehouseDate.orderNum}" data-options="min:0,max:9999,required:true,missingMessage:'请输入仓库序号'" /> 
+			    <input maxlength="3" name="orderNum" class="easyui-numberspinner spinner" style="width:170px;height: 18px;"   value="${warehouseDate.orderNum}" data-options="min:0,max:99999,required:true,missingMessage:'请输入仓库序号'" /> 
 			 </td>
 		</tr>
 		<tr>
 		    <td>所属部门：</td>
 			<td>
-				<input name="departmentId" id="departmentId"  class="easyui-combobox spinner" style="width:168px;height: 20px;" required="true" value="${warehouseDate.departmentId}"/>
+				<input name="departmentId" id="departmentId"  class="easyui-combobox spinner" style="width:170px;height: 18px;"  required="true" value="${warehouseDate.departmentId}"/>
 			</td>
 			<td style="padding-left: 15px;">仓库管理：</td>
-			<td><input name="warehouseManager" id="warehouseManager" class="easyui-combobox spinner" style="width:168px;height: 20px;" value="${warehouseDate.warehouseManager}" required="true"/></td>
+			<td><input name="warehouseManager" id="warehouseManager" class="easyui-combobox spinner" style="width:170px;height: 18px;"  value="${warehouseDate.warehouseManager}" required="true"/></td>
 		   
 		</tr>
 		<tr>
 			<td>负责人员：</td>
-			<td><input name="head" class="easyui-validatebox spinner" style="width:168px;height: 20px;" value="${warehouseDate.head}" required="true" /></td>
+			<td><input name="head" class="easyui-validatebox spinner" style="width:168px;height: 18px;"  value="${warehouseDate.head}" required="true" /></td>
 		    <td style="padding-left: 15px;">联系电话：</td>
-			<td><input  name="phone" class="easyui-validatebox spinner" style="width:168px;height: 20px;" value="${warehouseDate.phone}" required="true" validType="customReg['^[1]([3][0-9]{1}|59|58|88|89)[0-9]{8}$','<fmt:message key="User.mobile.illegal"/>']" missingMessage="请输入正确手机号"/ /></td>
+			<td><input  name="phone" class="easyui-validatebox spinner" style="width:168px;height: 18px;"  value="${warehouseDate.phone}" required="true" validType="customReg['^[1]([3][0-9]{1}|59|58|88|89)[0-9]{8}$','<fmt:message key="User.mobile.illegal"/>']" missingMessage="请输入正确手机号"/ /></td>
 		</tr>
 		<tr>
 			<td>零售库存：</td>
-			<td><input name="retailLibraries" id="retailLibraries" class="easyui-combobox spinner" value="${warehouseDate.retailLibraries}" required="true"/></td>
+			<td><input name="retailLibraries" id="retailLibraries" style="width:170px;height: 18px;"  class="easyui-combobox spinner" value="${warehouseDate.retailLibraries}" required="true"/></td>
 		     <td style="padding-left: 15px;">仓库地址：</td>
-			<td><input name="address" class="easyui-validatebox spinner" style="width:168px;height: 20px;" value="${warehouseDate.address}" required="true"/></td>
+			<td><input name="address" class="easyui-validatebox spinner" style="width:168px;height: 18px;"  value="${warehouseDate.address}" required="true"/></td>
 		</tr>
 		<tr style="height: 120px;">
 		  <td>仓库分类：</td>

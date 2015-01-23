@@ -14,29 +14,29 @@
 						    <input id="goodsName" name="goodsName" class="easyui-validatebox spinner" required="true" style="width:168px;height: 18px;" value="${goodsListDate.goodsName}"  />
 						</td>
 				        <td style="padding-left:10px;">货物单位：</td>
-						<td><input class="easyui-validatebox spinner"  name="unit" style="width:168px" value="${goodsListDate.unit}"  required="true"/></td>
+						<td><input class="easyui-validatebox spinner"  name="unit" style="width:168px;height: 18px;" value="${goodsListDate.unit}"  required="true"/></td>
 					</tr> 
 					<tr> 
 					    <td> 货物类型：</td>
-						<td><input id="goodsSortId" name="goodsSortId" class="easyui-combobox spinner" style="width:168px" value="${goodsListDate.goodsSortId }" required="true"/></td>
+						<td><input id="goodsSortId" name="goodsSortId" style="width:170px;height: 18px;" class="easyui-combobox spinner" style="width:168px" value="${goodsListDate.goodsSortId }" required="true"/></td>
 					    <td style="padding-left:10px;">所属仓库：</td>
-						<td><input id="warehouseTypeId" name="warehouseTypeId" class="easyui-combobox spinner" style="width:168px" value="${goodsListDate.warehouseTypeId}" required="true"/></td>
+						<td><input id="warehouseTypeId" name="warehouseTypeId" class="easyui-combobox spinner" style="width:170px;height: 18px;" value="${goodsListDate.warehouseTypeId}" required="true"/></td>
 					 </tr>
 					 <tr>
 						<td>货物品牌：</td>
-					    <td><input id="brands" name="brands" class="easyui-validatebox spinner" style="width:168px" value="${goodsListDate.brands}" required="true"/></td>
-						 <td >包装单位：</td>
-						<td><input class="easyui-validatebox spinner" name="bulkUnit"  style="width:168px" value="${goodsListDate.bulkUnit}" required="true"/></td>
+					    <td><input id="brands" name="brands" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="${goodsListDate.brands}" required="true"/></td>
+						 <td style="padding-left:10px;">包装单位：</td>
+						<td><input class="easyui-validatebox spinner" name="bulkUnit"  style="width:168px;height: 18px;" value="${goodsListDate.bulkUnit}" required="true"/></td>
 				 	</tr>
 				 	<tr>
 						<td>货物产地：</td>
-						<td ><input name="origin" class="easyui-validatebox spinner" style="width:168px" value="${goodsListDate.origin}" required="true"/></td>
+						<td ><input name="origin" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="${goodsListDate.origin}" required="true"/></td>
 						<td style="padding-left:10px;">生产厂家：</td>
-						<td ><input  name="manufacturers" class="easyui-validatebox spinner" style="width:168px" value="${goodsListDate.manufacturers}" required="true"/></td>
+						<td ><input  name="manufacturers" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="${goodsListDate.manufacturers}" required="true"/></td>
 				   </tr> 
 				   <tr>
 						<td>备 注：</td>
-						<td colspan="3"> <textarea   name="remark" class="easyui-validatebox spinner" style="width:435px;" >${goodsListDate.remark}</textarea></td>
+						<td colspan="3"> <textarea   name="remark" class="easyui-validatebox spinner" style="width:412px;" >${goodsListDate.remark}</textarea></td>
 					</tr>
 				</table>
 		</fieldset>
@@ -47,45 +47,45 @@
 			<table  class="formtable">
 					 <tr>
 					    <td style="padding-left:10px;">货物税率：</td>
-						<td ><input name="taxRate" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${goodsListDate.taxRate}' pattern="#,#00.00"/>" required="true" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入货物税率"/></td>
+						<td ><input name="taxRate" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="<fmt:formatNumber value='${goodsListDate.taxRate}' pattern="#,#00.00"/>" required="true" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入货物税率"/></td>
 					    <td style="padding-left:10px;">参考成本价：</td>
-						<td><input id="referenceCost" name="referenceCost" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${goodsListDate.referenceCost}' pattern="#,#00.00"/>" required="true" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入货物税率"/></td>
+						<td><input id="referenceCost" name="referenceCost" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="<fmt:formatNumber value='${goodsListDate.referenceCost}' pattern="#,#00.00"/>" required="true" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入货物税率"/></td>
 					 </tr>
 					  <tr>
 					    <td style="padding-left:10px;">参考零售价：</td>
-						<td><input  name="referenceRetailPrice" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${goodsListDate.referenceRetailPrice}' pattern="#,#00.00"/>" required="true" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入参考零售价"/></td>
+						<td><input  name="referenceRetailPrice" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="<fmt:formatNumber value='${goodsListDate.referenceRetailPrice}' pattern="#,#00.00"/>" required="true" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入参考零售价"/></td>
 					    <td style="padding-left:10px;">参考销售价：</td>
-						<td><input name="referenceSalesPrice" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${goodsListDate.referenceSalesPrice}' pattern="#,#00.00"/>" required="true" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入参考销售价"/></td>
+						<td><input name="referenceSalesPrice" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="<fmt:formatNumber value='${goodsListDate.referenceSalesPrice}' pattern="#,#00.00"/>" required="true" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入参考销售价"/></td>
 					</tr>
 					   <tr>
 					    <td style="padding-left:10px;">销售价格一：</td>
-						<td><input name="salesPrice1" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${goodsListDate.salesPrice1}' pattern="#,#00.00"/>" required="true" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入销售价格一"/></td>
+						<td><input name="salesPrice1" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="<fmt:formatNumber value='${goodsListDate.salesPrice1}' pattern="#,#00.00"/>" required="true" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入销售价格一"/></td>
 					    <td style="padding-left:10px;">销售价格二：</td>
-						<td><input name="salesPrice2" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${goodsListDate.salesPrice2}' pattern="#,#00.00"/>" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入销售价格二"/></td>
+						<td><input name="salesPrice2" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="<fmt:formatNumber value='${goodsListDate.salesPrice2}' pattern="#,#00.00"/>" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入销售价格二"/></td>
 					 </tr>
 					 <tr>
 					 <td style="padding-left:10px;">销售价格三：</td>
-						<td><input name="salesPrice3" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${goodsListDate.salesPrice3}' pattern="#,#00.00"/>" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入销售价格三"/></td>
+						<td><input name="salesPrice3" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="<fmt:formatNumber value='${goodsListDate.salesPrice3}' pattern="#,#00.00"/>" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入销售价格三"/></td>
 					    <td style="padding-left:10px;">销售价格四：</td>
-						<td><input name="salesPrice4" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${goodsListDate.salesPrice4}' pattern="#,#00.00"/>" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入销售价格四"/></td>
+						<td><input name="salesPrice4" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="<fmt:formatNumber value='${goodsListDate.salesPrice4}' pattern="#,#00.00"/>" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入销售价格四"/></td>
 					 </tr>
 					 <tr>
 					    <td style="padding-left:10px;">销售价格五：</td>
-						<td><input name="salesPrice5" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${goodsListDate.salesPrice5}' pattern="#,#00.00"/>"  validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入销售价格五"/></td>
+						<td><input name="salesPrice5" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="<fmt:formatNumber value='${goodsListDate.salesPrice5}' pattern="#,#00.00"/>"  validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入销售价格五"/></td>
 					    <td style="padding-left:10px;">销售价格六：</td>
-						<td><input name="salesPrice6" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${goodsListDate.salesPrice6}' pattern="#,#00.00"/>"  validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入销售价格六"/></td>
+						<td><input name="salesPrice6" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="<fmt:formatNumber value='${goodsListDate.salesPrice6}' pattern="#,#00.00"/>"  validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入销售价格六"/></td>
 					 </tr>
 					 <tr>
 					    <td style="padding-left:10px;">销售价格七：</td>
-						<td><input name="salesPrice7" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${goodsListDate.salesPrice7}' pattern="#,#00.00"/>"  validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入销售价格七"/></td>
+						<td><input name="salesPrice7" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="<fmt:formatNumber value='${goodsListDate.salesPrice7}' pattern="#,#00.00"/>"  validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入销售价格七"/></td>
 					    <td style="padding-left:10px;">销售价格八：</td>
-						<td><input name="salesPrice8" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${goodsListDate.salesPrice8}' pattern="#,#00.00"/>"  validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入销售价格八"/></td>
+						<td><input name="salesPrice8" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="<fmt:formatNumber value='${goodsListDate.salesPrice8}' pattern="#,#00.00"/>"  validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入销售价格八"/></td>
 					 </tr>
 					 <tr>
 					 <td style="padding-left:10px;">销售价格九：</td>
-						<td><input name="salesPrice9" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${goodsListDate.salesPrice9}' pattern="#,#00.00"/>"  validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入销售价格九"/></td>
+						<td><input name="salesPrice9" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="<fmt:formatNumber value='${goodsListDate.salesPrice9}' pattern="#,#00.00"/>"  validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入销售价格九"/></td>
 					    <td style="padding-left:10px;">销售价格十：</td>
-						<td><input name="salesPrice10" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${goodsListDate.salesPrice10}' pattern="#,#00.00"/>"  validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入销售价格十"/></td>
+						<td><input name="salesPrice10" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="<fmt:formatNumber value='${goodsListDate.salesPrice10}' pattern="#,#00.00"/>"  validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入销售价格十"/></td>
 					 </tr>
 			</table>
 		</fieldset>
@@ -96,27 +96,27 @@
 			<table  class="formtable">
 					<tr>
 						<td style="padding-left:10px;">换算比例：</td>
-						<td ><input name="packageConRates" class="easyui-validatebox spinner" style="width:168px" value="${goodsListDate.packageConRates}" required="true" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入换算比例"/></td>
+						<td ><input name="packageConRates" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="${goodsListDate.packageConRates}" required="true" validType="customReg['^\\d+(\\.\\d+)?$','<fmt:message key="public.thisNum.illegal"/>']" missingMessage="请输入换算比例"/></td>
 						<td style="padding-left:10px;">计价方式：</td>
-						<td ><input  name="pricing" class="easyui-validatebox spinner" style="width:168px" value="${goodsListDate.pricing}"  required="true"/></td>
+						<td ><input  name="pricing" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="${goodsListDate.pricing}"  required="true"/></td>
 				   </tr>
 				   <tr>
 					  <td style="padding-left:10px;">负责部门：</td>
-						<td><input name="department"  id="department" class="easyui-comboboxspinner spinner" style="width:168px" value="${goodsListDate.department}" required="true"/></td>
+						<td><input name="department"  id="department" class="easyui-comboboxspinner spinner" style="width:170px;height: 18px;" value="${goodsListDate.department}" required="true"/></td>
 					 <td style="padding-left:10px;">负责人：</td>
-						<td><input name="attn" id="attn" class="easyui-combobox spinner" style="width:168px" value="${goodsListDate.attn }" required="true"/></td>
+						<td><input name="attn" id="attn" class="easyui-combobox spinner" style="width:170px;height: 18px;" value="${goodsListDate.attn }" required="true"/></td>
 					 </tr>
 					 <tr>
 						<td style="padding-left:10px;">批次管理：</td>
-						<td ><input id="batchManagement" name="batchManagement" style="width: 168px;" value="${goodsListDate.batchManagement }" /></td>
+						<td ><input id="batchManagement" name="batchManagement" style="width:168px;height: 18px;" value="${goodsListDate.batchManagement }" /></td>
 						<td style="padding-left:10px;">有效期管理：</td>
-						<td ><input id="validManagement" name="validManagement" style="width: 168px;" value="${goodsListDate.validManagement }" /></td>
+						<td ><input id="validManagement" name="validManagement" style="width:168px;height: 18px;" value="${goodsListDate.validManagement }" /></td>
 				    </tr> 
 					 <tr>
 					    <td style="padding-left:10px;">生产日期：</td>
-						<td><input name="warrantyStart" id="warrantyStart" class="easyui-datetimebox" style="width:168px" value="<fmt:formatDate value="${goodsListDate.warrantyStart}" pattern="yyyy-MM-dd HH:mm:ss"/>" required="true"/></td>
+						<td><input name="warrantyStart" id="warrantyStart" class="easyui-datetimebox" style="width:170px;height: 18px;" value="<fmt:formatDate value="${goodsListDate.warrantyStart}" pattern="yyyy-MM-dd HH:mm:ss"/>" required="true"/></td>
 					    <td style="padding-left:10px;">终止日期：</td>
-						<td><input name="warrantyEnd" id="warrantyEnd" class="easyui-datetimebox" style="width:168px" value="<fmt:formatDate value='${goodsListDate.warrantyEnd}'  pattern="yyyy-MM-dd HH:mm:ss"/>" required="true"/></td>
+						<td><input name="warrantyEnd" id="warrantyEnd" class="easyui-datetimebox" style="width:170px;height: 18px;" value="<fmt:formatDate value='${goodsListDate.warrantyEnd}'  pattern="yyyy-MM-dd HH:mm:ss"/>" required="true"/></td>
 					 </tr>
 			</table>
 		</fieldset>
@@ -202,7 +202,7 @@
 	//下拉项的值
 	$('#batchManagement').combobox({
 		valueField : 'value',
-		width : 168,
+		width : 170,
 		textField : 'label',
 		panelHeight : 'auto',
 		editable : false,
@@ -213,7 +213,7 @@
 	//下拉项的值
 	$('#validManagement').combobox({
 		valueField : 'value',
-		width : 168,
+		width : 170,
 		textField : 'label',
 		panelHeight : 'auto',
 		editable : false,
@@ -227,7 +227,7 @@
 	//初始化上级部门
 	$("#department").combotree({
 		data :$.parseJSON('${allDepTreeNodeData}'),
-		width:168,
+		width:170,
 		panelHeight : 'auto',
 	    missingMessage:'请选择上级部门',
 	    smooth: true,       //该属性用以启用当前 easyui-tree 控件对平滑数据格式的支持

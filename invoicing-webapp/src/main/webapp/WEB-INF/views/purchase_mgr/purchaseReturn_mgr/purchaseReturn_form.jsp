@@ -207,7 +207,6 @@ function addRow(){
 		}else {
 			index = 0;
 		}
-		var rowsCount = $("#purchase_return_form").datagrid("getRows"); 
 		$('#purchase_return_form').datagrid('insertRow', {
 			index: index,
 			row:{}

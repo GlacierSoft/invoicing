@@ -5,7 +5,7 @@
 <form method="post" style="padding:15px">
 	<table class="detailtable">
 		<tr>
-			<td>联系人类型名称：</td> 
+			<td>类型名称：</td> 
 			<td class="forminputtable" colspan="3"><!-- 当表格行存在两个要显示的td,使用该forminputtable样式可以进行适当的空间调整  -->
 				<input class="spinner" style="width:375px" name="name" value="${warGoodsTypeDate.name}"  readonly="readonly"/>
 			</td>

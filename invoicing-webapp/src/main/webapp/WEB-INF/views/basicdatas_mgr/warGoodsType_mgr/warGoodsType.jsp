@@ -135,7 +135,7 @@
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.warGoodsType_mgr.warGoodsType.addWarGoodsType= function(){
 		glacier.basicAddOrEditDialog({
-			title : '【退货原因】- 增加',
+			title : '【仓库货品信息】- 增加',
 			width : 380,
 			height : 200,
 			queryUrl : ctx + '/do/warGoodsType/intoForm.htm',
@@ -149,7 +149,7 @@
 	glacier.basicdatas_mgr.warGoodsType_mgr.warGoodsType.editWarGoodsType= function(){
 		var row =glacier.basicdatas_mgr.warGoodsType_mgr.warGoodsType.warGoodsTypeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '【退货原因】- 编辑',
+			title : '【仓库货品信息】- 编辑',
 			width : 380,
 			height : 200,
 			queryUrl : ctx + '/do/warGoodsType/intoForm.htm',
