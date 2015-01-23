@@ -317,26 +317,26 @@
 			<table>
 				<tr>
 					<td>用户名：</td>
-					<td><input name="username" style="width: 60px;" class="spinner"/></td>
+					<td><input name="username" style="width: 80px;height:16px;" class="spinner"/></td>
 					<td>真实姓名：</td>
-					<td><input name="userCnName" style="width: 60px;" class="spinner"/></td>
+					<td><input name="userCnName" style="width: 80px;height:16px;" class="spinner"/></td>
 					<td>电子邮箱：</td>
 					<td>
-						<input name="email" style="width:60px;height:18px;" class="spinner" />
+						<input name="email" style="width:80px;height:18px;" class="spinner" />
 					</td>
 					<td>用户类型：</td>
 					<td>
-						<input name="builtin" style="width:60px;height:18px;" class="easyui-combobox" data-options="panelHeight:'auto',editable:false,valueField:'value',textField : 'label',data :fields.builtin" />
+						<input name="builtin" style="width:80px;height:18px;" class="easyui-combobox" data-options="panelHeight:'auto',editable:false,valueField:'value',textField : 'label',data :fields.builtin" />
 					</td>
 					<td>用户状态：</td>
 					<td>
-						<input name="status" style="width:60px;height:18px;" class="easyui-combobox" data-options="panelHeight:'auto',editable:false,valueField:'value',textField : 'label',data :fields.status" />
+						<input name="status" style="width:80px;height:18px;" class="easyui-combobox" data-options="panelHeight:'auto',editable:false,valueField:'value',textField : 'label',data :fields.status" />
 					</td>
 					<td>录入时间：</td>
 					<td>
-						<input name="createStartTime" class="easyui-datetimebox" style="width: 100px;" />
+						<input name="createStartTime" class="easyui-datetimebox" style="width: 100px;height:18px;" />
 						-
-						<input name="createEndTime" class="easyui-datetimebox" style="width: 100px;" />
+						<input name="createEndTime" class="easyui-datetimebox" style="width: 100px;height:18px;" />
 					</td>
 					<td>
 						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.system_mgr.user_mgr.user.userDataGrid.datagrid('load',glacier.serializeObject($('#userSearchForm')));">查询</a>

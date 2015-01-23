@@ -169,7 +169,7 @@
 			<table>
 				<tr>
 					<td>登录人：</td>
-					<td><input name="loginUser" style="width: 80px;" class="spinner"/></td>
+					<td><input name="loginUser" style="width: 80px;height:16px;" class="spinner"/></td>
 					<!-- <td>角色英文名：</td>
 					<td><input name="roleEnName" style="width: 80px;" class="spinner"/></td>
 					<td>是否内置：</td>
@@ -178,9 +178,9 @@
 					</td> -->
 					<td>登录时间：</td>
 					<td>
-						<input name="createStartTime" class="easyui-datetimebox" style="width: 100px;" />
+						<input name="createStartTime" class="easyui-datetimebox" style="width: 100px;height:18px;" />
 						-
-						<input name="createEndTime" class="easyui-datetimebox" style="width: 100px;" />
+						<input name="createEndTime" class="easyui-datetimebox" style="width: 100px;height:18px;" />
 					</td>
 					<td>
 						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.system_mgr.loginlog_mgr.loginlog.loginlogDataGrid.datagrid('load',glacier.serializeObject($('#loginlogSearchForm')));">查询</a>

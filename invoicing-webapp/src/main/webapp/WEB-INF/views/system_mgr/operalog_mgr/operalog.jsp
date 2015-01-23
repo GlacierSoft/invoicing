@@ -185,20 +185,20 @@
 			<table>
 				<tr>
 					<td>操作菜单：</td>
-					<td><input name="operaMenu" style="width: 60px;" class="spinner"/></td>
+					<td><input name="operaMenu" style="width: 80px;height:16px;" class="spinner"/></td>
 					<td>操作面板：</td>
-					<td><input name="operaPenal" style="width: 60px;" class="spinner"/></td>
+					<td><input name="operaPenal" style="width: 80px;height:16px;" class="spinner"/></td>
 					<td>操作方法：</td>
-					<td><input name="operaMethod" style="width: 60px;" class="spinner"/></td>
+					<td><input name="operaMethod" style="width: 80px;height:16px;" class="spinner"/></td>
 					<td>调用方法：</td>
-					<td><input name="operaMd" style="width: 60px;" class="spinner"/></td>
+					<td><input name="operaMd" style="width: 80px;height:16px;" class="spinner"/></td>
 					<td>操作人：</td>
-					<td><input name="operator" style="width: 60px;" class="spinner"/></td>
+					<td><input name="operator" style="width: 80px;height:16px;" class="spinner"/></td>
 					<td>创建时间：</td>
 					<td>
-						<input name="createStartTime" class="easyui-datetimebox" style="width: 100px;" />
+						<input name="createStartTime" class="easyui-datetimebox" style="width: 100px;height:18px;" />
 						-
-						<input name="createEndTime" class="easyui-datetimebox" style="width: 100px;" />
+						<input name="createEndTime" class="easyui-datetimebox" style="width: 100px;height:18px;" />
 					</td>
 					<td>
 						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-standard-zoom-in',plain:true" onclick="glacier.system_mgr.operalog_mgr.operalog.operalogDataGrid.datagrid('load',glacier.serializeObject($('#operalogSearchForm')));">查询</a>
