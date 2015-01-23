@@ -33,6 +33,11 @@ public class GoodsListQueryDTO extends GoodsList{
 	   	 if(null != this.getGoodsName() && StringUtils.isNotBlank(this.getGoodsName())){//车辆类型名称Like查询
 	            queryCriteria.andGoodsNameLike("%" + this.getGoodsName() + "%");
 	        }  
+	   	 
+	   	if(null != this.getGoodsTypeId() && StringUtils.isNotBlank(this.getGoodsTypeId())){//车辆类型名称Like查询
+            queryCriteria.andGoodsTypeIdLike("%" + this.getGoodsTypeId() + "%");
+        } 
+	   	 
 	   	 if(null != this.getEnabled()){//状态Enum查询
 	        queryCriteria.andEnabledEqualTo(this.getEnabled().toString());
 	   	 	}

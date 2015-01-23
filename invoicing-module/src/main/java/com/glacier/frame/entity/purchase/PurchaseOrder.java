@@ -105,9 +105,50 @@ public class PurchaseOrder {
     private String suppliersName;//供应商名字
     
     private String storageName;//仓库名
+     //----
+    private String purchaseTypeName;//采购类型
+    
+    private String operatorName;//经办人
+    
+    private String paymentTypeName;//支付方式
+    
+    private String deliveryTypeName;//交货方式
+      
      
     
-    public String getSuppliersName() {
+    public String getPurchaseTypeName() {
+		return purchaseTypeName;
+	}
+
+	public void setPurchaseTypeName(String purchaseTypeName) {
+		this.purchaseTypeName = purchaseTypeName;
+	}
+
+	public String getOperatorName() {
+		return operatorName;
+	}
+
+	public void setOperatorName(String operatorName) {
+		this.operatorName = operatorName;
+	}
+ 
+	public String getPaymentTypeName() {
+		return paymentTypeName;
+	}
+
+	public void setPaymentTypeName(String paymentTypeName) {
+		this.paymentTypeName = paymentTypeName;
+	}
+
+	public String getDeliveryTypeName() {
+		return deliveryTypeName;
+	}
+
+	public void setDeliveryTypeName(String deliveryTypeName) {
+		this.deliveryTypeName = deliveryTypeName;
+	}
+
+	public String getSuppliersName() {
 		return suppliersName;
 	}
 

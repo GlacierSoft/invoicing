@@ -267,15 +267,15 @@
 			<table>
 				<tr>
 					<td>名称：</td>
-					<td><input name="suppliersName" style="width: 80px;"
+					<td><input name="suppliersName" style="width: 80px;height:16px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
-					<td><input id="suppliersSearchForm_enabled" name="enabled" style="width: 80px;"
+					<td><input id="suppliersSearchForm_enabled" name="enabled" style="width: 80px;height:18px;"
 						 /></td> 
 					<td>创建时间：</td>
 					<td><input name="createStartTime" class="easyui-datetimebox"
-						style="width: 100px;" /> - <input name="createEndTime"
-						class="easyui-datetimebox" style="width: 100px;" /></td>
+						style="width: 100px;height:18px;" /> - <input name="createEndTime"
+						class="easyui-datetimebox" style="width: 100px;height:18px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
 						onclick="glacier.basicdatas_mgr.suppliers_mgr.suppliers.suppliersDataGrid.datagrid('load',glacier.serializeObject($('#suppliersSearchForm')));">查询</a>

@@ -94,7 +94,7 @@
 				return renderGridValue(value, fields.invState);
 			}
 		},{
-			field : 'operators',
+			field : 'operatorName',
 			title : '经办人',
 			sortable : true,
 			width : 120

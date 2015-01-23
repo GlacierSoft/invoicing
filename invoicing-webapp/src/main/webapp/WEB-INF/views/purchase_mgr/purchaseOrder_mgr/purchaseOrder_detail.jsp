@@ -61,7 +61,7 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 					   <td style="padding-left:10px;">传真：</td>
 					   <td><input class="spinner" style="width:168px" value="${purchaseOrderData.fax}" readonly="readonly"/></td>
 					   <td style="padding-left:10px;">经办人：</td>
-				      <td><input class="spinner" style="width:168px"   value="${purchaseOrderData.operators}" readonly="readonly"/></td>
+				      <td><input class="spinner" style="width:168px"   value="${purchaseOrderData.operatorName}" readonly="readonly"/></td>
 				      <td style="padding-left:10px;">经办部门：</td>
 					  <td><input class="spinner" style="width:168px" value="${purchaseOrderData.operatorDep}" readonly="readonly"/></td>
 				      <td style="padding-left:10px;">审核状态：</td>
@@ -78,14 +78,14 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 					<tr> 
 				        <td style="padding-left:10px;">约定支付方式：</td>
 						<td >
-						    <input id="paymentTypeId" name="paymentTypeId" class="spinner" style="width:168px;" value="${purchaseOrderData.paymentTypeId}" readonly="readonly"/>
+						    <input id="paymentTypeId" name="paymentTypeId" class="spinner" style="width:168px;" value="${purchaseOrderData.paymentTypeName}" readonly="readonly"/>
 						</td>
 				        <td style="padding-left:10px;">付款约定：</td>
 						<td>
 							<input id="paymentAgrId" name="paymentAgrId" class="spinner" style="width:168px" value="${purchaseOrderData.paymentAgrId }"  readonly="readonly"/>
 						</td>
 					     <td style="padding-left:10px;">交货方式：</td>
-						<td ><input name="deliveryType" class="spinner" style="width:168px"  value='${purchaseOrderData.deliveryType}'  readonly="readonly"/></td>
+						<td ><input name="deliveryType" class="spinner" style="width:168px"  value='${purchaseOrderData.deliveryTypeName}'  readonly="readonly"/></td>
 					    <td style="padding-left:10px;">交货期限：</td>
 						<td><input id="deliveryDadlines" name="deliveryDadlines" class="spinner" style="width:168px" value="<fmt:formatDate value="${purchaseOrderData.deliveryDadlines}" pattern="yyyy-MM-dd"/>"  readonly="readonly"/></td>
 					 </tr>

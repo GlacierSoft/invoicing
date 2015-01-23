@@ -7,12 +7,12 @@
 		<tr> 
 		   <td>编号:</td>
 			<td>
-				 <input class="easyui-validatebox spinner" name="supplierNumber" readonly="readonly" style="width:168px"  value="${suppliersData.supplierNumber}"/>
+				 <input class="easyui-validatebox spinner" name="supplierNumber" readonly="readonly" style="width:168px;height: 18px;"  value="${suppliersData.supplierNumber}"/>
 		    </td> 
 			<td style="padding-left: 16px">供应商名称：</td>
 			<td>
 				<input type="hidden" name="supplierId" value="${suppliersData.supplierId}" />
-				<input name="suppliersName" class="easyui-validatebox spinner" style="width:168px;height: 16px;"   required="true" value="${suppliersData.suppliersName}" />
+				<input name="suppliersName" class="easyui-validatebox spinner" style="width:168px;height: 18px;"   required="true" value="${suppliersData.suppliersName}" />
 			</td> 
 		</tr>
 		<tr>
@@ -158,7 +158,7 @@
 			<tr> 
 		    <td>备注:</td>
 			<td colspan="3">
-			<textarea rows="2" cols="66" name="remark" style="margin-top: 20px">${suppliersData.remark}</textarea>
+			<textarea class="spinner" rows="4" cols="68" name="remark" style="margin-top: 20px">${suppliersData.remark}</textarea>
 		<%-- 		 <input class="easyui-validatebox spinner" name="remark" style="width:430px"  value="${suppliersData.remark}"/> --%>
 		    </td> 
 		</tr>  
@@ -170,7 +170,7 @@
 $("#suppliers_mgr_suppliers_form_typeId").combobox({
 	data : $.parseJSON('${suppliersType}'),//controller传来的数据源
 	height:18,
-	width:168,
+	width:170,
     required:true,
     editable : false,
     missingMessage:'请选择供应商类型',
@@ -182,7 +182,7 @@ $("#suppliers_mgr_suppliers_form_typeId").combobox({
 $("#suppliers_mgr_suppliers_form_sourceId").combobox({
 	data : $.parseJSON('${suppliersSource}'),//controller传来的数据源
 	height:18,
-	width:168,
+	width:170,
     required:true,
     editable : false,
     missingMessage:'请选择供应商来源',
@@ -194,7 +194,7 @@ $("#suppliers_mgr_suppliers_form_sourceId").combobox({
 $("#suppliers_mgr_suppliers_form_natureId").combobox({
 	data : $.parseJSON('${comNature}'),//controller传来的数据源
 	height:18,
-	width:168,
+	width:170,
     required:true,
     editable : false,
     missingMessage:'请选择公司性质',
@@ -206,7 +206,7 @@ $("#suppliers_mgr_suppliers_form_natureId").combobox({
 $("#suppliers_mgr_suppliers_form_industryId").combobox({
 	data : $.parseJSON('${comIndustry}'),//controller传来的数据源
 	height:18,
-	width:168,
+	width:170,
     required:true,
     editable : false,
     missingMessage:'请选择行业',
@@ -218,7 +218,7 @@ $("#suppliers_mgr_suppliers_form_industryId").combobox({
 $("#suppliers_mgr_suppliers_form_sizeId").combobox({
 	data : $.parseJSON('${companySize}'),//controller传来的数据源
 	height:18,
-	width:168,
+	width:170,
     required:true,
     editable : false,
     missingMessage:'请选择公司规模',
@@ -230,7 +230,7 @@ $("#suppliers_mgr_suppliers_form_sizeId").combobox({
 $("#suppliers_mgr_suppliers_form_supplierLevel").combobox({
 	data : $.parseJSON('${suppliersGrade}'),//controller传来的数据源
 	height:18,
-	width:168,
+	width:170,
     required:true,
     editable : false,
     missingMessage:'请选择供应商级别',

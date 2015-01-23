@@ -120,7 +120,7 @@ public class PurchaseOrderService {
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
         int count = 0; 
-        SimpleDateFormat sf=new SimpleDateFormat("dd-hh-ss");
+        SimpleDateFormat sf=new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
         purchaseOrder.setPurOrderId(RandomGUID.getRandomGUID()); 
         if(purchaseOrder.getInvoice().equals("启用")){
         	purchaseOrder.setInvoice("yes");
