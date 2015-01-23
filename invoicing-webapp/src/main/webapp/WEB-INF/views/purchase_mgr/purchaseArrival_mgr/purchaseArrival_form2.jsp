@@ -122,10 +122,11 @@ $('#purchase_arrival_form').datagrid({
 	sortOrder : 'DESC',//升序还是降序
 	remoteSort : true,//开启远程排序，默认为false
 	idField : 'purOrderDetId', 
-    columns:[[    
+    columns:[[
+		//{field:'goodsId',title:'ID',checkbox:true},
         {field:'goodsCode',title:'货品编码',width:100},    
         {field:'goodsName',title:'货品名称',width:100},
-        {field:'goodsId',title:'货品编号',width:100,hidden:true},
+       	{field:'goodsId',title:'货品编号',width:100,hidden:true},
         {field:'placeOfOrigin',title:'产地',width:100,hidden:true},
         {field:'goodsModel',title:'规格型号',width:100},   
         {field:'goodsUnit',title:'单位',width:100}, 
@@ -150,7 +151,7 @@ $('#purchase_arrival_form').datagrid({
         	$.messager.confirm('提示','确认删除数据?',function(r){
         		if (r){
         			var rows = $dg.datagrid("getSelected"); 
-                  var	row=$dg.datagrid('getRowIndex', rows);
+                    var	row=$dg.datagrid('getRowIndex', rows);
           		$dg.datagrid('deleteRow',row); 
         		
         		}
@@ -159,8 +160,14 @@ $('#purchase_arrival_form').datagrid({
         }
       }],
     onSelect:function(rowIndex, rowData){
-    	stRows=rowIndex;
-    	goodsDetail(rowIndex,rowData);
+    	//先取出所有行的条数
+    	var countRows = $("#purchase_arrival_form").datagrid("getRows");
+    	if(countRows.length >= 2 && countRows.length-1 == rowIndex){
+    		return false;
+    	}else{
+    		stRows=rowIndex;
+        	goodsDetail(rowIndex,rowData);
+    	}
     }
 });
 
@@ -196,7 +203,13 @@ function getRowIndex(target){
 
 function goSave(){
 	if($('#purchaseArrival_mgr_purchaseArrival_form').form("validate")){//验证判断
-		var rowsCount = $("#purchase_arrival_form").datagrid("getRows"); 
+		//先取出所有行的条数
+		var delOldRows = $("#purchase_arrival_form").datagrid("getRows");
+		//进行删除最后一行统计
+		$("#purchase_arrival_form").datagrid("deleteRow",delOldRows.length-1);
+		//再获取已经删除了统计行的所有行条数
+		var rowsCount = $("#purchase_arrival_form").datagrid("getRows");
+		//循环赋值
 		for(var i=0;i<rowsCount.length;i++){
 			var moneyTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'money'}).target;
 			var deadlineTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'deadline'}).target;
@@ -221,7 +234,7 @@ function goSave(){
 					price:priceTarget.val()
 				}
 			});
-			$('#purchase_arrival_form').datagrid('endEdit', i).datagrid('refreshRow', i);
+			$('#purchase_arrival_form').datagrid('endEdit', i).datagrid('refreshRow', i);//刷新
 		}
 	}
 	//取出datagrid中所有值
@@ -235,6 +248,35 @@ function goSave(){
 	    	$("#layout_center_panel").panel("setTitle","采购到货").panel('refresh',ctx + '/do/purchaseArrival/index.htm');
 	    }    
 	});
+}
+
+//底部统计
+function compute() {//计算函数
+	//先取出所有行的条数
+	var delOldRows = $("#purchase_arrival_form").datagrid("getRows");
+	if(delOldRows.length > 2){
+		//进行删除最后一行统计
+		$("#purchase_arrival_form").datagrid("deleteRow",delOldRows.length-1);	
+	}
+	//获取删除后的数据行
+    var rows = $('#purchase_arrival_form').datagrid('getRows');
+    var moneyTotal = 0,arrivalTotal = 0,deliveryTotal = 0,rejectionTotal = 0;//计算moneyTotal的总和以及统计arrivalTotal的总和，deliveryTotal总和
+    if(rows.length >= 2){
+	    for (var i = 0; i < rows.length; i++) {
+	    	var moneyTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'money'}).target;
+	    	moneyTotal += parseFloat(moneyTarget.val());
+	    	rejectionTotal += rows[i]['rejection'];
+	    	arrivalTotal += rows[i]['arrival'];
+	        deliveryTotal += rows[i]['delivery'];
+	    }
+	    //新增一行显示统计信息
+	    $('#purchase_arrival_form').datagrid('appendRow', { 
+	    	goodsCode: '<b>统计：</b>', arrival: arrivalTotal,
+	    	delivery: deliveryTotal,money: moneyTotal,
+	    	rejection: rejectionTotal
+	    	}
+	    );
+    }
 }
 
 //去到货品目录方法
@@ -293,6 +335,7 @@ function goodsDetail(rowIndex,rowData){
 				$(moneyTarget).bind("blur",function(){
 					moneyBlur(this);
 				});
+				compute();//调用统计			
 			}
 		}]
 	});
@@ -334,20 +377,25 @@ function deliverysBlur(obj){
 			}
 		});
 		$('#purchase_arrival_form').datagrid('endEdit', indexRows).datagrid('refreshRow', indexRows).datagrid('beginEdit', indexRows);
-		//绑定事件-再次绑定
-		var deliverysTarget = $("#purchase_arrival_form").datagrid('getEditor', {index:indexRows,field:'delivery'}).target;
-		var pricesTarget = $("#purchase_arrival_form").datagrid('getEditor', {index:indexRows,field:'price'}).target;
-		var moneysTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'money'}).target;
-		$(deliverysTarget).bind("blur",function(){
-			deliverysBlur(this);
-		});
-		$(pricesTarget).bind("blur",function(){
-			priceBlur(this);
-		});
-		$(moneysTarget).bind("blur",function(){
-			moneyBlur(this);
-		});
+		againBinding(indexRows);//绑定时间
 	}
+	compute();
+}
+
+function againBinding(indexRows){
+	//绑定事件-再次绑定
+	var deliverysTarget = $("#purchase_arrival_form").datagrid('getEditor', {index:indexRows,field:'delivery'}).target;
+	var pricesTarget = $("#purchase_arrival_form").datagrid('getEditor', {index:indexRows,field:'price'}).target;
+	var moneysTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'money'}).target;
+	$(deliverysTarget).bind("blur",function(){
+		deliverysBlur(this);
+	});
+	$(pricesTarget).bind("blur",function(){
+		priceBlur(this);
+	});
+	$(moneysTarget).bind("blur",function(){
+		moneyBlur(this);
+	});
 }
 
 //总金额编辑框失去焦点绑定事件
@@ -357,12 +405,33 @@ function moneyBlur(obj){
 	var priceTarget = $("#purchase_arrival_form").datagrid('getEditor', {index:indexRows,field:'price'}).target;
 	var deliveryTarget = $("#purchase_arrival_form").datagrid('getEditor', {index:indexRows,field:'delivery'}).target;
 	var moneyTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'money'}).target;
+	var arrivalTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'arrival'}).target;
+	var deadlineTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'deadline'}).target;
+	var remarkTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'remark'}).target;
+	var depositRateTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'depositRate'}).target;
+	var batchInformationTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'batchInformation'}).target;
+	var cessTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'cess'}).target;
+	//-----------------------------------自定义变量-----------------------------------
+	var arrival = parseInt(arrivalTarget.val());
 	var delivery = parseInt(deliveryTarget.val());
 	var price = parseFloat(priceTarget.val());
 	var money = parseFloat(moneyTarget.val());
 	if(delivery > 0){
 		priceTarget.val(money/delivery);
+		$('#purchase_arrival_form').datagrid('updateRow', {
+			index:indexRows,
+			row:{
+				rejection:arrival-delivery,
+				arrival:arrival,delivery:delivery,money:moneyTarget.val(),
+				cess:cessTarget.val(),depositRate:depositRateTarget.val(),
+				price:priceTarget.val(),remark:"",deadline:$(deadlineTarget).datebox('getValue'),
+				batchInformation:batchInformationTarget.val()
+			}
+		});
+		$('#purchase_arrival_form').datagrid('endEdit', indexRows).datagrid('refreshRow', indexRows).datagrid('beginEdit', indexRows);
+		againBinding(indexRows);
 	}
+	compute();//调用统计
 }
 
 //单价编辑框失去焦点绑定事件
@@ -372,11 +441,33 @@ function priceBlur(obj){
 	var priceTarget = $("#purchase_arrival_form").datagrid('getEditor', {index:indexRows,field:'price'}).target;
 	var deliveryTarget = $("#purchase_arrival_form").datagrid('getEditor', {index:indexRows,field:'delivery'}).target;
 	var moneyTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'money'}).target;
+	var arrivalTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'arrival'}).target;
+	var deadlineTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'deadline'}).target;
+	var remarkTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'remark'}).target;
+	var depositRateTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'depositRate'}).target;
+	var batchInformationTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'batchInformation'}).target;
+	var cessTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'cess'}).target;
+	//-----------------------------------自定义变量-----------------------------------
+	var arrival = parseInt(arrivalTarget.val());
 	var delivery = parseInt(deliveryTarget.val());
 	var price = parseFloat(priceTarget.val());
+	var money = parseFloat(moneyTarget.val());
 	if(price > 0 && delivery > 0){
 		moneyTarget.val(delivery*price);
+		$('#purchase_arrival_form').datagrid('updateRow', {
+			index:indexRows,
+			row:{
+				rejection:arrival-delivery,
+				arrival:arrival,delivery:delivery,money:moneyTarget.val(),
+				cess:cessTarget.val(),depositRate:depositRateTarget.val(),
+				price:priceTarget.val(),remark:"",deadline:$(deadlineTarget).datebox('getValue'),
+				batchInformation:batchInformationTarget.val()
+			}
+		});
+		$('#purchase_arrival_form').datagrid('endEdit', indexRows).datagrid('refreshRow', indexRows).datagrid('beginEdit', indexRows);
+		againBinding(indexRows);
 	}
+	compute();//调用统计
 }
 
 //初始化采购类型下拉项

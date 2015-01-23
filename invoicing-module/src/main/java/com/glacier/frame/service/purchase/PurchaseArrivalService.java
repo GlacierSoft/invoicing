@@ -125,7 +125,6 @@ public class PurchaseArrivalService {
 			BigDecimal Amount= BigDecimal.valueOf(json.getDouble("money"));//转换成BigDecimal
 			allAmount = allAmount.add(Amount);
 		}
-        System.out.println("-----------------------------------:"+purchaseArrival.getInvoice());
         count = purchaseArrivalMapper.countByExample(purchaseArrivalExample);
         //采购到货编号格式:表名_年_月_日_分_秒
         SimpleDateFormat formatDate = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
