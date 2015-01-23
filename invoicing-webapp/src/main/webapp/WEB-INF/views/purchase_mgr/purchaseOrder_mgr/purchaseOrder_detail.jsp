@@ -158,8 +158,7 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 	      </div> 
 	      <hr>     
   </form> 
-	      <!-- 所有列表面板和表格 -->
-<div class="easyui-layout" data-options="fit:true,height:300"  > 
+	      <!-- 所有列表面板和表格 -->  
 	<div data-options="region:'north',split:true"
 		style="height: 40px; padding-left: 10px;">
 		<form id="purchaseOrderDetailSearchForm">
@@ -202,7 +201,7 @@ glacier.purchase_mgr.purchaseOrderDetail_mgr.purchaseOrderDetail.purchaseOrderDe
 	singleSelect : true,//限制单选
 	checkOnSelect : false,//选择复选框的时候选择该行
 	selectOnCheck : false,//选择的时候复选框打勾 
-    url: ctx + '/do/purchaseOrder/orderDetail.json?orderId='+${purchaseOrderData.purOrderId },   
+    url: ctx + '/do/purchaseOrder/orderDetail.json?orderId=${purchaseOrderData.purOrderId }',   
 	sortName : 'goodsCode',//排序字段名称
 	sortOrder : 'DESC',//升序还是降序
 	remoteSort : true,//开启远程排序，默认为false

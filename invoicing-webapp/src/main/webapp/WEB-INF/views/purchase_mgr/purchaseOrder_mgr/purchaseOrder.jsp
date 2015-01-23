@@ -147,8 +147,8 @@
 			}
 		},
 		onDblClickRow : function(rowIndex, rowData){ 
-			$("#layout_center_panel").panel("setTitle","订购订货合同");
-			$('#layout_center_panel').panel('refresh',ctx +'/do/purchaseOrder/intoDetail.htm?purOrderId='+ rowData.purOrderId);
+			$("#layout_center_panel").panel("setTitle","订购订货合同详情"); 
+			$("#layout_center_panel").panel("refresh",ctx +"/do/purchaseOrder/intoDetail.htm?purOrderId="+ rowData.purOrderId);
 	  	}
 	});
 	
