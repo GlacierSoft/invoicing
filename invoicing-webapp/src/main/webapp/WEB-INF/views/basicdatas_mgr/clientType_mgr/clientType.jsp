@@ -126,7 +126,7 @@
 	glacier.basicdatas_mgr.clientType_mgr.clientType.addClientType = function(){
 		glacier.basicAddOrEditDialog({
 			title : '【客户类型】 - 增加',
-			width : 420,
+			width : 350,
 			height : 200,
 			queryUrl : ctx + '/do/clientType/intoForm.htm',
 			submitUrl : ctx + '/do/clientType/add.json',
@@ -141,7 +141,7 @@
 		var row = glacier.basicdatas_mgr.clientType_mgr.clientType.clientTypeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【客户类型】 - 编辑',
-			width : 420,
+			width : 350,
 			height : 200,
 			queryUrl : ctx + '/do/clientType/intoForm.htm',
 			submitUrl : ctx + '/do/clientType/edit.json',
@@ -208,15 +208,15 @@
 			<table>
 				<tr>
 					<td>客户类型名称：</td>
-					<td><input name="clientTypeName" style="width: 80px;"
+					<td><input name="clientTypeName" style="width: 80px;height:16px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
-					<td><input id="clientTypeSearchForm_status" name="enabled" style="width: 80px;"
+					<td><input id="clientTypeSearchForm_status" name="enabled" style="width: 80px;height:18px;"
 						 class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,data : fields.status"/></td> 
 					<td>创建时间：</td>
 					<td><input name="createStartTime" class="easyui-datetimebox"
-						style="width: 100px;" /> - <input name="createEndTime"
-						class="easyui-datetimebox" style="width: 100px;" /></td>
+						style="width: 100px;height:18px;" /> - <input name="createEndTime"
+						class="easyui-datetimebox" style="width: 100px;height:18px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
 						onclick="glacier.basicdatas_mgr.clientType_mgr.clientType.clientTypeDataGrid.datagrid('load',glacier.serializeObject($('#clientTypeSearchForm')));">查询</a>

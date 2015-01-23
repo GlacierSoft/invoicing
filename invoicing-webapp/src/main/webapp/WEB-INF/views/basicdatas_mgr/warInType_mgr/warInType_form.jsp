@@ -9,16 +9,16 @@
 			<td>入库类型名称：</td>
 			<td>
 				<input type="hidden" name="inTypeId" value="${warInTypeDate.inTypeId}" />
-				<input name="inTypeName"  class="easyui-validatebox spinner" style="width:268px;height: 16px;" required="true" value="${warInTypeDate.inTypeName}"/>
+				<input name="inTypeName"  class="easyui-validatebox spinner" style="width:168px;height: 18px;" required="true" value="${warInTypeDate.inTypeName}"/>
 			</td>
 		</tr>
 		<tr>
 			<td>序号：</td>
-			<td><input maxlength="3" name="orderNum" class="easyui-numberspinner spinner" value="${warInTypeDate.orderNum}" data-options="min:0,max:9999,required:true,missingMessage:'请输入写信用积分,只能输入整数'" style="width: 270px;height:18px;"/></td>
+			<td><input maxlength="3" name="orderNum" class="easyui-numberspinner spinner" value="${warInTypeDate.orderNum}" data-options="min:0,max:999,required:true,missingMessage:'只能输入整数'" style="width:170px;height: 18px;"/></td>
 		</tr>
 		<tr>
 			<td>状态：</td>
-			<td><input id="warInType_from_enabled" name="enabled" style="width:268px" value="${warInTypeDate.enabled}"  class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/></td>
+			<td><input id="warInType_from_enabled" name="enabled" style="width:170px;height: 18px;" value="${warInTypeDate.enabled}"  class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/></td>
 		</tr>
 	</table>
 </form>

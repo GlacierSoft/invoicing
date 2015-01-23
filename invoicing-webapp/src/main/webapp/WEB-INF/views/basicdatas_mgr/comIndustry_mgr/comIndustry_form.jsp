@@ -9,16 +9,16 @@
 			<td>行业类型名称：</td>
 			<td>
 				<input type="hidden" name="industryId" value="${parComIndustryDate.industryId}" />
-				<input name="industryName"  class="easyui-validatebox spinner" style="width:268px" required="true" value="${parComIndustryDate.industryName}"/>
+				<input name="industryName"  class="easyui-validatebox spinner" style="width:168px;height: 18px;" required="true" value="${parComIndustryDate.industryName}"/>
 			</td>
 		</tr>
 		<tr>
 			<td>排序：</td>
-			<td><input maxlength="3" name="industyCode" class="easyui-numberspinner spinner" style="width:268px" value="${parComIndustryDate.industyCode}" data-options="min:0,max:9999,required:true,missingMessage:'请输入写信用积分,只能输入整数'" style="width: 270px;height:18px;"/></td>
+			<td><input maxlength="3" name="industyCode" class="easyui-numberspinner spinner" style="width:170px;height: 18px;" value="${parComIndustryDate.industyCode}" data-options="min:0,max:999,required:true,missingMessage:'只能输入整数'" /></td>
 		</tr>
 		<tr>
 			<td>状态：</td>
-			<td><input id="deliverType_from_deliverType" name="enabled" style="width:268px" value="${parComIndustryDate.enabled}"  class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/></td>
+			<td><input id="deliverType_from_deliverType" name="enabled" style="width:170px;height: 18px;" value="${parComIndustryDate.enabled}"  class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/></td>
 		</tr>
 	</table>
 </form>

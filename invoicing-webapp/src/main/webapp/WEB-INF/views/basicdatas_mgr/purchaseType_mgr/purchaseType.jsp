@@ -38,7 +38,7 @@
 			checkbox : true
 		}, {
 			field : 'name',
-			title : '采购名称',
+			title : '采购类型名称',
 			width : 120,
 			sortable : true
 		},{
@@ -130,7 +130,7 @@
 	glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.addPurchaseType= function(){
 		glacier.basicAddOrEditDialog({
 			title : '【采购类型】- 增加',
-			width : 270,
+			width : 350,
 			height : 200,
 			queryUrl : ctx + '/do/purchaseType/intoForm.htm',
 			submitUrl : ctx + '/do/purchaseType/add.json',
@@ -144,7 +144,7 @@
 		var row = glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.purchaseTypeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【采购类型】- 编辑',
-			width : 270,
+			width : 350,
 			height : 200,
 			queryUrl : ctx + '/do/purchaseType/intoForm.htm',
 			submitUrl : ctx + '/do/purchaseType/edit.json',
@@ -230,15 +230,15 @@
 			<table>
 				<tr>
 					<td>采购名称：</td>
-					<td><input name="name" style="width: 80px;"
+					<td><input name="name" style="width: 80px;height: 16px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
-					<td><input id="purchaseTypeSearchForm_enabled" name="enabled" style="width: 80px;"
+					<td><input id="purchaseTypeSearchForm_enabled" name="enabled" style="width: 80px;height: 18px;"
 						 /></td> 
 					<td>创建时间：</td>
 					<td><input name="createStartTime" class="easyui-datetimebox"
-						style="width: 100px;" /> - <input name="createEndTime"
-						class="easyui-datetimebox" style="width: 100px;" /></td>
+						style="width: 100px;height: 18px;" /> - <input name="createEndTime"
+						class="easyui-datetimebox" style="width: 100px;height: 18px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
 						onclick="glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.purchaseTypeDataGrid.datagrid('load',glacier.serializeObject($('#purchaseTypeSearchForm')));">查询</a>

@@ -39,7 +39,7 @@
 			checkbox : true
 		}, {
 			field : 'typeName',
-			title : '级别名称',
+			title : '供应商类型',
 			width : 120,
 			sortable : true
 		},{
@@ -131,7 +131,7 @@
 	glacier.basicdatas_mgr.suppliersType_mgr.suppliersType.addSuppliersType= function(){
 		glacier.basicAddOrEditDialog({
 			title : '【供应商类型信息】- 增加',
-			width : 270,
+			width : 350,
 			height : 200,
 			queryUrl : ctx + '/do/suppliersType/intoForm.htm',
 			submitUrl : ctx + '/do/suppliersType/add.json',
@@ -145,7 +145,7 @@
 		var row = glacier.basicdatas_mgr.suppliersType_mgr.suppliersType.suppliersTypeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【供应商类型信息】- 编辑',
-			width : 270,
+			width : 350,
 			height : 200,
 			queryUrl : ctx + '/do/suppliersType/intoForm.htm',
 			submitUrl : ctx + '/do/suppliersType/edit.json',
@@ -230,16 +230,16 @@
 		<form id="suppliersTypeSearchForm">
 			<table>
 				<tr>
-					<td>供应商级别名称：</td>
-					<td><input name="typeName" style="width: 80px;"
+					<td>供应商类型：</td>
+					<td><input name="typeName" style="width: 80px;height: 16px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
-					<td><input id="suppliersTypeSearchForm_enabled" name="enabled" style="width: 80px;"
+					<td><input id="suppliersTypeSearchForm_enabled" name="enabled" style="width: 80px;height: 18px;"
 						 /></td> 
 					<td>创建时间：</td>
 					<td><input name="createStartTime" class="easyui-datetimebox"
-						style="width: 100px;" /> - <input name="createEndTime"
-						class="easyui-datetimebox" style="width: 100px;" /></td>
+						style="width: 100px;height: 18px;" /> - <input name="createEndTime"
+						class="easyui-datetimebox" style="width: 100px;height: 18px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
 						onclick="glacier.basicdatas_mgr.suppliersType_mgr.suppliersType.suppliersTypeDataGrid.datagrid('load',glacier.serializeObject($('#suppliersTypeSearchForm')));">查询</a>

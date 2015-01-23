@@ -126,7 +126,7 @@
 	glacier.basicdatas_mgr.quotedPriceType_mgr.quotedPriceType.addQuotedPriceType = function(){
 		glacier.basicAddOrEditDialog({
 			title : '新增报价类型',
-			width : 380,
+			width : 350,
 			height : 200,
 			queryUrl : ctx + '/do/purchaseQuotedPriceType/intoForm.htm',
 			submitUrl : ctx + '/do/purchaseQuotedPriceType/add.json',
@@ -141,7 +141,7 @@
 		var row = glacier.basicdatas_mgr.quotedPriceType_mgr.quotedPriceType.purchaseQuotedPriceTypeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑报价类型',
-			width : 380,
+			width : 350 ,
 			height : 200,
 			queryUrl : ctx + '/do/purchaseQuotedPriceType/intoForm.htm',
 			submitUrl : ctx + '/do/purchaseQuotedPriceType/edit.json',
@@ -224,15 +224,15 @@
 			<table>
 				<tr>
 					<td>报价类型名称：</td>
-					<td><input name="name" style="width: 80px;"
+					<td><input name="name" style="width: 80px;height:16px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
-					<td><input id="parQuotedPriceTypeSearchForm_enabled" name="enabled" style="width: 80px;"
+					<td><input id="parQuotedPriceTypeSearchForm_enabled" name="enabled" style="width: 80px;height:18px;"
 						 /></td> 
 					<td>创建时间：</td>
 					<td><input name="createStartTime" class="easyui-datetimebox"
-						style="width: 100px;" /> - <input name="createEndTime"
-						class="easyui-datetimebox" style="width: 100px;" /></td>
+						style="width: 100px;height:18px;" /> - <input name="createEndTime"
+						class="easyui-datetimebox" style="width: 100px;height:18px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
 						onclick="glacier.basicdatas_mgr.quotedPriceType_mgr.quotedPriceType.purchaseQuotedPriceTypeDataGrid.datagrid('load',glacier.serializeObject($('#parQuotedPriceTypeSearchForm')));">查询</a>

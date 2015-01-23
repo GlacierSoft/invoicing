@@ -136,7 +136,7 @@
 	glacier.basicdatas_mgr.purchaseReturnReason_mgr.purchaseReturnReason.addPurchaseReturnReason= function(){
 		glacier.basicAddOrEditDialog({
 			title : '【退货原因】- 增加',
-			width : 270,
+			width : 350,
 			height : 200,
 			queryUrl : ctx + '/do/purchaseReturnReason/intoForm.htm',
 			submitUrl : ctx + '/do/purchaseReturnReason/add.json',
@@ -150,7 +150,7 @@
 		var row =glacier.basicdatas_mgr.purchaseReturnReason_mgr.purchaseReturnReason.purchaseReturnReasonDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【退货原因】- 编辑',
-			width : 270,
+			width : 350,
 			height : 200,
 			queryUrl : ctx + '/do/purchaseReturnReason/intoForm.htm',
 			submitUrl : ctx + '/do/purchaseReturnReason/edit.json',
@@ -236,15 +236,15 @@
 			<table>
 				<tr>
 					<td>退货原因：</td>
-					<td><input name="name" style="width: 80px;"
+					<td><input name="name" style="width: 80px;height: 16px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
-					<td><input id="returnReasonSearchForm_enabled" name="enabled" style="width: 80px;"
+					<td><input id="returnReasonSearchForm_enabled" name="enabled" style="width: 80px;height: 18px;"
 						 /></td> 
 					<td>创建时间：</td>
 					<td><input name="createStartTime" class="easyui-datetimebox"
-						style="width: 100px;" /> - <input name="createEndTime"
-						class="easyui-datetimebox" style="width: 100px;" /></td>
+						style="width: 100px;height: 18px;" /> - <input name="createEndTime"
+						class="easyui-datetimebox" style="width: 100px;height: 18px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
 						onclick="glacier.basicdatas_mgr.purchaseReturnReason_mgr.purchaseReturnReason.purchaseReturnReasonDataGrid.datagrid('load',glacier.serializeObject($('#returnReasonSearchForm')));">查询</a>

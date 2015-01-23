@@ -40,7 +40,7 @@
 			checkbox : true
 		}, {
 			field : 'sourceName',
-			title : '来源名称',
+			title : '供应商来源',
 			width : 120,
 			sortable : true
 		},{
@@ -131,8 +131,8 @@
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.suppliersSource_mgr.suppliersSource.addSuppliersSource= function(){
 		glacier.basicAddOrEditDialog({
-			title : '【来源信息】- 增加',
-			width : 270,
+			title : '【供应商来源】- 增加',
+			width : 350,
 			height : 200,
 			queryUrl : ctx + '/do/suppliersSource/intoForm.htm',
 			submitUrl : ctx + '/do/suppliersSource/add.json',
@@ -145,8 +145,8 @@
 	glacier.basicdatas_mgr.suppliersSource_mgr.suppliersSource.editSuppliersSource= function(){
 		var row = glacier.basicdatas_mgr.suppliersSource_mgr.suppliersSource.suppliersSourceDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '【来源信息】- 编辑',
-			width : 270,
+			title : '【供应商来源】- 编辑',
+			width : 350,
 			height : 200,
 			queryUrl : ctx + '/do/suppliersSource/intoForm.htm',
 			submitUrl : ctx + '/do/suppliersSource/edit.json',
@@ -232,16 +232,16 @@
 		<form id="suppliersSourceSearchForm">
 			<table>
 				<tr>
-					<td>来源名称：</td>
-					<td><input name="sourceName" style="width: 80px;"
+					<td>供应商来源：</td>
+					<td><input name="sourceName" style="width: 80px;height: 16px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
-					<td><input id="suppliersSourceSearchForm_enabled" name="enabled" style="width: 80px;"
+					<td><input id="suppliersSourceSearchForm_enabled" name="enabled" style="width: 80px;height: 18px;"
 						 /></td> 
 					<td>创建时间：</td>
 					<td><input name="createStartTime" class="easyui-datetimebox"
-						style="width: 100px;" /> - <input name="createEndTime"
-						class="easyui-datetimebox" style="width: 100px;" /></td>
+						style="width: 100px;height: 18px;" /> - <input name="createEndTime"
+						class="easyui-datetimebox" style="width: 100px;height: 18px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
 						onclick="glacier.basicdatas_mgr.suppliersSource_mgr.suppliersSource.suppliersSourceDataGrid.datagrid('load',glacier.serializeObject($('#suppliersSourceSearchForm')));">查询</a>

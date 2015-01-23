@@ -125,7 +125,7 @@
 	glacier.basicdatas_mgr.companySize_mgr.companySize.addCompanySize = function(){
 		glacier.basicAddOrEditDialog({
 			title : '新增公司规模',
-			width : 420,
+			width : 350,
 			height : 200,
 			queryUrl : ctx + '/do/comCompanySize/intoForm.htm',
 			submitUrl : ctx + '/do/comCompanySize/add.json',
@@ -139,7 +139,7 @@
 		var row = glacier.basicdatas_mgr.companySize_mgr.companySize.comCompanySizeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '编辑公司规模',
-			width : 420,
+			width : 350,
 			height : 200,
 			queryUrl : ctx + '/do/comCompanySize/intoForm.htm',
 			submitUrl : ctx + '/do/comCompanySize/edit.json',
@@ -221,15 +221,15 @@
 			<table>
 				<tr>
 					<td>公司规模名称：</td>
-					<td><input name="companySizeName" style="width: 80px;"
+					<td><input name="companySizeName" style="width: 80px;height:16px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
-					<td><input id="parCompanySizeSearchForm_enabled" name="enabled" style="width: 80px;"
+					<td><input id="parCompanySizeSearchForm_enabled" name="enabled" style="width: 80px;height:18px;"
 						 /></td> 
 					<td>创建时间：</td>
 					<td><input name="createStartTime" class="easyui-datetimebox"
-						style="width: 100px;" /> - <input name="createEndTime"
-						class="easyui-datetimebox" style="width: 100px;" /></td>
+						style="width: 100px;height:18px;" /> - <input name="createEndTime"
+						class="easyui-datetimebox" style="width: 100px;height:18px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
 						onclick="glacier.basicdatas_mgr.companySize_mgr.companySize.comCompanySizeDataGrid.datagrid('load',glacier.serializeObject($('#parCompanySizeSearchForm')));">查询</a>

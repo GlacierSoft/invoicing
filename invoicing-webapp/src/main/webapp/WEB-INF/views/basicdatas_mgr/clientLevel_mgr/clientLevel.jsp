@@ -126,7 +126,7 @@
 	glacier.basicdatas_mgr.clientLevel_mgr.clientLevel.addClientLevel = function(){
 		glacier.basicAddOrEditDialog({
 			title : '【客户级别】 - 增加',
-			width : 420,
+			width : 350,
 			height : 200,
 			queryUrl : ctx + '/do/clientLevel/intoForm.htm',
 			submitUrl : ctx + '/do/clientLevel/add.json',
@@ -141,7 +141,7 @@
 		var row = glacier.basicdatas_mgr.clientLevel_mgr.clientLevel.clientLevelDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【客户级别】 - 编辑',
-			width : 420,
+			width : 350,
 			height : 200,
 			queryUrl : ctx + '/do/clientLevel/intoForm.htm',
 			submitUrl : ctx + '/do/clientLevel/edit.json',
@@ -208,15 +208,15 @@
 			<table>
 				<tr>
 					<td>客户级别名称：</td>
-					<td><input name="clientLevelName" style="width: 80px;"
+					<td><input name="clientLevelName" style="width: 80px;height:16px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
-					<td><input id="clientLevelSearchForm_status" name="enabled" style="width: 80px;"
+					<td><input id="clientLevelSearchForm_status" name="enabled" style="width: 80px;height:18px;"
 						 class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,data : fields.status"/></td> 
 					<td>创建时间：</td>
 					<td><input name="createStartTime" class="easyui-datetimebox"
-						style="width: 100px;" /> - <input name="createEndTime"
-						class="easyui-datetimebox" style="width: 100px;" /></td>
+						style="width: 100px;height:18px;" /> - <input name="createEndTime"
+						class="easyui-datetimebox" style="width: 100px;height:18px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
 						onclick="glacier.basicdatas_mgr.clientLevel_mgr.clientLevel.clientLevelDataGrid.datagrid('load',glacier.serializeObject($('#clientLevelSearchForm')));">查询</a>

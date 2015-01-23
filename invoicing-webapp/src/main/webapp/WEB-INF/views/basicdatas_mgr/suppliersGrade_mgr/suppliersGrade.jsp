@@ -39,7 +39,7 @@
 			checkbox : true
 		}, {
 			field : 'gradeName',
-			title : '等级名称',
+			title : '供应商级别',
 			width : 120,
 			sortable : true
 		},{
@@ -116,7 +116,7 @@
 		},
 		onDblClickRow : function(rowIndex, rowData){
           $.easyui.showDialog({
-				title : '【' + rowData.gradeName + '】等级详细信息',
+				title : '【' + rowData.gradeName + '】级别详细信息',
 				href : ctx+ '/do/suppliersGrade/intoDetail.htm?gradeId='+ rowData.gradeId,//从controller请求jsp页面进行渲染
 				width : 530,
 				height : 250,
@@ -130,8 +130,8 @@
 	//点击增加按钮触发方法
 	glacier.basicdatas_mgr.suppliersGrade_mgr.suppliersGrade.addSuppliersGrade= function(){
 		glacier.basicAddOrEditDialog({
-			title : '【等级信息】- 增加',
-			width : 270,
+			title : '【供应商级别信息】- 增加',
+			width : 350,
 			height : 200,
 			queryUrl : ctx + '/do/suppliersGrade/intoForm.htm',
 			submitUrl : ctx + '/do/suppliersGrade/add.json',
@@ -144,8 +144,8 @@
 	glacier.basicdatas_mgr.suppliersGrade_mgr.suppliersGrade.editSuppliersGrade= function(){
 		var row = glacier.basicdatas_mgr.suppliersGrade_mgr.suppliersGrade.suppliersGradeDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '【等级信息】- 编辑',
-			width : 270,
+			title : '【供应商级别信息】- 编辑',
+			width : 350,
 			height : 200,
 			queryUrl : ctx + '/do/suppliersGrade/intoForm.htm',
 			submitUrl : ctx + '/do/suppliersGrade/edit.json',
@@ -231,16 +231,16 @@
 		<form id="suppliersGradeSearchForm">
 			<table>
 				<tr>
-					<td>等级名称：</td>
-					<td><input name="gradeName" style="width: 80px;"
+					<td>供应商级别：</td>
+					<td><input name="gradeName" style="width: 80px;height: 16px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
-					<td><input id="suppliersGradeSearchForm_enabled" name="enabled" style="width: 80px;"
+					<td><input id="suppliersGradeSearchForm_enabled" name="enabled" style="width: 80px;height: 18px;"
 						 /></td> 
 					<td>创建时间：</td>
 					<td><input name="createStartTime" class="easyui-datetimebox"
-						style="width: 100px;" /> - <input name="createEndTime"
-						class="easyui-datetimebox" style="width: 100px;" /></td>
+						style="width: 100px;height: 18px;" /> - <input name="createEndTime"
+						class="easyui-datetimebox" style="width: 100px;height: 18px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
 						onclick="glacier.basicdatas_mgr.suppliersGrade_mgr.suppliersGrade.suppliersGradeDataGrid.datagrid('load',glacier.serializeObject($('#suppliersGradeSearchForm')));">查询</a>

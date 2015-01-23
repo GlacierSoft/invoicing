@@ -9,16 +9,16 @@
 			<td>调拨类型名称：</td>
 			<td>
 				<input type="hidden" name="deployTypeId" value="${warDeployTypeDate.deployTypeId}" />
-				<input name="deployTypeName"  class="easyui-validatebox spinner" style="width:268px;height: 16px;" required="true" value="${warDeployTypeDate.deployTypeName}"/>
+				<input name="deployTypeName"  class="easyui-validatebox spinner" style="width:168px;height: 18px;" required="true" value="${warDeployTypeDate.deployTypeName}"/>
 			</td>
 		</tr>
 		<tr>
 			<td>序号：</td>
-			<td><input maxlength="3" name="orderNum" class="easyui-numberspinner spinner" value="${warDeployTypeDate.orderNum}" data-options="min:0,max:9999,required:true,missingMessage:'请输入写信用积分,只能输入整数'" style="width: 270px;height:18px;"/></td>
+			<td><input maxlength="3" name="orderNum" class="easyui-numberspinner spinner" value="${warDeployTypeDate.orderNum}" data-options="min:0,max:999,required:true,missingMessage:'只能输入整数'" style="width:170px;height: 18px;"/></td>
 		</tr>
 		<tr>
 			<td>状态：</td>
-			<td><input id="warDeployType_from_enabled" name="enabled" style="width:268px" value="${warDeployTypeDate.enabled}"  class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/></td>
+			<td><input id="warDeployType_from_enabled" name="enabled" style="width:168px;height: 18px;" value="${warDeployTypeDate.enabled}"  class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/></td>
 		</tr>
 	</table>
 </form>

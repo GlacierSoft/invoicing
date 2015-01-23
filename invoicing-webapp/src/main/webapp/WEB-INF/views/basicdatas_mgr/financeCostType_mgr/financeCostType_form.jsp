@@ -9,16 +9,16 @@
 			<td>费用类型名称：</td>
 			<td>
 				<input type="hidden" name="costTypeId" value="${financeCostTypeDate.costTypeId}" />
-				<input name="name"  class="easyui-validatebox spinner" style="width:268px;height: 16px;" required="true" value="${financeCostTypeDate.name}"/>
+				<input name="name"  class="easyui-validatebox spinner" style="width:168px;height: 18px;" required="true" value="${financeCostTypeDate.name}"/>
 			</td>
 		</tr>
 		<tr>
 			<td>序号：</td>
-			<td><input maxlength="3" name="sequenced" class="easyui-numberspinner spinner" value="${financeCostTypeDate.sequenced}" data-options="min:0,max:9999,required:true,missingMessage:'请输入序号,只能输入整数'" style="width: 270px;height:18px;"/></td>
+			<td><input maxlength="3" name="sequenced" class="easyui-numberspinner spinner" value="${financeCostTypeDate.sequenced}" data-options="min:0,max:999,required:true,missingMessage:'只能输入整数'" style="width: 170px;height:18px;"/></td>
 		</tr>
 		<tr>
 			<td>状态：</td>
-			<td><input id="financeCostType_from_financeCostType" name="enabled" style="width:268px" value="${financeCostTypeDate.enabled}"  class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/></td>
+			<td><input id="financeCostType_from_financeCostType" name="enabled" style="width:170px;height: 18px;" value="${financeCostTypeDate.enabled}"  class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/></td>
 		</tr>
 	</table>
 </form>

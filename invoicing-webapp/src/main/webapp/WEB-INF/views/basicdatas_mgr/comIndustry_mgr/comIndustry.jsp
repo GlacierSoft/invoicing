@@ -132,7 +132,7 @@
 	glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.addComIndustry= function(){
 		glacier.basicAddOrEditDialog({
 			title : '【行业类型】- 增加',
-			width : 420,
+			width : 350,
 			height : 200,
 			queryUrl : ctx + '/do/comIndustry/intoForm.htm',
 			submitUrl : ctx + '/do/comIndustry/add.json',
@@ -146,7 +146,7 @@
 		var row = glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.comIndustryDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【行业类型】- 编辑',
-			width : 420,
+			width : 350,
 			height : 200,
 			queryUrl : ctx + '/do/comIndustry/intoForm.htm',
 			submitUrl : ctx + '/do/comIndustry/edit.json',
@@ -272,15 +272,15 @@
 			<table>
 				<tr>
 					<td>行业类型名称：</td>
-					<td><input name="industryName" style="width: 80px;"
+					<td><input name="industryName" style="width: 80px;height: 16px;"
 						class="spinner" /></td> 
 					<td>状态：</td>
-					<td><input id="comIndustrySearchForm_enabled" name="enabled" style="width: 80px;"
+					<td><input id="comIndustrySearchForm_enabled" name="enabled" style="width: 80px;height: 18px;"
 						 /></td> 
 					<td>创建时间：</td>
 					<td><input name="createStartTime" class="easyui-datetimebox"
-						style="width: 100px;" /> - <input name="createEndTime"
-						class="easyui-datetimebox" style="width: 100px;" /></td>
+						style="width: 100px;height: 18px;" /> - <input name="createEndTime"
+						class="easyui-datetimebox" style="width: 100px;height: 18px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
 						onclick="glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.comIndustryDataGrid.datagrid('load',glacier.serializeObject($('#comIndustrySearchForm')));">查询</a>
