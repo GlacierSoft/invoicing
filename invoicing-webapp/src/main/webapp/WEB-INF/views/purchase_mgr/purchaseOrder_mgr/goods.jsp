@@ -33,6 +33,7 @@
 		remoteSort : true,//开启远程排序，默认为false
 		idField : 'goodsId',
 		columns : [ [
+		   { field : 'goodsId', title : 'ID', checkbox : true }, 
            {field:'goodsCode',title:'货品编码',width:100},    
            {field:'goodsName',title:'名称',width:100},    
            {field:'goodsTypeId',title:'货品分类',width:100},

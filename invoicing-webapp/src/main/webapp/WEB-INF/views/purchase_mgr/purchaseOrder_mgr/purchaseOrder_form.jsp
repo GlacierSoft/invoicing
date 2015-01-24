@@ -190,19 +190,19 @@ var setRowData="";//保存选中的值
 $dg.datagrid({  
 	fit : false,//控件自动resize占满窗口大小
 	iconCls : 'icon-save',//图标样式
-	barrival : true,//是否存在边框 
-	fitColumns : false,//自动填充行 
+	border : false,//是否存在边框
+	fitColumns : true,//自动填充行
 	nowrap : true,//禁止单元格中的文字自动换行
 	autoRowHeight : false,//禁止设置自动行高以适应内容
 	striped : true,//true就是把行条纹化。（即奇偶行使用不同背景色）
 	singleSelect : true,//限制单选
 	checkOnSelect : false,//选择复选框的时候选择该行
-	selectOnCheck : false,//选择的时候复选框打勾 
+	selectOnCheck : false,//选择的时候复选框打勾
 	sortName : 'goodsCode',//排序字段名称
 	sortOrder : 'DESC',//升序还是降序
 	remoteSort : true,//开启远程排序，默认为false 
 	idField : 'purOrderDetId', 
-    columns:[[   
+    columns:[[    
         {field:'goodsId',title:'货品id',width:100,hidden:true},  
         {field:'goodsCode',title:'货品编码',width:100},    
         {field:'goodsName',title:'名称',width:100},    
@@ -213,17 +213,19 @@ $dg.datagrid({
        {field:'discount',title:'折扣率',width:100, editor: { type: 'numberbox',options:{precision:2}}}, 
        {field:'price',title:'单价',width:100,editor: { type: 'numberbox',options:{precision:2}} },   
        {field:'quantity',title:'数量',width:100,editor: { type: 'numberbox'} }, 
-       {field:'money',title:'金额',width:100,precision:2},   
-       {field:'cess',title:'税率',hidden:true,width:100,editor: { type: 'numberbox',options:{precision:4}}}, 
+       {field:'money',title:'金额',width:100,editor: { type: 'numberbox',options:{precision:2}} },    
        {field:'deadline',title:'交货期限',width:100,editor: { type: 'datebox'  }},
        {field:'remark',title:'备注',width:100,editor: { type: 'text'  }} 
     ]], 
     toolbar: [{
-        text: '添加商品', iconCls: 'icon-standard-pencil-add', handler: function () { 
-      	  //insert(); 
+        text: '添加商品', iconCls: 'icon-standard-pencil-add', handler: function () {  
         	addRow();
         }
       },{
+          text: '批量添加商品', iconCls: 'icon-standard-pencil-add', handler: function () {  
+          	addRows();
+          }
+        },{
           text: '删除商品', iconCls: 'icon-standard-pencil-delete', handler: function () {  
           	$.messager.confirm('提示','确认删除数据?',function(r){
           		if (r){
@@ -243,24 +245,28 @@ $dg.datagrid({
     onDblClickRow:function(rowIndex, rowData){
     	stRows=rowIndex; 
     },
-    onSelect:function(rowIndex, rowData){
-    	stRows=rowIndex;  
-    }
+    onSelect:function(rowIndex, rowData){ 
+    	$dg.datagrid('beginEdit',rowIndex);//开启当前行可编辑
+    	var rows=$dg.datagrid("getRows");
+    	for(var i=0;i<rows.length;i++){
+    		$dg.datagrid('endEdit', i).datagrid('refreshRow', i);
+    		if(i==rowIndex){
+    			$dg.datagrid('beginEdit',rowIndex);//开启当前行可编辑
+    		} 
+    	} 
+    	againBinding(rowIndex);
+    	stRows=rowIndex;   
+    } 
 });
-//增加行
+  //增加行
 function addRow(){
 	storageVal = $('#purchaseOrder_mgr_purchaseOrder_form_storage').combobox('getValue');
+	var index=0;
     if(storageVal!=''){//判断 
-		var row = $dg.datagrid('getSelected');
-		var rowData=$dg.datagrid('getData');
-		if(row){
-			var index = $dg.datagrid('getRowIndex', row);
-		} else {
-			index = 0;
-		}
+    	var rowData=$dg.datagrid('getData'); 
 		var rowsCount = $dg.datagrid("getRows"); 
 		$dg.datagrid('insertRow', {
-			index: index,
+			index: 0,
 			row:{
 				//填写对应的字段
 				codes:rowsCount.length+1
@@ -268,14 +274,74 @@ function addRow(){
 		});
 		$dg.datagrid('selectRow',index);
 		$dg.datagrid('beginEdit',index);
-		goodsDetail(row,rowData);
+		goodsDetail(0,rowData);
+	}else{
+		$.messager.alert('提示信息','请先选择仓库！','info'); 
+		$('#purchaseOrder_mgr_purchaseOrder_form_storage').focus(); 
+		return false;
+	}
+}  
+  
+//批量增加
+function addRows(){
+	storageVal = $('#purchaseOrder_mgr_purchaseOrder_form_storage').combobox('getValue');
+	if(storageVal!=''){//判断
+		$.easyui.showDialog({
+			title: "批量增加货物目录",
+			href : ctx + '/do/purchaseOrder/goodsIndex.htm',//从controller请求jsp页面进行渲染
+			width : 730,
+			height : 400,
+			resizable: false,
+			enableApplyButton : false,
+			enableSaveButton : false,
+			enableCloseButton : false,
+			buttons : [{
+	  			text : '确认',
+	  			iconCls : 'icon-ok',
+	  			handler : function(dia) { 
+	  				var rowsCheck =  $('#goodsListDataGrid').datagrid('getChecked');
+	  				console.log(rowsCheck[0]);
+	  				for(var i = 0; i < rowsCheck.length;i++){
+	  					$dg.datagrid('insertRow', {
+	  						index: i,
+	  						row:{
+	  							goodsId:rowsCheck[i].goodsId,
+	  							goodsCode:rowsCheck[i].goodsCode,
+	  							goodsName:rowsCheck[i].goodsName,
+	  							goodsModel:rowsCheck[i].specification,
+	  							brand:rowsCheck[i].brands,
+	  							placeOfOrigin:rowsCheck[i].origin,
+	  							primeCost:rowsCheck[i].referenceCost,
+	  							discount:1.00,
+	  							price:rowsCheck[i].referenceRetailPrice,
+	  							quantity:0,
+	  							money:0.00,
+	  							cess:rowsCheck[i].taxRate,
+	  							remark:rowsCheck[i].remark
+	  						}
+	  					});
+	  					$dg.datagrid('endEdit', i).datagrid('refreshRow', i).datagrid('beginEdit', i);
+	  					againBinding(i);//批量增加绑定的事件
+	  				}
+	  				dia.dialog("close");
+	  				//compute();//调用统计
+	  			}
+			
+	  		},{
+	  			text : '取消',
+	  			iconCls : 'icon-undo',
+	  			handler : function(dia) {
+	  				dia.dialog("close"); 
+	  			}
+	  		}]
+		});
 	}else{
 		$.messager.alert('提示信息','请先选择仓库！','info'); 
 		$('#purchaseOrder_mgr_purchaseOrder_form_storage').focus(); 
 		return false;
 	}
 }
- 
+
 //去到货品目录方法
 function goodsDetail(rowIndex,rowData){
 	$.easyui.showDialog({
@@ -296,6 +362,8 @@ function goodsDetail(rowIndex,rowData){
 					$.messager.alert('提示信息','请先选择商品信息！','info'); 
 					return false;
 				}
+				
+				
 				var ed = $dg.datagrid('updateRow', {
 					index:stRows,
 					row:{
@@ -307,7 +375,7 @@ function goodsDetail(rowIndex,rowData){
 						placeOfOrigin:setRowData.origin,
 						primeCost:setRowData.referenceCost,
 						discount:1.00,
-						price:setRowData.referenceRetailPrice,
+						price:accMul(setRowData.referenceCost,1),
 						quantity:0,
 						money:0.00,
 						cess:setRowData.taxRate,
@@ -316,28 +384,8 @@ function goodsDetail(rowIndex,rowData){
 				});
 				dia.dialog("close"); 
 				$dg.datagrid('endEdit', stRows).datagrid('refreshRow', stRows).datagrid('beginEdit', stRows);  
-				//折扣率
-				var discountTarget = $dg.datagrid('getEditor', {index:stRows,field:'discount'}).target;
-				//单价
-				var priceTarget = $dg.datagrid('getEditor', {index:stRows,field:'price'}).target;
-				//数量
-				var quantityTarget = $dg.datagrid('getEditor', {index:stRows,field:'quantity'}).target;
-				//税率
-				var cessTarget = $dg.datagrid('getEditor', {index:stRows,field:'cess'}).target;
-				//绑定事件
-				$(discountTarget).bind("blur",function(){
-					discountBlur(this); 
-				}); 
-				  $(priceTarget).bind("blur",function(){
-					 discountBlur(this);
-				});
-				$(quantityTarget).bind("blur",function(){
-					discountBlur(this);
-				}); 
-				$(cessTarget).bind("blur",function(){
-					discountBlur(this);
-				});  
-			 	/*compute(); */
+				againBinding(stRows);//绑定事件，把新增的行添加事件
+				 
 			}
 		}, {
 			text : '取消',
@@ -358,71 +406,209 @@ function getRowIndex(target){
 	return parseInt(tr.attr('datagrid-row-index'));
 } 
 
-//收货数量编辑框绑定事件
-function discountBlur(obj){ 
-	var indexRows = getRowIndex(obj);  
+//折扣率编辑框绑定事件
+function discountBlur(obj){   
+	var rows=$dg.datagrid('getRows'); 
+	var indexRows = getRowIndex(obj);  //获取行号 
+	var yuanjia = $dg.datagrid('getData').rows[indexRows].primeCost;  
 	//-------------------------------取编辑框对象------------------------------
 	//折扣率
-	var discountTarget = $dg.datagrid('getEditor', {index:stRows,field:'discount'}).target;
+	var discountTarget = $dg.datagrid('getEditor', {index:indexRows,field:'discount'}).target;
 	//单价
-	var priceTarget = $dg.datagrid('getEditor', {index:stRows,field:'price'}).target;
+	var priceTarget = $dg.datagrid('getEditor', {index:indexRows,field:'price'}).target;
 	//数量
-	var quantityTarget = $dg.datagrid('getEditor', {index:stRows,field:'quantity'}).target;
-	//税率
-	var cessTarget = $dg.datagrid('getEditor', {index:stRows,field:'cess'}).target; 
+	var quantityTarget = $dg.datagrid('getEditor', {index:indexRows,field:'quantity'}).target; 
 	//交货期限
-	var deadlineTarget = $dg.datagrid('getEditor', {index:indexRows,field:'deadline'}).target;
-
-	var remarkTarget = $dg.datagrid('getEditor', {index:indexRows,field:'remark'}).target;
+	var deadlineTarget = $dg.datagrid('getEditor', {index:indexRows,field:'deadline'}).target; 
+	var remarkTarget = $dg.datagrid('getEditor', {index:indexRows,field:'remark'}).target; 
    //-----------------------------------自定义变量-----------------------------------
 	var discount = parseFloat(discountTarget.val()).toFixed(2);//折扣率
-	var price = parseFloat(priceTarget.val()).toFixed(2);//单价
-	var quantity = parseInt(quantityTarget.val());//数量
-	var cess = parseFloat(cessTarget.val()).toFixed(2);//税率
-	var su=accMul(discount,price); 
-	var sun=accMul(su,quantity);  
-	//var sum=accMul(sun,(1-cess));计算税率
-	  $("#goodsList").datagrid('updateRow',{
+	var priceOne = parseFloat(priceTarget.val()).toFixed(2);
+	var quantity = parseInt(quantityTarget.val());//数量  
+	var price =accMul(priceOne,yuanjia);//单价=原价*折扣率 
+	var sun=accMul(price,quantity);//总额=单价*数量 
+	 $dg.datagrid('updateRow',{
 		index: indexRows,
 		row: {
 			money: sun.toFixed(2),
 			discount:discount,
 			price:price,
-			quantity:quantity,
-			cess:cess,
+			quantity:quantity, 
 			deadline:deadlineTarget.datebox('getValue'),
 			remark:remarkTarget.val()
 		}
-	});
-	$dg.datagrid('endEdit', indexRows).datagrid('refreshRow', indexRows).datagrid('beginEdit', indexRows); 
-	$("#totalAmount").attr("value","").attr("value",sun.toFixed(2));
-	againBinding(indexRows);//再次绑定事件
+	});   
+	$("#goodsList").datagrid('endEdit', indexRows); 
+	$("#goodsList").datagrid('refreshRow', indexRows);
+	$("#goodsList").datagrid('beginEdit', indexRows);
+     //计算总金额的，未完
+	//$("#totalAmount").attr("value","").attr("value",sun.toFixed(2)); 
+	//当前行再次绑定事件 
+	 againBinding(indexRows); 
 }
    
-function againBinding(indexRows){
+//单价编辑框绑定事件
+function priceBlur(obj){   
+	var rows=$dg.datagrid('getRows'); 
+	var indexRows = getRowIndex(obj);  //获取行号 
+	var yuanjia = $dg.datagrid('getData').rows[indexRows].primeCost;  
+	//-------------------------------取编辑框对象------------------------------
 	//折扣率
-	var discountTarget = $dg.datagrid('getEditor', {index:stRows,field:'discount'}).target;
+	var discountTarget = $dg.datagrid('getEditor', {index:indexRows,field:'discount'}).target;
 	//单价
-	var priceTarget = $dg.datagrid('getEditor', {index:stRows,field:'price'}).target;
+	var priceTarget = $dg.datagrid('getEditor', {index:indexRows,field:'price'}).target;
 	//数量
-	var quantityTarget = $dg.datagrid('getEditor', {index:stRows,field:'quantity'}).target;
-	//税率
-	var cessTarget = $dg.datagrid('getEditor', {index:stRows,field:'cess'}).target;
-	//绑定事件
-	$(discountTarget).bind("blur",function(){
-		discountBlur(this); 
-	}); 
-	  $(priceTarget).bind("blur",function(){
-		  discountBlur(this);
-	});
-	$(quantityTarget).bind("blur",function(){
-		discountBlur(this);
-	}); 
-	$(cessTarget).bind("blur",function(){
-		discountBlur(this);
-	});  
+	var quantityTarget = $dg.datagrid('getEditor', {index:indexRows,field:'quantity'}).target; 
+	//交货期限
+	var deadlineTarget = $dg.datagrid('getEditor', {index:indexRows,field:'deadline'}).target; 
+	var remarkTarget = $dg.datagrid('getEditor', {index:indexRows,field:'remark'}).target; 
+   //-----------------------------------自定义变量-----------------------------------
+	var discount = parseFloat(discountTarget.val()).toFixed(2);//折扣率
+	var price = parseFloat(priceTarget.val()).toFixed(2);
+	var quantity = parseInt(quantityTarget.val());//数量  
+	//var price =accMul(priceOne,yuanjia);//单价=原价*折扣率 
+	var sun=accMul(price,quantity);//总额=单价*数量 
+	discount=price/yuanjia;//折扣率=单价/原价
+	
+	 $dg.datagrid('updateRow',{
+		index: indexRows,
+		row: {
+			money: sun.toFixed(2),
+			discount:discount,
+			price:price,
+			quantity:quantity, 
+			deadline:deadlineTarget.datebox('getValue'),
+			remark:remarkTarget.val()
+		}
+	});   
+	$("#goodsList").datagrid('endEdit', indexRows); 
+	$("#goodsList").datagrid('refreshRow', indexRows);
+	$("#goodsList").datagrid('beginEdit', indexRows);
+     //计算总金额的，未完
+	//$("#totalAmount").attr("value","").attr("value",sun.toFixed(2)); 
+	//当前行再次绑定事件 
+	 againBinding(indexRows); 
 }
+    
 
+//数量编辑框绑定事件
+function quantityBlur(obj){   
+	var rows=$dg.datagrid('getRows');  
+	var indexRows = getRowIndex(obj);  //获取行号  
+	//-------------------------------取编辑框对象------------------------------
+	//折扣率
+	var discountTarget = $dg.datagrid('getEditor', {index:indexRows,field:'discount'}).target;
+	//单价
+	var priceTarget = $dg.datagrid('getEditor', {index:indexRows,field:'price'}).target;
+	//数量
+	var quantityTarget = $dg.datagrid('getEditor', {index:indexRows,field:'quantity'}).target; 
+	//交货期限
+	var deadlineTarget = $dg.datagrid('getEditor', {index:indexRows,field:'deadline'}).target; 
+	var remarkTarget = $dg.datagrid('getEditor', {index:indexRows,field:'remark'}).target; 
+   //-----------------------------------自定义变量-----------------------------------
+	var discount = parseFloat(discountTarget.val()).toFixed(2);//折扣率
+	var priceOne = parseFloat(priceTarget.val()).toFixed(2);
+	var quantity = parseInt(quantityTarget.val());//数量   
+	var sun=accMul(priceOne,quantity);//总额=单价*数量 
+	 $dg.datagrid('updateRow',{
+		index: indexRows,
+		row: {
+			money: sun.toFixed(2),
+			discount:discount,
+			price:priceOne,
+			quantity:quantity, 
+			deadline:deadlineTarget.datebox('getValue'),
+			remark:remarkTarget.val()
+		}
+	});   
+	$("#goodsList").datagrid('endEdit', indexRows); 
+	$("#goodsList").datagrid('refreshRow', indexRows);
+	$("#goodsList").datagrid('beginEdit', indexRows);
+   //计算总金额的，未完
+	//$("#totalAmount").attr("value","").attr("value",sun.toFixed(2)); 
+	//当前行再次绑定事件 
+	 againBinding(indexRows); 
+}
+   
+
+//金额编辑框绑定事件
+function moneyBlur(obj){   
+	var rows=$dg.datagrid('getRows'); 
+	var indexRows = getRowIndex(obj);  //获取行号 
+	var yuanjia = $dg.datagrid('getData').rows[indexRows].primeCost;  
+	//-------------------------------取编辑框对象------------------------------
+	//折扣率
+	var discountTarget = $dg.datagrid('getEditor', {index:indexRows,field:'discount'}).target;
+	//单价
+	var priceTarget = $dg.datagrid('getEditor', {index:indexRows,field:'price'}).target;
+	//数量
+	var quantityTarget = $dg.datagrid('getEditor', {index:indexRows,field:'quantity'}).target; 
+	//金额
+	var moneyTarget = $dg.datagrid('getEditor', {index:indexRows,field:'money'}).target; 
+	//交货期限
+	var deadlineTarget = $dg.datagrid('getEditor', {index:indexRows,field:'deadline'}).target; 
+	var remarkTarget = $dg.datagrid('getEditor', {index:indexRows,field:'remark'}).target; 
+    //-----------------------------------自定义变量-----------------------------------
+	var discount = parseFloat(discountTarget.val()).toFixed(2);//折扣率
+	var price = parseFloat(priceTarget.val()).toFixed(2);
+	var quantity = parseInt(quantityTarget.val());//数量  
+	var money=parseFloat(moneyTarget.val()).toFixed(2); //金额
+	//var price =accMul(priceOne,yuanjia);//单价=原价*折扣率 
+	//var sun=accMul(price,quantity);//总额=单价*数量 
+	if(quantity<=0){
+		
+	}else{
+		//单价
+		price=money/quantity;
+		//折扣率
+		discount=price/yuanjia;
+	} 
+	 $dg.datagrid('updateRow',{
+		index: indexRows,
+		row: {
+			money: money,
+			discount:discount,
+			price:price,
+			quantity:quantity, 
+			deadline:deadlineTarget.datebox('getValue'),
+			remark:remarkTarget.val()
+		}
+	});   
+	$("#goodsList").datagrid('endEdit', indexRows); 
+	$("#goodsList").datagrid('refreshRow', indexRows);
+	$("#goodsList").datagrid('beginEdit', indexRows);
+ //计算总金额的，未完
+	//$("#totalAmount").attr("value","").attr("value",sun.toFixed(2)); 
+	//当前行再次绑定事件 
+	 againBinding(indexRows); 
+}  
+function againBinding(rows){      
+	//单价
+	var priceTarget = $dg.datagrid('getEditor', {index:rows,field:'price'}).target; 
+	//折扣率
+	var discountTarget = $dg.datagrid('getEditor', {index:rows,field:'discount'}).target; 
+	//数量
+	var quantityTarget = $dg.datagrid('getEditor', {index:rows,field:'quantity'}).target; 
+	//金额
+	var moneyTarget = $dg.datagrid('getEditor', {index:rows,field:'money'}).target; 
+	//绑定事件---折扣率
+	$(discountTarget).bind("change",function(){ 
+		discountBlur(this);
+	}); 
+	//单价
+	  $(priceTarget).bind("change",function(){ 
+		  priceBlur(this);
+	});
+	//数量
+	$(quantityTarget).bind("change",function(){ 
+		quantityBlur(this);
+	});  
+	//金额
+	$(moneyTarget).bind("change",function(){ 
+		moneyBlur(this);
+	});   
+}
+ 
 //乘法函数，用来得到精确的乘法结果 
 //说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。 
 //调用：accMul(arg1,arg2) 
