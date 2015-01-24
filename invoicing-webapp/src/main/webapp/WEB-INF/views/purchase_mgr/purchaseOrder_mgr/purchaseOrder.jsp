@@ -177,7 +177,7 @@
 	};
 	
 	//点击删除按钮触发方法
-	glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.delGoodsList= function() {
+	glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.delPurchaseOrder= function() {
 		var rows =glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.purchaseOrderDataGrid.datagrid("getChecked");
 		var purOrderIds = [];//删除的id标识
 		var orderCodes = [];

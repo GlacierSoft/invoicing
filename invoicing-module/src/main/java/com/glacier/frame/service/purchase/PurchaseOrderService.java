@@ -39,6 +39,7 @@ import com.glacier.frame.dao.purchase.PurchaseOrderDetailMapper;
 import com.glacier.frame.dto.query.purchase.PurchaseOrderQueryDTO;
 import com.glacier.frame.entity.purchase.PurchaseOrder;
 import com.glacier.frame.entity.purchase.PurchaseOrderDetail;
+import com.glacier.frame.entity.purchase.PurchaseOrderDetailExample;
 import com.glacier.frame.entity.purchase.PurchaseOrderExample;
 import com.glacier.frame.entity.purchase.PurchaseOrderExample.Criteria;
 import com.glacier.frame.entity.system.User;
@@ -211,6 +212,11 @@ public class PurchaseOrderService {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;
         if (purchaseOrderIds.size() > 0) {
+        	for (String id : purchaseOrderIds) {
+        		PurchaseOrderDetailExample purchaseOrderDetailExample=new PurchaseOrderDetailExample();
+        		purchaseOrderDetailExample.createCriteria().andPurOrderIdEqualTo(id); 
+        		chaseOrderDetailMapper.deleteByExample(purchaseOrderDetailExample);
+			} 
         	PurchaseOrderExample purchaseOrderExample = new PurchaseOrderExample();
         	purchaseOrderExample.createCriteria().andPurOrderIdIn(purchaseOrderIds);
             count = chaseOrderMapper.deleteByExample(purchaseOrderExample);
