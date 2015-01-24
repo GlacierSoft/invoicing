@@ -146,6 +146,11 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 <!--采购退货明细  -->
 <table id="purchase_return_form" style="height: 200px;margin-top: 10px;">  
 </table>
+<hr> 
+	<div style= "text-align:center ;margin-top: 30px;margin-bottom: 30px">
+       <a id="save" href="javascript:doSave();" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">保存</a> 
+       <a style="margin-left: 30px" href="javascript:doClear();" class="easyui-linkbutton" data-options="iconCls:'icon-undo'">撤销</a> 
+    </div>
 </form>
 
 <script>
@@ -210,8 +215,8 @@ $('#purchase_return_form').datagrid({
 function addRow(){
 	$.easyui.showDialog({
 		href : ctx + '/do/purchaseReturn/showGoods.htm',//从controller请求jsp页面进行渲染
-		width : 530,
-		height : 300,
+		width : 600,
+		height : 420,
 		resizable: false,
 		title : "货品目录",
 		enableSaveButton : false,
@@ -228,50 +233,58 @@ function addRow(){
 			text : '确认',
 			iconCls : 'icon-save',
 			handler : function(target) {
-				if($("#goodsListDataGrid").datagrid('getSelected')){
-				  var numbers=$("#purchase_return_form").datagrid("getRows").length;
-				  var setName=$("#goodsListDataGrid").datagrid('getSelected').goodsName;
-				  if(numbers==0){
-					  $('#purchase_return_form').datagrid('insertRow', {
-							index:0,
-							row:{
-								goodsCode:$("#goodsListDataGrid").datagrid('getSelected').goodsCode,
-								goodsName:$("#goodsListDataGrid").datagrid('getSelected').goodsName,
-								goodsModel:$("#goodsListDataGrid").datagrid('getSelected').specification,
-								goodsUnit:$("#goodsListDataGrid").datagrid('getSelected').unit,
-								quantity:0,
-								price:0,
-								rejection:0,
-								money:0,
-								cess:$("#goodsListDataGrid").datagrid('getSelected').taxRate,
-								prices:0
-							}
-						});
-					    target.dialog("close");
-					    $('#purchase_return_form').datagrid('endEdit', 0).datagrid('refreshRow', 0).datagrid('beginEdit', 0);
-				    }else{
-					  for(var i=0;i<numbers;i++){
-						  if(setName!=$('#purchase_return_form').datagrid('selectRow',i).goodsName){
-							  $('#purchase_return_form').datagrid('insertRow', {
-									index:0,
-									row:{
-										goodsCode:$("#goodsListDataGrid").datagrid('getSelected').goodsCode,
-										goodsName:$("#goodsListDataGrid").datagrid('getSelected').goodsName,
-										goodsModel:$("#goodsListDataGrid").datagrid('getSelected').specification,
-										goodsUnit:$("#goodsListDataGrid").datagrid('getSelected').unit,
-										quantity:0,
-										price:0,
-										rejection:0,
-										money:0,
-										cess:$("#goodsListDataGrid").datagrid('getSelected').taxRate,
-										prices:0
-									}
-								});
-							  $('#purchase_return_form').datagrid('endEdit', 0).datagrid('refreshRow', 0).datagrid('beginEdit', 0);
-							}
-						 }
-					       target.dialog("close");
-				  }
+				if($("#goodsListDataGrid").datagrid('getSelections')){
+				  var setName=$("#goodsListDataGrid").datagrid('getSelections');
+				  var returnName=$("#purchase_return_form").datagrid("getRows");
+				  if(returnName.length==0){
+                     for(var i=0;i<setName.length;i++){
+                    	 $('#purchase_return_form').datagrid('insertRow', {
+ 							index:0,
+ 							row:{
+ 								goodsCode:setName[i].goodsCode,
+ 								goodsName:setName[i].goodsName,
+ 								goodsModel:setName[i].specification,
+ 								goodsUnit:setName[i].unit,
+ 								quantity:0,
+ 								price:0,
+ 								rejection:0,
+ 								money:0,
+ 								cess:$("#goodsListDataGrid").datagrid('getSelected').taxRate,
+ 								prices:0
+ 							}
+ 						});
+ 					    $('#purchase_return_form').datagrid('endEdit', 0).datagrid('refreshRow', 0).datagrid('beginEdit', 0); 
+                     }
+                     target.dialog("close");
+					}else{
+						for(var i=0;i<setName.length;i++){
+							  var count=0;
+							  for(var j=0;j<returnName.length;j++){
+								  if(setName[i].goodsName==returnName[j].goodsName)
+								     	    count+=1;
+							  }
+							if(count==0){
+								  $('#purchase_return_form').datagrid('insertRow', {
+			 							index:0,
+			 							row:{
+			 								goodsCode:setName[i].goodsCode,
+			 								goodsName:setName[i].goodsName,
+			 								goodsModel:setName[i].specification,
+			 								goodsUnit:setName[i].unit,
+			 								quantity:0,
+			 								price:0,
+			 								rejection:0,
+			 								money:0,
+			 								cess:$("#goodsListDataGrid").datagrid('getSelected').taxRate,
+			 								prices:0
+			 							}
+			 						});
+			 					    $('#purchase_return_form').datagrid('endEdit', 0).datagrid('refreshRow', 0).datagrid('beginEdit', 0);
+							  }
+							  
+						}
+						target.dialog("close");	
+					}
 				}else{
 				  target.dialog("close");
 			  }
@@ -284,8 +297,8 @@ function addRow(){
 	function showDetail(rowIndex,rowData){
 		$.easyui.showDialog({
 			href : ctx + '/do/purchaseReturn/showGoods.htm',//从controller请求jsp页面进行渲染
-			width : 530,
-			height : 300,
+			width : 600,
+			height : 420,
 			resizable: false,
 			title : "货品目录",
 			enableSaveButton : false,
@@ -302,29 +315,47 @@ function addRow(){
 				text : '确认',
 				iconCls : 'icon-save',
 				handler : function(target) {
-					var ed = $('#purchase_return_form').datagrid('updateRow', {
-						index:rowIndex,
-						row:{
-							goodsCode:setRowData.goodsCode,
-							goodsName:setRowData.goodsName,
-							goodsModel:setRowData.specification,
-							goodsUnit:setRowData.unit,
-							quantity:0,
-							price:0,
-							rejection:0,
-							money:0,
-							cess:setRowData.taxRate,
-							prices:0
-						}
-					});
-					target.dialog("close"); 
-					$('#purchase_return_form').datagrid('endEdit', rowIndex).datagrid('refreshRow', rowIndex).datagrid('beginEdit', rowIndex);
+					 var row=$('#goodsListDataGrid').datagrid("getSelected");
+				     var returnName=$("#purchase_return_form").datagrid("getRows");
+				     var count=0;
+				     for(var i=0;i<returnName.length;i++){
+				    	 if(row.goodsName==returnName[i].goodsName) count+=1;
+				     }
+				     if(count==0){
+				    	  $('#purchase_return_form').datagrid('updateRow', {
+								index:rowIndex,
+								row:{
+									goodsCode:row.goodsCode,
+									goodsName:row.goodsName,
+									goodsModel:row.specification,
+									goodsUnit:row.unit,
+									quantity:0,
+									price:0,
+									rejection:0,
+									money:0,
+									cess:row.taxRate,
+									prices:0
+								}
+							});
+							$('#purchase_return_form').datagrid('endEdit', rowIndex).datagrid('refreshRow', rowIndex).datagrid('beginEdit', rowIndex); 
+				     }
+				     target.dialog("close"); 
 				}
 			}]
 		});
 	};
-  
-     //仓库列表
+	
+	  //提交操作
+	  function doSave(){
+	      alert("哈哈哈哈！！！！我提交了!");	  
+	  }
+	
+     //撤销操作
+	 function doClear(){
+		 $('#purchase_return_form').datagrid('loadData',{total:0,rows:[]}); 
+	 }
+	
+	//仓库列表
      $("#storage").combobox({
 		 	data:$.parseJSON('${allWareHouseDate}'),
 			valueField:'warehouseId',    

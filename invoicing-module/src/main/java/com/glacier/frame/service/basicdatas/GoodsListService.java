@@ -19,6 +19,7 @@
  */
 package com.glacier.frame.service.basicdatas;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -136,11 +137,11 @@ public class GoodsListService {
 			returnResult.setSuccess(false);
 			return returnResult;
 		}
-		//随机编码
-		int numb=(int)(Math.random()*9000+1000);
+		//随机号生成
+		SimpleDateFormat SF=new SimpleDateFormat("yyyy-MM-DD-HHmmss");
 		goodsList.setGoodsId(RandomGUID.getRandomGUID());
-		goodsList.setGoodsCode("GD_"+numb);
-		goodsList.setSpecification("SP_"+numb);
+		goodsList.setGoodsCode("GD_"+SF.format(new Date()));
+		goodsList.setSpecification("SP_"+SF.format(new Date()));
 		goodsList.setAuditor("超级管理员");
 		goodsList.setAuditState("pass");
 		goodsList.setAuditTime(new Date());

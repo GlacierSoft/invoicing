@@ -25,8 +25,9 @@
 		autoRowHeight : false,//禁止设置自动行高以适应内容
 		striped : true,//true就是把行条纹化。（即奇偶行使用不同背景色）
 		singleSelect : true,//限制单选
-		checkOnSelect : false,//选择复选框的时候选择该行
-		selectOnCheck : false,//选择的时候复选框打勾
+		checkOnSelect : true,//选择复选框的时候选择该行
+		selectOnCheck : true,//选择的时候复选框打勾
+		singleSelect:false,//多选状态
 		url : ctx + '/do/goodsList/list.json?storageVal='+setWarehouse,
 		sortName : 'createTime',//排序字段名称
 		sortOrder : 'DESC',//升序还是降序
