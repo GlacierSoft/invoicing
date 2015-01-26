@@ -218,34 +218,29 @@ function batchRows(){
 	  			handler : function(dia) {
 	  				var rowsCheck = $('#goodsListDataGrid').datagrid('getChecked');
 	  				if(rowsCheck != ""){
-	  					var row = $('#purchase_arrival_form').datagrid('getSelected');
-	  					if(row){
-	  						var index = $('#purchase_arrival_form').datagrid('getRowIndex', row);
-	  					} else {
-	  						index = 0;
-	  					}
 		  				for(var i = 0; i < rowsCheck.length;i++){
+		  					alert(i);
 		  					$('#purchase_arrival_form').datagrid('insertRow', {
-		  						index: index,
+		  						index: i,
 		  						row:{
 		  							goodsCode:rowsCheck[i].goodsCode,goodsName:rowsCheck[i].goodsName,
 		  							goodsModel:rowsCheck[i].specification,goodsUnit:rowsCheck[i].unit,
 		  							arrival:0,delivery:0,rejection:0,money:0,
 		  							cess:rowsCheck[i].taxRate,depositRate:1,
-		  							originalCost:rowsCheck[i].referenceCost,price:0,
+		  							originalCost:rowsCheck[i].referenceCost,price:rowsCheck[i].referenceCost,
 		  							goodsId:rowsCheck[i].goodsId,placeOfOrigin:rowsCheck[i].origin,
 		  							remark:"",deadline:"",batchInformation:""
 		  						}
 		  					});
 		  					$('#purchase_arrival_form').datagrid('endEdit', i).datagrid('refreshRow', i).datagrid('beginEdit', i);
 		  					againBinding(i);
+		  					compute();//调用统计
 		  				}
 	  				}else{
 	  					$.messager.alert('提示信息','请勾上所需货物！','info');
 	  					return false;
 	  				}
 	  				dia.dialog("close");
-	  				compute();//调用统计
 	  			}
 	  		}]
 		});
