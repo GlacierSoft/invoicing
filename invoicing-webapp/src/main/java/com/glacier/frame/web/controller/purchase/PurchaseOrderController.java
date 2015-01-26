@@ -135,13 +135,14 @@ public class PurchaseOrderController extends AbstractController{
     @ResponseBody
     private Object addPurchaseOrder(PurchaseOrder purchaseOrder,String data) { 
     	JSONArray array = JSONArray.fromObject(data); 
-    	List<PurchaseOrderDetail> list=new ArrayList<PurchaseOrderDetail>();
-    	for (int i = 0; i < array.toArray().length; i++) {//遍历循环
+    	List<PurchaseOrderDetail> list=new ArrayList<PurchaseOrderDetail>(); 
+    	for (int i = 0; i < array.toArray().length-1; i++) {//遍历循环,去除最后一项统计栏的信息
 		   JSONObject json = JSONObject.fromObject(array.toArray()[i]);
 		   PurchaseOrderDetail resourceBean = (PurchaseOrderDetail) JSONObject.toBean(json,PurchaseOrderDetail.class);
-		   list.add(resourceBean); 
+		   list.add(resourceBean);  
 		}   
-     	return purchaseOrderService.addPurchaseOrder(purchaseOrder,list);
+    	
+     	return  purchaseOrderService.addPurchaseOrder(purchaseOrder,list);
     }  
     
     //修改订购合同
