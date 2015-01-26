@@ -37,8 +37,16 @@ public class GoodsListQueryDTO extends GoodsList{
 	   	if(null != this.getGoodsTypeId() && StringUtils.isNotBlank(this.getGoodsTypeId())){//车辆类型名称Like查询
             queryCriteria.andGoodsTypeIdLike("%" + this.getGoodsTypeId() + "%");
         } 
-	   	 
-	   	 if(null != this.getEnabled()){//状态Enum查询
+	   	
+	   	if(null!=this.getWarehouseTypeDisplay()){
+	   	 queryCriteria.andWarehouseTypeDisplayEqual(this.getWarehouseTypeDisplay().toString());
+	   	}
+	   	
+	   	if(null!=this.getGoodsSortDisplay()){
+	   	   queryCriteria.andGoodsSortDisplayEqual(this.getGoodsSortDisplay().toString());
+	   	}
+	   	
+	   	if(null != this.getEnabled()){//状态Enum查询
 	        queryCriteria.andEnabledEqualTo(this.getEnabled().toString());
 	   	 	}
 	     if(null != createStartTime && null != createEndTime){//创建时间段查询

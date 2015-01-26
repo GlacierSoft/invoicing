@@ -37,6 +37,7 @@ import com.glacier.frame.dto.query.basicdatas.GoodsListQueryDTO;
 import com.glacier.frame.entity.basicdatas.GoodsList;
 import com.glacier.frame.service.basicdatas.GoodsListService;
 import com.glacier.frame.service.basicdatas.ParWarGoodsTypeService;
+import com.glacier.frame.service.basicdatas.WarehouseService;
 import com.glacier.frame.service.system.DepService;
 import com.glacier.jqueryui.util.JqPager;
 
@@ -58,12 +59,20 @@ public class GoodsListController {
     private ParWarGoodsTypeService warGoodsTypeService;
 	
 	@Autowired
+	private WarehouseService warehouseService;
+	
+	@Autowired
 	private DepService depService;
 	
 	//进入货物档案信息列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPmember() {
         ModelAndView mav = new ModelAndView("basicdatas_mgr/goodsList_mgr/goodsList");
+        //库存货品信息
+        mav.addObject("allTypeTreeNodeData", warGoodsTypeService.getAllTreeTypeNode());
+        //仓库信息获取
+        mav.addObject("allWareHouseDate",warehouseService.getWareHouseCombo());
+        //返回结果集
         return mav;
     } 
 

@@ -50,6 +50,41 @@
 			sortable : true,
 			width : 120
 		},{
+			field : 'referenceCost',
+			title : '成本价',
+			sortable : true,
+			width : 120
+		},{
+			field : 'unit',
+			title : '货物单位',
+			sortable : true,
+			width : 120
+		},{
+			field : 'warehouseTypeDisplay',
+			title : '货物类型',
+			sortable : true,
+			width : 120
+		},{
+			field : 'goodsSortDisplay',
+			title : '存储仓库',
+			sortable : true,
+			width : 120
+		},{
+			field : 'depDisplay',
+			title : '负责部门',
+			sortable : true,
+			width : 120
+		},{
+			field : 'warehouseManagerDisplay',
+			title : '负责人',
+			sortable : true,
+			width : 120
+		},{
+			field : 'manufacturers',
+			title : '生产商',
+			sortable : true,
+			width : 120
+		},{
 			field : 'enabled',
 			title : '状态',
 			width : 120,
@@ -217,6 +252,26 @@
 		data : fields.status
 	});
 	
+	//货物类型
+	$("#warehouseTypeDisplay").combobox({
+		data : $.parseJSON('${allTypeTreeNodeData}'),//controller传来的数据源
+		height:18,
+		panelHeight : 'auto',
+	    editable : false,
+	    missingMessage:'请选择仓库类型',
+		textField : 'name',
+		valueField: 'warGoodsTypeId'
+	});
+	
+	//仓库类型
+	$("#goodsSortDisplay").combobox({
+		data:$.parseJSON('${allWareHouseDate}'),
+		valueField:'warehouseId',    
+	    textField:'warehouseName',
+	    panelHeight : 'auto',
+	    editable:false 
+	});
+	
 </script>
 
 <!-- 所有列表面板和表格 -->
@@ -235,8 +290,10 @@
 				<tr>
 					<td>货物：</td>
 					<td><input name="goodsName" style="width: 80px;"class="spinner" /></td>
+					<td>类型：</td>
+					<td><input  id="warehouseTypeDisplay" name="warehouseTypeDisplay" style="width: 80px;"class="spinner" /></td>
 					 <td>仓库：</td>
-					<td><input name="name" style="width: 80px;"class="spinner" /></td>
+					<td><input  id="goodsSortDisplay" name="goodsSortDisplay"  style="width: 80px;"class="spinner" /></td>
 					<td>状态：</td>
 					<td><input id="goodsListSearchForm_enabled" name="enabled" style="width: 80px;"/></td> 
 					<td>创建时间：</td>
@@ -248,7 +305,7 @@
 						onclick="glacier.basicdatas_mgr.goodsList_mgr.goodsList.goodsListDataGrid.datagrid('load',glacier.serializeObject($('#goodsListSearchForm')));">查询</a>
 						<a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-out',plain:true"
-						onclick="$('#goodsListSearchForm input').val('');glacier.basicdatas_mgr.goodsList_mgr.goodsList.goodsList.goodsListDataGrid.datagrid('load',{});">重置条件</a>
+						onclick="$('#goodsListSearchForm input').val('');glacier.basicdatas_mgr.goodsList_mgr.goodsList.goodsListDataGrid.datagrid('load',{});">重置条件</a>
 					</td>
 				</tr>
 			</table>

@@ -136,7 +136,7 @@ public class ParWarGoodsTypeExample {
         }
 
         public Criteria andWarGoodsTypeIdEqualTo(String value) {
-            addCriterion("temp_par_war_goods_type.war_goods_type_id =", value, "warGoodsTypeId");
+            addCriterion("temp_par_war_goods_type.war_goods_type_id =", value, "goodsSortDisplay");
             return (Criteria) this;
         }
 

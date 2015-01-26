@@ -105,6 +105,18 @@ public class GoodsListExample {
             return criteria;
         }
 
+        //扩展查询条件
+        public Criteria andWarehouseTypeDisplayEqual(String value) {
+            addCriterion("temp_war_display.war_goods_type_id =", value, "warehouseTypeDisplay");
+            return (Criteria) this;
+        }
+        
+        //扩展查询条件
+        public Criteria andGoodsSortDisplayEqual(String value) {
+            addCriterion("temp_warehouse_display.warehouse_id =", value, "goodsSortDisplay");
+            return (Criteria) this;
+        } 
+        
         protected void addCriterion(String condition) {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");

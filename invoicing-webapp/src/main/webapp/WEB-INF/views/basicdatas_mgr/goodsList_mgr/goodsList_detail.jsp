@@ -20,9 +20,9 @@
 					</tr> 
 					<tr> 
 					    <td>货品类型：</td>
-						<td><input id="goodsTypeId" name="goodsTypeId" class="spinner" style="width:168px" value="${goodsListDate.goodsSortDisplay }" readonly="readonly"/></td>
+						<td><input id="goodsTypeId" name="goodsTypeId" class="spinner" style="width:168px" value="${goodsListDate.warehouseTypeDisplay}" readonly="readonly"/></td>
 					   <td style="padding-left:10px;"> 所属仓库：</td>
-						<td><input id="warehouseTypeId" name="warehouseTypeId" class="spinner" style="width:168px" value="${goodsListDate.warehouseTypeDisplay}" readonly="readonly"/></td>
+						<td><input id="warehouseTypeId" name="warehouseTypeId" class="spinner" style="width:168px" value="${goodsListDate.goodsSortDisplay}" readonly="readonly"/></td>
 					 </tr>
 					 <tr>
 					     <td>规格型号：</td>
