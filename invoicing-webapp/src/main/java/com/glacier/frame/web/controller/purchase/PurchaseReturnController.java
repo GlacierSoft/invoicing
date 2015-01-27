@@ -19,22 +19,30 @@
  */
 package com.glacier.frame.web.controller.purchase;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.frame.dto.query.purchase.PurchaseReturnQueryDTO;
 import com.glacier.frame.entity.purchase.PurchaseReturn;
+import com.glacier.frame.service.basicdatas.ParPurchaseReturnReasonService;
+import com.glacier.frame.service.basicdatas.ParPurchaseReturnedTypeService;
 import com.glacier.frame.service.basicdatas.SuppliersService;
 import com.glacier.frame.service.basicdatas.WarehouseService;
 import com.glacier.frame.service.purchase.PurchaseReturnService;
@@ -63,6 +71,12 @@ public class PurchaseReturnController {
 	@Autowired
 	private SuppliersService suppliersService;
 	
+	@Autowired
+	private ParPurchaseReturnedTypeService returnedTypeService;
+	
+	@Autowired
+	private ParPurchaseReturnReasonService returnReasonService;
+	
 	// 进入采购退货信息列表展示页面
     @RequestMapping(value = "/index.htm")
     private Object intoIndexPmember() {
@@ -70,12 +84,20 @@ public class PurchaseReturnController {
         return mav;
     } 
     
+    //货物信息展示页
     @RequestMapping(value="/showGoods.htm")
     private Object goodsIndex() {
         ModelAndView mav = new ModelAndView("purchase_mgr/purchaseReturn_mgr/goods");
         return mav;
     }
 
+    //附件上传页
+    @RequestMapping(value="/upload.htm")
+    private Object doUpload() {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseReturn_mgr/upload");
+        return mav;
+    }
+    
     // 获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
@@ -103,6 +125,10 @@ public class PurchaseReturnController {
         mav.addObject("allDepTreeNodeData", depService.getAllTreeDepNode(true));
         //获取供应商信息
         mav.addObject("allSuppliesTreeNodeData",suppliersService.getSuppliersCombo());
+        //获取退货方式信息
+        mav.addObject("allReturnTypeData",returnedTypeService.listAllGrid());
+        //获取退货原因信息
+        mav.addObject("allReturnReasonData",returnReasonService.listAllGrid());        
         //判断主键标志
         if(StringUtils.isNotBlank(purReturnId)){
             mav.addObject("purchaseReturnDate", purchaseReturnService.getPurchaseReturn(purReturnId));
@@ -130,4 +156,21 @@ public class PurchaseReturnController {
     public Object delGrade(@RequestParam List<String> purReturnIds) {
         return purchaseReturnService.delPurchaseReturn(purReturnIds);
     }
+    
+    //附件上传
+    @RequestMapping(value="/doUpload.htm",method=RequestMethod.POST)  
+    public void uploadFile(HttpServletResponse response,HttpServletRequest request,@RequestParam(value="file", required=false) MultipartFile file) throws IOException{  
+        byte[] bytes = file.getBytes();  
+        @SuppressWarnings("deprecation")
+		String uploadDir = request.getRealPath("/")+"upload";  
+        File dirPath = new File(uploadDir);  
+        if (!dirPath.exists()) {  
+            dirPath.mkdirs();  
+        }  
+        String sep = System.getProperty("file.separator");  
+        File uploadedFile = new File(uploadDir + sep  
+                + file.getOriginalFilename());  
+        FileCopyUtils.copy(bytes, uploadedFile);  
+    }  
+    
 }

@@ -30,6 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.ParPurchaseReturnReasonMapper;
 import com.glacier.frame.dto.query.basicdatas.ParPurchaseReturnReasonQueryDTO;
@@ -84,6 +85,21 @@ public class ParPurchaseReturnReasonService {
 		return returnResult;// 返回ExtGrid表
 	}
 
+	/**
+	 * @Title: getReturnReason
+	 * @Description: TODO(获取退货类型对象)
+	 * @param @param industryId
+	 * @param @return 设定文件
+	 * @return Object 返回类型
+	 * @throws
+	 */
+	public Object listAllGrid(){
+		ParPurchaseReturnReasonExample parPurchaseReturnReasonExample = new ParPurchaseReturnReasonExample();
+		parPurchaseReturnReasonExample.createCriteria().andEnabledEqualTo("enable");
+		List<ParPurchaseReturnReason> list=parPurchaseReturnReasonMapper.selectByExample(parPurchaseReturnReasonExample);
+		return JackJson.fromObjectToJson(list);
+	}
+	
 	/**
 	 * @Title: getReturnReason
 	 * @Description: TODO(获取退货类型对象)

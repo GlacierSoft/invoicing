@@ -68,7 +68,7 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 <tr>
     <td style="padding-left:10px;">退货方式：</td>
 	<td>
-	    <input class="easyui-validatebox spinner" style="width:168px" value="${ purchaseReturnDate.returnedPurchaseTypeDisplay}" required="true"/>
+	    <input style="width:168px" id="returnedPurchaseTypeId"  name="returnedPurchaseTypeId" value="${ purchaseReturnDate.returnedPurchaseTypeId}" required="true" class="easyui-combobox" />
 	</td>
     <td style="padding-left:10px;">退货期限：</td>
 	<td>
@@ -76,7 +76,7 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 	</td>
     <td style="padding-left:10px;">退货原因：</td>
     <td>
-       <input class="easyui-validatebox spinner" style="width:168px" value="${purchaseReturnDate.returnReasonDisplay}" required="true"/>
+       <input class="easyui-validatebox spinner"  id="returnReasonId" name="returnReasonId" style="width:168px" value="${purchaseReturnDate.returnReasonId}" required="true"/>
     </td>
     <td style="padding-left:10px;">退货说明：</td>
     <td>
@@ -112,7 +112,7 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 	</td>  
 	<td style="padding-left:10px;">结算方式：</td>
 	<td>
-		<input id="logSettlement"  name="logSettlement" class="easyui-validatebox spinner" style="width:168px" value='${purchaseReturnDate.logSettlement}' required="true"/>
+		<input id="logSettlement"  name="logSettlement" style="width:168px" value='${purchaseReturnDate.logSettlement}' required="true" class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,data : fields.logSettlement"/>
 	</td>
 	<td style="padding-left:10px;">未付款金额：</td>
 	<td>
@@ -126,7 +126,7 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
      </td>
       <td style="padding-left:10px;">开票状态：</td>
    <td>
-	<input id="invState" name="invState" class="easyui-validatebox spinner" style="width:168px" value="${purchaseReturnDate.invState }"  required="true"/>
+	<input id="invState" name="invState" style="width:168px" value="${purchaseReturnDate.invState }"  required="true" class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,data : fields.invState"/>
    </td> 
    <td style="padding-left:10px;">未开票金额：</td>
    <td><input id="notInvAmo"  name="notInvAmo" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${purchaseReturnDate.notInvAmo}' pattern="#,#00.00元"/>" required="true"/></td>
@@ -139,7 +139,7 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 </tr> 
 <tr>
    <td style="padding-left:10px;">附件：</td>
-   <td colspan="7"> <textarea   name="accessory" class="easyui-validatebox spinner" style="width:920px;" readonly="readonly" >${purchaseReturnDate.accessory}</textarea></td>
+   <td colspan="7"><a style="margin-top: 5px" href="javascript:doUpload();" class="easyui-linkbutton" data-options="iconCls:'icon-hamburg-up'">上传</a></td>
 </tr>
 </table>
 <br/>
@@ -154,6 +154,29 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 </form>
 
 <script>
+
+//附件上传
+function doUpload(){
+	$.easyui.showDialog({
+		href : ctx + '/do/purchaseReturn/upload.htm',//从controller请求jsp页面进行渲染
+		width : 360,
+		height : 400,
+		resizable: false,
+		title : "附件上传",
+		enableSaveButton : false,
+		enableApplyButton : false,
+		enableCloseButton:false,
+		buttons :[ {
+			text : '取消',
+			iconCls : 'icon-save',
+			handler : function(target) {
+				target.dialog("close");
+			}
+		}]
+	});
+}
+
+//明细添加
 
 var setWarehouse="";//保存仓库ID
 var setRowData="";//保存选中的值
@@ -411,5 +434,24 @@ function addRow(){
 		    panelHeight : 'auto',
 		    editable:false 
 	  });
+    
+     //退货原因
+      $("#returnReasonId").combobox({
+		 	data:$.parseJSON('${allReturnReasonData}'),
+			valueField:'returnReasonId',    
+		    textField:'name',
+		    panelHeight : 'auto',
+		    editable:false 
+	  });
+     
+     //退货方式
+      $("#returnedPurchaseTypeId").combobox({
+		 	data:$.parseJSON('${allReturnTypeData}'),
+			valueField:'returnedPurchaseTypeId',    
+		    textField:'name',
+		    panelHeight : 'auto',
+		    editable:false 
+	  });
+     
 </script>
 

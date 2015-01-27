@@ -31,6 +31,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.CollectionsUtil;
+import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.ParPurchaseReturnedTypeMapper;
 import com.glacier.frame.dto.query.basicdatas.ParPurchaseReturnedTypeQueryDTO;
@@ -97,7 +98,23 @@ public class ParPurchaseReturnedTypeService {
         return returnResult;// 返回ExtGrid表
     }
     
-     /**
+    /**
+     * @Title: listAllGrid
+     * @Description: TODO(获取所有采购退货方式信息)
+     * @param @param 
+     * @param @param pager
+     * @param @return 设定文件
+     * @return Object 返回类型
+     * @throws
+     */ 
+    public Object listAllGrid() {
+    	 ParPurchaseReturnedTypeExample ParPurchaseReturnedTypeExample = new ParPurchaseReturnedTypeExample(); 
+    	 ParPurchaseReturnedTypeExample.createCriteria().andEnabledEqualTo("enable");
+    	 List<ParPurchaseReturnedType> list=purchaseReturnedTypeMapper.selectByExample(ParPurchaseReturnedTypeExample);
+    	return JackJson.fromObjectToJson(list);
+    }
+    
+    /**
       * 
       * @Title: addParPurchaseReturnedType  
       * @Description: TODO(新增采购退货方式)  
