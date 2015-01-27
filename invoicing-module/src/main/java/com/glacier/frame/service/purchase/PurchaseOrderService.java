@@ -180,14 +180,49 @@ public class PurchaseOrderService {
       */
     @Transactional(readOnly = false) 
     @MethodLog(opera = "PurchaseOrderList_edit")
-    public Object editPurchaseOrder(PurchaseOrder purchaseOrder) {
+    public Object editPurchaseOrder(PurchaseOrder purchaseOrder,List<PurchaseOrderDetail> list) {
         Subject pricipalSubject = SecurityUtils.getSubject();
-        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        User pricipalUser = (User) pricipalSubject.getPrincipal(); 
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
         int count = 0;  
         purchaseOrder.setUpdater(pricipalUser.getUserCnName());
         purchaseOrder.setUpdateTime(new Date());
         count = chaseOrderMapper.updateByPrimaryKeySelective(purchaseOrder);
+        //查询出该合同的所有明细信息
+        PurchaseOrderDetailExample chaseOrderDetailExample=new PurchaseOrderDetailExample();
+        chaseOrderDetailExample.createCriteria().andPurOrderIdEqualTo(purchaseOrder.getPurOrderId());
+        List<PurchaseOrderDetail> detailList=chaseOrderDetailMapper.selectByExample(chaseOrderDetailExample);
+        //挑选出前台删除了的货物，然后在数据库清除多余的数据
+      	for(int v=0;v<detailList.size();v++){ 
+      	   for(int i=0;i<list.size();i++){ 
+      		   //如果其中id存在相同的
+      	       if(detailList.get(v).getPurOrderId().equals(detailList.get(i).getPurOrderId())){
+      	    	// detailList.remove(v);//移除多余的数据，直接删除即可
+      	    	chaseOrderMapper.deleteByPrimaryKey(detailList.get(v).getPurOrderDetId());
+      	       }
+        	}
+        } 
+        //修改合同明细 
+        for (PurchaseOrderDetail detail : list) {  
+        	 //存在id就修改
+        	if(detail.getPurOrderDetId()!=""){ 
+        		chaseOrderDetailMapper.updateByPrimaryKeySelective(detail);
+        	}else{ //不存在id就新增
+        		detail.setPurOrderDetId(RandomGUID.getRandomGUID());
+            	detail.setPurOrderId(purchaseOrder.getPurOrderId());//订购合同id
+            	detail.setNotArrNum(0);//未到货数量
+            	detail.setAlrArrNum(0);//已到货数量
+            	detail.setNotPayNum(0);//未付款数量
+            	detail.setAlrPayNum(0);//已付款数量
+            	detail.setNotInvNum(0);//未开票数量
+            	detail.setAlrInvNum(0);//已开票数量
+            	detail.setNotTerNum(0);//未终止数量
+            	detail.setAlrTerNum(0);//已终止数量
+            	detail.setNotTerMoney(new BigDecimal(0));//未终止金额
+            	detail.setAlrTerMoney(new BigDecimal(0));//已终止金额
+            	chaseOrderDetailMapper.insert(detail);
+        	} 
+		}  
         if (count == 1) {
             returnResult.setSuccess(true);
             returnResult.setMsg("信息已保存");

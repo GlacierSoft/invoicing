@@ -147,10 +147,14 @@
 			}
 		},
 		onDblClickRow : function(rowIndex, rowData){ 
-			$("#layout_center_panel").panel("setTitle","订购订货合同详情"); 
-			$("#layout_center_panel").panel("refresh",ctx +"/do/purchaseOrder/intoDetail.htm?purOrderId="+ rowData.purOrderId);
-	  	}
+			info(rowData);
+	 	}
 	});
+	
+	function info(rowData){
+		$("#layout_center_panel").panel("setTitle","订购订货合同详情"); 
+		$("#layout_center_panel").panel("refresh",ctx +"/do/purchaseOrder/intoDetail.htm?purOrderId="+ rowData.purOrderId);
+  	}
 	
 	//点击增加按钮触发方法
 	glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.addPurchaseOrder= function(){
@@ -159,8 +163,11 @@
        
 	};
 	//点击编辑按钮触发方法
-	glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.editGoodsList= function(){
+	glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.editPurchaseOrder= function(){
 		var row =glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.purchaseOrderDataGrid.datagrid("getSelected");
+		$("#layout_center_panel").panel("setTitle","编辑订购订货合同");
+		$('#layout_center_panel').panel('refresh',ctx +'/do/purchaseOrder/intoForm.htm?purOrderId='+ row.purOrderId);
+		/* var row =glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.purchaseOrderDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【订购合同】- 编辑',
 			width : 620,
@@ -173,7 +180,7 @@
 			successFun : function (){
 				glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.purchaseOrderDataGrid.datagrid('reload');
 			}
-		});
+		}); */
 	};
 	
 	//点击删除按钮触发方法

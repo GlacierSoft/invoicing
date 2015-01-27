@@ -20,15 +20,12 @@
 package com.glacier.frame.web.controller.purchase;
 
 import java.util.ArrayList;
-import java.util.List; 
-import javax.validation.Valid;
-
+import java.util.List;  
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject; 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult; 
+import org.springframework.stereotype.Controller; 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,6 +42,7 @@ import com.glacier.frame.service.basicdatas.ParPurchaseTypeService;
 import com.glacier.frame.service.basicdatas.WarehouseService;
 import com.glacier.frame.service.purchase.PurchaseOrderDetailService;
 import com.glacier.frame.service.purchase.PurchaseOrderService;
+import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager; 
 
 /**
@@ -101,8 +99,14 @@ public class PurchaseOrderController extends AbstractController{
     @RequestMapping(value = "/orderDetail.json", method = RequestMethod.POST)
     @ResponseBody
     private Object listOrderDetail(JqPager jqPager,PurchaseOrderDetailQueryDTO purchaseOrderDetailQueryDTO,String orderId) {
-    	purchaseOrderDetailQueryDTO.setPurOrderId(orderId);
-    	return purchaseOrderDetailService.listAsGrid(jqPager, purchaseOrderDetailQueryDTO);
+     
+    	if(orderId==""){ 
+    		JqGridReturn returnResult = new JqGridReturn();
+    		return returnResult;
+    	}else{
+    		purchaseOrderDetailQueryDTO.setPurOrderId(orderId);
+        	return purchaseOrderDetailService.listAsGrid(jqPager, purchaseOrderDetailQueryDTO);
+    	} 
     }
     
     //进入表单页面
@@ -122,7 +126,7 @@ public class PurchaseOrderController extends AbstractController{
     
     //进入Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
-    private Object intoPurchaseOrder(String purOrderId) {
+    private Object intoPurchaseOrder(String purOrderId) { 
         ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/purchaseOrder_detail");
         if(StringUtils.isNotBlank(purOrderId)){
             mav.addObject("purchaseOrderData", purchaseOrderService.getPurchaseOrder(purOrderId));
@@ -133,23 +137,33 @@ public class PurchaseOrderController extends AbstractController{
     //新增订购合同
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addPurchaseOrder(PurchaseOrder purchaseOrder,String data) { 
-    	JSONArray array = JSONArray.fromObject(data); 
+    private Object addPurchaseOrder(String purchaseOrder,String data) {   
+    	JSONObject purchase = JSONObject.fromObject(purchaseOrder);  
+    	PurchaseOrder order = (PurchaseOrder) JSONObject.toBean(purchase,PurchaseOrder.class);
+    	JSONArray array = JSONArray.fromObject(data);  
     	List<PurchaseOrderDetail> list=new ArrayList<PurchaseOrderDetail>(); 
     	for (int i = 0; i < array.toArray().length-1; i++) {//遍历循环,去除最后一项统计栏的信息
 		   JSONObject json = JSONObject.fromObject(array.toArray()[i]);
 		   PurchaseOrderDetail resourceBean = (PurchaseOrderDetail) JSONObject.toBean(json,PurchaseOrderDetail.class);
 		   list.add(resourceBean);  
-		}   
-    	
-     	return  purchaseOrderService.addPurchaseOrder(purchaseOrder,list);
+		}    
+     	return  purchaseOrderService.addPurchaseOrder(order,list);
     }  
     
     //修改订购合同
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object editPurchaseOrder(@Valid PurchaseOrder purchaseOrder, BindingResult bindingResult) {
-         return purchaseOrderService.editPurchaseOrder(purchaseOrder);
+    private Object editPurchaseOrder(String purchaseOrder,String data) {
+    	JSONObject purchase = JSONObject.fromObject(purchaseOrder);  
+    	PurchaseOrder order = (PurchaseOrder) JSONObject.toBean(purchase,PurchaseOrder.class);
+    	JSONArray array = JSONArray.fromObject(data);  
+    	List<PurchaseOrderDetail> list=new ArrayList<PurchaseOrderDetail>(); 
+    	for (int i = 0; i < array.toArray().length-1; i++) {//遍历循环,去除最后一项统计栏的信息
+		   JSONObject json = JSONObject.fromObject(array.toArray()[i]);
+		   PurchaseOrderDetail resourceBean = (PurchaseOrderDetail) JSONObject.toBean(json,PurchaseOrderDetail.class);
+		   list.add(resourceBean);  
+		}  
+         return purchaseOrderService.editPurchaseOrder(order,list);
     }
     
     //删除订购合同

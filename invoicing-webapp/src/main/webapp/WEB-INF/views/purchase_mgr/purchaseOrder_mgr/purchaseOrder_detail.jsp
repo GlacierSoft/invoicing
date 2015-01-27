@@ -165,14 +165,12 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 		 <input type="hidden" name="orderId" value="${purchaseOrderData.purOrderId }">
 			<table>
 				<tr>
-					<td>货品编码：</td>
-					<td><input name="goodsCode" style="width: 80px;"class="spinner" /></td>
 					<td>货品名称：</td>
 					<td><input name="goodsName" style="width: 80px;"class="spinner" /></td> 
-					<td>到期时间：</td>
-					<td><input name="deadline" class="easyui-datetimebox"
+					<td>交货期限：</td>
+					<td><input name="deadline" class="easyui-datebox"
 						style="width: 100px;" /> - <input name="deadlineEndTime"
-						class="easyui-datetimebox" style="width: 100px;" /></td>
+						class="easyui-datebox" style="width: 100px;" /></td>
 					<td><a href="javascript:void(0);" class="easyui-linkbutton"
 						data-options="iconCls:'icon-standard-zoom-in',plain:true"
 						onclick="glacier.purchase_mgr.purchaseOrderDetail_mgr.purchaseOrderDetail.purchaseOrderDetailDataGrid.datagrid('load',glacier.serializeObject($('#purchaseOrderDetailSearchForm')));">查询</a>
@@ -184,8 +182,8 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 			</table>
 		</form>
 	</div>
-	<div id="purchaseOrderPanel" style="height: 200px" data-options="region:'center',border:true">
-		<table id="purchase_order_detail" style="height: 200px">  
+	<div id="purchaseOrderPanel" style="height: auto;margin-bottom: 50px" data-options="region:'center',border:true">
+		<table id="purchase_order_detail" style="height: auto">  
 		</table> 
 </div>  
 

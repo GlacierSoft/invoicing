@@ -18,7 +18,7 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
          }
  };
 </script> 
-<form id="purchase_mgr_purchaseOrder_form" method="post" >
+<form id="purchase_mgr_purchaseOrder_form" method="post" > 
  <table  class="formtable" > 
  <glacierui:toolbar panelEnName="PurchaseOrderList"
 				toolbarId="purchaseOrderDataGrid_toolbar" menuEnName="purchaseOrder" />
@@ -26,17 +26,18 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 	   <tr> 
 	        <td style="padding-left:10px;">采购日期：</td>
 			<td> 
+			<input type="hidden" id="purOrderId" name="purOrderId" value="${purchaseOrderData.purOrderId }">
 			    <input name="orderDate"  required="true" class="easyui-datebox" style="width:168px;height:20px"  value="<fmt:formatDate value="${purchaseOrderData.orderDate}" pattern="yyyy-MM-dd"/>" /> 
 			</td>
 			<td style="padding-left:10px;">采购类型：</td>
-			<td><input id="purchaseOrder_mgr_purchaseOrder_form_purchaseTypeId" name="purchaseTypeId" value='${purchaseDate.purchaseTypeId}' /></td>
+			<td><input id="purchaseOrder_mgr_purchaseOrder_form_purchaseTypeId" name="purchaseTypeId" value='${purchaseOrderData.purchaseTypeId}' /></td>
 	
 	        <td style="padding-left:10px;">合同编号：</td>
 			<td>
 				<input id="contractCode" name="contractCode"  class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseOrderData.contractCode }"   />
 			</td> 
 		    <td style="padding-left:10px;">仓库：</td>
-		  	<td ><input id="purchaseOrder_mgr_purchaseOrder_form_storage" name="storage" value="${purchaseDate.storageName}" /></td>
+		  	<td ><input id="purchaseOrder_mgr_purchaseOrder_form_storage" name="storage" value="${purchaseOrderData.storage}" /></td>
 		</tr>   
 		<tr>
 			<td style="padding-left:10px;">交货期限：</td>
@@ -44,18 +45,22 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 			   <input name="deliveryDadlines"  required="true" class="easyui-datebox" style="width:168px;height:20px"  value="<fmt:formatDate value="${purchaseOrderData.deliveryDadlines}" pattern="yyyy-MM-dd"/>" /> 
 			<td style="padding-left:10px;">供应商：</td>
 			<td >
-				<input id="suppliers_mgr_suppliers_form_supplierType" required="true" value="${purchaseOrderData.suppliersName}" style="width: 168px;height:20px" name="supplierId"  class="easyui-combogrid"  />
+				<input id="suppliers_mgr_suppliers_form_supplierType" required="true" value="${purchaseOrderData.supplierId}" style="width: 168px;height:20px" name="supplierId"  class="easyui-combogrid"  />
 			</td>
 			<td style="padding-left:10px;">供应商地址：</td>
-			<td><input id="supplierAdd" class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseOrderData.supplierAdd}"  /></td>
-			<td style="padding-left:10px;">联系电话：</td>
-			<td><input id="phone" class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseOrderData.phone}"   /></td>
-
+			<td><input id="supplierAdd" class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseOrderData.supplierAdd}"  name="supplierAdd"/></td>
+			<%-- <td style="padding-left:10px;">联系电话：</td>
+			<td><input id="phone" name="phone" class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseOrderData.phone}"   /></td>
+ --%>
+  <td style="padding-left:10px;">付款约定：</td>
+			<td>
+			<input id="paymentAgrId" name="paymentAgrId" class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseOrderData.paymentAgrId }"   />
+			</td>
 		</tr>
 		<tr>
 			<td style="padding-left:10px;">是否启用：</td>
 			<td> 
-				<input style="width:168px;height:20px" value="${purchaseOrderData.enabled}" name="invoice" class="easyui-combobox" 
+				<input style="width:168px;height:20px" value="${purchaseOrderData.enabled}" name="enabled" class="easyui-combobox" 
 			 data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data :fields.status"/> 
 			</td>
 			<td style="padding-left:10px;">联系人：</td>
@@ -65,18 +70,15 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 			<td style="padding-left:10px;">手机：</td>
 			<td><input id="moi" class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseOrderData.phone}"   /></td>
 			<td style="padding-left:10px;">传真：</td>
-			<td><input class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseOrderData.fax}"  /></td>
+			<td><input class="easyui-validatebox spinner"style="width:168px;height:20px" name="fax" value="${purchaseOrderData.fax}"  /></td>
   		</tr>  
 		<tr> 
 			<td style="padding-left:10px;">约定支付方式：</td>
 			<td >
 			    <input id="purchaseOrder_mgr_purchaseOrder_form_paymentTypeId" name="paymentTypeId"  value="${purchaseOrderData.paymentTypeId}" /> 
-			</td>
-			     <td style="padding-left:10px;">付款约定：</td>
-			<td>
-			<input id="paymentAgrId" name="paymentAgrId" class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseOrderData.paymentAgrId }"   />
-			</td>
-			    <td style="padding-left:10px;">交货方式：</td>
+			</td> 
+			
+			 <td style="padding-left:10px;">交货方式：</td>
 			<td > 
 			   <input id="purchaseOrder_mgr_purchaseOrder_form_deliveryType" name="deliveryType"  value="${purchaseOrderData.deliveryType}" /> 
 			 </td>
@@ -84,6 +86,10 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 			<td >
 			    <input id="deliveryAdd" name="deliveryAdd" class="easyui-validatebox spinner"style="width:168px;;height:20px" value="${purchaseOrderData.deliveryAdd}"  />
 			</td>
+			 <td style="padding-left:10px;">共享人：</td>
+			<td >
+			    <input id="sharedPeopleId" name="sharedPeopleId" class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseOrderData.sharedPeopleId}"  />
+			</td> 
 		</tr>
 		<tr> 
 			<td style="padding-left:10px;">是否开发票：</td>
@@ -98,11 +104,7 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 			</td>
 			     <td style="padding-left:10px;">总金额：</td>
 			<td >
-			    <input id="totalAmount" name="totalAmount" class=" spinner" style="width:168px;height:20px;border-left-style: none;border-right-style: none;border-top-style: none;"   value="<fmt:formatNumber value='${purchaseOrderData.totalAmount}' pattern="#,#00.00元"/>" />
-			</td>
-			       <td style="padding-left:10px;">共享人：</td>
-			<td >
-			    <input id="sharedPeopleId" name="sharedPeopleId" class="easyui-validatebox spinner"style="width:168px;" value="${purchaseOrderData.sharedPeopleId}"  />
+			    <input id="totalAmount" readonly="readonly" name="totalAmount" class=" spinner" style="width:168px;height:20px;border-left-style: none;border-right-style: none;border-top-style: none;"   value="<fmt:formatNumber value='${purchaseOrderData.totalAmount}' pattern="#,#00.00元"/>" />
 			</td> 
 		</tr> 
 		<tr>  
@@ -124,8 +126,7 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
      <div style="text-align: center;">
         <font size="3" style="margin-top: 30px"><b>货品详情</b></font> 
      </div> 
-     <hr>       
-
+     <hr>        
      <!-- 所有列表面板和表格 -->  
 	<div id="purchaseOrderPanel" data-options="region:'center',border:true">
 		<table id="goodsList" style="margin-bottom: 50px">  
@@ -136,49 +137,9 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 	        <a style="margin-left: 30px" id="unbo" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-undo'">关闭</a> 
 	      </div> 
 	</div>  
+
   </form> 
-<script type="text/javascript">  
-//自定义combogrid
-/* $.extend($.fn.datagrid.defaults.editors, {
-	 
-	    combogrid: {
-	 
-	        init: function(container, options){
-	 
-	            var input = $('<input type="text" class="datagrid-editable-input">').appendTo(container);
-	 
-	            input.combogrid(options);
-	 
-	            return input;
-	 
-	        },
-	 
-	        destroy: function(target){
-	 
-	            $(target).combogrid('destroy');
-	 
-	        },
-	 
-	        getValue: function(target){
-	 
-	            return $(target).combogrid('getValue');
-	 
-	        },
-	 
-	        setValue: function(target, value){
-	 
-	            $(target).combogrid('setValue', value);
-	 
-	        },
-	 
-	        resize: function(target, width){
-	 
-	            $(target).combogrid('resize',width);
-	 
-	        } 
-	    }
-	 
-	});  */
+<script type="text/javascript">   
 //------------------分割线-------------------------- 
 var $dg = $("#goodsList");
 
@@ -195,6 +156,7 @@ $dg.datagrid({
 	nowrap : true,//禁止单元格中的文字自动换行
 	autoRowHeight : false,//禁止设置自动行高以适应内容
 	striped : true,//true就是把行条纹化。（即奇偶行使用不同背景色）
+	url: ctx + '/do/purchaseOrder/orderDetail.json?orderId=${purchaseOrderData.purOrderId }',   
 	singleSelect : true,//限制单选
 	checkOnSelect : false,//选择复选框的时候选择该行
 	selectOnCheck : false,//选择的时候复选框打勾
@@ -203,6 +165,7 @@ $dg.datagrid({
 	remoteSort : true,//开启远程排序，默认为false 
 	idField : 'purOrderDetId', 
     columns:[[    
+       {field :'purOrderDetId', title : 'ID', hidden:true}, 
         {field:'goodsId',title:'货品id',width:100,hidden:true},  
         {field:'goodsCode',title:'货品编码',width:100},    
         {field:'goodsName',title:'名称',width:100},    
@@ -217,13 +180,10 @@ $dg.datagrid({
        {field:'deadline',title:'交货期限',width:100,editor: { type: 'datebox'  }},
        {field:'remark',title:'备注',width:100,editor: { type: 'text'  }} 
     ]], 
-    toolbar: [/* {
-        text: '添加商品', iconCls: 'icon-standard-pencil-add', handler: function () {  
-        	addRow(); 
-        }
-      }, */{
+    toolbar: [
+         {
           text: '添加商品', iconCls: 'icon-standard-pencil-add', handler: function () {  
-          	addRows();
+          addRows();
           }
         },{
           text: '删除商品', iconCls: 'icon-standard-pencil-delete', handler: function () {  
@@ -248,13 +208,10 @@ $dg.datagrid({
             		compute();//删除后调用统计
             		var rows = $dg.datagrid('getRows'); //删除后重新获取所有行
 					if(rows.length==2){ //如果正好是两行，就把统计行也删除
-						$dg.datagrid('deleteRow',1);//删除统计行
-						//var computeRow = $dg.datagrid('getData').rows[1];//获取统计行数据
-					 }
-          		
+						$dg.datagrid('deleteRow',1);//删除统计行 
+					 } 
           		}
-          	});  
-      		
+          	});   
           }
         }],  
      
@@ -333,38 +290,14 @@ function compute(){//计算函数
   }
   $("#totalAmount").attr("value","").attr("value",moneyTotal.toFixed(2));
 }
- 
-  //增加行
-function addRow(){
-	storageVal = $('#purchaseOrder_mgr_purchaseOrder_form_storage').combobox('getValue');
-	var index=0;
-    if(storageVal!=''){//判断 
-    	var rowData=$dg.datagrid('getData'); 
-		var rowsCount = $dg.datagrid("getRows"); 
-		$dg.datagrid('insertRow', {
-			index: 0,
-			row:{
-				//填写对应的字段
-				codes:rowsCount.length+1
-			}
-		});
-		$dg.datagrid('selectRow',index);
-		$dg.datagrid('beginEdit',index);
-		goodsDetail(0,rowData);
-		 
-	}else{
-		$.messager.alert('提示信息','请先选择仓库！','info'); 
-		$('#purchaseOrder_mgr_purchaseOrder_form_storage').focus(); 
-		return false;
-	}
-}  
+  
   
 //批量增加
 function addRows(){
 	storageVal = $('#purchaseOrder_mgr_purchaseOrder_form_storage').combobox('getValue');
 	if(storageVal!=''){//判断
 		$.easyui.showDialog({
-			title: "批量增加货物目录",
+			title: "增加货物目录",
 			href : ctx + '/do/purchaseOrder/goodsIndex.htm',//从controller请求jsp页面进行渲染
 			width : 730,
 			height : 400,
@@ -418,66 +351,7 @@ function addRows(){
 		$('#purchaseOrder_mgr_purchaseOrder_form_storage').focus(); 
 		return false;
 	}
-}
-
-//去到货品目录方法
-function goodsDetail(rowIndex,rowData){
-	$.easyui.showDialog({
-		href : ctx + '/do/purchaseOrder/goodsIndex.htm',//从controller请求jsp页面进行渲染
-		width : 730,
-		height : 400,
-		resizable: false,
-		enableSaveButton : false,
-		enableCloseButton :false,
-		enableApplyButton : false,
-		title : "货品目录",
-		buttons : [ 
-		{
-			text : '保存',
-			iconCls : 'icon-ok',
-			handler : function(dia) { 
-				if(setRowData==''){
-					$.messager.alert('提示信息','请先选择商品信息！','info'); 
-					return false;
-				}
-				
-				
-				var ed = $dg.datagrid('updateRow', {
-					index:stRows,
-					row:{
-						goodsId:setRowData.goodsId,
-						goodsCode:setRowData.goodsCode,
-						goodsName:setRowData.goodsName,
-						goodsModel:setRowData.specification,
-						brand:setRowData.brands,
-						placeOfOrigin:setRowData.origin,
-						primeCost:setRowData.referenceCost,
-						discount:1.00,
-						price:accMul(setRowData.referenceCost,1),
-						quantity:0,
-						money:0.00,
-						cess:setRowData.taxRate,
-						remark:setRowData.remark
-					}
-				});
-				dia.dialog("close"); 
-				$dg.datagrid('endEdit', stRows).datagrid('refreshRow', stRows).datagrid('beginEdit', stRows);  
-				againBinding(stRows);//绑定事件，把新增的行添加事件
-				compute();//调用统计 
-			}
-		}, {
-			text : '取消',
-			iconCls : 'icon-undo',
-			handler : function(dia) {
-				var rows = $dg.datagrid("getSelected"); 
-                var	row=$dg.datagrid('getRowIndex', rows); 
-        		$dg.datagrid('deleteRow',row);  
-				dia.dialog("close"); 
-			}
-		}]
-	});
-}; 
-
+} 
 //获取行号
 function getRowIndex(target){
 	var tr = $(target).closest('tr.datagrid-row'); 
@@ -518,8 +392,7 @@ function discountBlur(obj){
 	});   
 	$("#goodsList").datagrid('endEdit', indexRows); 
 	$("#goodsList").datagrid('refreshRow', indexRows);
-	$("#goodsList").datagrid('beginEdit', indexRows);
-     
+	$("#goodsList").datagrid('beginEdit', indexRows); 
 	//当前行再次绑定事件 
 	 againBinding(indexRows); 
 	 compute();//调用统计
@@ -560,9 +433,7 @@ function priceBlur(obj){
 	});   
 	$("#goodsList").datagrid('endEdit', indexRows); 
 	$("#goodsList").datagrid('refreshRow', indexRows);
-	$("#goodsList").datagrid('beginEdit', indexRows);
-     //计算总金额的，未完
-	//$("#totalAmount").attr("value","").attr("value",sun.toFixed(2)); 
+	$("#goodsList").datagrid('beginEdit', indexRows); 
 	//当前行再次绑定事件 
 	 againBinding(indexRows); 
 	 compute();//调用统计
@@ -601,9 +472,7 @@ function quantityBlur(obj){
 	});   
 	$("#goodsList").datagrid('endEdit', indexRows); 
 	$("#goodsList").datagrid('refreshRow', indexRows);
-	$("#goodsList").datagrid('beginEdit', indexRows);
-   //计算总金额的，未完
-	//$("#totalAmount").attr("value","").attr("value",sun.toFixed(2)); 
+	$("#goodsList").datagrid('beginEdit', indexRows); 
 	//当前行再次绑定事件 
 	 againBinding(indexRows); 
 	 compute();//调用统计
@@ -712,29 +581,65 @@ $("#saveOk").click(function(){
     var row=$dg.datagrid('getRows');  
 	var date= $dg.datagrid('getData').rows; 
 	var jsonDate=JSON.stringify(date);   
-	var order=$("#purchase_mgr_purchaseOrder_form").serialize();  
-	var str = jQuery.param(date);
-	console.log(jsonDate); 
-	$('#purchase_mgr_purchaseOrder_form').form('submit', {    
-	    url: ctx + '/do/purchaseOrder/add.json?data='+jsonDate,   
-	    success:function(data){    
-	    	$.messager.show({
-	    		title:'提示信息',
-	    		msg:'货物订购成功!',
-	    		showType:'show',
-	    		style:{
-	    			right:'',
-	    			top:document.body.scrollTop+document.documentElement.scrollTop,
-	    			bottom:''
-	    		}
-	    	});
-	    	$("#layout_center_panel").panel("setTitle","采购订货合同");
-	    	$('#layout_center_panel').panel('refresh',ctx +'/do/purchaseOrder/index.htm'); 
-	    }    
-	}); 
-});
+    var str=JSON.stringify($("#purchase_mgr_purchaseOrder_form").serializeObject());
+    var status=$("#purOrderId").attr("value");//状态判断，如何为空，则是新增合同，否则为修改合同
+    
+    //修改
+    if(status!=""){
+    	 $.post(ctx + '/do/purchaseOrder/edit.json', { data: jsonDate,purchaseOrder:str},
+  			   function(data){
+  				$.messager.show({
+  		    		title:'提示信息',
+  		    		msg:'货物修改成功!',
+  		    		showType:'show',
+  		    		style:{
+  		    			right:'',
+  		    			top:document.body.scrollTop+document.documentElement.scrollTop,
+  		    			bottom:''
+  		    		}
+  		    	});
+  		    	$("#layout_center_panel").panel("setTitle","采购订货合同");
+  		    	$('#layout_center_panel').panel('refresh',ctx +'/do/purchaseOrder/index.htm'); 
+  			 });  
+    }else{
+    	 //新增
+     	 $.post(ctx + '/do/purchaseOrder/add.json', { data: jsonDate,purchaseOrder:str},
+   			   function(data){
+   				$.messager.show({
+   		    		title:'提示信息',
+   		    		msg:'货物订购成功!',
+   		    		showType:'show',
+   		    		style:{
+   		    			right:'',
+   		    			top:document.body.scrollTop+document.documentElement.scrollTop,
+   		    			bottom:''
+   		    		}
+   		    	});
+   		    	$("#layout_center_panel").panel("setTitle","采购订货合同");
+   		    	$('#layout_center_panel').panel('refresh',ctx +'/do/purchaseOrder/index.htm'); 
+   			 });  
+        } 
+   
+}); 
+
+//将序列化的form值，转化为json格式
+  $.fn.serializeObject = function (){
+    var order = {};
+    var formInfo = this.serializeArray(); 
+    $.each(formInfo, function(key,value) { 
+    	if (order[value.name] !== undefined) {
+            if (!order[value.name].push) {
+            	order[value.name] = [order[value.name]];
+            }
+            order[value.name].push(value.value);
+        } else {
+        	order[value.name] = value.value;
+        } 
+    });
+    return order;
+};
   
-//-------------------------------分割线-------以完善------------
+//-------------------------------分割线-------------------
  
 //初始化采购类型下拉项
 $("#purchaseOrder_mgr_purchaseOrder_form_purchaseTypeId").combobox({
@@ -836,9 +741,8 @@ $('#suppliers_mgr_suppliers_form_supplierType').combogrid({
 		rownumbers : true,//True 就会显示行号的列
 		onClickRow : function(rows) {  
 			$("#supplierAdd").attr("value",$(this).datagrid("getSelected").adress); 
-			$("#phone").attr("value",$(this).datagrid("getSelected").companyPhone);
-			
-		},
+			//$("#phone").attr("value",$(this).datagrid("getSelected").companyPhone);
+ 		},
 	loadMsg : '数据加载中....',  
 });  
 
