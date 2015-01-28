@@ -21,7 +21,9 @@ package com.glacier.frame.service.purchase;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -132,11 +134,12 @@ public class PurchaseOrderService {
         purchaseOrder.setOrderState("exeIng");//合同状态，默认执行中
         purchaseOrder.setArrState("noneArr");//到货状态，默认未到货
         purchaseOrder.setPayState("nonePay");//付款状态，默认未付款
-        purchaseOrder.setNotArrAmo(new BigDecimal(0));//未到货金额
+        purchaseOrder.setInvState("noneInv");//开票状态，默认未开票
+        purchaseOrder.setNotArrAmo(purchaseOrder.getTotalAmount());//未到货金额
         purchaseOrder.setAlrArrAmo(new BigDecimal(0));//已到货金额
         purchaseOrder.setNotPayAmo(purchaseOrder.getTotalAmount());//未付款金额
         purchaseOrder.setAlrPayAmo(new BigDecimal(0));//已付款金额
-        purchaseOrder.setNotInvAmo(new BigDecimal(0));//未开发票金额
+        purchaseOrder.setNotInvAmo(purchaseOrder.getTotalAmount());//未开发票金额
         purchaseOrder.setAlrInvAmo(new BigDecimal(0));//已开发票金额
         purchaseOrder.setAuditState("authstr");
         purchaseOrder.setEnabled("enable");
@@ -191,23 +194,35 @@ public class PurchaseOrderService {
         //查询出该合同的所有明细信息
         PurchaseOrderDetailExample chaseOrderDetailExample=new PurchaseOrderDetailExample();
         chaseOrderDetailExample.createCriteria().andPurOrderIdEqualTo(purchaseOrder.getPurOrderId());
-        List<PurchaseOrderDetail> detailList=chaseOrderDetailMapper.selectByExample(chaseOrderDetailExample);
-        //挑选出前台删除了的货物，然后在数据库清除多余的数据
-      	for(int v=0;v<detailList.size();v++){ 
-      	   for(int i=0;i<list.size();i++){ 
-      		   //如果其中id存在相同的
-      	       if(detailList.get(v).getPurOrderId().equals(detailList.get(i).getPurOrderId())){
-      	    	// detailList.remove(v);//移除多余的数据，直接删除即可
-      	    	chaseOrderMapper.deleteByPrimaryKey(detailList.get(v).getPurOrderDetId());
-      	       }
-        	}
-        } 
-        //修改合同明细 
-        for (PurchaseOrderDetail detail : list) {  
+        List<PurchaseOrderDetail> detailList=chaseOrderDetailMapper.selectByExample(chaseOrderDetailExample); 
+        List<String> orderDetailList=new ArrayList<String>();//用于存放删除了的id 
+        //用迭代器挑选出前台删除了的货物，然后在数据库清除多余的数据
+        Iterator<PurchaseOrderDetail> iterOne = detailList.iterator(); //后台原有的数据 
+        while(iterOne.hasNext()){  
+        	PurchaseOrderDetail order = iterOne.next();  
+        	for (PurchaseOrderDetail str : list) {
+        		if(order.getPurOrderDetId().equals(str.getPurOrderDetId())){  
+        			iterOne.remove();  
+                }
+			} 
+        }    
+      	//如何集合里还有数据，就说明删除了数据
+      	if(detailList.size()>0){
+      		//把删除了货品明细id存放在集合里
+      		for (PurchaseOrderDetail ord : detailList) { 
+          		orderDetailList.add(ord.getPurOrderDetId()); 
+    		}
+      		//执行批量删除，提高效率
+      		PurchaseOrderDetailExample detailExample = new PurchaseOrderDetailExample();
+      		detailExample.createCriteria().andPurOrderDetIdIn(orderDetailList); 
+            chaseOrderDetailMapper.deleteByExample(detailExample); 
+      	} 
+        //修改合同明细  
+        for (PurchaseOrderDetail detail : list) {    
         	 //存在id就修改
-        	if(detail.getPurOrderDetId()!=""){ 
+        	if(detail.getPurOrderDetId()!=null){   
         		chaseOrderDetailMapper.updateByPrimaryKeySelective(detail);
-        	}else{ //不存在id就新增
+        	}else{ //不存在id就新增  
         		detail.setPurOrderDetId(RandomGUID.getRandomGUID());
             	detail.setPurOrderId(purchaseOrder.getPurOrderId());//订购合同id
             	detail.setNotArrNum(0);//未到货数量
@@ -263,7 +278,5 @@ public class PurchaseOrderService {
             }
         }
         return returnResult;
-    } 
-
-
+    }  
 }

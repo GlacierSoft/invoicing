@@ -22,7 +22,7 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
  <table  class="formtable" > 
  <glacierui:toolbar panelEnName="PurchaseOrderList"
 				toolbarId="purchaseOrderDataGrid_toolbar" menuEnName="purchaseOrder" />
- <caption style="height:50px;color: blue;"><font size="4" style="padding-top: 30px;">新增采购订货合同</font></caption>
+ <caption style="height:50px;color: blue;"><font size="4" style="padding-top: 30px;">采购订货合同</font></caption>
 	   <tr> 
 	        <td style="padding-left:10px;">采购日期：</td>
 			<td> 
@@ -45,6 +45,8 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 			   <input name="deliveryDadlines"  required="true" class="easyui-datebox" style="width:168px;height:20px"  value="<fmt:formatDate value="${purchaseOrderData.deliveryDadlines}" pattern="yyyy-MM-dd"/>" /> 
 			<td style="padding-left:10px;">供应商：</td>
 			<td >
+			    <input id="supplierCode" type="hidden" value="${purchaseOrderData.supplierCode}"  name="supplierCode"/>
+			
 				<input id="suppliers_mgr_suppliers_form_supplierType" required="true" value="${purchaseOrderData.supplierId}" style="width: 168px;height:20px" name="supplierId"  class="easyui-combogrid"  />
 			</td>
 			<td style="padding-left:10px;">供应商地址：</td>
@@ -194,10 +196,11 @@ $dg.datagrid({
         		  $.messager.alert('提示','未选择删除商品！','info'); 
                   return;
         	  }  
-        	  if((rows.length-1)==row){ 
+        	  var computeRow = $dg.datagrid('getData').rows[row];//获取最后一行数据
+        	  if(computeRow.goodsCode == "<b>统计：</b>"){//如果是统计行，就不让删除
         		  $.messager.alert('提示','统计行不能删除！','info'); 
                   return;
-        	  } 
+  		  } 
           	$.messager.confirm('提示','确认删除数据?',function(r){
           		if (r){ 
           			var rows = $dg.datagrid("getSelected"); 
@@ -500,9 +503,7 @@ function moneyBlur(obj){
 	var discount = parseFloat(discountTarget.val()).toFixed(2);//折扣率
 	var price = parseFloat(priceTarget.val()).toFixed(2);
 	var quantity = parseInt(quantityTarget.val());//数量  
-	var money=parseFloat(moneyTarget.val()).toFixed(2); //金额
-	//var price =accMul(priceOne,yuanjia);//单价=原价*折扣率 
-	//var sun=accMul(price,quantity);//总额=单价*数量 
+	var money=parseFloat(moneyTarget.val()).toFixed(2); //金额 
 	if(quantity<=0){
 		
 	}else{
@@ -524,9 +525,7 @@ function moneyBlur(obj){
 	});   
 	$("#goodsList").datagrid('endEdit', indexRows); 
 	$("#goodsList").datagrid('refreshRow', indexRows);
-	$("#goodsList").datagrid('beginEdit', indexRows);
- //计算总金额的，未完
-	//$("#totalAmount").attr("value","").attr("value",sun.toFixed(2)); 
+	$("#goodsList").datagrid('beginEdit', indexRows); 
 	//当前行再次绑定事件 
 	 againBinding(indexRows); 
 	 compute();//调用统计
@@ -582,10 +581,9 @@ $("#saveOk").click(function(){
 	var date= $dg.datagrid('getData').rows; 
 	var jsonDate=JSON.stringify(date);   
     var str=JSON.stringify($("#purchase_mgr_purchaseOrder_form").serializeObject());
-    var status=$("#purOrderId").attr("value");//状态判断，如何为空，则是新增合同，否则为修改合同
-    
+    var status=$("#purOrderId").attr("value");//状态判断，如何为空，则是新增合同，否则为修改合同 
     //修改
-    if(status!=""){
+    if(status!=""){ 
     	 $.post(ctx + '/do/purchaseOrder/edit.json', { data: jsonDate,purchaseOrder:str},
   			   function(data){
   				$.messager.show({
@@ -601,7 +599,7 @@ $("#saveOk").click(function(){
   		    	$("#layout_center_panel").panel("setTitle","采购订货合同");
   		    	$('#layout_center_panel').panel('refresh',ctx +'/do/purchaseOrder/index.htm'); 
   			 });  
-    }else{
+    }else{ 
     	 //新增
      	 $.post(ctx + '/do/purchaseOrder/add.json', { data: jsonDate,purchaseOrder:str},
    			   function(data){
@@ -741,6 +739,8 @@ $('#suppliers_mgr_suppliers_form_supplierType').combogrid({
 		rownumbers : true,//True 就会显示行号的列
 		onClickRow : function(rows) {  
 			$("#supplierAdd").attr("value",$(this).datagrid("getSelected").adress); 
+			$("#supplierCode").attr("value",$(this).datagrid("getSelected").supplierNumber); 
+			
 			//$("#phone").attr("value",$(this).datagrid("getSelected").companyPhone);
  		},
 	loadMsg : '数据加载中....',  

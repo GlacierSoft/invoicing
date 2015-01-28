@@ -42,20 +42,20 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 						<td><input id="deliveryDadlines" name="deliveryDadlines" class="spinner" style="width:168px" value="<fmt:formatDate value="${purchaseOrderData.deliveryDadlines}" pattern="yyyy-MM-dd"/>"  readonly="readonly"/></td>
 					    <td style="padding-left:10px;">仓库：</td>
 					    <td><input id="storageName" name="storageName" class="spinner" style="width:168px" value="${purchaseOrderData.storageName}" readonly="readonly"/></td>
-				 		<td style="padding-left:10px;">供应商编号：</td>
+				 	    <td style="padding-left:10px;">是否启用：</td>
+						<td><input name="enabled" class="spinner" id="enabled" style="width:168px" value="${ purchaseOrderData.enabled}" readonly="readonly"/></td>
+					   <td style="padding-left:10px;">供应商编号：</td>
 						<td ><input name="supplierCode" class="spinner" style="width:168px" value="${purchaseOrderData.supplierCode}" readonly="readonly"/></td>
-				 	    <td style="padding-left:10px;">供应商：</td>
-						<td ><input  name="suppliersName" class="spinner" style="width:168px" value="${purchaseOrderData.suppliersName}" readonly="readonly"/></td>
 				    </tr>
 				 	<tr>
-					     <td style="padding-left:10px;">是否启用：</td>
-						<td><input name="enabled" class="spinner" id="enabled" style="width:168px" value="${ purchaseOrderData.enabled}" readonly="readonly"/></td>
-					    <td style="padding-left:10px;">联系人：</td>
-						<td><input class="spinner" style="width:168px" value="${purchaseOrderData.linkman}" readonly="readonly"/></td>
-					 	<td style="padding-left:10px;">供应商地址：</td>
-						<td><input class="spinner" style="width:168px" value="${purchaseOrderData.supplierAdd}" readonly="readonly"/></td>
-				 	    <td style="padding-left:10px;">联系电话：</td>
-				 	    <td><input class="spinner" style="width:168px" value="${purchaseOrderData.phone}"  readonly="readonly"/></td>
+				 	   <td style="padding-left:10px;">供应商：</td>
+					   <td ><input  name="suppliersName" class="spinner" style="width:168px" value="${purchaseOrderData.suppliersName}" readonly="readonly"/></td>
+				       <td style="padding-left:10px;">供应商地址：</td>
+					   <td><input class="spinner" style="width:168px" value="${purchaseOrderData.supplierAdd}" readonly="readonly"/></td>
+				 	   <td style="padding-left:10px;">联系人：</td>
+					   <td><input class="spinner" style="width:168px" value="${purchaseOrderData.linkman}" readonly="readonly"/></td>
+					   <td style="padding-left:10px;">联系电话：</td>
+				 	   <td><input class="spinner" style="width:168px" value="${purchaseOrderData.phone}"  readonly="readonly"/></td>
 					 </tr> 
 					<tr>
 					   <td style="padding-left:10px;">传真：</td>
