@@ -21,7 +21,10 @@ package com.glacier.frame.web.controller.purchase;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,6 +40,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.frame.dto.query.purchase.PurchaseReturnQueryDTO;
@@ -158,19 +162,41 @@ public class PurchaseReturnController {
     }
     
     //附件上传
-    @RequestMapping(value="/doUpload.htm",method=RequestMethod.POST)  
-    public void uploadFile(HttpServletResponse response,HttpServletRequest request,@RequestParam(value="file", required=false) MultipartFile file) throws IOException{  
-        byte[] bytes = file.getBytes();  
-        @SuppressWarnings("deprecation")
-		String uploadDir = request.getRealPath("/")+"upload";  
-        File dirPath = new File(uploadDir);  
-        if (!dirPath.exists()) {  
-            dirPath.mkdirs();  
-        }  
-        String sep = System.getProperty("file.separator");  
-        File uploadedFile = new File(uploadDir + sep  
-                + file.getOriginalFilename());  
-        FileCopyUtils.copy(bytes, uploadedFile);  
-    }  
-    
+    @RequestMapping(value="/uploadFile",method=RequestMethod.POST) 
+    public String uploadFile(HttpServletResponse response,HttpServletRequest request) throws IOException{  
+       String  responseStr="";
+       MultipartHttpServletRequest multipartRequest=(MultipartHttpServletRequest)request;
+       Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();     
+       //文件保存路径
+       String extendPath=request.getSession().getServletContext().getRealPath("/")+File.separator+"uploadFiles";
+       //文件命名
+       SimpleDateFormat sf=new SimpleDateFormat("yyyyMM");
+       String real_date=sf.format(new Date());
+       extendPath+=File.separator+real_date+File.separator;
+       //文件路径输出
+       System.out.println("文件存放地址:"+extendPath);
+       //创建文件夹
+       File file=new File(extendPath);
+       if(!file.exists()){
+    	   file.mkdirs();
+       }
+       //文件存储
+       String fileName=null;
+       for(Map.Entry<String ,MultipartFile> entity : fileMap.entrySet()){
+    	   //文件上传
+    	   MultipartFile mf=entity.getValue();
+    	   fileName=mf.getOriginalFilename();
+    	   //文件名输出
+    	   System.out.println("当前要存放的文件名称为:"+fileName);
+    	   File uploadFile=new File(extendPath+fileName);
+    	   try{
+    		   FileCopyUtils.copy(mf.getBytes(),uploadFile ); 
+    		   responseStr="上传成功!";
+    	   }catch(IOException e){
+    		   responseStr="上传失败!";  
+    		   e.printStackTrace();
+    	   }
+       }
+       return responseStr;
+    }
 }
