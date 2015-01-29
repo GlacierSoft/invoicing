@@ -22,7 +22,9 @@ package com.glacier.frame.web.controller.purchase;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +45,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.glacier.basic.util.JackJson;
 import com.glacier.frame.dto.query.purchase.PurchaseReturnQueryDTO;
 import com.glacier.frame.entity.purchase.PurchaseReturn;
 import com.glacier.frame.service.basicdatas.ParPurchaseReturnReasonService;
@@ -162,11 +165,13 @@ public class PurchaseReturnController {
     }
     
     //附件上传
-    @RequestMapping(value="/uploadFile",method=RequestMethod.POST) 
-    public String uploadFile(HttpServletResponse response,HttpServletRequest request) throws IOException{  
-       String  responseStr="";
+    @RequestMapping(value="/uploadFile",method=RequestMethod.POST)
+    @ResponseBody
+    public Object uploadFile(HttpServletResponse response,HttpServletRequest request) throws IOException{ 
        MultipartHttpServletRequest multipartRequest=(MultipartHttpServletRequest)request;
-       Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();     
+       Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();    
+       //构建返回结果集
+       List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
        //文件保存路径
        String extendPath=request.getSession().getServletContext().getRealPath("/")+File.separator+"uploadFiles";
        //文件命名
@@ -191,12 +196,15 @@ public class PurchaseReturnController {
     	   File uploadFile=new File(extendPath+fileName);
     	   try{
     		   FileCopyUtils.copy(mf.getBytes(),uploadFile ); 
-    		   responseStr="上传成功!";
-    	   }catch(IOException e){
-    		   responseStr="上传失败!";  
+    		}catch(IOException e){
     		   e.printStackTrace();
     	   }
-       }
-       return responseStr;
+    	   //文件存储
+    	  Map<String,Object> map=new HashMap<String, Object>();
+    	  map.put("name", fileName);
+    	  map.put("address", extendPath+fileName);
+    	  list.add(map); 
+    	}
+       return JackJson.fromObjectToJson(list);
     }
 }
