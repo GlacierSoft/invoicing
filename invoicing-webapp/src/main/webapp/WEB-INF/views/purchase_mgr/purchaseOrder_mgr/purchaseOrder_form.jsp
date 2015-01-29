@@ -149,7 +149,7 @@ var storageVal="";//保存仓库ID
 var stRows="";//保存行数
 var divs = "";//保存goodsDetail中的dialog节点
 var setRowData="";//保存选中的值
-
+var selecRows=0;
 $dg.datagrid({  
 	fit : false,//控件自动resize占满窗口大小
 	iconCls : 'icon-save',//图标样式
@@ -177,14 +177,17 @@ $dg.datagrid({
        {field:'primeCost',title:'原价',width:100},   
        {field:'discount',title:'折扣率',width:100, editor: { type: 'numberbox',options:{precision:2}}}, 
        {field:'price',title:'单价',width:100,editor: { type: 'numberbox',options:{precision:2}} },   
-       {field:'quantity',title:'数量',width:100,editor: { type: 'numberbox'} }, 
+       {field:'quantity',title:'数量',width:100,editor: { type: 'numberbox',options:{required:true,min:0,max:9999}} }, 
        {field:'money',title:'金额',width:100,editor: { type: 'numberbox',options:{precision:2}} },    
        {field:'deadline',title:'交货期限',width:100,editor: { type: 'datebox'  }},
        {field:'remark',title:'备注',width:100,editor: { type: 'text'  }} 
     ]], 
     toolbar: [
          {
-          text: '添加商品', iconCls: 'icon-standard-pencil-add', handler: function () {  
+          text: '添加商品', iconCls: 'icon-standard-pencil-add', handler: function () { 
+        		var row= $dg.datagrid('getSelected');//获取上一次的选中行
+            	var index=$dg.datagrid('getRowIndex',row); 
+        	  selecRows=index;
           addRows();
           }
         },{
@@ -222,22 +225,19 @@ $dg.datagrid({
     onDblClickRow:function(rowIndex, rowData){
     	stRows=rowIndex; 
     },
-    onSelect:function(rowIndex, rowData){  
-    	 var computeRow = $dg.datagrid('getData').rows[rowIndex];//获取某一行数据
-		  if(computeRow.goodsCode == "<b>统计：</b>"){//如果是统计行，就不开启编辑器
-				$dg.datagrid('endEdit', i).datagrid('refreshRow', rowIndex);
-		  }else{
-    		 $dg.datagrid('beginEdit',rowIndex);//开启当前行可编辑
-    	    	var rows=$dg.datagrid("getRows");
-    	    	for(var i=0;i<rows.length;i++){
-    	    		$dg.datagrid('endEdit', i).datagrid('refreshRow', i);
-    	    		if(i==rowIndex){
-    	    			$dg.datagrid('beginEdit',rowIndex);//开启当前行可编辑
-    	    		} 
-    	    	} 
-    	    	againBinding(rowIndex);
-    	    	stRows=rowIndex;  
-    	 }   
+    onSelect:function(rowIndex, rowData){   
+    	
+    	var row= $dg.datagrid('getSelected');//获取上一次的选中行
+    	var index=$dg.datagrid('getRowIndex',row);  
+    	//$dg.datagrid('endEdit', index);//.datagrid('refreshRow', index);//关闭上一次的 
+    	var computeRow = $dg.datagrid('getData').rows[rowIndex];//获取某一行数据
+		if(computeRow.goodsCode != "<b>统计：</b>"){//如果不是统计行， 开启当前行可编辑
+			$dg.datagrid('beginEdit',rowIndex);
+  	    	againBinding(rowIndex);
+  	    	stRows=rowIndex; 
+		  }   
+        //移除那两个按钮
+    	$("div[class='dialog-button datagrid-rowediting-panel']").remove(); 
     } 
 });
 
@@ -256,7 +256,11 @@ function compute(){//计算函数
 	    			var moneyTarget = $dg.datagrid('getEditor', {index:i,field:'money'}).target;
 			    	moneyTotal += parseFloat(moneyTarget.val());
 			    	var quantityTarget = $dg.datagrid('getEditor', {index:i,field:'quantity'}).target;
-			    	quantityTotal += parseInt(quantityTarget.val());
+			    	if(parseInt(quantityTarget.val())>9999){
+			    		quantityTotal+=9999;
+			    	}else{
+			    		quantityTotal += parseInt(quantityTarget.val());
+			    	}  
 	    		}else{//否则直接获取列值相加
 	    			moneyTotal +=parseFloat(rows[i]['money']);
 	    			quantityTotal += rows[i]['quantity'];
@@ -277,7 +281,11 @@ function compute(){//计算函数
 	    			var moneyTarget = $dg.datagrid('getEditor', {index:i,field:'money'}).target;
 			    	moneyTotal += parseFloat(moneyTarget.val());
 			    	var quantityTarget = $dg.datagrid('getEditor', {index:i,field:'quantity'}).target;
-			    	quantityTotal += parseInt(quantityTarget.val());
+			     	if(parseInt(quantityTarget.val())>9999){
+			    		quantityTotal+=9999;
+			    	}else{
+			    		quantityTotal += parseInt(quantityTarget.val());
+			    	}  
 	    		}else{//否则直接获取列值相加
 	    			moneyTotal += parseFloat(rows[i]['money']);
 	    			quantityTotal += rows[i]['quantity'];
@@ -333,9 +341,13 @@ function addRows(){
 	  							remark:rowsCheck[i].remark
 	  						}
 	  					});
+	  					$dg.datagrid('beginEdit', i);
 	  					$dg.datagrid('endEdit', i).datagrid('refreshRow', i).datagrid('beginEdit', i);
+	  					
 	  					againBinding(i);//批量增加绑定的事件
 	  				}
+	  				$dg.datagrid('endEdit', rowsCheck.length-1); 
+	  				//selecRows+=selecRows+rowsCheck.length;
 	  				dia.dialog("close");
 	  				compute();//调用统计
 	  				//compute();//调用统计
@@ -380,7 +392,7 @@ function discountBlur(obj){
 	var discount = parseFloat(discountTarget.val()).toFixed(2);//折扣率
 	var priceOne = parseFloat(priceTarget.val()).toFixed(2);
 	var quantity = parseInt(quantityTarget.val());//数量  
-	var price =accMul(priceOne,yuanjia);//单价=原价*折扣率 
+	var price =accMul(yuanjia,discount);//单价=原价*折扣率  
 	var sun=accMul(price,quantity);//总额=单价*数量 
 	 $dg.datagrid('updateRow',{
 		index: indexRows,
@@ -419,7 +431,7 @@ function priceBlur(obj){
    //-----------------------------------自定义变量-----------------------------------
 	var discount = parseFloat(discountTarget.val()).toFixed(2);//折扣率
 	var price = parseFloat(priceTarget.val()).toFixed(2);
-	var quantity = parseInt(quantityTarget.val());//数量  
+	var quantity = parseInt(quantityTarget.val());//数量   
 	//var price =accMul(priceOne,yuanjia);//单价=原价*折扣率 
 	var sun=accMul(price,quantity);//总额=单价*数量 
 	discount=price/yuanjia;//折扣率=单价/原价 
@@ -460,7 +472,10 @@ function quantityBlur(obj){
    //-----------------------------------自定义变量-----------------------------------
 	var discount = parseFloat(discountTarget.val()).toFixed(2);//折扣率
 	var priceOne = parseFloat(priceTarget.val()).toFixed(2);
-	var quantity = parseInt(quantityTarget.val());//数量   
+	var quantity = parseInt(quantityTarget.val());//数量    
+	if(quantityTarget.val()>9999){
+		quantity=9999;
+	}
 	var sun=accMul(priceOne,quantity);//总额=单价*数量 
 	 $dg.datagrid('updateRow',{
 		index: indexRows,
@@ -582,6 +597,13 @@ $("#saveOk").click(function(){
 	var jsonDate=JSON.stringify(date);   
     var str=JSON.stringify($("#purchase_mgr_purchaseOrder_form").serializeObject());
     var status=$("#purOrderId").attr("value");//状态判断，如何为空，则是新增合同，否则为修改合同 
+    for(var i=0;i<row.length;i++){ 
+    	if(row[i]['quantity']==0){ 
+    		$.messager.alert('提示信息','请完善货物信息，订购数量不能为0！','info'); 
+    		 return;
+    	}
+    }   
+    
     //修改
     if(status!=""){ 
     	 $.post(ctx + '/do/purchaseOrder/edit.json', { data: jsonDate,purchaseOrder:str},

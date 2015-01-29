@@ -279,4 +279,68 @@ public class PurchaseOrderService {
         }
         return returnResult;
     }  
+    
+    /** 
+     * @Title: enablePurchaseOrder  
+     * @Description: TODO(启用订购合同)  
+     * @param @return    设定文件  
+     * @return Object    返回类型  
+     * @throws
+     */
+    @Transactional(readOnly = false) 
+    @MethodLog(opera = "PurchaseOrderList_enable")
+    public Object enablePurchaseOrder(List<String> purchaseOrderIds){
+    	  JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    	  Subject pricipalSubject = SecurityUtils.getSubject();
+          User pricipalUser = (User) pricipalSubject.getPrincipal(); 
+    	  int count=0;
+    	  if (purchaseOrderIds.size() > 0) {
+          	for (String id : purchaseOrderIds) {
+          		PurchaseOrder order=chaseOrderMapper.selectByPrimaryKey(id);
+          		order.setEnabled("enable"); 
+          		order.setUpdater(pricipalUser.getUserCnName());
+          		order.setUpdateTime(new Date());
+                count = chaseOrderMapper.updateByPrimaryKeySelective(order);
+  			} 
+            if (count > 0) {
+                returnResult.setSuccess(true);
+                returnResult.setMsg("订购合同启用成功！");
+            } else {
+                returnResult.setMsg("发生未知错误，启用操作失败");
+            }
+          }
+    	  return returnResult; 
+    } 
+    
+    /** 
+     * @Title: disablePurchaseOrder  
+     * @Description: TODO(禁用订购合同)  
+     * @param @return    设定文件  
+     * @return Object    返回类型  
+     * @throws
+     */
+    @Transactional(readOnly = false) 
+    @MethodLog(opera = "PurchaseOrderList_disable")
+    public Object disablePurchaseOrder(List<String> purchaseOrderIds){
+    	  JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    	  Subject pricipalSubject = SecurityUtils.getSubject();
+          User pricipalUser = (User) pricipalSubject.getPrincipal(); 
+    	  int count=0;
+    	  if (purchaseOrderIds.size() > 0) {
+          	for (String id : purchaseOrderIds) {
+          		PurchaseOrder order=chaseOrderMapper.selectByPrimaryKey(id);
+          		order.setEnabled("disable"); 
+          		order.setUpdater(pricipalUser.getUserCnName());
+          		order.setUpdateTime(new Date());
+                count = chaseOrderMapper.updateByPrimaryKeySelective(order);
+  			} 
+            if (count > 0) {
+                returnResult.setSuccess(true);
+                returnResult.setMsg("订购合同禁用成功！");
+            } else {
+                returnResult.setMsg("发生未知错误，禁用操作失败");
+            }
+          }
+    	  return returnResult; 
+    }
 }

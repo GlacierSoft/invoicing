@@ -174,4 +174,15 @@ public class PurchaseOrderController extends AbstractController{
     public Object delPurchaseOrder(@RequestParam List<String> purOrderIds,@RequestParam List<String> orderCodes) {
     	return purchaseOrderService.delPurchaseOrder(purOrderIds, orderCodes);
     } 
+    
+    //启用或禁用订购合同订购合同
+    @RequestMapping(value = "/enableOrDisable.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object enableOrDisable(@RequestParam List<String> purOrderIds,String status) {
+    	if(status.equals("disable")){ //禁用
+    		return purchaseOrderService.disablePurchaseOrder(purOrderIds);
+    	}else{ //启用
+    		return purchaseOrderService.enablePurchaseOrder(purOrderIds);
+    	} 
+    } 
 }
