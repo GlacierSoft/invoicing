@@ -13,8 +13,10 @@
 
 
 <script type="text/javascript">
+
    $(function() {
-	  $('#uploadify').uploadify({
+	   
+	 $('#uploadify').uploadify({
     	  'auto': false,
     	  'multi': true,
     	  'method':'post',
@@ -27,7 +29,7 @@
           'fileTypeExts' : '*.gif; *.jpg; *.png',
           'buttonText': '浏览文件',
           'fileSizeLimit' : '10MB',
-          'fileObjName' : 'file',
+		  'fileObjName' : 'file',
           'queueSizeLimit' : 5,
           'overrideEvents': ['onSelectError', 'onDialogClose'],
           'onSelectError':function(file, errorCode, errorMsg){
