@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!-- 引入国际化标签 -->
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <!-- 引入自定义权限标签 -->
 <%@ taglib prefix="glacierui"
 	uri="http://com.glacier.permissions.com.cn/tag/easyui"%>
@@ -20,9 +21,21 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 </script>
 <form id="purchase_mgr_purchaseOrder_form" method="post" >
  <table  class="detailtable"> 
- <glacierui:toolbar panelEnName="PurchaseOrderList"
-				toolbarId="purchaseOrderDataGrid_toolbar" menuEnName="purchaseOrder" />
- <caption style="height:50px;color: blue;"><font size="4" style="padding-top: 30px;">订购订货合同</font></caption>
+				 <!-- 头部标题 -->
+				 <glacierui:toolbar panelEnName="PurchaseOrderList"
+								toolbarId="purchaseOrderDataGrid_toolbar" menuEnName="purchaseOrder" />
+				 <caption style="height:50px;color: blue;">
+				  <!--  -->
+				  <c:if test="${ purchaseOrderData.enabled == 'disable'}">   
+					  <div style="float: left;margin-left:5px;color: red;margin-top: 10px;width: 40px;height: 18px;font-size: 5;border: solid;border-width: 2px;font-family: 微软雅黑">已禁用 </div> 
+					</c:if>   
+				    <c:if test="${ purchaseOrderData.auditState == 'pass'}">   
+					  <div style="float: left;margin-left:5px;color: red;margin-top: 10px;width: 40px;height: 18px;font-size: 5;border: solid;border-width: 2px;font-family: 微软雅黑">已审核 </div> 
+					</c:if>  
+				  
+				 <font size="4" style="margin-top: 30px;">订购订货合同</font>
+				 
+				 </caption>
 				    <tr> 
 				        <td style="padding-left:10px;">订货单号：</td>
 						<td>
@@ -188,6 +201,7 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 </div>  
 
 <script type="text/javascript">  
+$dg=$('#purchase_order_detail');
 glacier.purchase_mgr.purchaseOrderDetail_mgr.purchaseOrderDetail.purchaseOrderDetailDataGrid = $('#purchase_order_detail').datagrid({  
 	fit : false,//控件自动resize占满窗口大小
 	iconCls : 'icon-save',//图标样式
@@ -205,7 +219,7 @@ glacier.purchase_mgr.purchaseOrderDetail_mgr.purchaseOrderDetail.purchaseOrderDe
 	remoteSort : true,//开启远程排序，默认为false
 	idField : 'purOrderDetId', 
     columns:[[    
-        {field :'purOrderDetId', title : 'ID', checkbox : true}, 
+        {field :'purOrderDetId', title : 'ID', hidden:true}, 
         {field:'goodsCode',title:'货品编码',width:100},    
         {field:'goodsName',title:'名称',width:100},    
         {field:'goodsModel',title:'规格型号',width:100},   
@@ -225,6 +239,9 @@ glacier.purchase_mgr.purchaseOrderDetail_mgr.purchaseOrderDetail.purchaseOrderDe
         {field:'remark',title:'备注',width:100}
     ]], 
 	rownumbers : true,//True 就会显示行号的列
+	onLoadSuccess:function(){ 
+		compute(); //添加统计行
+	},
 	onDblClickRow : function(rowIndex, rowData){
         $.easyui.showDialog({
 				title : '商品【' + rowData.goodsName + '】详细信息',
@@ -237,7 +254,42 @@ glacier.purchase_mgr.purchaseOrderDetail_mgr.purchaseOrderDetail.purchaseOrderDe
 			});
 		}
 });  
- 
+
+//底部统计
+function compute(){//计算函数 
+	//获取数据行
+  var rows = $dg.datagrid('getRows'); 
+  var moneyTotal = 0,
+	  quantityTotal = 0,
+	  alrArrNumTotal=0,
+	  notArrNumTotal=0,
+	  alrTerNumTotal=0,
+	  alrTerMoneyTotal=0;//计算总和
+  if(rows.length >1){
+	    //新增一行显示统计信息
+	    var computeRow = $dg.datagrid('getData').rows[rows.length-1];//获取某一行数据
+	    var row=$dg.datagrid('getSelected');//获取当前选中的行 
+	    for (var i = 0; i < rows.length; i++) { 
+   			moneyTotal += parseFloat(rows[i]['money']);
+   			quantityTotal += parseInt(rows[i]['quantity']);
+   			alrArrNumTotal += parseInt(rows[i]['alrArrNum']);
+   			notArrNumTotal +=parseInt(rows[i]['notArrNum']);
+   			alrTerNumTotal += parseInt(rows[i]['alrTerNum']);
+   			alrTerMoneyTotal +=parseFloat(rows[i]['alrTerMoney']);  
+	    }
+    	$dg.datagrid('appendRow', { 
+	    	goodsCode: '<b>统计：</b>', 
+	    	money: moneyTotal,
+	    	quantity: quantityTotal,
+	    	alrArrNum: alrArrNumTotal,
+	    	notArrNum: notArrNumTotal,
+	    	alrTerNum: alrTerNumTotal,
+	    	alrTerMoney: alrTerMoneyTotal 
+	       }
+	    );
+  }  
+}
+  
 $('#purchase_mgr_purchaseOrder_form_auditState').val(renderGridValue('${purchaseOrderData.auditState}',fields.auditState)); 
 $('#payState').val(renderGridValue('${purchaseOrderData.payState}',fields.payState));
 $('#arrState').val(renderGridValue('${purchaseOrderData.arrState}',fields.arrState));
@@ -246,4 +298,4 @@ $('#invoiceTypeId').val(renderGridValue('${purchaseOrderData.invoiceTypeId}',fie
 $('#invoice').val(renderGridValue('${purchaseOrderData.invoice}',fields.yesOrNo));
 $('#orderState').val(renderGridValue('${purchaseOrderData.orderState}',fields.orderState));
 $('#enabled').val(renderGridValue('${purchaseOrderData.enabled}',fields.status));
-</script>  
+</script> 

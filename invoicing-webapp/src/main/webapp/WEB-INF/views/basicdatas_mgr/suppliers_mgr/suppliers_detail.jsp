@@ -129,7 +129,7 @@
 		<tr>
 		    <td>建立日期:</td>
 			<td>
-				 <input class="spinner" style="width:168px"  value="${suppliersData.supplierDate}" readonly="readonly"/>
+				 <input class="spinner" style="width:168px"  value="<fmt:formatDate value="${suppliersData.supplierDate}" pattern="yyyy-MM-dd"/>" readonly="readonly"/>
 		    </td>
 		    <td style="padding-left: 16px">上级供应商:</td>
 			<td>

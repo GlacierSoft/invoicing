@@ -96,14 +96,13 @@ public class SuppliersService {
         returnResult.setTotal(total);
         return returnResult;// 返回ExtGrid表
     }
-    
-    /**
-     * @Title: getSuppliersLogisticsCombo 
-     * @Description: TODO(用于支付方式Combo的数据绑定) 
-     * @param  @param clientId
-     * @param  @return
-     * @throws 
-     * 备注<p>已检查测试:Green<p>
+     
+    /** 
+     * @Title: getSuppliersLogisticsCombo  
+     * @Description: TODO(这里用一句话描述这个方法的作用)  
+     * @param @return    设定文件  
+     * @return Object    返回类型  
+     * @throws
      */
     public Object getSuppliersLogisticsCombo() {
     	SuppliersExample SuppliersLogisticsExample = new SuppliersExample();

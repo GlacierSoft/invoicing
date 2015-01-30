@@ -67,7 +67,7 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 			</td>
 			<td style="padding-left:10px;">联系人：</td>
 			<td>
-			  <input id="suppliers_mgr_suppliers_form_linkman" value="${purchaseOrderData.linkman}" style="width: 168px;height:20px" name="linkman"  class="easyui-combogrid"  />
+			  <input id="suppliers_mgr_suppliers_form_linkman"  value="${purchaseOrderData.linkman}" style="width: 168px;height:20px" name="linkman"  class="easyui-combogrid"  />
 			</td>
 			<td style="padding-left:10px;">手机：</td>
 			<td><input id="moi" class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseOrderData.phone}"   /></td>
@@ -168,9 +168,9 @@ $dg.datagrid({
 	idField : 'purOrderDetId', 
     columns:[[    
       // {field :'purOrderDetId', title : 'ID', hidden:true}, 
-        {field:'goodsId',title:'货品id',width:100,hidden:true},  
-        {field:'goodsCode',title:'货品编码',width:100,editor: { type: 'text' }},    
-        {field:'goodsName',title:'名称',width:100},    
+       {field:'goodsId',title:'货品id',width:100,hidden:true},  
+       {field:'goodsCode',title:'货品编码',width:100,editor: { type: 'text' }},    
+       {field:'goodsName',title:'名称',width:100},    
        {field:'goodsModel',title:'规格型号',width:100},   
        {field:'brand',title:'品牌',width:100},  
        {field:'placeOfOrigin',title:'产地',width:100}, 
@@ -299,8 +299,10 @@ function compute(){//计算函数
 		       }
 		    );
 	    }
+  }else{
+	  moneyTotal=parseFloat(rows[0]['money']);
   }
-  $("#totalAmount").attr("value","").attr("value",moneyTotal.toFixed(2));
+  $("#totalAmount").attr("value","").attr("value",moneyTotal); 
 }
   
   
@@ -609,6 +611,7 @@ function goodsDetail(rowIndex){
 
 //事件绑定
 function againBinding(rows){       
+	$("div[class='dialog-button datagrid-rowediting-panel']").remove();
 	//货品编码 
 	var goodsCodeTarget = $dg.datagrid('getEditor', {index:rows,field:'goodsCode'}).target;
 	//单价
@@ -666,13 +669,17 @@ $("#saveOk").click(function(){
 	var jsonDate=JSON.stringify(date);   
     var str=JSON.stringify($("#purchase_mgr_purchaseOrder_form").serializeObject());
     var status=$("#purOrderId").attr("value");//状态判断，如何为空，则是新增合同，否则为修改合同 
+    if(row.length<1){
+    	$.messager.alert('提示信息','至少选择一件货物！','info'); 
+		 return;
+    }
+    
     for(var i=0;i<row.length;i++){ 
     	if(row[i]['quantity']==0){ 
     		$.messager.alert('提示信息','请完善货物信息，订购数量不能为0！','info'); 
     		 return;
     	}
-    }   
-    
+    }    
     //修改
     if(status!=""){ 
     	 $.post(ctx + '/do/purchaseOrder/edit.json', { data: jsonDate,purchaseOrder:str},
@@ -680,7 +687,7 @@ $("#saveOk").click(function(){
   				$.messager.show({
   		    		title:'提示信息',
   		    		msg:'货物修改成功!',
-  		    		showType:'show',
+  		    		showType:'show',  
   		    		style:{
   		    			right:'',
   		    			top:document.body.scrollTop+document.documentElement.scrollTop,
@@ -777,7 +784,56 @@ $("#purchaseOrder_mgr_purchaseOrder_form_deliveryType").combobox({
 	textField : 'deliverTypeName',//这里为名称
 	valueField: 'deliverTypeId'//这里为IduserDate
 });
+  
 
+//用于combogrid的经办人信息绑定
+$('#suppliers_mgr_suppliers_form_operators').combogrid({
+	panelWidth:570,
+	fit:true,//控件自动resize占满窗口大小
+	//iconCls:'icon-save',//图标样式
+	border:true,//是否存在边框
+	fitColumns:true,//自动填充行
+	nowrap: true,//禁止单元格中的文字自动换行
+	autoRowHeight: false,//禁止设置自动行高以适应内容
+	striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
+	singleSelect:true,//限制单选
+	checkOnSelect:false,//选择复选框的时候选择该行
+	selectOnCheck:false,//选择的时候复选框打勾
+    idField:'userId',    
+    textField:'userCnName',    
+    url: ctx + '/do/user/list.json?status=enable',
+    sortName: 'createTime',//排序字段名称
+	sortOrder: 'desc',//升序还是降序
+	remoteSort: true,//开启远程排序，默认为false
+    columns : [ [
+       {
+			field:'username',
+			title:'用户名',
+			width:120,
+			sortable:true
+		},{
+			field:'userCnName',
+			title:'真实名称',
+			width:120,
+			sortable:true
+		},{
+			field:'depDisplay',
+			title:'所属部门',
+			width:120,
+			sortable:true
+		},
+		 ] ],
+		pagination : true,//True 就会在 datagrid 的底部显示分页栏
+		pageSize : 10,//注意，pageSize必须在pageList存在
+		pageList : [2,10,50,100],//从session中获取
+		rownumbers : true,//True 就会显示行号的列
+		onClickRow : function(rows) {   
+			$("#operatorDep").attr("value",$(this).datagrid("getSelected").depDisplay);
+		},
+	loadMsg : '数据加载中....',  
+});  
+
+var suppid="";
 //用于combogrid的供应商信息绑定
 $('#suppliers_mgr_suppliers_form_supplierType').combogrid({
 	panelWidth:570,
@@ -827,67 +883,16 @@ $('#suppliers_mgr_suppliers_form_supplierType').combogrid({
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
 		pageSize : 10,//注意，pageSize必须在pageList存在
 		pageList : [2,10,50,100],//从session中获取
-		rownumbers : true,//True 就会显示行号的列
-		onClickRow : function(rows) {  
-			$("#supplierAdd").attr("value",$(this).datagrid("getSelected").adress); 
+		rownumbers : true,//True 就会显示行号的列 
+ 		onSelect: function(rowIndex, rowData){   
+ 			$("#supplierAdd").attr("value",$(this).datagrid("getSelected").adress); 
 			$("#supplierCode").attr("value",$(this).datagrid("getSelected").supplierNumber); 
-			
-			//$("#phone").attr("value",$(this).datagrid("getSelected").companyPhone);
- 		},
+			$('#suppliers_mgr_suppliers_form_linkman').combogrid("clear"); 
+			suppid=rowData.supplierId;
+		 } ,
 	loadMsg : '数据加载中....',  
 });  
-
-
-
-//用于combogrid的经办人信息绑定
-$('#suppliers_mgr_suppliers_form_operators').combogrid({
-	panelWidth:570,
-	fit:true,//控件自动resize占满窗口大小
-	//iconCls:'icon-save',//图标样式
-	border:true,//是否存在边框
-	fitColumns:true,//自动填充行
-	nowrap: true,//禁止单元格中的文字自动换行
-	autoRowHeight: false,//禁止设置自动行高以适应内容
-	striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
-	singleSelect:true,//限制单选
-	checkOnSelect:false,//选择复选框的时候选择该行
-	selectOnCheck:false,//选择的时候复选框打勾
-    idField:'userId',    
-    textField:'userCnName',    
-    url: ctx + '/do/user/list.json?status=enable',
-    sortName: 'createTime',//排序字段名称
-	sortOrder: 'desc',//升序还是降序
-	remoteSort: true,//开启远程排序，默认为false
-    columns : [ [
-       {
-			field:'username',
-			title:'用户名',
-			width:120,
-			sortable:true
-		},{
-			field:'userCnName',
-			title:'真实名称',
-			width:120,
-			sortable:true
-		},{
-			field:'depDisplay',
-			title:'所属部门',
-			width:120,
-			sortable:true
-		},
-		 ] ],
-		pagination : true,//True 就会在 datagrid 的底部显示分页栏
-		pageSize : 10,//注意，pageSize必须在pageList存在
-		pageList : [2,10,50,100],//从session中获取
-		rownumbers : true,//True 就会显示行号的列
-		onClickRow : function(rows) {   
-			$("#operatorDep").attr("value",$(this).datagrid("getSelected").depDisplay);
-		},
-	loadMsg : '数据加载中....',  
-});  
-
-
-
+ 
 //用于combogrid的联系人信息绑定
 $('#suppliers_mgr_suppliers_form_linkman').combogrid({
 	panelWidth:570,
@@ -901,9 +906,9 @@ $('#suppliers_mgr_suppliers_form_linkman').combogrid({
 	singleSelect:true,//限制单选
 	checkOnSelect:false,//选择复选框的时候选择该行
 	selectOnCheck:false,//选择的时候复选框打勾
-    idField:'contactPersonId',    
-    textField:'suppliersName',    
-    url: ctx + '/do/suppliers/list.json',
+    idField:'supplierContactId',    
+    textField:'name',    
+    url: ctx + '/do/suppliersContact/list.json?supplierId='+suppid,
     sortName: 'createTime',//排序字段名称
 	sortOrder: 'desc',//升序还是降序
 	remoteSort: true,//开启远程排序，默认为false
@@ -913,19 +918,22 @@ $('#suppliers_mgr_suppliers_form_linkman').combogrid({
 				title:'姓名',
 				width:120,
 				sortable:true
+			},  {
+				field:'contactTypeName',
+				title:'联系人类型',
+				width:120,
+				sortable:true
 			},{
 				field:'sex',
 				title:'性别',
 				width:120,
-				sortable:true
+				sortable:true,
+				formatter: function(value,row,index){
+					return renderGridValue(value,fields.sex);
+				}
 			},{
 				field:'workPhone',
 				title:'工作电话',
-				width:200,
-				sortable:true
-			},{
-				field:'companyPhone',
-				title:'联系电话',
 				width:200,
 				sortable:true
 			},{
@@ -940,12 +948,11 @@ $('#suppliers_mgr_suppliers_form_linkman').combogrid({
 		pageList : [2,10,50,100],//从session中获取
 		rownumbers : true,//True 就会显示行号的列
 		onClickRow : function(rows) {  
-			$("#supplierAdd").attr("value",$(this).datagrid("getSelected").adress); 
-			$("#phone").attr("value",$(this).datagrid("getSelected").companyPhone);
-			
-		},
+			$("#moi").attr("value",$(this).datagrid("getSelected").workPhone);   
+		}, 
+		
 	loadMsg : '数据加载中....',  
-});  
+});   
  
 $('#purchase_mgr_purchaseOrder_form_auditState').val(renderGridValue('${purchaseOrderData.auditState}',fields.auditState)); 
 $('#payState').val(renderGridValue('${purchaseOrderData.payState}',fields.payState));

@@ -19,75 +19,75 @@
 		    <td>预付款余额:</td>
 			<td>
 				 <input class="easyui-validatebox spinner" name="prepaidBalance"
-			 	validType="customReg['^[0-9]','预付款余额只能输入整数以及保留小数位']"  style="width:168px"  value="${suppliersData.prepaidBalance}"/>
+			 	validType="customReg['^[0-9]','预付款余额只能输入整数以及保留小数位']"  style="width:168px;height: 18px"  value="${suppliersData.prepaidBalance}"/>
 		    </td>
 		    <td style="padding-left: 16px">供应商类型：</td>
 			<td> 
-			   <input id="suppliers_mgr_suppliers_form_typeId" name="typeId" value="${suppliersData.suppliersTypeName}">  
+			   <input id="suppliers_mgr_suppliers_form_typeId" name="typeId" style="width:168px;height: 20px"  value="${suppliersData.suppliersTypeName}">  
 			 </td>
 		</tr> 
 		
 		<tr>
 		    <td>公司电话:</td>
 			<td>
-				 <input class="easyui-validatebox spinner" name="companyPhone" style="width:168px"  value="${suppliersData.companyPhone}"/>
+				 <input class="easyui-validatebox spinner" name="companyPhone" style="width:168px;height: 18px"  value="${suppliersData.companyPhone}"/>
 		    </td>
 		    <td style="padding-left: 16px">公司传真:</td>
 			<td>
-				 <input class="easyui-validatebox spinner" name="companyFax" style="width:168px"  value="${suppliersData.companyFax}"/>
+				 <input class="easyui-validatebox spinner" name="companyFax" style="width:168px;height: 18px"  value="${suppliersData.companyFax}"/>
 		    </td> 
 		</tr> 
 		<tr>
 		    <td>公司网站：</td>
 			<td>
-				 <input class="easyui-validatebox spinner" name="companyUrls" style="width:168px"  value="${suppliersData.companyUrls}"/>
+				 <input class="easyui-validatebox spinner" name="companyUrls" style="width:168px;height: 18px"  value="${suppliersData.companyUrls}"/>
 		    </td>
 		    <td style="padding-left: 16px">公司邮箱：</td>
 			<td>
-				 <input class="easyui-validatebox spinner" name="companyEmail" style="width:168px"  value="${suppliersData.companyEmail}"/>
+				 <input class="easyui-validatebox spinner" name="companyEmail" style="width:168px;height: 18px"  value="${suppliersData.companyEmail}"/>
 		    </td>
 		
 		</tr>
 		<tr>
 		    <td>省份:</td>
 			<td>
-				 <input class="easyui-validatebox spinner" name="supplierProvince" style="width:168px"  value="${suppliersData.supplierProvince}"/>
+				 <input class="easyui-validatebox spinner" name="supplierProvince" style="width:168px;height: 18px"  value="${suppliersData.supplierProvince}"/>
 		    </td>
 		    <td style="padding-left: 16px">城市：</td>
 			<td>
-				 <input class="easyui-validatebox spinner" name="city" style="width:168px"  value="${suppliersData.city}"/>
+				 <input class="easyui-validatebox spinner" name="city" style="width:168px;height: 18px"  value="${suppliersData.city}"/>
 		    </td> 
 		</tr> 
 		<tr>
 		    <td>地址：</td>
 			<td>
-				 <input class="easyui-validatebox spinner" name="adress" style="width:168px"  value="${suppliersData.adress}"/>
+				 <input class="easyui-validatebox spinner" name="adress" style="width:168px;height: 18px"  value="${suppliersData.adress}"/>
 		    </td>
 		    <td style="padding-left: 16px">邮编：</td>
 			<td>
-				 <input class="easyui-validatebox spinner" name="postcode" style="width:168px"  value="${suppliersData.postcode}"/>
+				 <input class="easyui-validatebox spinner" name="postcode" style="width:168px;height: 18px"  value="${suppliersData.postcode}"/>
 		    </td>
 		
 		</tr>
 		<tr>
 		    <td>供应商级别：</td>
 			<td>
-				<input id="suppliers_mgr_suppliers_form_supplierLevel" name="supplierLevel"  value="${suppliersData.suppliersGradeName}"/>
+				<input id="suppliers_mgr_suppliers_form_supplierLevel" name="supplierLevel"  value="${suppliersData.supplierLevel}"/>
 		     </td>
 		    <td style="padding-left: 16px">供应商来源：</td>
 			<td>
-				 <input id="suppliers_mgr_suppliers_form_sourceId" name="sourceId" value="${suppliersData.suppliersSourceName}">  
+				 <input id="suppliers_mgr_suppliers_form_sourceId" name="sourceId" value="${suppliersData.sourceId}">  
 		     </td>
 		
 		</tr>
 		<tr>
 		    <td>公司性质：</td>
 			<td>
-				  <input id="suppliers_mgr_suppliers_form_natureId" name="natureId" value="${suppliersData.suppliersNatureName}"> 
+				  <input id="suppliers_mgr_suppliers_form_natureId" name="natureId" value="${suppliersData.natureId}"> 
 			 </td>
 		    <td style="padding-left: 16px">行业：</td>
 			<td> 
-			     <input id="suppliers_mgr_suppliers_form_industryId" name="industryId" value="${suppliersData.suppliersIndustryeName}"> 
+			     <input id="suppliers_mgr_suppliers_form_industryId" name="industryId" value="${suppliersData.industryId}"> 
            </td> 
 		</tr>
 		<tr>
@@ -97,25 +97,25 @@
 			</td>
 		     <td style="padding-left: 16px">公司规模：</td>
 			<td>
-				 <input  id="suppliers_mgr_suppliers_form_sizeId" name="sizeId" value="${suppliersData.suppliersPanySizeName}"> 
+				 <input  id="suppliers_mgr_suppliers_form_sizeId" name="sizeId" value="${suppliersData.sizeId}"> 
          
 		    </td> 
 		</tr>
 		<tr>
 		    <td>注册资金：</td>
 			<td>
-				 <input class="easyui-validatebox spinner" name="registeredCapital" style="width:168px"  value="${suppliersData.registeredCapital}"/>
+				 <input class="easyui-validatebox spinner" name="registeredCapital" style="width:168px;height: 18px"  value="${suppliersData.registeredCapital}"/>
 		    </td>
 		    <td style="padding-left: 16px">公司法人：</td>
 			<td>
-				 <input class="easyui-validatebox spinner" name="companyLegal" style="width:168px"  value="${suppliersData.companyLegal}"/>
+				 <input class="easyui-validatebox spinner" name="companyLegal" style="width:168px;height: 18px"  value="${suppliersData.companyLegal}"/>
 		    </td>
 		
 		</tr>
 		<tr>
 		    <td>信用等级：</td>
 			<td>
-				<select class="easyui-combobox" name="gradeId"  style="width:168px;" value="${suppliersData.gradeId}">   
+				<select class="easyui-combobox" name="gradeId"  style="width:168px; height: 20px" value="${suppliersData.gradeId}">   
 					    <option value="高">高</option>    
 					    <option value="中">中</option>    
 					    <option value="低">低</option>    
@@ -123,42 +123,42 @@
 	 	    </td>
 		    <td style="padding-left: 16px">开户银行：</td>
 			<td>
-				 <input class="easyui-validatebox spinner" name="bank" style="width:168px"  value="${suppliersData.bank}"/>
+				 <input class="easyui-validatebox spinner" name="bank" style="width:168px;height: 18px"  value="${suppliersData.bank}"/>
 		    </td>
 		
 		</tr>
 		<tr>
 		    <td>银行账号：</td>
 			<td>
-				 <input class="easyui-validatebox spinner" name="bankAccount" style="width:168px"  value="${suppliersData.bankAccount}"/>
+				 <input class="easyui-validatebox spinner" name="bankAccount" style="width:168px;height: 18px"  value="${suppliersData.bankAccount}"/>
 		    </td>
 		    <td style="padding-left: 16px">税号：</td>
 			<td>
-				 <input class="easyui-validatebox spinner" name="taxId" style="width:168px"  value="${suppliersData.taxId}"/>
+				 <input class="easyui-validatebox spinner" name="taxId" style="width:168px;height: 18px"  value="${suppliersData.taxId}"/>
 		    </td>
 		
 		</tr>
 		<tr>
 		    <td>建立日期：</td>
 			<td>
-			   <input name="supplierDate"  class="easyui-datetimebox" style="width: 168px;" value="${suppliersData.supplierDate}" /> 
+			   <input name="supplierDate"  class="easyui-datebox" style="width: 168px;;height: 20px" value="${suppliersData.supplierDate}" /> 
 		    </td>
 		    <td style="padding-left: 16px">上级供应商：</td>
 			<td>
-				<input id="suppliers_mgr_suppliers_form_supplierType" value="${suppliersData.suppliersUpName}" style="width: 168px;" name="supplierType"  class="easyui-combogrid"  />
+				<input id="suppliers_mgr_suppliers_form_supplierType" value="${suppliersData.supplierType}" style="width: 168px;" name="supplierType"  class="easyui-combogrid"  />
 		    </td> 
 		</tr>
 		<tr>
 		   
 			<td>主营业务：</td>
 			<td colspan="3">
-		 		 <input class="easyui-validatebox spinner" name="mainBusiness" style="width:430px"  value="${suppliersData.mainBusiness}"/>
+		 		 <input class="easyui-validatebox spinner" name="mainBusiness" style="width:430px;height: 18px"  value="${suppliersData.mainBusiness}"/>
 		   </td>
 			</tr>
 			<tr> 
 		    <td>备注:</td>
 			<td colspan="3">
-			<textarea class="spinner" rows="4" cols="68" name="remark" style="margin-top: 20px">${suppliersData.remark}</textarea>
+			<textarea class="spinner" rows="4" cols="69" name="remark" style="margin-top: 20px">${suppliersData.remark}</textarea>
 		<%-- 		 <input class="easyui-validatebox spinner" name="remark" style="width:430px"  value="${suppliersData.remark}"/> --%>
 		    </td> 
 		</tr>  
@@ -169,7 +169,7 @@
 //初始化供应商类型下拉项
 $("#suppliers_mgr_suppliers_form_typeId").combobox({
 	data : $.parseJSON('${suppliersType}'),//controller传来的数据源
-	height:18,
+	height:20,
 	width:170,
     required:true,
     editable : false,
@@ -181,7 +181,7 @@ $("#suppliers_mgr_suppliers_form_typeId").combobox({
 //初始化供应商来源下拉项
 $("#suppliers_mgr_suppliers_form_sourceId").combobox({
 	data : $.parseJSON('${suppliersSource}'),//controller传来的数据源
-	height:18,
+	height:20,
 	width:170,
     required:true,
     editable : false,
@@ -193,7 +193,7 @@ $("#suppliers_mgr_suppliers_form_sourceId").combobox({
 //初始化公司性质下拉项
 $("#suppliers_mgr_suppliers_form_natureId").combobox({
 	data : $.parseJSON('${comNature}'),//controller传来的数据源
-	height:18,
+	height:20,
 	width:170,
     required:true,
     editable : false,
@@ -205,7 +205,7 @@ $("#suppliers_mgr_suppliers_form_natureId").combobox({
 //初始化行业下拉项
 $("#suppliers_mgr_suppliers_form_industryId").combobox({
 	data : $.parseJSON('${comIndustry}'),//controller传来的数据源
-	height:18,
+	height:20,
 	width:170,
     required:true,
     editable : false,
@@ -217,7 +217,7 @@ $("#suppliers_mgr_suppliers_form_industryId").combobox({
 //初始化公司规模下拉项
 $("#suppliers_mgr_suppliers_form_sizeId").combobox({
 	data : $.parseJSON('${companySize}'),//controller传来的数据源
-	height:18,
+	height:20,
 	width:170,
     required:true,
     editable : false,
@@ -229,7 +229,7 @@ $("#suppliers_mgr_suppliers_form_sizeId").combobox({
 //初始化供应商级别下拉项
 $("#suppliers_mgr_suppliers_form_supplierLevel").combobox({
 	data : $.parseJSON('${suppliersGrade}'),//controller传来的数据源
-	height:18,
+	height:20,
 	width:170,
     required:true,
     editable : false,

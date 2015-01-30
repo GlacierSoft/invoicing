@@ -82,6 +82,10 @@ public class ParSuppliersContactQueryDTO extends ParSuppliersContact{
 	}
 
 	public void setQueryCondition(Criteria queryCriteria){
+		if(null != this.getSupplierId() && StringUtils.isNotBlank(this.getSupplierId())){//供应商id查询
+            queryCriteria.andSupplierIdEqualTo(this.getSupplierId());
+        }  
+		
    	 if(null != this.getName() && StringUtils.isNotBlank(this.getName())){//供应商联系人名称Like查询
             queryCriteria.andNameLike("%" + this.getName() + "%");
         }  

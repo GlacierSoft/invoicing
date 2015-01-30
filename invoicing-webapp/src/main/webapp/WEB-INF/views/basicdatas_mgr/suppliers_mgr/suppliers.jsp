@@ -187,7 +187,7 @@
 		glacier.basicAddOrEditDialog({
 			title : '编辑供应商',
 			width : 560,
-			height : 550,
+			height : 570,
 			queryUrl : ctx + '/do/suppliers/intoForm.htm',
 			submitUrl : ctx + '/do/suppliers/edit.json',
 			queryParams : {
