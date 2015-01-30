@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.basicdatas.ParClientContactMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.basicdatas.ParClientContact" >
+    <id column="temp_par_client_contact_client_contact_id" property="clientContactId" jdbcType="VARCHAR" />
+    <result column="temp_par_client_contact_client_id" property="clientId" jdbcType="VARCHAR" />
+    <result column="temp_par_client_contact_contact_type_id" property="contactTypeId" jdbcType="VARCHAR" />
+    <result column="temp_par_client_contact_name" property="name" jdbcType="VARCHAR" />
+    <result column="temp_par_client_contact_sex" property="sex" jdbcType="CHAR" />
+    <result column="temp_par_client_contact_department" property="department" jdbcType="VARCHAR" />
+    <result column="temp_par_client_contact_post" property="post" jdbcType="VARCHAR" />
+    <result column="temp_par_client_contact_business" property="business" jdbcType="VARCHAR" />
+    <result column="temp_par_client_contact_work_phone" property="workPhone" jdbcType="VARCHAR" />
+    <result column="temp_par_client_contact_mobilephone" property="mobilephone" jdbcType="VARCHAR" />
+    <result column="temp_par_client_contact_fox" property="fox" jdbcType="VARCHAR" />
+    <result column="temp_par_client_contact_email" property="email" jdbcType="VARCHAR" />
+    <result column="temp_par_client_contact_home_phone" property="homePhone" jdbcType="VARCHAR" />
+    <result column="temp_par_client_contact_adrress" property="adrress" jdbcType="VARCHAR" />
+    <result column="temp_par_client_contact_communications" property="communications" jdbcType="VARCHAR" />
+    <result column="temp_par_client_contact_birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="temp_par_client_contact_hobby" property="hobby" jdbcType="VARCHAR" />
+    <result column="temp_par_client_contact_number" property="number" jdbcType="VARCHAR" />
+    <result column="temp_par_client_contact_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_par_client_contact_enabled" property="enabled" jdbcType="CHAR" />
+    <result column="temp_par_client_contact_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_par_client_contact_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_par_client_contact_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_par_client_contact_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_par_client_contact_contact_type_name" property="contactTypeName" jdbcType="VARCHAR" /><!--增加自定义字段  -->
+    <result column="temp_par_client_contact_client_name" property="clientName" jdbcType="VARCHAR" /><!--增加自定义字段  -->
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_par_client_contact.client_contact_id as temp_par_client_contact_client_contact_id, 
+    temp_par_client_contact.client_id as temp_par_client_contact_client_id, temp_par_client_contact.contact_type_id as temp_par_client_contact_contact_type_id, 
+    temp_par_client_contact.name as temp_par_client_contact_name, temp_par_client_contact.sex as temp_par_client_contact_sex, 
+    temp_par_client_contact.department as temp_par_client_contact_department, temp_par_client_contact.post as temp_par_client_contact_post, 
+    temp_par_client_contact.business as temp_par_client_contact_business, temp_par_client_contact.work_phone as temp_par_client_contact_work_phone, 
+    temp_par_client_contact.mobilephone as temp_par_client_contact_mobilephone, temp_par_client_contact.fox as temp_par_client_contact_fox, 
+    temp_par_client_contact.email as temp_par_client_contact_email, temp_par_client_contact.home_phone as temp_par_client_contact_home_phone, 
+    temp_par_client_contact.adrress as temp_par_client_contact_adrress, temp_par_client_contact.communications as temp_par_client_contact_communications, 
+    temp_par_client_contact.birthday as temp_par_client_contact_birthday, temp_par_client_contact.hobby as temp_par_client_contact_hobby, 
+    temp_par_client_contact.number as temp_par_client_contact_number, temp_par_client_contact.remark as temp_par_client_contact_remark, 
+    temp_par_client_contact.enabled as temp_par_client_contact_enabled, temp_par_client_contact.creater as temp_par_client_contact_creater, 
+    temp_par_client_contact.create_time as temp_par_client_contact_create_time, temp_par_client_contact.updater as temp_par_client_contact_updater, 
+    temp_par_client_contact.update_time as temp_par_client_contact_update_time
+    <!-- 自定义扩展字段 -->
+    ,temp_par_com_contact_type.contact_type_name as temp_par_client_contact_contact_type_name
+    ,temp_client.client_name as temp_par_client_contact_client_name
+  </sql>
+  <sql id="Base_extend">
+    LEFT JOIN t_par_com_contact_type temp_par_com_contact_type ON temp_par_com_contact_type.contact_type_id =temp_par_client_contact.contact_type_id<!-- 扩展 -->
+   	LEFT JOIN t_basis_client temp_client ON temp_client.client_id =temp_par_client_contact.client_id <!-- 扩展 -->
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.basicdatas.ParClientContactExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_par_client_contact temp_par_client_contact
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_par_client_contact temp_par_client_contact
+    <include refid="Base_extend" />
+    where temp_par_client_contact.client_contact_id = #{clientContactId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_par_client_contact
+    where client_contact_id = #{clientContactId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.ParClientContactExample" >
+    delete temp_par_client_contact from t_par_client_contact temp_par_client_contact
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.basicdatas.ParClientContact" >
+    insert into t_par_client_contact (client_contact_id, client_id, contact_type_id, 
+      name, sex, department, 
+      post, business, work_phone, 
+      mobilephone, fox, email, 
+      home_phone, adrress, communications, 
+      birthday, hobby, number, 
+      remark, enabled, creater, 
+      create_time, updater, update_time
+      )
+    values (#{clientContactId,jdbcType=VARCHAR}, #{clientId,jdbcType=VARCHAR}, #{contactTypeId,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, #{department,jdbcType=VARCHAR}, 
+      #{post,jdbcType=VARCHAR}, #{business,jdbcType=VARCHAR}, #{workPhone,jdbcType=VARCHAR}, 
+      #{mobilephone,jdbcType=VARCHAR}, #{fox,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{homePhone,jdbcType=VARCHAR}, #{adrress,jdbcType=VARCHAR}, #{communications,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=TIMESTAMP}, #{hobby,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{enabled,jdbcType=CHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.basicdatas.ParClientContact" >
+    insert into t_par_client_contact
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="clientContactId != null" >
+        client_contact_id,
+      </if>
+      <if test="clientId != null" >
+        client_id,
+      </if>
+      <if test="contactTypeId != null" >
+        contact_type_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="post != null" >
+        post,
+      </if>
+      <if test="business != null" >
+        business,
+      </if>
+      <if test="workPhone != null" >
+        work_phone,
+      </if>
+      <if test="mobilephone != null" >
+        mobilephone,
+      </if>
+      <if test="fox != null" >
+        fox,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="homePhone != null" >
+        home_phone,
+      </if>
+      <if test="adrress != null" >
+        adrress,
+      </if>
+      <if test="communications != null" >
+        communications,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="hobby != null" >
+        hobby,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="clientContactId != null" >
+        #{clientContactId,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null" >
+        #{clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="contactTypeId != null" >
+        #{contactTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="post != null" >
+        #{post,jdbcType=VARCHAR},
+      </if>
+      <if test="business != null" >
+        #{business,jdbcType=VARCHAR},
+      </if>
+      <if test="workPhone != null" >
+        #{workPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone != null" >
+        #{mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="fox != null" >
+        #{fox,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhone != null" >
+        #{homePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="adrress != null" >
+        #{adrress,jdbcType=VARCHAR},
+      </if>
+      <if test="communications != null" >
+        #{communications,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hobby != null" >
+        #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.basicdatas.ParClientContactExample" resultType="java.lang.Integer" >
+    select count(*) from t_par_client_contact temp_par_client_contact
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_par_client_contact temp_par_client_contact
+    <set >
+      <if test="record.clientContactId != null" >
+        temp_par_client_contact.client_contact_id = #{record.clientContactId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clientId != null" >
+        temp_par_client_contact.client_id = #{record.clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactTypeId != null" >
+        temp_par_client_contact.contact_type_id = #{record.contactTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        temp_par_client_contact.name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        temp_par_client_contact.sex = #{record.sex,jdbcType=CHAR},
+      </if>
+      <if test="record.department != null" >
+        temp_par_client_contact.department = #{record.department,jdbcType=VARCHAR},
+      </if>
+      <if test="record.post != null" >
+        temp_par_client_contact.post = #{record.post,jdbcType=VARCHAR},
+      </if>
+      <if test="record.business != null" >
+        temp_par_client_contact.business = #{record.business,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workPhone != null" >
+        temp_par_client_contact.work_phone = #{record.workPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobilephone != null" >
+        temp_par_client_contact.mobilephone = #{record.mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fox != null" >
+        temp_par_client_contact.fox = #{record.fox,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        temp_par_client_contact.email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homePhone != null" >
+        temp_par_client_contact.home_phone = #{record.homePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adrress != null" >
+        temp_par_client_contact.adrress = #{record.adrress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.communications != null" >
+        temp_par_client_contact.communications = #{record.communications,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthday != null" >
+        temp_par_client_contact.birthday = #{record.birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.hobby != null" >
+        temp_par_client_contact.hobby = #{record.hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.number != null" >
+        temp_par_client_contact.number = #{record.number,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_par_client_contact.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enabled != null" >
+        temp_par_client_contact.enabled = #{record.enabled,jdbcType=CHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_par_client_contact.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_par_client_contact.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_par_client_contact.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_par_client_contact.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_par_client_contact temp_par_client_contact
+    set temp_par_client_contact.client_contact_id = #{record.clientContactId,jdbcType=VARCHAR},
+      temp_par_client_contact.client_id = #{record.clientId,jdbcType=VARCHAR},
+      temp_par_client_contact.contact_type_id = #{record.contactTypeId,jdbcType=VARCHAR},
+      temp_par_client_contact.name = #{record.name,jdbcType=VARCHAR},
+      temp_par_client_contact.sex = #{record.sex,jdbcType=CHAR},
+      temp_par_client_contact.department = #{record.department,jdbcType=VARCHAR},
+      temp_par_client_contact.post = #{record.post,jdbcType=VARCHAR},
+      temp_par_client_contact.business = #{record.business,jdbcType=VARCHAR},
+      temp_par_client_contact.work_phone = #{record.workPhone,jdbcType=VARCHAR},
+      temp_par_client_contact.mobilephone = #{record.mobilephone,jdbcType=VARCHAR},
+      temp_par_client_contact.fox = #{record.fox,jdbcType=VARCHAR},
+      temp_par_client_contact.email = #{record.email,jdbcType=VARCHAR},
+      temp_par_client_contact.home_phone = #{record.homePhone,jdbcType=VARCHAR},
+      temp_par_client_contact.adrress = #{record.adrress,jdbcType=VARCHAR},
+      temp_par_client_contact.communications = #{record.communications,jdbcType=VARCHAR},
+      temp_par_client_contact.birthday = #{record.birthday,jdbcType=TIMESTAMP},
+      temp_par_client_contact.hobby = #{record.hobby,jdbcType=VARCHAR},
+      temp_par_client_contact.number = #{record.number,jdbcType=VARCHAR},
+      temp_par_client_contact.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_par_client_contact.enabled = #{record.enabled,jdbcType=CHAR},
+      temp_par_client_contact.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_par_client_contact.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_par_client_contact.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_par_client_contact.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.basicdatas.ParClientContact" >
+    update t_par_client_contact
+    <set >
+      <if test="clientId != null" >
+        client_id = #{clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="contactTypeId != null" >
+        contact_type_id = #{contactTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="post != null" >
+        post = #{post,jdbcType=VARCHAR},
+      </if>
+      <if test="business != null" >
+        business = #{business,jdbcType=VARCHAR},
+      </if>
+      <if test="workPhone != null" >
+        work_phone = #{workPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone != null" >
+        mobilephone = #{mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="fox != null" >
+        fox = #{fox,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhone != null" >
+        home_phone = #{homePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="adrress != null" >
+        adrress = #{adrress,jdbcType=VARCHAR},
+      </if>
+      <if test="communications != null" >
+        communications = #{communications,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hobby != null" >
+        hobby = #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where client_contact_id = #{clientContactId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.basicdatas.ParClientContact" >
+    update t_par_client_contact
+    set client_id = #{clientId,jdbcType=VARCHAR},
+      contact_type_id = #{contactTypeId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      department = #{department,jdbcType=VARCHAR},
+      post = #{post,jdbcType=VARCHAR},
+      business = #{business,jdbcType=VARCHAR},
+      work_phone = #{workPhone,jdbcType=VARCHAR},
+      mobilephone = #{mobilephone,jdbcType=VARCHAR},
+      fox = #{fox,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      home_phone = #{homePhone,jdbcType=VARCHAR},
+      adrress = #{adrress,jdbcType=VARCHAR},
+      communications = #{communications,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      hobby = #{hobby,jdbcType=VARCHAR},
+      number = #{number,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      enabled = #{enabled,jdbcType=CHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where client_contact_id = #{clientContactId,jdbcType=VARCHAR}
+  </update>
+</mapper>

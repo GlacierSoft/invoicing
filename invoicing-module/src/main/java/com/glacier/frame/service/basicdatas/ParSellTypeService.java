@@ -50,16 +50,16 @@ public class ParSellTypeService {
     /**
      * @Title: listAsGrid 
      * @Description: TODO(获取所有销售类型信息) 
-     * @param @param jqPager ParSellTypeQueryDTO sellReturnReasonQueryDTO
+     * @param @param jqPager ParSellTypeQueryDTO SellTypeQueryDTO
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
      */
-    public Object listAsGrid(JqPager jqPager, ParSellTypeQueryDTO sellReturnReasonQueryDTO) {
+    public Object listAsGrid(JqPager jqPager, ParSellTypeQueryDTO parSellTypeQueryDTO) {
         JqGridReturn returnResult = new JqGridReturn();
         ParSellTypeExample parSellTypeExample = new ParSellTypeExample(); 
         Criteria queryCriteria = parSellTypeExample.createCriteria();
-        sellReturnReasonQueryDTO.setQueryCondition(queryCriteria);
+        parSellTypeQueryDTO.setQueryCondition(queryCriteria);
         if (null != jqPager.getPage() && null != jqPager.getRows()) {// 设置排序信息
             parSellTypeExample.setLimitStart((jqPager.getPage() - 1) * jqPager.getRows());
             parSellTypeExample.setLimitEnd(jqPager.getRows());
@@ -96,7 +96,7 @@ public class ParSellTypeService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "SellReturnReasonList_add")
+    @MethodLog(opera = "SellTypeList_add")
     public Object addParSellType(ParSellType parSellType) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -135,7 +135,7 @@ public class ParSellTypeService {
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "SellReturnReasonList_edit")
+    @MethodLog(opera = "SellTypeList_edit")
     public Object editParSellType(ParSellType parSellType) {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
@@ -165,13 +165,13 @@ public class ParSellTypeService {
     /**
      * @Title: delParSellType 
      * @Description: TODO(删除销售类型) 
-     * @param @param sellReturnReasonIds sellReturnReasonName
+     * @param @param SellTypeIds SellTypeName
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
      */
     @Transactional(readOnly = false)
-    @MethodLog(opera = "SellReturnReasonList_del")
+    @MethodLog(opera = "SellTypeList_del")
     public Object delParSellType(List<String> sellTypeIds, List<String> sellTypeNames) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
         int count = 0;

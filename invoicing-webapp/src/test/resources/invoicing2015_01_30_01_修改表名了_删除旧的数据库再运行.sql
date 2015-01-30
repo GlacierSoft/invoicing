@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50067
 File Encoding         : 65001
 
-Date: 2015-01-23 16:36:08
+Date: 2015-01-30 15:14:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -41,6 +41,7 @@ INSERT INTO `t_action` VALUES ('00373dc94a1610aab1a50b060bb17e88', '91ca1b4b1976
 INSERT INTO `t_action` VALUES ('00c00486af94f98319867dd391199e3b', 'c81a4c0156789361600940be2ebdab2c', '628e3c73409f37c6d28bdd97ed61b5fc', '修改', 'edit', 'icon-standard-pencil-go', 'Button', 'enable', 'glacier.basicdatas_mgr.clientLevel_mgr.clientLevel.editClientLevel();', '2', '');
 INSERT INTO `t_action` VALUES ('0292b24bf2613a3e26c01b7486bc0344', '1b41e29c8712c9f36bc3a520a8e5363b', '95eaa68d7a4109e845d63ef82cdb0d3f', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'enable', 'glacier.basicdatas_mgr.financeCostType_mgr.financeCostType.addFinanceCostType();', '1', '');
 INSERT INTO `t_action` VALUES ('052f8f3a3dee3781a1f3a60bee4cfbfc', '8a2f2500fa46e49dd7ff11b688b6c740', 'ad67aaf12a02906ad088a73410fd097e', '修改', 'edit', 'icon-standard-pencil-go', 'Button', 'enable', 'glacier.basicdatas_mgr.companySize_mgr.companySize.editCompanySize();', '2', '');
+INSERT INTO `t_action` VALUES ('05a5037e885717d834ccbc15cae394d0', '14cf54d0d98b03aa15845d63071f9c68', 'bc2d2f30667d8a327596e8cb9f6bd7fe', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'enable', 'glacier.basicdatas_mgr.suppliersContact_mgr.suppliersContact.delSuppliersContact();', '3', '');
 INSERT INTO `t_action` VALUES ('08fcfc5ac69513b18eb1c67b3d108a37', '810ba3686840457556cb55bc87d8010b', '365eeace84821f6e45d59cefd702827d', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'enable', 'glacier.basicdatas_mgr.sellType_mgr.sellType.delSellType();', '3', '');
 INSERT INTO `t_action` VALUES ('099bbd95bea8b3e311ed8075f30cdbda', '8a2f2500fa46e49dd7ff11b688b6c740', 'ad67aaf12a02906ad088a73410fd097e', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'enable', 'glacier.basicdatas_mgr.companySize_mgr.companySize.addCompanySize();', '1', '');
 INSERT INTO `t_action` VALUES ('0bd2298fc6339f8b5ddc191ff7a79cbd', '8c54260cf2f6704a1739503465d9e9cf', '58fc5a925e18a411e10bf5b2084ee609', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'enable', 'glacier.basicdatas_mgr.financeReceivableType_mgr.financeReceivableType.addFinanceReceivableType();', '1', '');
@@ -50,6 +51,7 @@ INSERT INTO `t_action` VALUES ('10b73e3ae8921345c84b4ee9f3116667', '40b4045ca1b6
 INSERT INTO `t_action` VALUES ('11155cdaf84232cf47b1b68f9e755f75', '8c54260cf2f6704a1739503465d9e9cf', '58fc5a925e18a411e10bf5b2084ee609', '修改', 'edit', 'icon-standard-pencil-go', 'Button', 'enable', 'glacier.basicdatas_mgr.financeReceivableType_mgr.financeReceivableType.editFinanceReceivableType();', '2', '');
 INSERT INTO `t_action` VALUES ('11d620cccb4d3dafc3a1bff37d41f40b', '96f4fcb49e57d6a1a001718d5c5aeee8', '9bd61e80d5fe7892b77fa5ccc069c825', '禁用', 'disable', 'icon-standard-pencil-go', 'Button', 'enable', 'glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.disablePurchaseOrder();', '5', '');
 INSERT INTO `t_action` VALUES ('136f8d63b9c4b4f3b9c92213a321ca24', '96f4fcb49e57d6a1a001718d5c5aeee8', '9bd61e80d5fe7892b77fa5ccc069c825', '取消终止', 'cancelTer', 'icon-standard-pencil-go', 'Button', 'enable', 'glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.cancelTerPurchaseOrder();', '11', '');
+INSERT INTO `t_action` VALUES ('1584c8fdea140ac79be4abdca1dff321', '14cf54d0d98b03aa15845d63071f9c68', 'bc2d2f30667d8a327596e8cb9f6bd7fe', '修改', 'edit', 'icon-standard-pencil-go', 'Button', 'enable', 'glacier.basicdatas_mgr.suppliersContact_mgr.suppliersContact.editSuppliersContact();', '2', '');
 INSERT INTO `t_action` VALUES ('1667a1dc9485bc1da1f4ec4cf39efe6e', '40b4045ca1b6a457298e76ad34cfb5be', 'ff77e2eb7cff4173eaa531eb708a1527', '取消收货确认', 'cancelAffirm', 'icon-standard-pencil-go', 'Button', 'enable', 'glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.cancelAffirmPurchaseArrival();', '11', '');
 INSERT INTO `t_action` VALUES ('17c6da9347b407770d20d9b9b8d5c2d7', '96f4fcb49e57d6a1a001718d5c5aeee8', '9bd61e80d5fe7892b77fa5ccc069c825', '付款', 'pay', 'icon-standard-pencil-go', 'Button', 'enable', 'glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.payPurchaseOrder();', '8', '');
 INSERT INTO `t_action` VALUES ('18060139f0e736a796d5ac4bdd78eadc', 'e550884c5e6c1e94ee70cc833aa1c2b9', '83bbeed02a85549ae84cde8d98bcd8c1', '修改', 'edit', 'icon-standard-pencil-go', 'Button', 'disable', 'glacier.system_mgr.role_mgr.role.editRole();', '2', null);
@@ -76,6 +78,7 @@ INSERT INTO `t_action` VALUES ('36e847cc5b5744525c0b3b2985d196b9', 'c9845e00a5b7
 INSERT INTO `t_action` VALUES ('377f401ba2cfbd0ccfdbf0739f0fff48', 'a35ca1bb25e1f11898c78eb03332554b', '5252a18b51e04ddf499aac66a8245367', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'enable', 'glacier.basicdatas_mgr.warOccupationType_mgr.warOccupationType.addWarOccupationType();', '1', '');
 INSERT INTO `t_action` VALUES ('380b3c09490efab8df31bf0d3ffa746f', '2261cc3a4a23b23bd6317021981fbd1e', '6dbbdf0a9349268ead711fc84f3da291', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'enable', 'glacier.basicdatas_mgr.suppliersType_mgr.suppliersType.addSuppliersType();', '1', '');
 INSERT INTO `t_action` VALUES ('3ac74098128017095a49fa85b61703d8', 'dc2dcb1b303c05b27e9c01dc23dcc5f7', '21f3486dd1b51463c4979dc80ef4009b', '修改', 'edit', 'icon-standard-pencil-go', 'Button', 'enable', 'glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.editPurchaseType();', '2', '');
+INSERT INTO `t_action` VALUES ('3ac7e3d7e926110b169c87b0a38eac95', '904d503fbdeddae78da4db24d8563080', 'da23ee602a07d41e279ffe940cfccf8b', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'enable', 'glacier.basicdatas_mgr.clientContact_mgr.clientContact.delClientContact();', '3', '');
 INSERT INTO `t_action` VALUES ('419ec6d31bcf0f12c11f6d5413a460c2', '4cd535b32c8395464ebdd8cca36f3a3a', 'c5cdcd3e45b35765f477502c5b51800d', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'enable', 'glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.delPurchaseReturn();', '3', '');
 INSERT INTO `t_action` VALUES ('4260fbed3c951dde2e25a56ac6d7693c', '0eac3f9c7b4e4cdd5e42c56a16c85147', 'ad6926567cb16be8966308eb36583a57', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'enable', 'glacier.basicdatas_mgr.comDeliverType_mgr.comDeliverType.addComDeliverType();', '1', '');
 INSERT INTO `t_action` VALUES ('429f54b614db46af58598c8d9a47a36f', '54eb754157cf483a790f4eea35200118', '961d2e73b3fa93a9f125fb731e0a9529', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'disable', 'glacier.system_mgr.res_mgr.res.delPanel();', '3', null);
@@ -123,6 +126,7 @@ INSERT INTO `t_action` VALUES ('6ebb0c66afb41e8cf0d890ea46ab54ca', 'ac892df07f90
 INSERT INTO `t_action` VALUES ('6f27ff5d0ea6db9718deb396dcd54cb0', 'bc38d000dee30299a20f254c0aec0aaf', '511268ad8f3a8e0717381748f5f3ae8d', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'enable', 'glacier.basicdatas_mgr.suppliersSource_mgr.suppliersSource.delSuppliersSource();', '3', '');
 INSERT INTO `t_action` VALUES ('75c176566b9105b26c44f0b97050dcbf', '0d5f941c0e815519b859afa0992eda0b', 'bbf240fc8c53886e327ff15976026945', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'enable', 'glacier.system_mgr.dep_mgr.dep.addDep();', '1', '');
 INSERT INTO `t_action` VALUES ('75ef694872b72e65e08bb60c54941e21', 'ccec6c46d43b0e7c40ce5c1ffc0cb3e5', '0d7ed154eebe739d81a20da996d68e6b', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'enable', 'glacier.basicdatas_mgr.purchaseReturnReason_mgr.purchaseReturnReason.delPurchaseReturnReason();', '3', '');
+INSERT INTO `t_action` VALUES ('76396242211135644608e5feb35f2265', '14cf54d0d98b03aa15845d63071f9c68', 'bc2d2f30667d8a327596e8cb9f6bd7fe', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'enable', 'glacier.basicdatas_mgr.suppliersContact_mgr.suppliersContact.addSuppliersContact();', '1', '');
 INSERT INTO `t_action` VALUES ('76c5705f08886bdbc29e63e4289ff017', '96f4fcb49e57d6a1a001718d5c5aeee8', '9bd61e80d5fe7892b77fa5ccc069c825', '启用', 'enable', 'icon-standard-pencil-go', 'Button', 'enable', 'glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.enablePurchaseOrder();', '4', '');
 INSERT INTO `t_action` VALUES ('7a7a5d8f8127137351818b5f05a5e721', '4f2b136adfaf68b741d58df8e4adc4ff', '977a07ecaf616fcd4ba6e47b19896a42', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'enable', 'glacier.basicdatas_mgr.financePayableType_mgr.financePayableType.addFinancePayableType();', '1', '');
 INSERT INTO `t_action` VALUES ('7a9370d9f05cee1792cb30ece363d031', 'bfe6aa265cb92e35e9920f98a61df508', 'afb1cf326e78fe292af33b76aeef02cd', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'enable', 'glacier.basicdatas_mgr.goodsList_mgr.goodsList.delGoodsList();', '3', '');
@@ -154,7 +158,7 @@ INSERT INTO `t_action` VALUES ('9a4afcb595389b7bbf59b08e0f983b0d', '8fc3b6de8076
 INSERT INTO `t_action` VALUES ('9b3d4e690948a1290f7ccea6327868e0', 'ebd8d76ac65eea1c8d65ac5c14da27b0', 'cef00aa1a7ab2338e5bb4e85e311af6f', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'enable', 'glacier.basicdatas_mgr.comIndustry_mgr.comIndustry.addComIndustry();', '1', '');
 INSERT INTO `t_action` VALUES ('9cdc7b08f06304c42f1e6c408f170fcb', '93f0fcfa7cdff069d929723062b53211', 'e6784ccad10e3414b99b77b303a338c7', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'enable', 'glacier.basicdatas_mgr.variables_mgr.variables.addVariables();', '1', null);
 INSERT INTO `t_action` VALUES ('9dfcdfc6becbf920be628c30a8906d80', 'dc2dcb1b303c05b27e9c01dc23dcc5f7', '21f3486dd1b51463c4979dc80ef4009b', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'enable', 'glacier.basicdatas_mgr.purchaseType_mgr.purchaseType.delPurchaseType();', '3', '');
-INSERT INTO `t_action` VALUES ('9fb2ca3d443f4377d55bb33dc36bd409', '96f4fcb49e57d6a1a001718d5c5aeee8', '9bd61e80d5fe7892b77fa5ccc069c825', '修改', 'edie', 'icon-standard-pencil-go', 'Button', 'enable', 'glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.editPurchaseOrder();', '2', '');
+INSERT INTO `t_action` VALUES ('9fb2ca3d443f4377d55bb33dc36bd409', '96f4fcb49e57d6a1a001718d5c5aeee8', '9bd61e80d5fe7892b77fa5ccc069c825', '修改', 'edit', 'icon-standard-pencil-go', 'Button', 'enable', 'glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.editPurchaseOrder();', '2', '');
 INSERT INTO `t_action` VALUES ('9ffc444223f48cb8f88a00c5855a6c99', 'ccec6c46d43b0e7c40ce5c1ffc0cb3e5', '0d7ed154eebe739d81a20da996d68e6b', '修改', 'edit', 'icon-standard-pencil-go', 'Button', 'enable', 'glacier.basicdatas_mgr.purchaseReturnReason_mgr.purchaseReturnReason.editPurchaseReturnReason();', '2', '');
 INSERT INTO `t_action` VALUES ('a124a6716dfb677b0654ce2bb4d36546', '8a2f2500fa46e49dd7ff11b688b6c740', 'ad67aaf12a02906ad088a73410fd097e', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'enable', 'glacier.basicdatas_mgr.companySize_mgr.companySize.delCompanySize();', '3', '');
 INSERT INTO `t_action` VALUES ('a18a84d6a769941ab82dc049814948a0', '16669401121c47c062cac4d11a21522e', '4df3645386cbf2317d35ecf218939b71', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'enable', 'glacier.basicdatas_mgr.warOutType_mgr.warOutType.addWarOutType();', '1', '');
@@ -177,6 +181,7 @@ INSERT INTO `t_action` VALUES ('b8b2a1c40e50439fcb4569d7454513ac', '222561c0716c
 INSERT INTO `t_action` VALUES ('c28dc169ad75cb06b737caa36a4ffd30', '8fc3b6de8076d1e8c3a6514bd29c4c4b', 'c7796dffd9d50588655cfc9d6a297efc', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'enable', 'glacier.basicdatas_mgr.comPaymentType_mgr.comPaymentType.addComPaymentType();', '1', '');
 INSERT INTO `t_action` VALUES ('c443543fd454dd4ef6df28772c36eb39', '00451bcfd707a2b5c3b80704f992dc21', '6659f9987cbbdf0721f8935b4a3d5a36', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'enable', 'glacier.basicdatas_mgr.purchaseReturnedType_mgr.purchaseReturnedType.delPurchaseReturnedType();', '3', '');
 INSERT INTO `t_action` VALUES ('c5388f61718417c695d71deabb1fb7f1', '79d4fbfb8f73e4e21ee67e1d6ad9ff5e', 'efe32f25f6d4eab27c74e3dbcf326b47', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'enable', 'glacier.basicdatas_mgr.basisClient_mgr.basisClient.delBasisClient();', '3', '');
+INSERT INTO `t_action` VALUES ('c5a46f223a3724e1c479e8ecf64e13aa', '904d503fbdeddae78da4db24d8563080', 'da23ee602a07d41e279ffe940cfccf8b', '修改', 'edit', 'icon-standard-pencil-go', 'Button', 'enable', 'glacier.basicdatas_mgr.clientContact_mgr.clientContact.editClientContact();', '2', '');
 INSERT INTO `t_action` VALUES ('c971a7760c5b98501c9e5e7a5598fc15', 'bfe6aa265cb92e35e9920f98a61df508', 'afb1cf326e78fe292af33b76aeef02cd', '修改', 'edit', 'icon-standard-pencil-go', 'Button', 'enable', 'glacier.basicdatas_mgr.goodsList_mgr.goodsList.editGoodsList();', '2', '');
 INSERT INTO `t_action` VALUES ('cab1e5fd5d1bdd3257344d94083b6e0e', '90998bf3c3173da5e8319d70cec8a7ab', 'f664c6028d8cab504f2771fa78d56312', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'enable', 'glacier.basicdatas_mgr.sellReturnReason_mgr.sellReturnReason.addSellReturnReason();', '1', '');
 INSERT INTO `t_action` VALUES ('ccc389b6852eb8f9d17057d433276b09', '66761e0ea9850fd6cdfc59f282de2ebb', '9e374c52fd0ee843ee81b70c8a1b13d2', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'enable', 'glacier.basicdatas_mgr.clientType_mgr.clientType.addClientType();', '1', '');
@@ -203,6 +208,7 @@ INSERT INTO `t_action` VALUES ('e7a71593371bc3ff47f95b340453d13b', 'a4d88b8b3c70
 INSERT INTO `t_action` VALUES ('e7b69a5e675cc63650dd59edb1abe08c', '96f4fcb49e57d6a1a001718d5c5aeee8', '9bd61e80d5fe7892b77fa5ccc069c825', '取消审核', 'cancelAudit', 'icon-standard-pencil-go', 'Button', 'enable', 'glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.cancelAuditPurchaseOrder();', '7', '');
 INSERT INTO `t_action` VALUES ('e91fa4796f1973bab0b7a5bff883eaac', '96f4fcb49e57d6a1a001718d5c5aeee8', 'eda50ccf41c512bcfbc194807e338c45', '修改', 'edit', 'icon-standard-pencil-go', 'Button', 'enable', 'glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.editPurchaseOrderDetail();', '2', '');
 INSERT INTO `t_action` VALUES ('e9c13caa85a6d333581bfd26a8d108d7', 'ea92abb340a62dfd3ecc9b5e4d78c041', '42741ce0beb570a8e14a6bee5b2e9cab', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'enable', 'glacier.basicdatas_mgr.warDeployType_mgr.warDeployType.delWarDeployType();', '3', '');
+INSERT INTO `t_action` VALUES ('edb1cbbfbbc531bfeaee01b0fe77d975', '904d503fbdeddae78da4db24d8563080', 'da23ee602a07d41e279ffe940cfccf8b', '增加', 'add', 'icon-standard-pencil-add', 'Button', 'enable', 'glacier.basicdatas_mgr.clientContact_mgr.clientContact.addClientContact();', '1', '');
 INSERT INTO `t_action` VALUES ('ee6f881272d3da97f893e48a6da97994', 'aa165bf67dadbeedeb780b3e92dcdcdb', 'eb65d0304dc38ac4db140a1c10fdc7d3', '删除', 'del', 'icon-standard-pencil-delete', 'Button', 'enable', 'glacier.basicdatas_mgr.sellReturnType_mgr.sellReturnType.delSellReturnType();', '3', '');
 INSERT INTO `t_action` VALUES ('ef0a9268c8b0b4d3b2cbc283da1a97e5', '96f4fcb49e57d6a1a001718d5c5aeee8', '9bd61e80d5fe7892b77fa5ccc069c825', '结案', 'clo', 'icon-standard-pencil-go', 'Button', 'enable', 'glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.cloPurchaseOrder();', '12', '');
 INSERT INTO `t_action` VALUES ('efdc621a389623f151e9abc582d7df6e', '4cd535b32c8395464ebdd8cca36f3a3a', 'c5cdcd3e45b35765f477502c5b51800d', '修改', 'edit', 'icon-standard-pencil-go', 'Button', 'enable', 'glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.editPurchaseReturn();', '2', '');
@@ -300,6 +306,7 @@ INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '07d7e1fd5
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '0c77cb97fb54089e6b6f89b24d555023', 'PurchaseInvoiceList_add,PurchaseInvoiceList_edit,PurchaseInvoiceList_del');
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '0d5f941c0e815519b859afa0992eda0b', 'DepList_add,DepList_edit,DepList_del,DepList_assign');
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '0eac3f9c7b4e4cdd5e42c56a16c85147', 'ComDeliverTypeList_add,ComDeliverTypeList_edit,ComDeliverTypeList_del');
+INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '14cf54d0d98b03aa15845d63071f9c68', 'SuppliersContactList_add,SuppliersContactList_edit,SuppliersContactList_del');
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '14sdf54157cf483a790f4eea35dsf6f6', null);
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '16635dfa4b5e1dda4fd5d804f430eeec', 'ClientSourceList_add,ClientSourceList_edit,ClientSourceList_del');
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '16669401121c47c062cac4d11a21522e', 'WarOutTypeList_add,WarOutTypeList_edit,WarOutTypeList_del');
@@ -328,10 +335,11 @@ INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '8a2f2500f
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '8c54260cf2f6704a1739503465d9e9cf', 'FinanceReceivableTypeList_add,FinanceReceivableTypeList_edit,FinanceReceivableTypeList_del');
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '8d1aeed3000f03e704609e7ebc5eafb3', null);
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '8fc3b6de8076d1e8c3a6514bd29c4c4b', 'ComPaymentTypeList_add,ComPaymentTypeList_edit,ComPaymentTypeList_del');
+INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '904d503fbdeddae78da4db24d8563080', 'ClientContactList_add,ClientContactList_edit,ClientContactList_del');
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '90998bf3c3173da5e8319d70cec8a7ab', 'SellReturnReasonList_add,SellReturnReasonList_edit,SellReturnReasonList_del');
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '91ca1b4b197688f21b68a72f69e09a8d', 'UserList_add,UserList_edit,UserList_assign');
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '93f0fcfa7cdff069d929723062b53211', 'VariablesList_add,VariablesList_edit,VariablesList_del');
-INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '96f4fcb49e57d6a1a001718d5c5aeee8', 'PurchaseOrderDetailList_add,PurchaseOrderDetailList_edit,PurchaseOrderDetailList_del,PurchaseOrderList_add,PurchaseOrderList_edie,PurchaseOrderList_del,PurchaseOrderList_enable,PurchaseOrderList_disable,PurchaseOrderList_audit,PurchaseOrderList_cancelAudit,PurchaseOrderList_pay,PurchaseOrderList_arr,PurchaseOrderList_ter,PurchaseOrderList_cancelTer,PurchaseOrderList_clo,PurchaseOrderList_cancelClo,PurchaseOrderList_track');
+INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', '96f4fcb49e57d6a1a001718d5c5aeee8', 'PurchaseOrderDetailList_add,PurchaseOrderDetailList_edit,PurchaseOrderDetailList_del,PurchaseOrderList_add,PurchaseOrderList_edit,PurchaseOrderList_del,PurchaseOrderList_enable,PurchaseOrderList_disable,PurchaseOrderList_audit,PurchaseOrderList_cancelAudit,PurchaseOrderList_pay,PurchaseOrderList_arr,PurchaseOrderList_ter,PurchaseOrderList_cancelTer,PurchaseOrderList_clo,PurchaseOrderList_cancelClo,PurchaseOrderList_track');
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', 'a35ca1bb25e1f11898c78eb03332554b', 'WarOccupationTypeList_add,WarOccupationTypeList_edit,WarOccupationTypeList_del');
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', 'a4d88b8b3c70b93d69d0bf24ffb09377', 'SuppliersList_add,SuppliersList_edit,SuppliersList_del');
 INSERT INTO `t_authority` VALUES ('c87dd7161dbf8777c41b8cbfaa985db4', 'aa165bf67dadbeedeb780b3e92dcdcdb', 'SellReturnTypeList_add,SellReturnTypeList_edit,SellReturnTypeList_del');
@@ -418,39 +426,6 @@ INSERT INTO `t_basis_client` VALUES ('2cd9ab8208958194df457bb1f37fc8b3', 'client
 INSERT INTO `t_basis_client` VALUES ('d6e9a6bcddbe5fbf3bb7276d8a6e6e21', 'client2015_01_15_14_07_02', '1afa46b9c1063c4ff333607d6b8042e6', '小米有限公司', '218395643d16d90442db44e298b3496b', '209d91c5102da69db4b2e93cc1f67426', null, null, '26a093f5603e8152077c1f4ce8fc02ad', '管理部', '', '', '', '', '', '', '', '', 'policy3', null, '887acdc7a787d0b1f3f55b22cb5adedd', '', null, null, '', null, null, '中国银行', '62205954464654', '', 'yes', null, null, null, null, null, null, null, '2cd9ab8208958194df457bb1f37fc8b3', '', '8b25651c2d896297530b64e4b80ec503', 'enable', '', null, null, null, null, '超级管理员', '2015-01-15 14:07:02', '超级管理员', '2015-01-15 14:07:02');
 
 -- ----------------------------
--- Table structure for `t_basis_client_contact`
--- ----------------------------
-DROP TABLE IF EXISTS `t_basis_client_contact`;
-CREATE TABLE `t_basis_client_contact` (
-  `client_contact_id` varchar(32) NOT NULL,
-  `client_id` varchar(32) default NULL,
-  `contact_type_id` varchar(32) default NULL,
-  `name` varchar(32) default NULL,
-  `sex` enum('man','woman') default NULL,
-  `department` varchar(32) default NULL,
-  `post` varchar(32) default NULL,
-  `business` varchar(100) default NULL,
-  `work_phone` varchar(32) default NULL,
-  `mobilephone` varchar(32) default NULL,
-  `fox` varchar(32) default NULL,
-  `email` varchar(32) default NULL,
-  `home_phone` varchar(32) default NULL,
-  `adrress` varchar(100) default NULL,
-  `communications` varchar(32) default NULL,
-  `birthday` datetime default NULL,
-  `hobby` varchar(50) default NULL,
-  `number` varchar(32) default NULL,
-  `remark` varchar(255) default NULL,
-  PRIMARY KEY  (`client_contact_id`),
-  KEY `FK_T_BASIS__T_BASIS_C_T_BASIS_` (`client_id`),
-  CONSTRAINT `t_basis_client_contact_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `t_basis_client` (`client_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of t_basis_client_contact
--- ----------------------------
-
--- ----------------------------
 -- Table structure for `t_basis_client_contact_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_basis_client_contact_record`;
@@ -472,45 +447,6 @@ CREATE TABLE `t_basis_client_contact_record` (
 
 -- ----------------------------
 -- Records of t_basis_client_contact_record
--- ----------------------------
-
--- ----------------------------
--- Table structure for `t_contact_person`
--- ----------------------------
-DROP TABLE IF EXISTS `t_contact_person`;
-CREATE TABLE `t_contact_person` (
-  `contact_person_id` varchar(32) NOT NULL,
-  `contact_type_id` varchar(32) default NULL,
-  `supplier_id` varchar(32) default NULL,
-  `name` varchar(32) default NULL,
-  `sex` enum('boy','girl') default NULL,
-  `department` varchar(32) default NULL,
-  `post` varchar(32) default NULL,
-  `responsible_business` varchar(32) default NULL,
-  `work_phone` varchar(32) default NULL,
-  `mobile_telephone` varchar(32) default NULL,
-  `fax` varchar(32) default NULL,
-  `postcode` varchar(32) default NULL,
-  `home_phone` varchar(100) default NULL,
-  `home_adress` varchar(255) default NULL,
-  `msn` varchar(32) default NULL,
-  `qq` varchar(32) default NULL,
-  `birthday` datetime default NULL,
-  `hobby` varchar(32) default NULL,
-  `remark` varchar(255) default NULL,
-  `enabled` enum('enable','disable') default NULL,
-  `creater` varchar(32) default NULL COMMENT 'ö�٣�(����1/����0)',
-  `create_time` datetime default NULL COMMENT '¼��ʱ��',
-  `updater` varchar(32) default NULL COMMENT '����޸���',
-  `update_time` datetime default NULL COMMENT '����޸�ʱ��',
-  PRIMARY KEY  (`contact_person_id`),
-  KEY `FK_ContactPerson_ContactType_ContactTypeId` (`contact_type_id`),
-  KEY `FK_ContactPerson_Suppliers_ContactPersonId` (`supplier_id`),
-  CONSTRAINT `t_contact_person_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `t_suppliers` (`supplier_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of t_contact_person
 -- ----------------------------
 
 -- ----------------------------
@@ -1155,19 +1091,6 @@ CREATE TABLE `t_loginlog` (
 -- ----------------------------
 -- Records of t_loginlog
 -- ----------------------------
-INSERT INTO `t_loginlog` VALUES ('16a8b7526b38b2d9db37234a83364bf0', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2015-01-16 16:41:04', '127.0.0.1[本地]', null, null);
-INSERT INTO `t_loginlog` VALUES ('18b14587882e73113ee1973ddfb50dff', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2015-01-23 09:15:58', '127.0.0.1[本地]', null, null);
-INSERT INTO `t_loginlog` VALUES ('2e040cdf1e93166736d122f7fc71384f', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2015-01-23 16:11:10', '127.0.0.1[本地]', null, null);
-INSERT INTO `t_loginlog` VALUES ('3aa543563ed29df3c47f67feec91afb9', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2015-01-16 16:42:42', '127.0.0.1[本地]', null, null);
-INSERT INTO `t_loginlog` VALUES ('4c621a169336cec5e9efacbdf5370ee0', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2015-01-16 17:20:01', '127.0.0.1[本地]', null, null);
-INSERT INTO `t_loginlog` VALUES ('6ef9868e03ae24aac459c7abd72d4530', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2015-01-16 15:41:29', '127.0.0.1[本地]', null, null);
-INSERT INTO `t_loginlog` VALUES ('732bb6c7e7d7c2fbbeec945e8b3b3a4c', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2015-01-17 10:19:34', '127.0.0.1[本地]', null, null);
-INSERT INTO `t_loginlog` VALUES ('b0b90beaa202c2b29fd307ae4d07d431', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2015-01-23 13:45:16', '127.0.0.1[本地]', null, null);
-INSERT INTO `t_loginlog` VALUES ('bcddc0b166ff28c8c04bbbc99e6b846b', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2015-01-16 13:32:31', '127.0.0.1[本地]', null, null);
-INSERT INTO `t_loginlog` VALUES ('c191d2b3148dfe59e1a7349c01dd0c72', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2015-01-17 09:15:13', '127.0.0.1[本地]', null, null);
-INSERT INTO `t_loginlog` VALUES ('c391a1085cb249ac85d17e23cfda8a61', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2015-01-16 14:25:22', '127.0.0.1[本地]', null, null);
-INSERT INTO `t_loginlog` VALUES ('cb5cd7380a7c132c81108996433d7905', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2015-01-17 09:38:08', '127.0.0.1[本地]', null, null);
-INSERT INTO `t_loginlog` VALUES ('f56d308f1e3c6eb309e68a27c026f972', '8b25651c2d896297530b64e4b80ec503', '超级管理员', '2015-01-16 13:58:20', '127.0.0.1[本地]', null, null);
 
 -- ----------------------------
 -- Table structure for `t_menu`
@@ -1194,6 +1117,7 @@ INSERT INTO `t_menu` VALUES ('07d7e1fd5f95ab20e7cb3090cd8ac7ba', '42294ceb4cbc4d
 INSERT INTO `t_menu` VALUES ('0c77cb97fb54089e6b6f89b24d555023', '8d1aeed3000f03e704609e7ebc5eafb3', 'purchaseInvoice', '采购发票', 'icon-cologne-suppliers', '/do/purchaseInvoice/index.htm', '9', '');
 INSERT INTO `t_menu` VALUES ('0d5f941c0e815519b859afa0992eda0b', '16ac1df11de350c61722dc7b98cecca7', 'dep', '部门管理', 'icon-standard-folder-user', '/do/dep/index.htm', '2', '');
 INSERT INTO `t_menu` VALUES ('0eac3f9c7b4e4cdd5e42c56a16c85147', 'fd696e8607c36c917f546787976f4fa8', 'comDeliverType', '交货方式', 'icon-standard-application-tile-horizontal', '/do/comDeliverType/index.htm', '3', '');
+INSERT INTO `t_menu` VALUES ('14cf54d0d98b03aa15845d63071f9c68', '2afb5ed7e423adf169914f7031af78db', 'suppliersContact', '供应商联系人', 'icon-standard-user', '/do/suppliersContact/index.htm', '4', '');
 INSERT INTO `t_menu` VALUES ('14sdf54157cf483a790f4eea35dsf6f6', null, 'basicdatas', '参数管理', 'icon-standard-application-xp-terminal', '', '12', '');
 INSERT INTO `t_menu` VALUES ('16635dfa4b5e1dda4fd5d804f430eeec', 'd46b0600ead708c4f5827b7082f2490a', 'clientSource', '客户来源', 'icon-standard-group', '/do/clientSource/index.htm', '3', '');
 INSERT INTO `t_menu` VALUES ('16669401121c47c062cac4d11a21522e', '66874136f65e1eb718d4299784f7c7d3', 'warOutType', '出库业务类型', 'icon-standard-brick', '/do/warOutType/index.htm', '2', '');
@@ -1222,6 +1146,7 @@ INSERT INTO `t_menu` VALUES ('8a2f2500fa46e49dd7ff11b688b6c740', 'fd696e8607c36c
 INSERT INTO `t_menu` VALUES ('8c54260cf2f6704a1739503465d9e9cf', '3c56b44e8b5257490094b048877422b3', 'financeReceivableType', '应收类型', 'icon-standard-coins', '/do/financeReceivableType/index.htm', '1', '');
 INSERT INTO `t_menu` VALUES ('8d1aeed3000f03e704609e7ebc5eafb3', null, 'purchase', '采购管理', 'icon-cologne-suppliers', '', '3', '');
 INSERT INTO `t_menu` VALUES ('8fc3b6de8076d1e8c3a6514bd29c4c4b', 'fd696e8607c36c917f546787976f4fa8', 'comPaymentType', '支付方式', 'icon-standard-arrow-switch', '/do/comPaymentType/index.htm', '4', '');
+INSERT INTO `t_menu` VALUES ('904d503fbdeddae78da4db24d8563080', 'd46b0600ead708c4f5827b7082f2490a', 'clientContact', '客户联系人', 'icon-standard-group', '/do/clientContact/index.htm', '4', '');
 INSERT INTO `t_menu` VALUES ('90998bf3c3173da5e8319d70cec8a7ab', '23e47757685c7b53d87b114e0add3966', 'sellReturnReason', '销售退货原因', 'icon-cologne-publish', '/do/sellReturnReason/index.htm', '3', '');
 INSERT INTO `t_menu` VALUES ('91ca1b4b197688f21b68a72f69e09a8d', '16ac1df11de350c61722dc7b98cecca7', 'user', '管理员设置', 'icon-hamburg-hire-me', '/do/user/index.htm', '1', '');
 INSERT INTO `t_menu` VALUES ('93f0fcfa7cdff069d929723062b53211', '14sdf54157cf483a790f4eea35dsf6f6', 'variables', '系统变量', 'icon-standard-layout-content', '/do/variables/index.htm', '12', '');
@@ -1331,173 +1256,6 @@ CREATE TABLE `t_operalog` (
 -- ----------------------------
 -- Records of t_operalog
 -- ----------------------------
-INSERT INTO `t_operalog` VALUES ('057a624f451c9d100d797185c9d8bb43', '供应商档案', '供应商档案列表', '修改', '1', '信息已保存', 'com.glacier.frame.service.basicdatas.SuppliersService', 'editSuppliers', 'SuppliersList_edit', '超级管理员', '2015-01-16 13:39:17');
-INSERT INTO `t_operalog` VALUES ('0a223ab748df4971519fc49f97575c87', '资源管理', '操作列表', '增加', '1', '[终止] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 15:27:51');
-INSERT INTO `t_operalog` VALUES ('0d90aa3e21d4b73276aed90ae938e696', '资源管理', '面板列表', '增加', '1', '[退货货品明细列表] 面板信息已保存', 'com.glacier.frame.service.system.PanelService', 'addPanel', 'PanelList_add', '超级管理员', '2015-01-16 16:02:35');
-INSERT INTO `t_operalog` VALUES ('0e5e512aef3ab445b946c60f59099f2f', '资源管理', '操作列表', '编辑', '1', '[删除] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'editAction', 'ActionList_edit', '超级管理员', '2015-01-17 09:30:18');
-INSERT INTO `t_operalog` VALUES ('0f4a1e38709c06aa5eb457e7e48297d5', '入库业务类型', '入库业务类型列表', '增加', '1', '[组装入库] 入库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarInTypeService', 'addParWarInType', 'WarInTypeList_add', '超级管理员', '2015-01-23 15:01:33');
-INSERT INTO `t_operalog` VALUES ('0fe94dce9b89479de73df6cc6a16b047', '客户级别', '客户级别列表', '删除', '1', '成功删除了[ 3 ]客户等级信息', 'com.glacier.frame.service.basicdatas.ParClientLevelService', 'delParClientLevel', 'ClientLevelList_del', '超级管理员', '2015-01-23 13:16:16');
-INSERT INTO `t_operalog` VALUES ('103580b992e84559baffbc675be7f155', '资源管理', '菜单树', '删除', '1', '成功删除名称为：[ 退货货品明细 ]菜单', 'com.glacier.frame.service.system.MenuService', 'delMenu', 'MenuTree_del', '超级管理员', '2015-01-17 09:32:16');
-INSERT INTO `t_operalog` VALUES ('10738bb926f882045634d38e20099812', '入库业务类型', '入库业务类型列表', '增加', '1', '[临时入库] 入库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarInTypeService', 'addParWarInType', 'WarInTypeList_add', '超级管理员', '2015-01-23 15:01:12');
-INSERT INTO `t_operalog` VALUES ('113c4ce658aea5db47865bd64296c6c8', '部门管理', '部门列表', '增加', '1', '[采购部_B]管理员信息已保存', 'com.glacier.frame.service.system.DepService', 'addDep', 'DepList_add', '超级管理员', '2015-01-15 17:17:47');
-INSERT INTO `t_operalog` VALUES ('11ae928981072560dc5002efa20cf77d', '入库业务类型', '入库业务类型列表', '增加', '1', '[还回入库] 入库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarInTypeService', 'addParWarInType', 'WarInTypeList_add', '超级管理员', '2015-01-23 15:01:53');
-INSERT INTO `t_operalog` VALUES ('12af887349ba7c5f48dfcebfd4302185', '管理员设置', '管理员列表', '修改', '1', '[dongxiaofeng]管理员信息已修改', 'com.glacier.frame.service.system.UserService', 'editUser', 'UserList_edit', '超级管理员', '2015-01-15 17:17:55');
-INSERT INTO `t_operalog` VALUES ('133213222bcfebd5f2a869cecfe1a122', '入库业务类型', '入库业务类型列表', '增加', '1', '[成品入库] 入库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarInTypeService', 'addParWarInType', 'WarInTypeList_add', '超级管理员', '2015-01-23 15:01:44');
-INSERT INTO `t_operalog` VALUES ('14928ef6387f938d14afab2aca673319', '资源管理', '操作列表', '增加', '1', '[启用] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 16:06:31');
-INSERT INTO `t_operalog` VALUES ('14d79864a79239864e9a7495fc765ab7', '管理员设置', '管理员列表', '增加', '1', '[xiaoming]管理员信息已保存', 'com.glacier.frame.service.system.UserService', 'addUser', 'UserList_add', '超级管理员', '2015-01-15 17:22:28');
-INSERT INTO `t_operalog` VALUES ('15962caf44d906143a75d39791906903', '供应商档案', '供应商档案列表', '修改', '1', '信息已保存', 'com.glacier.frame.service.basicdatas.SuppliersService', 'editSuppliers', 'SuppliersList_edit', '超级管理员', '2015-01-22 17:38:30');
-INSERT INTO `t_operalog` VALUES ('171347ee51f307b17cbc0e938cfd26d4', '出库业务类型', '出库业务类型列表', '增加', '1', '[半成品出库] 出库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarOutTypeService', 'addParWarOutType', 'WarOutTypeList_add', '超级管理员', '2015-01-23 14:58:18');
-INSERT INTO `t_operalog` VALUES ('171fa62f30b12936f4432343926eebbf', '资源管理', '操作列表', '编辑', '1', '[增加] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'editAction', 'ActionList_edit', '超级管理员', '2015-01-17 09:20:25');
-INSERT INTO `t_operalog` VALUES ('1783459d2d614039e17a112f8817aba5', '部门管理', '部门列表', '修改', '1', '[销售部_A]部门信息已修改', 'com.glacier.frame.service.system.DepService', 'editDep', 'DepList_edit', '超级管理员', '2015-01-15 17:12:24');
-INSERT INTO `t_operalog` VALUES ('1ab61e1d8604b3096f13a95cb4250667', '入库业务类型', '入库业务类型列表', '增加', '1', '[报废品入库] 入库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarInTypeService', 'addParWarInType', 'WarInTypeList_add', '超级管理员', '2015-01-23 15:00:43');
-INSERT INTO `t_operalog` VALUES ('1ae98e399b5d92164aa61a05998f8f39', '入库业务类型', '入库业务类型列表', '增加', '1', '[采购退货] 入库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarInTypeService', 'addParWarInType', 'WarInTypeList_add', '超级管理员', '2015-01-23 15:00:59');
-INSERT INTO `t_operalog` VALUES ('1b81ce4c8e3a6575e8ca8e1f4afeda90', '资源管理', '操作列表', '增加', '1', '[取消结案] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 15:29:46');
-INSERT INTO `t_operalog` VALUES ('1b9dc3d6906397b5ba53a83d184755ba', '资源管理', '面板列表', '修改', '1', '[到货货品明细列表] 面板信息已保存', 'com.glacier.frame.service.system.PanelService', 'editPanel', 'PanelList_edit', '超级管理员', '2015-01-17 09:30:52');
-INSERT INTO `t_operalog` VALUES ('1be0113b7f8222a995f0b5807c6531c7', '资源管理', '操作列表', '增加', '1', '[增加] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 15:59:49');
-INSERT INTO `t_operalog` VALUES ('1daeee668db6bfdf6bc9c3510c191b45', '货品档案', '货品档案信息列表', '添加', '1', '【方便面】 货物档案信息信息已保存', 'com.glacier.frame.service.basicdatas.GoodsListService', 'addGoodsList', 'GoodsList_add', '超级管理员', '2015-01-23 16:32:53');
-INSERT INTO `t_operalog` VALUES ('1e70afd890fe9639b2ebb1c2f2a09d98', '采购订购合同', '采购订购合同列表', '增加', '1', '信息已保存', 'com.glacier.frame.service.purchase.PurchaseOrderService', 'addPurchaseOrder', 'PurchaseOrderList_add', '超级管理员', '2015-01-23 09:32:20');
-INSERT INTO `t_operalog` VALUES ('2072b98f76a266fd7156e53f1eaa8739', '锁定类型', '锁定类型列表', '增加', '1', '[项目占用] 锁定类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarOccupationTypeService', 'addParWarOccupationType', 'WarOccupationTypeList_add', '超级管理员', '2015-01-23 14:53:34');
-INSERT INTO `t_operalog` VALUES ('21e1fdc7d0f4809e31274f75732d8f11', '部门管理', '部门列表', '修改', '1', '[开发部_A]部门信息已修改', 'com.glacier.frame.service.system.DepService', 'editDep', 'DepList_edit', '超级管理员', '2015-01-15 17:12:16');
-INSERT INTO `t_operalog` VALUES ('22365f52939a574a38664e304375a161', '供应商档案', '供应商档案列表', '修改', '1', '信息已保存', 'com.glacier.frame.service.basicdatas.SuppliersService', 'editSuppliers', 'SuppliersList_edit', '超级管理员', '2015-01-22 17:38:58');
-INSERT INTO `t_operalog` VALUES ('247ad0ac8817824b84db616f4f03725f', '资源管理', '菜单树', '删除', '1', '成功删除名称为：[ 到货货品明细 ]菜单', 'com.glacier.frame.service.system.MenuService', 'delMenu', 'MenuTree_del', '超级管理员', '2015-01-17 09:30:56');
-INSERT INTO `t_operalog` VALUES ('293b92b295eb2a42f148f2d91cc18d4e', '资源管理', '操作列表', '增加', '1', '[增加] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-17 09:33:29');
-INSERT INTO `t_operalog` VALUES ('2b0675a0266dd3f00e391b5ae17e6146', '客户级别', '客户级别列表', '增加', '1', '[3] 客户等级信息已保存', 'com.glacier.frame.service.basicdatas.ParClientLevelService', 'addParClientLevel', 'ClientLevelList_add', '超级管理员', '2015-01-23 13:16:11');
-INSERT INTO `t_operalog` VALUES ('2b193a6da20e41ffdd9d3b9cac0aa241', '资源管理', '操作列表', '删除', '1', '成功删除了[ 增加,修改,删除 ]操作!', 'com.glacier.frame.service.system.ActionService', 'delActions', 'ActionList_del', '超级管理员', '2015-01-17 09:26:20');
-INSERT INTO `t_operalog` VALUES ('2e754ea204f1a4e585821ae7fed44fb3', '角色管理', '角色列表', '授权', '0', '权限信息更新失败', 'com.glacier.frame.service.system.AuthorityService', 'saveRoleAuths', 'RoleList_auth', '超级管理员', '2015-01-17 10:17:48');
-INSERT INTO `t_operalog` VALUES ('2ef6e357df733fb2eb751b3f07e2ba94', '资源管理', '操作列表', '增加', '1', '[增加] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-17 09:27:49');
-INSERT INTO `t_operalog` VALUES ('331b3a9a6091a185d0bbae7786286592', '资源管理', '操作列表', '增加', '1', '[修改] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 16:00:19');
-INSERT INTO `t_operalog` VALUES ('3430402e11a3c5b7e13fc21456d38bf2', '管理员设置', '管理员列表', '增加', '1', '[xiaowang]管理员信息已保存', 'com.glacier.frame.service.system.UserService', 'addUser', 'UserList_add', '超级管理员', '2015-01-15 17:21:56');
-INSERT INTO `t_operalog` VALUES ('3681462b192e51391a2c8ad4d31f5a42', '资源管理', '面板列表', '修改', '1', '[申请货品明细列表] 面板信息已保存', 'com.glacier.frame.service.system.PanelService', 'editPanel', 'PanelList_edit', '超级管理员', '2015-01-17 09:38:27');
-INSERT INTO `t_operalog` VALUES ('37f52c371e931ef85f23353fc6d19b8e', '资源管理', '操作列表', '增加', '1', '[结案] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 15:29:27');
-INSERT INTO `t_operalog` VALUES ('3a2667aa60dd1b00f104b7ccf9ad9029', '行业管理', '行业管理列表', '修改', '1', '【4】行业类型信息已保存', 'com.glacier.frame.service.basicdatas.ParComIndustryService', 'editSuppliersIndustry', 'ComIndustryList_edit', '超级管理员', '2015-01-23 13:45:31');
-INSERT INTO `t_operalog` VALUES ('3ec4dae8603a1cd599ab9b91f1a422a7', '管理员设置', '管理员列表', '增加', '1', '[xiaomi]管理员信息已保存', 'com.glacier.frame.service.system.UserService', 'addUser', 'UserList_add', '超级管理员', '2015-01-15 17:22:52');
-INSERT INTO `t_operalog` VALUES ('403089365e6d84d087cd95ebc0ff4549', '资源管理', '操作列表', '增加', '1', '[禁用] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 16:07:11');
-INSERT INTO `t_operalog` VALUES ('41ab8b57bfd6503b49ef615c4fca74bd', '资源管理', '操作列表', '增加', '1', '[付款] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 15:26:54');
-INSERT INTO `t_operalog` VALUES ('456db21dbda8af1bdd0fcc248144b7f9', '锁定类型', '锁定类型列表', '增加', '1', '[销售订单占用] 锁定类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarOccupationTypeService', 'addParWarOccupationType', 'WarOccupationTypeList_add', '超级管理员', '2015-01-23 14:52:59');
-INSERT INTO `t_operalog` VALUES ('465ef69117c942cafddc7a708902b55c', '资源管理', '操作列表', '增加', '1', '[修改] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-17 09:28:13');
-INSERT INTO `t_operalog` VALUES ('476195f25e901b07ca0f2360a893ad65', '资源管理', '面板列表', '修改', '1', '[到货货品明细列表] 面板信息已保存', 'com.glacier.frame.service.system.PanelService', 'editPanel', 'PanelList_edit', '超级管理员', '2015-01-17 09:38:50');
-INSERT INTO `t_operalog` VALUES ('52828ccc1570777f420e7bcdf5d9bf6e', '资源管理', '操作列表', '增加', '1', '[审核] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 16:12:35');
-INSERT INTO `t_operalog` VALUES ('534bb4dd37a50b97a1b188a153a9b2ba', '资源管理', '操作列表', '增加', '1', '[ 删除] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-17 09:27:02');
-INSERT INTO `t_operalog` VALUES ('53713c1564fe1905af27926d3e21d73c', '资源管理', '操作列表', '增加', '1', '[订购] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-17 10:17:32');
-INSERT INTO `t_operalog` VALUES ('53ae026665e9603e255047313e897305', '资源管理', '操作列表', '增加', '1', '[审核] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 16:07:46');
-INSERT INTO `t_operalog` VALUES ('55bc6b6b57483e4f0e91ee6318770932', '资源管理', '操作列表', '增加', '1', '[退货] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 16:09:04');
-INSERT INTO `t_operalog` VALUES ('57b1c62979783f16991d086e5360dfc1', '入库业务类型', '入库业务类型列表', '增加', '1', '[不合格品入库] 入库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarInTypeService', 'addParWarInType', 'WarInTypeList_add', '超级管理员', '2015-01-23 15:00:30');
-INSERT INTO `t_operalog` VALUES ('5883f779b7743d094f94827d60c062c2', '货品档案', '货品档案信息列表', '添加', '1', '【锥子】 货物档案信息信息已保存', 'com.glacier.frame.service.basicdatas.GoodsListService', 'addGoodsList', 'GoodsList_add', '超级管理员', '2015-01-23 16:35:55');
-INSERT INTO `t_operalog` VALUES ('5bdd25b6ca563a32c347165b0458abca', '出库业务类型', '出库业务类型列表', '增加', '1', '[领用出库] 出库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarOutTypeService', 'addParWarOutType', 'WarOutTypeList_add', '超级管理员', '2015-01-23 14:58:46');
-INSERT INTO `t_operalog` VALUES ('5be7ca6332d9b79664d887cbce39445b', '资源管理', '操作列表', '增加', '1', '[跟踪] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 15:30:07');
-INSERT INTO `t_operalog` VALUES ('5ce2e3e5ee32ca355637796d0eaaf458', '资源管理', '操作列表', '增加', '1', '[修改] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-17 09:29:53');
-INSERT INTO `t_operalog` VALUES ('5d95441000dfba7ffc287cdb8099c83d', '部门管理', '部门列表', '增加', '1', '[采购总部]管理员信息已保存', 'com.glacier.frame.service.system.DepService', 'addDep', 'DepList_add', '超级管理员', '2015-01-15 17:11:13');
-INSERT INTO `t_operalog` VALUES ('5f7e74dab1c7ba5980bd1ea52a354aa2', '行业管理', '行业管理列表', '增加', '1', '【4】 行业类型信息已保存', 'com.glacier.frame.service.basicdatas.ParComIndustryService', 'addSuppliersIndustry', 'ComIndustryList_add', '超级管理员', '2015-01-23 13:45:26');
-INSERT INTO `t_operalog` VALUES ('60ebccb7d84a28ff206227d6b07018f6', '资源管理', '菜单树', '增加', '1', '[退货货品明细] 菜单信息已保存', 'com.glacier.frame.service.system.MenuService', 'addMenu', 'MenuTree_add', '超级管理员', '2015-01-16 16:02:08');
-INSERT INTO `t_operalog` VALUES ('61f5063faab5f38ce1410485361d33ce', '资源管理', '操作列表', '增加', '1', '[启用] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 15:21:06');
-INSERT INTO `t_operalog` VALUES ('63eb651f6f1a28e11ad36d4692cf152a', '资源管理', '面板列表', '修改', '1', '[订购货品明细列表] 面板信息已保存', 'com.glacier.frame.service.system.PanelService', 'editPanel', 'PanelList_edit', '超级管理员', '2015-01-17 09:38:41');
-INSERT INTO `t_operalog` VALUES ('6445846603e1fa718d6dc218e1a72985', '入库业务类型', '入库业务类型列表', '增加', '1', '[调拨入库] 入库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarInTypeService', 'addParWarInType', 'WarInTypeList_add', '超级管理员', '2015-01-23 15:02:35');
-INSERT INTO `t_operalog` VALUES ('6553c43d5bb9e9f6ff4f1656214af2c3', '资源管理', '操作列表', '增加', '1', '[删除] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-17 09:30:15');
-INSERT INTO `t_operalog` VALUES ('693102b56fea482309cc6ca20f69d8bd', '资源管理', '操作列表', '增加', '1', '[禁用] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-17 10:04:01');
-INSERT INTO `t_operalog` VALUES ('69e19ccb631d6379497d2305042304ca', '资源管理', '操作列表', '增加', '1', '[禁用] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 15:24:17');
-INSERT INTO `t_operalog` VALUES ('6a40d148377df5846d94c06c2b586bb7', '出库业务类型', '出库业务类型列表', '增加', '1', '[原材料出库] 出库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarOutTypeService', 'addParWarOutType', 'WarOutTypeList_add', '超级管理员', '2015-01-23 14:58:30');
-INSERT INTO `t_operalog` VALUES ('6ab826e3b8b99bc8dda38f96038195b3', '资源管理', '菜单树', '删除', '1', '成功删除名称为：[ 申请货品明细 ]菜单', 'com.glacier.frame.service.system.MenuService', 'delMenu', 'MenuTree_del', '超级管理员', '2015-01-17 09:26:23');
-INSERT INTO `t_operalog` VALUES ('6b22d0dfa456abb9fd2337467119edd7', '资源管理', '操作列表', '增加', '1', '[取消审核] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-17 10:17:05');
-INSERT INTO `t_operalog` VALUES ('6d1591cb61d5155aceeb45eb630320d3', '资源管理', '菜单树', '修改', '1', '[采购订购合同] 菜单信息已保存', 'com.glacier.frame.service.system.MenuService', 'editMenu', 'MenuTree_edit', '超级管理员', '2015-01-16 16:18:01');
-INSERT INTO `t_operalog` VALUES ('6d8e7ed99034dbc35d45f5ae29c0678b', '出库业务类型', '出库业务类型列表', '增加', '1', '[组装出库] 出库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarOutTypeService', 'addParWarOutType', 'WarOutTypeList_add', '超级管理员', '2015-01-23 14:57:36');
-INSERT INTO `t_operalog` VALUES ('6e5725df423ad723e85eba11c0e3343c', '资源管理', '操作列表', '增加', '1', '[取消终止] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 15:29:04');
-INSERT INTO `t_operalog` VALUES ('6f3a6af78d1fda293955e7be50424ed6', '资源管理', '操作列表', '增加', '1', '[付款] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 16:08:34');
-INSERT INTO `t_operalog` VALUES ('6f806c53668f254ad3e659227796d490', '资源管理', '面板列表', '增加', '1', '[到货货品明细列表] 面板信息已保存', 'com.glacier.frame.service.system.PanelService', 'addPanel', 'PanelList_add', '超级管理员', '2015-01-16 15:58:19');
-INSERT INTO `t_operalog` VALUES ('700be79d41fd65c51107e971624eb4d0', '资源管理', '面板列表', '修改', '1', '[退货货品明细列表] 面板信息已保存', 'com.glacier.frame.service.system.PanelService', 'editPanel', 'PanelList_edit', '超级管理员', '2015-01-17 09:38:54');
-INSERT INTO `t_operalog` VALUES ('70bbcbf4bee41bdbcc37c91baf1c29f4', '资源管理', '操作列表', '增加', '1', '[增加] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-17 09:31:56');
-INSERT INTO `t_operalog` VALUES ('7145911b3d35df28f9f7f463bfbcd4df', '出库业务类型', '出库业务类型列表', '增加', '1', '[销售出库] 出库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarOutTypeService', 'addParWarOutType', 'WarOutTypeList_add', '超级管理员', '2015-01-23 14:59:55');
-INSERT INTO `t_operalog` VALUES ('7205015d11fc05541b056081b758824b', '资源管理', '操作列表', '增加', '1', '[增加] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 16:17:16');
-INSERT INTO `t_operalog` VALUES ('7262c2438465a131f1e124663d16a289', '采购到货', '采购到货列表', '增加', '1', '[arrival2015_01_23_09_16_32] 采购到货信息已保存', 'com.glacier.frame.service.purchase.PurchaseArrivalService', 'addPurchaseArrival', 'PurchaseArrivalList_add', '超级管理员', '2015-01-23 09:16:33');
-INSERT INTO `t_operalog` VALUES ('72bb2307a2696fe807b81ef19230f0d6', '部门管理', '部门列表', '增加', '1', '[销售部_B]管理员信息已保存', 'com.glacier.frame.service.system.DepService', 'addDep', 'DepList_add', '超级管理员', '2015-01-15 17:13:24');
-INSERT INTO `t_operalog` VALUES ('7946b13374984ad6657ae4c0e81ec77e', '管理员设置', '管理员列表', '增加', '1', '[xiaoxie]管理员信息已保存', 'com.glacier.frame.service.system.UserService', 'addUser', 'UserList_add', '超级管理员', '2015-01-15 17:21:36');
-INSERT INTO `t_operalog` VALUES ('797a05d10d28dc7f2b66b829393c3c0f', '资源管理', '操作列表', '增加', '1', '[增加] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 15:56:03');
-INSERT INTO `t_operalog` VALUES ('79a2d4bbe55922726dcd921f5f5b80bf', '资源管理', '面板列表', '修改', '1', '[退货货品明细列表] 面板信息已保存', 'com.glacier.frame.service.system.PanelService', 'editPanel', 'PanelList_edit', '超级管理员', '2015-01-17 09:32:14');
-INSERT INTO `t_operalog` VALUES ('7b8faa4edf5ca3e82bd5d81672f10bbe', '资源管理', '面板列表', '修改', '1', '[采购申请列表] 面板信息已保存', 'com.glacier.frame.service.system.PanelService', 'editPanel', 'PanelList_edit', '超级管理员', '2015-01-17 09:34:22');
-INSERT INTO `t_operalog` VALUES ('7f0ff92977dec3669a0cb1cc16c5b2f5', '资源管理', '面板列表', '修改', '1', '[采购申请列表] 面板信息已保存', 'com.glacier.frame.service.system.PanelService', 'editPanel', 'PanelList_edit', '超级管理员', '2015-01-17 09:38:24');
-INSERT INTO `t_operalog` VALUES ('7fe65224048ded0e798e670631a1ccba', '资源管理', '操作列表', '增加', '1', '[启用] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 16:11:28');
-INSERT INTO `t_operalog` VALUES ('81f5b692f7a115e71b0554e919980f04', '资源管理', '面板列表', '修改', '1', '[订购货品明细列表] 面板信息已保存', 'com.glacier.frame.service.system.PanelService', 'editPanel', 'PanelList_edit', '超级管理员', '2015-01-17 09:29:13');
-INSERT INTO `t_operalog` VALUES ('82747dddb1ba1d14f80c679f4d780758', '资源管理', '操作列表', '增加', '1', '[到货] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 15:27:18');
-INSERT INTO `t_operalog` VALUES ('8351fab6e0a99fd23e216350a545119b', '资源管理', '操作列表', '删除', '1', '成功删除了[ 增加,修改,删除 ]操作!', 'com.glacier.frame.service.system.ActionService', 'delActions', 'ActionList_del', '超级管理员', '2015-01-17 09:30:45');
-INSERT INTO `t_operalog` VALUES ('83c0615c1513815d15029f1fc9adeaaf', '资源管理', '菜单树', '修改', '1', '[采购到货] 菜单信息已保存', 'com.glacier.frame.service.system.MenuService', 'editMenu', 'MenuTree_edit', '超级管理员', '2015-01-16 16:18:15');
-INSERT INTO `t_operalog` VALUES ('842e635a3e827df58823f425e1a82660', '资源管理', '菜单树', '修改', '1', '[采购退货] 菜单信息已保存', 'com.glacier.frame.service.system.MenuService', 'editMenu', 'MenuTree_edit', '超级管理员', '2015-01-16 16:18:30');
-INSERT INTO `t_operalog` VALUES ('8a6b7061d8bd23313c06e09b70610934', '出库业务类型', '出库业务类型列表', '增加', '1', '[借出出库] 出库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarOutTypeService', 'addParWarOutType', 'WarOutTypeList_add', '超级管理员', '2015-01-23 14:58:06');
-INSERT INTO `t_operalog` VALUES ('8b1d2e9f1661c1dfb99a562cae151faf', '资源管理', '操作列表', '增加', '1', '[收货确认] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 16:10:14');
-INSERT INTO `t_operalog` VALUES ('8d4767de82fff707e55d7f5eda6aeac3', '资源管理', '面板列表', '修改', '1', '[订购货品明细列表] 面板信息已保存', 'com.glacier.frame.service.system.PanelService', 'editPanel', 'PanelList_edit', '超级管理员', '2015-01-16 15:58:28');
-INSERT INTO `t_operalog` VALUES ('8d6fbe225dd207e7753076200b28d514', '管理员设置', '管理员列表', '增加', '1', '[dongxiaofeng]管理员信息已保存', 'com.glacier.frame.service.system.UserService', 'addUser', 'UserList_add', '超级管理员', '2015-01-15 17:15:53');
-INSERT INTO `t_operalog` VALUES ('8ee4c1bf63212c4a4a2750f338889cbd', '资源管理', '菜单树', '修改', '1', '[退货货品明细] 菜单信息已保存', 'com.glacier.frame.service.system.MenuService', 'editMenu', 'MenuTree_edit', '超级管理员', '2015-01-16 16:18:47');
-INSERT INTO `t_operalog` VALUES ('8eff86b6ec7125a05a4a535cde1787c6', '部门管理', '部门列表', '增加', '1', '[采购部_A]管理员信息已保存', 'com.glacier.frame.service.system.DepService', 'addDep', 'DepList_add', '超级管理员', '2015-01-15 17:17:25');
-INSERT INTO `t_operalog` VALUES ('8f857e3bcad26ede52ad8fda2771ea05', '角色管理', '角色列表', '授权', '1', '权限信息已保存', 'com.glacier.frame.service.system.AuthorityService', 'saveRoleAuths', 'RoleList_auth', '超级管理员', '2015-01-17 10:18:13');
-INSERT INTO `t_operalog` VALUES ('8f87d7b53942f3ae0a4840ccac5cf126', '供应商档案', '供应商档案列表', '修改', '1', '信息已保存', 'com.glacier.frame.service.basicdatas.SuppliersService', 'editSuppliers', 'SuppliersList_edit', '超级管理员', '2015-01-16 13:35:05');
-INSERT INTO `t_operalog` VALUES ('9122661aa123c32edda35da27e579c00', '资源管理', '面板列表', '增加', '1', '[订购货品明细列表] 面板信息已保存', 'com.glacier.frame.service.system.PanelService', 'addPanel', 'PanelList_add', '超级管理员', '2015-01-16 15:51:32');
-INSERT INTO `t_operalog` VALUES ('931555d560f2e89baecb3bb6e7f4945e', '资源管理', '操作列表', '增加', '0', '操作名称重复', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 15:28:20');
-INSERT INTO `t_operalog` VALUES ('931db6715ec4b6d4cb62cb778e733984', '货品档案', '货品档案信息列表', '添加', '1', '【香水】 货物档案信息信息已保存', 'com.glacier.frame.service.basicdatas.GoodsListService', 'addGoodsList', 'GoodsList_add', '超级管理员', '2015-01-23 16:34:54');
-INSERT INTO `t_operalog` VALUES ('945af14bf8e14d7a8552f8a21a0b6cc1', '资源管理', '面板列表', '增加', '1', '[申请货品明细列表] 面板信息已保存', 'com.glacier.frame.service.system.PanelService', 'addPanel', 'PanelList_add', '超级管理员', '2015-01-16 16:15:27');
-INSERT INTO `t_operalog` VALUES ('96e6b36f8d6b528ce8f2eca7c1a4653f', '货品档案', '货品档案信息列表', '添加', '1', '【青岛啤酒】 货物档案信息信息已保存', 'com.glacier.frame.service.basicdatas.GoodsListService', 'addGoodsList', 'GoodsList_add', '超级管理员', '2015-01-23 16:33:50');
-INSERT INTO `t_operalog` VALUES ('a3d5f308fb863e095b22882f803f3cb3', '角色管理', '角色列表', '授权', '0', '权限信息更新失败', 'com.glacier.frame.service.system.AuthorityService', 'saveRoleAuths', 'RoleList_auth', '超级管理员', '2015-01-17 10:18:21');
-INSERT INTO `t_operalog` VALUES ('a48b798af1b14acdc24f0e751a20393a', '资源管理', '操作列表', '增加', '1', '[启用] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-17 09:56:51');
-INSERT INTO `t_operalog` VALUES ('a4ed6d348a503b4eab06e8a087e927cd', '出库业务类型', '出库业务类型列表', '增加', '1', '[销售退货] 出库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarOutTypeService', 'addParWarOutType', 'WarOutTypeList_add', '超级管理员', '2015-01-23 14:56:24');
-INSERT INTO `t_operalog` VALUES ('a76f7ee9c95c42af2adb4d73780234f1', '行业管理', '行业管理列表', '删除', '1', '成功删除了【 1 】条行业类型信息', 'com.glacier.frame.service.basicdatas.ParComIndustryService', 'delSuppliersIndustry', 'ComIndustryList_del', '超级管理员', '2015-01-23 13:45:38');
-INSERT INTO `t_operalog` VALUES ('aa42ebbb993e4083daab37b9f8320bef', '资源管理', '操作列表', '增加', '1', '[修改] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 16:16:58');
-INSERT INTO `t_operalog` VALUES ('ab83a34bb32831ea0861f3fd06ab6da0', '资源管理', '操作列表', '增加', '1', '[取消审核] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 16:13:21');
-INSERT INTO `t_operalog` VALUES ('ab9bddeda66c8b1eb4b6fdb2a41e0059', '出库业务类型', '出库业务类型列表', '增加', '1', '[调拨出库] 出库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarOutTypeService', 'addParWarOutType', 'WarOutTypeList_add', '超级管理员', '2015-01-23 14:59:44');
-INSERT INTO `t_operalog` VALUES ('aca5dbfc6079f497533f2a84caed58f3', '部门管理', '部门列表', '增加', '1', '[仓库部]管理员信息已保存', 'com.glacier.frame.service.system.DepService', 'addDep', 'DepList_add', '超级管理员', '2015-01-15 17:12:51');
-INSERT INTO `t_operalog` VALUES ('af34d17600547f9f851347302922f102', '资源管理', '面板列表', '修改', '1', '[申请货品明细列表] 面板信息已保存', 'com.glacier.frame.service.system.PanelService', 'editPanel', 'PanelList_edit', '超级管理员', '2015-01-17 09:19:44');
-INSERT INTO `t_operalog` VALUES ('af469b5f1539972fae2d383aeb6efb05', '入库业务类型', '入库业务类型列表', '增加', '1', '[拆分入库] 入库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarInTypeService', 'addParWarInType', 'WarInTypeList_add', '超级管理员', '2015-01-23 15:01:22');
-INSERT INTO `t_operalog` VALUES ('b06956ac93c4adb4aec86ce582bdd554', '资源管理', '操作列表', '编辑', '1', '[取消审核] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'editAction', 'ActionList_edit', '超级管理员', '2015-01-16 15:26:11');
-INSERT INTO `t_operalog` VALUES ('b295cb284b43fe6dea1bdf924c6eb9e1', '出库业务类型', '出库业务类型列表', '增加', '1', '[赠送出库] 出库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarOutTypeService', 'addParWarOutType', 'WarOutTypeList_add', '超级管理员', '2015-01-23 14:59:21');
-INSERT INTO `t_operalog` VALUES ('b340d54f7dc66434e2d4ee154a57f811', '入库业务类型', '入库业务类型列表', '增加', '1', '[获赠入库] 入库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarInTypeService', 'addParWarInType', 'WarInTypeList_add', '超级管理员', '2015-01-23 15:02:13');
-INSERT INTO `t_operalog` VALUES ('b3a377d83aa6146d43bc9818f80d75ca', '资源管理', '操作列表', '增加', '1', '[删除] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-17 09:33:09');
-INSERT INTO `t_operalog` VALUES ('b438d94a7545a377ed984c81eba7e5cd', '资源管理', '菜单树', '增加', '1', '[订购货品明细] 菜单信息已保存', 'com.glacier.frame.service.system.MenuService', 'addMenu', 'MenuTree_add', '超级管理员', '2015-01-16 15:50:58');
-INSERT INTO `t_operalog` VALUES ('bab25b7a50086f4742d2faaa2b9a0bdd', '资源管理', '面板列表', '修改', '1', '[订购货品明细列表] 面板信息已保存', 'com.glacier.frame.service.system.PanelService', 'editPanel', 'PanelList_edit', '超级管理员', '2015-01-17 09:28:55');
-INSERT INTO `t_operalog` VALUES ('bb6dacbeef4350e8a961dfd69a32a094', '管理员设置', '管理员列表', '修改', '1', '[adminTest]管理员信息已修改', 'com.glacier.frame.service.system.UserService', 'editUser', 'UserList_edit', '超级管理员', '2015-01-15 17:15:05');
-INSERT INTO `t_operalog` VALUES ('bd4750b476478b76328a5c7ea5ad1a15', '角色管理', '角色列表', '授权', '1', '权限信息已保存', 'com.glacier.frame.service.system.AuthorityService', 'saveRoleAuths', 'RoleList_auth', '超级管理员', '2015-01-17 10:18:53');
-INSERT INTO `t_operalog` VALUES ('bddf1379f2ffe3f12b45ebf0059a4959', '资源管理', '操作列表', '增加', '1', '[修改] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 15:56:22');
-INSERT INTO `t_operalog` VALUES ('c0abefc7d060a6fbdb7f25f6b1b80357', '资源管理', '操作列表', '增加', '1', '[付款] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 16:13:49');
-INSERT INTO `t_operalog` VALUES ('c3b67ba55c424e278568e7d9e0b328a4', '采购到货', '采购到货列表', '增加', '1', '[arrival2015_01_23_15_31_17] 采购到货信息已保存', 'com.glacier.frame.service.purchase.PurchaseArrivalService', 'addPurchaseArrival', 'PurchaseArrivalList_add', '超级管理员', '2015-01-23 15:31:17');
-INSERT INTO `t_operalog` VALUES ('c5e5ae124840efca438009cd6ae31632', '资源管理', '操作列表', '增加', '1', '[修改] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-17 09:32:52');
-INSERT INTO `t_operalog` VALUES ('c62c60087348ccc063b11532252f81c6', '部门管理', '部门列表', '增加', '1', '[销售部A]管理员信息已保存', 'com.glacier.frame.service.system.DepService', 'addDep', 'DepList_add', '超级管理员', '2015-01-15 17:10:24');
-INSERT INTO `t_operalog` VALUES ('c6c3d9505b28443a49f819054bb80d42', '资源管理', '菜单树', '增加', '1', '[申请货品明细] 菜单信息已保存', 'com.glacier.frame.service.system.MenuService', 'addMenu', 'MenuTree_add', '超级管理员', '2015-01-16 16:15:05');
-INSERT INTO `t_operalog` VALUES ('c75994d8365518bebacb8ea022fab3ce', '资源管理', '操作列表', '增加', '1', '[审核] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-17 10:16:40');
-INSERT INTO `t_operalog` VALUES ('c7843deb91eba7854ae3752213cd6d09', '资源管理', '操作列表', '增加', '1', '[修改] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 16:04:52');
-INSERT INTO `t_operalog` VALUES ('cab683116ccbd001002336692a5481f5', '资源管理', '操作列表', '增加', '1', '[取消审核] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 15:25:53');
-INSERT INTO `t_operalog` VALUES ('caec2a678d696b245e5ab0f88317a4f0', '调拨类型', '调拨类型列表', '增加', '1', '[成品调拨] 调拨类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarDeployTypeService', 'addParWarDeployType', 'WarDeployTypeList_add', '超级管理员', '2015-01-23 14:53:50');
-INSERT INTO `t_operalog` VALUES ('cb3ec341803c5c133f59ebb3dcee7ea8', '入库业务类型', '入库业务类型列表', '增加', '1', '[采购入库] 入库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarInTypeService', 'addParWarInType', 'WarInTypeList_add', '超级管理员', '2015-01-23 15:02:45');
-INSERT INTO `t_operalog` VALUES ('cb790625f052dfed07acb72feb11414e', '货品档案', '货品档案信息列表', '修改', '1', '【仙贝】货物档案信息已保存', 'com.glacier.frame.service.basicdatas.GoodsListService', 'editGoodsList', 'GoodsList_edit', '超级管理员', '2015-01-22 17:41:37');
-INSERT INTO `t_operalog` VALUES ('cc3f35fc39d4fffee96538736f5c38c1', '资源管理', '操作列表', '增加', '1', '[删除] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 16:16:31');
-INSERT INTO `t_operalog` VALUES ('ce55c82d10d6a5470491a78eae79a0da', '入库业务类型', '入库业务类型列表', '增加', '1', '[报溢入库] 入库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarInTypeService', 'addParWarInType', 'WarInTypeList_add', '超级管理员', '2015-01-23 15:02:25');
-INSERT INTO `t_operalog` VALUES ('d46638a2fdd15ceb365cd98a1b1b812b', '资源管理', '菜单树', '增加', '1', '[到货货品明细] 菜单信息已保存', 'com.glacier.frame.service.system.MenuService', 'addMenu', 'MenuTree_add', '超级管理员', '2015-01-16 15:58:00');
-INSERT INTO `t_operalog` VALUES ('d75ab8d47d19db50f971d0fc49762468', '出库业务类型', '出库业务类型列表', '增加', '1', '[零售出库] 出库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarOutTypeService', 'addParWarOutType', 'WarOutTypeList_add', '超级管理员', '2015-01-23 15:00:06');
-INSERT INTO `t_operalog` VALUES ('d7fd5a48345ef1937d7e873801caf0b4', '锁定类型', '锁定类型列表', '增加', '1', '[生产配套占用] 锁定类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarOccupationTypeService', 'addParWarOccupationType', 'WarOccupationTypeList_add', '超级管理员', '2015-01-23 14:53:11');
-INSERT INTO `t_operalog` VALUES ('d809a6c888f7052b8c6895f972225450', '调拨类型', '调拨类型列表', '增加', '1', '[半成品调拨] 调拨类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarDeployTypeService', 'addParWarDeployType', 'WarDeployTypeList_add', '超级管理员', '2015-01-23 14:54:10');
-INSERT INTO `t_operalog` VALUES ('d896a0eb01e3d821951e5b19b77a5891', '资源管理', '操作列表', '删除', '1', '成功删除了[ 增加,修改,删除 ]操作!', 'com.glacier.frame.service.system.ActionService', 'delActions', 'ActionList_del', '超级管理员', '2015-01-17 09:32:08');
-INSERT INTO `t_operalog` VALUES ('d8fdba8e0a2062e125e110ad15933db8', '资源管理', '操作列表', '增加', '1', '[取消审核] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 16:08:11');
-INSERT INTO `t_operalog` VALUES ('dea79282210ce46bcd5f839732cd79f4', '资源管理', '操作列表', '增加', '1', '[修改] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-17 09:31:19');
-INSERT INTO `t_operalog` VALUES ('e12eb579a77cea7fca11291ceeec1356', '调拨类型', '调拨类型列表', '增加', '1', '[其它调拨] 调拨类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarDeployTypeService', 'addParWarDeployType', 'WarDeployTypeList_add', '超级管理员', '2015-01-23 14:54:20');
-INSERT INTO `t_operalog` VALUES ('e3e54cd0cb61d7919d9d774a7b0f8c52', '资源管理', '操作列表', '增加', '1', '[增加] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 16:04:08');
-INSERT INTO `t_operalog` VALUES ('e44302c5f57994ca1c178bb6bf6f2627', '资源管理', '面板列表', '修改', '1', '[订购货品明细列表] 面板信息已保存', 'com.glacier.frame.service.system.PanelService', 'editPanel', 'PanelList_edit', '超级管理员', '2015-01-17 09:34:37');
-INSERT INTO `t_operalog` VALUES ('e77c7e1c91396cfeb7a9d701b286c24c', '角色管理', '角色列表', '授权', '1', '权限信息已保存', 'com.glacier.frame.service.system.AuthorityService', 'saveRoleAuths', 'RoleList_auth', '超级管理员', '2015-01-16 16:21:58');
-INSERT INTO `t_operalog` VALUES ('e9afb9e55cadf96a9cab768461c44007', '部门管理', '部门列表', '增加', '1', '[财务部]管理员信息已保存', 'com.glacier.frame.service.system.DepService', 'addDep', 'DepList_add', '超级管理员', '2015-01-15 17:11:45');
-INSERT INTO `t_operalog` VALUES ('eab036740f89260f0aa2b39c93d92fa9', '资源管理', '菜单树', '修改', '1', '[到货货品明细] 菜单信息已保存', 'com.glacier.frame.service.system.MenuService', 'editMenu', 'MenuTree_edit', '超级管理员', '2015-01-16 16:18:25');
-INSERT INTO `t_operalog` VALUES ('ec508a554f93fa5b2720d7e62a1ebcff', '资源管理', '菜单树', '删除', '1', '成功删除名称为：[ 订购货品明细 ]菜单', 'com.glacier.frame.service.system.MenuService', 'delMenu', 'MenuTree_del', '超级管理员', '2015-01-17 09:29:02');
-INSERT INTO `t_operalog` VALUES ('ed8150f0f7754f2e4dcb18ce1a5447c6', '资源管理', '菜单树', '修改', '1', '[订购货品明细] 菜单信息已保存', 'com.glacier.frame.service.system.MenuService', 'editMenu', 'MenuTree_edit', '超级管理员', '2015-01-16 16:18:05');
-INSERT INTO `t_operalog` VALUES ('efe9523a7a0fa23cbc2f93f1c9ff3d57', '资源管理', '操作列表', '增加', '1', '[删除] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-17 09:31:40');
-INSERT INTO `t_operalog` VALUES ('f12edc2addb5d7df3034b271ff744d81', '资源管理', '操作列表', '增加', '1', '[删除] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 16:00:41');
-INSERT INTO `t_operalog` VALUES ('f23b99f4388e2e20a459312d5189dde8', '资源管理', '操作列表', '增加', '1', '[删除] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 15:56:43');
-INSERT INTO `t_operalog` VALUES ('f37972b9b2197bae3daea1f27f5511cc', '资源管理', '菜单树', '修改', '1', '[采购发票] 菜单信息已保存', 'com.glacier.frame.service.system.MenuService', 'editMenu', 'MenuTree_edit', '超级管理员', '2015-01-16 16:18:51');
-INSERT INTO `t_operalog` VALUES ('f56726333a64fa3767f6f735ab37e8ba', '资源管理', '操作列表', '增加', '1', '[禁用] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 16:11:55');
-INSERT INTO `t_operalog` VALUES ('f6463405e804f319ef454b6b077f94e7', '采购订购合同', '采购订购合同列表', '增加', '1', '信息已保存', 'com.glacier.frame.service.purchase.PurchaseOrderService', 'addPurchaseOrder', 'PurchaseOrderList_add', '超级管理员', '2015-01-23 09:18:16');
-INSERT INTO `t_operalog` VALUES ('f657ac1a15d80aa118f07706275c1d54', '出库业务类型', '出库业务类型列表', '增加', '1', '[拆分出库] 出库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarOutTypeService', 'addParWarOutType', 'WarOutTypeList_add', '超级管理员', '2015-01-23 14:56:34');
-INSERT INTO `t_operalog` VALUES ('f82dbd1cd79b15a24000917452607deb', '锁定类型', '锁定类型列表', '增加', '1', '[客户占用] 锁定类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarOccupationTypeService', 'addParWarOccupationType', 'WarOccupationTypeList_add', '超级管理员', '2015-01-23 14:53:23');
-INSERT INTO `t_operalog` VALUES ('f8ce00564af64984828cfdcde40c30fd', '资源管理', '操作列表', '增加', '1', '[删除] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 16:05:16');
-INSERT INTO `t_operalog` VALUES ('fa60d5989d5eb78f607dfdd698bf047a', '资源管理', '操作列表', '增加', '1', '[增加] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-17 09:30:33');
-INSERT INTO `t_operalog` VALUES ('fba43869ef7d9c03f5448778c9980eab', '资源管理', '操作列表', '编辑', '1', '[启用] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'editAction', 'ActionList_edit', '超级管理员', '2015-01-16 15:21:14');
-INSERT INTO `t_operalog` VALUES ('fc49848fa44f555d6487c494a51a96a5', '资源管理', '操作列表', '增加', '1', '[取消收货确认] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 16:10:49');
-INSERT INTO `t_operalog` VALUES ('fc5dd3b99997cae9f24b86062e1311b8', '资源管理', '面板列表', '修改', '1', '[采购订购合同列表] 面板信息已保存', 'com.glacier.frame.service.system.PanelService', 'editPanel', 'PanelList_edit', '超级管理员', '2015-01-17 09:38:36');
-INSERT INTO `t_operalog` VALUES ('fd3883c4ed0c230058f33b9e893a7861', '资源管理', '面板列表', '修改', '1', '[采购订购合同列表] 面板信息已保存', 'com.glacier.frame.service.system.PanelService', 'editPanel', 'PanelList_edit', '超级管理员', '2015-01-17 09:34:32');
-INSERT INTO `t_operalog` VALUES ('fef530cde97c437a85a840e8eb299222', '资源管理', '操作列表', '增加', '1', '[审核] 操作信息已保存', 'com.glacier.frame.service.system.ActionService', 'addAction', 'ActionList_add', '超级管理员', '2015-01-16 15:24:47');
-INSERT INTO `t_operalog` VALUES ('ff32356c07686c5e190624db6f036e8f', '出库业务类型', '出库业务类型列表', '增加', '1', '[报损出库] 出库业务类型信息已保存', 'com.glacier.frame.service.basicdatas.ParWarOutTypeService', 'addParWarOutType', 'WarOutTypeList_add', '超级管理员', '2015-01-23 14:59:35');
-INSERT INTO `t_operalog` VALUES ('ff32bd3212abfca7965b0007b0c9d3a7', '部门管理', '部门列表', '增加', '1', '[销售总部]管理员信息已保存', 'com.glacier.frame.service.system.DepService', 'addDep', 'DepList_add', '超级管理员', '2015-01-15 17:09:51');
-INSERT INTO `t_operalog` VALUES ('ffa05e365a6d8b8943a1837b5bf42c16', '资源管理', '操作列表', '删除', '1', '成功删除了[ 增加,修改,删除 ]操作!', 'com.glacier.frame.service.system.ActionService', 'delActions', 'ActionList_del', '超级管理员', '2015-01-17 09:28:49');
 
 -- ----------------------------
 -- Table structure for `t_panel`
@@ -1554,11 +1312,13 @@ INSERT INTO `t_panel` VALUES ('af5f8e8847920dc7fd6347e3a4e9c467', '295ffaf17338b
 INSERT INTO `t_panel` VALUES ('afb1cf326e78fe292af33b76aeef02cd', 'bfe6aa265cb92e35e9920f98a61df508', '货品档案信息列表', 'GoodsList', '1');
 INSERT INTO `t_panel` VALUES ('bbab3b6621262de4ca87aee3025b8966', '801ecf764a95da45ccbd194800c0eeeb', '仓库列表', 'WarehouseList', '1');
 INSERT INTO `t_panel` VALUES ('bbf240fc8c53886e327ff15976026945', '0d5f941c0e815519b859afa0992eda0b', '部门列表', 'DepList', '1');
+INSERT INTO `t_panel` VALUES ('bc2d2f30667d8a327596e8cb9f6bd7fe', '14cf54d0d98b03aa15845d63071f9c68', '供应商联系人列表', 'SuppliersContactList', '1');
 INSERT INTO `t_panel` VALUES ('c2a06009f4a31f5c63c6631a869ad813', 'c9845e00a5b709d5659d4011119daa67', '供应商级别', 'SuppliersGradeList', '1');
 INSERT INTO `t_panel` VALUES ('c5cdcd3e45b35765f477502c5b51800d', '4cd535b32c8395464ebdd8cca36f3a3a', '采购退货列表', 'PurchaseReturnList', '1');
 INSERT INTO `t_panel` VALUES ('c7796dffd9d50588655cfc9d6a297efc', '8fc3b6de8076d1e8c3a6514bd29c4c4b', '支付方式列表', 'ComPaymentTypeList', '1');
 INSERT INTO `t_panel` VALUES ('cef00aa1a7ab2338e5bb4e85e311af6f', 'ebd8d76ac65eea1c8d65ac5c14da27b0', '行业管理列表', 'ComIndustryList', '1');
 INSERT INTO `t_panel` VALUES ('d2b941bdcab9ab3bfd214e6c19ae7105', '89ed0cefb773a85b9afdc28c70cb7f70', '库存货品分类列表', 'WarGoodsTypeList', '1');
+INSERT INTO `t_panel` VALUES ('da23ee602a07d41e279ffe940cfccf8b', '904d503fbdeddae78da4db24d8563080', '客户联系人列表', 'ClientContactList', '1');
 INSERT INTO `t_panel` VALUES ('db267d978539cb0f87dc55a9dc1a25f7', '97373f4ec8138e3a74a8a73f90e285f4', '采购类型列表', 'PurchaseType_List', '1');
 INSERT INTO `t_panel` VALUES ('e469eecb4bd133c072f247d0d9635979', '222561c0716cce27e6fc8e82eef0bce5', '采购申请列表', 'PurchaseRequisitionList', '1');
 INSERT INTO `t_panel` VALUES ('e6784ccad10e3414b99b77b303a338c7', '93f0fcfa7cdff069d929723062b53211', '变量列表', 'VariablesList', '1');
@@ -1644,7 +1404,7 @@ CREATE TABLE `t_parameter_optgroup_value` (
 -- ----------------------------
 -- Records of t_parameter_optgroup_value
 -- ----------------------------
-INSERT INTO `t_parameter_optgroup_value` VALUES ('02df4e5c07bb38221b41c9c74448fd8f', '87e805fcf0c779b8f57fde22d819e2db', 'secret', '保密', 'enable', '3', '', '8b25651c2d896297530b64e4b80ec503', '2014-02-21 10:55:17', '8b25651c2d896297530b64e4b80ec503', '2014-02-21 10:55:17');
+INSERT INTO `t_parameter_optgroup_value` VALUES ('02df4e5c07bb38221b41c9c74448fd8f', '87e805fcf0c779b8f57fde22d819e2db', 'secret', '保密', 'enable', '3', '', '8b25651c2d896297530b64e4b80ec503', '2014-02-21 10:55:17', '8b25651c2d896297530b64e4b80ec503', '2015-01-29 17:48:28');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('04f64bb491caa38214eaf553872cbb5a', '2fab4b191e528e002329f82c8493c663', 'policy1', '参考销售价格一', 'enable', '1', '', '8b25651c2d896297530b64e4b80ec503', '2015-01-09 17:59:52', '8b25651c2d896297530b64e4b80ec503', '2015-01-09 17:59:52');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('07542b2a1098fa1ceb03c3f604c5cc7f', '2fab4b191e528e002329f82c8493c663', 'policy3', '参考销售价格三', 'enable', '3', '', '8b25651c2d896297530b64e4b80ec503', '2015-01-12 08:49:14', '8b25651c2d896297530b64e4b80ec503', '2015-01-12 08:49:14');
 INSERT INTO `t_parameter_optgroup_value` VALUES ('0d67e476b47a77648bc35c1c4be0ddb3', 'df83e491aacd7d3c425db1dd254805c9', 'notcommitment', '我方承担不摊成本', 'enable', '2', '', '8b25651c2d896297530b64e4b80ec503', '2015-01-15 15:21:24', '8b25651c2d896297530b64e4b80ec503', '2015-01-15 15:21:24');
@@ -1730,6 +1490,46 @@ CREATE TABLE `t_parameter_system_variables` (
 -- Records of t_parameter_system_variables
 -- ----------------------------
 INSERT INTO `t_parameter_system_variables` VALUES ('4css921507de7b121d37b460d65b5g', '参数说明', '输入提示', '1.00', '变量名', 'input', '测试数据', '8b25651c2d896297530b64e4b80ec503', '2014-02-17 15:22:26', '8b25651c2d896297530b64e4b80ec503', '2014-08-18 17:36:01');
+
+-- ----------------------------
+-- Table structure for `t_par_client_contact`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_par_client_contact`;
+CREATE TABLE `t_par_client_contact` (
+  `client_contact_id` varchar(32) NOT NULL,
+  `client_id` varchar(32) default NULL,
+  `contact_type_id` varchar(32) default NULL,
+  `name` varchar(32) default NULL,
+  `sex` enum('man','secret','woman') default NULL,
+  `department` varchar(32) default NULL,
+  `post` varchar(32) default NULL,
+  `business` varchar(100) default NULL,
+  `work_phone` varchar(32) default NULL,
+  `mobilephone` varchar(32) default NULL,
+  `fox` varchar(32) default NULL,
+  `email` varchar(32) default NULL,
+  `home_phone` varchar(32) default NULL,
+  `adrress` varchar(100) default NULL,
+  `communications` varchar(32) default NULL,
+  `birthday` datetime default NULL,
+  `hobby` varchar(50) default NULL,
+  `number` varchar(32) default NULL,
+  `remark` varchar(255) default NULL,
+  `enabled` enum('enable','disable') default NULL,
+  `creater` varchar(32) default NULL,
+  `create_time` datetime default NULL,
+  `updater` varchar(32) default NULL,
+  `update_time` datetime default NULL,
+  PRIMARY KEY  (`client_contact_id`),
+  KEY `FK_T_BASIS__T_BASIS_C_T_BASIS_` (`client_id`),
+  CONSTRAINT `t_par_client_contact_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `t_basis_client` (`client_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_par_client_contact
+-- ----------------------------
+INSERT INTO `t_par_client_contact` VALUES ('68801e71df03cdfa384954d7ac169580', '2cd9ab8208958194df457bb1f37fc8b3', '0c3fec9ff1e47a787d6d9d4ae426df53', '小方', 'secret', '开发部', '经理', '开发', '13486464', '7866', '786', '5564@qq.com', '07552655', '珠海市', '65656', '2015-01-30 00:00:00', '打篮球', '8', '', 'enable', '超级管理员', '2015-01-30 14:52:12', '超级管理员', '2015-01-30 15:11:09');
+INSERT INTO `t_par_client_contact` VALUES ('8c1d7da7be98de6417fa2c7cd7b7c7c6', '2cd9ab8208958194df457bb1f37fc8b3', '0c3fec9ff1e47a787d6d9d4ae426df53', '小古', 'man', '管理', '员工', '管理', '1341388', '32', '', '656@qq.com', '', '', '', '2015-01-30 00:00:00', '', '3', '', 'enable', '超级管理员', '2015-01-30 15:13:08', '超级管理员', '2015-01-30 15:13:08');
 
 -- ----------------------------
 -- Table structure for `t_par_client_level`
@@ -2252,6 +2052,47 @@ CREATE TABLE `t_par_sell_type` (
 -- ----------------------------
 INSERT INTO `t_par_sell_type` VALUES ('4e386bb2e2983711edb979c801c184be', null, '普通销售', '2', 'enable', '超级管理员', '2015-01-15 13:35:29', '超级管理员', '2015-01-15 13:35:29');
 INSERT INTO `t_par_sell_type` VALUES ('db35c992dabff789b515283758f8771b', null, '促销销售', '1', 'enable', '超级管理员', '2015-01-15 13:35:41', '超级管理员', '2015-01-15 13:35:41');
+
+-- ----------------------------
+-- Table structure for `t_par_suppliers_contact`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_par_suppliers_contact`;
+CREATE TABLE `t_par_suppliers_contact` (
+  `supplier_contact_id` varchar(32) NOT NULL,
+  `contact_type_id` varchar(32) default NULL,
+  `supplier_id` varchar(32) default NULL,
+  `name` varchar(32) default NULL,
+  `sex` enum('man','secret','woman') default NULL,
+  `department` varchar(32) default NULL,
+  `post` varchar(32) default NULL,
+  `responsible_business` varchar(32) default NULL,
+  `work_phone` varchar(32) default NULL,
+  `mobile_telephone` varchar(32) default NULL,
+  `fax` varchar(32) default NULL,
+  `postcode` varchar(32) default NULL,
+  `home_phone` varchar(100) default NULL,
+  `home_adress` varchar(255) default NULL,
+  `msn` varchar(32) default NULL,
+  `qq` varchar(32) default NULL,
+  `birthday` datetime default NULL,
+  `hobby` varchar(32) default NULL,
+  `remark` varchar(255) default NULL,
+  `enabled` enum('enable','disable') default NULL,
+  `creater` varchar(32) default NULL COMMENT 'ö�٣�(����1/����0)',
+  `create_time` datetime default NULL COMMENT '¼��ʱ��',
+  `updater` varchar(32) default NULL COMMENT '����޸���',
+  `update_time` datetime default NULL COMMENT '����޸�ʱ��',
+  PRIMARY KEY  (`supplier_contact_id`),
+  KEY `FK_ContactPerson_ContactType_ContactTypeId` (`contact_type_id`),
+  KEY `FK_ContactPerson_Suppliers_ContactPersonId` (`supplier_id`),
+  CONSTRAINT `t_par_suppliers_contact_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `t_suppliers` (`supplier_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_par_suppliers_contact
+-- ----------------------------
+INSERT INTO `t_par_suppliers_contact` VALUES ('3c33a5569a525aed48bb41cdb490757a', '6a77849f97c648181e98a8cf3fcd10b9', '983369162c230830eb8d8e9a167953b3', '冰冰', 'secret', '管理', '管理', '33', '1347897494', '32365965', '62226', '455', '', '', '', '', '2015-01-30 00:00:00', '', '', 'enable', '超级管理员', '2015-01-30 15:12:15', '超级管理员', '2015-01-30 15:12:15');
+INSERT INTO `t_par_suppliers_contact` VALUES ('7fc0cf5bd635f4e00f3b96e3599a794a', '6a77849f97c648181e98a8cf3fcd10b9', '4d5ffdf8f36018a270d58bc98916b267', '小明', 'man', '经理', '经理', '提供物品', '13411379365', '经理', '6554654', '406592176@qq.com', '75520155', '珠海市', '55665', '54584878', '2015-01-30 00:00:00', '篮球', '经理', 'enable', '超级管理员', '2015-01-30 13:56:25', '超级管理员', '2015-01-30 15:11:31');
 
 -- ----------------------------
 -- Table structure for `t_par_suppliers_grade`
@@ -3816,8 +3657,8 @@ CREATE TABLE `t_suppliers` (
 -- ----------------------------
 -- Records of t_suppliers
 -- ----------------------------
-INSERT INTO `t_suppliers` VALUES ('4d5ffdf8f36018a270d58bc98916b267', '100002', '广东省', '2000.0000', '顺风快递', '53a50c1ba48cd25b7a3b5a0d5f5e8f88', '0755-3628820', '0755-3628820', 'shunfeng.com', 'shunfeng@qq.com', '珠海市', '珠海市香洲区', '919800', '3b9af2f164cc3616ee06d75b97ac254d', '50a7920690592c804ad32930a8db2224', '387f87a6586d859f15feb4c9b5b45f55', '1fa43af341d27306f4165d105b15fe71', '运输', '1b63381cdd32c07378dbaeaedb28359d', null, '1000000.0000', '小王', '高', '中国农业银行', '622058155546120525', '111455511', '2015-01-22 00:00:00', '', 'enable', null, null, null, null, '', '超级管理员', '2015-01-15 14:03:17', '超级管理员', '2015-01-22 17:38:30');
-INSERT INTO `t_suppliers` VALUES ('983369162c230830eb8d8e9a167953b3', '100001', '广东省', '1000.0000', '珠海小木设备有限公司', '541eb3706bd20afd7913a4bfff7c5c86', '020-3628802', '', '', '', '珠海市', '珠海市香洲区唐家湾镇', '525100', 'a53010358cafd665b7bd76784c64e4a0', '0fd0649d217072fca2a6a4e656f2f105', '887acdc7a787d0b1f3f55b22cb5adedd', '1fa43af341d27306f4165d105b15fe71', '', '1b63381cdd32c07378dbaeaedb28359d', null, '50000.0000', '小董', '高', '中国工商银行', '622062220551022214', '03258411551', '2015-01-22 00:00:00', '', 'enable', null, null, null, null, '', '超级管理员', '2015-01-15 14:00:38', '超级管理员', '2015-01-22 17:38:58');
+INSERT INTO `t_suppliers` VALUES ('4d5ffdf8f36018a270d58bc98916b267', '100002', '广东省', '2000.0000', '顺风快递', '5acc068d2912a6bf8839ab3a363587b9', '0755-3628820', '0755-3628820', 'shunfeng.com', 'shunfeng@qq.com', '珠海市', '珠海市香洲区', '919800', '0a2c5de76d99e3f455b7b23f9ac96605', '0fd0649d217072fca2a6a4e656f2f105', '35ac1a67127dfb96e5fe436f968f2a31', '0398742afbc7ff3b7c464546fbf7c2d9', '运输', '26a093f5603e8152077c1f4ce8fc02ad', null, '1000000.0000', '小王', '高', '中国农业银行', '622058155546120525', '111455511', '2015-01-30 00:00:00', '', 'enable', null, null, null, null, '', '超级管理员', '2015-01-15 14:03:17', '超级管理员', '2015-01-30 15:13:29');
+INSERT INTO `t_suppliers` VALUES ('983369162c230830eb8d8e9a167953b3', '100001', '广东省', '1000.0000', '珠海小木设备有限公司', '541eb3706bd20afd7913a4bfff7c5c86', '020-3628802', '', '', '', '珠海市', '珠海市香洲区唐家湾镇', '525100', '4f070400fdbb690247a03434e2c5d877', '0fd0649d217072fca2a6a4e656f2f105', '35ac1a67127dfb96e5fe436f968f2a31', '1fa43af341d27306f4165d105b15fe71', '', '26a093f5603e8152077c1f4ce8fc02ad', null, '50000.0000', '小董', '高', '中国工商银行', '622062220551022214', '03258411551', '2015-01-30 00:00:00', '', 'enable', null, null, null, null, '', '超级管理员', '2015-01-15 14:00:38', '超级管理员', '2015-01-30 14:08:16');
 
 -- ----------------------------
 -- Table structure for `t_user`
@@ -3852,7 +3693,7 @@ INSERT INTO `t_user` VALUES ('546aa3d14b0f8d8af3f31bd761454980', 'dongxiaofeng',
 INSERT INTO `t_user` VALUES ('62717e26384e41f4a7209e5cbefbc3a8', 'xiaomi', '小米', 'c2ca9e8e5e11c20cb5a51c657e6add86f71a9ee8', '8489385d4c74e47f1a3d77c9932644a9', 'da140f4b69f398f9', 'enable', 'custom', '56654654@qq.com', null, '', null, null, '0', '8b25651c2d896297530b64e4b80ec503', '2015-01-15 17:22:52');
 INSERT INTO `t_user` VALUES ('6a28fdc7af46a33ba7ca10910e1e33b1', 'xiaoming', '小明', 'ed2e3b949228ed0651807541e08ee14e99253dd8', '5484ccad10e3414b99b77b303as62', '537cfb777b628c78', 'enable', 'custom', 'xiaomi@qq.com', null, '', null, null, '0', '8b25651c2d896297530b64e4b80ec503', '2015-01-15 17:22:28');
 INSERT INTO `t_user` VALUES ('796684d2d92d636f3ef7f7b05452e001', 'xiaoxie', '小谢', 'e767737399257cd5d8b763961cac15b10ed8f2b1', '9aadf56ac5f8ba2a7c6945aa31d1f2e8', 'e8c9971d56ffe61f', 'enable', 'custom', '654545@qq.com', null, '', null, null, '0', '8b25651c2d896297530b64e4b80ec503', '2015-01-15 17:21:36');
-INSERT INTO `t_user` VALUES ('8b25651c2d896297530b64e4b80ec503', 'admin', '超级管理员', '5dc10e7826e648ec6f136974c38f81d0e5e1d0ae', '1ff32f3ab5bd95584a429130956fecea', 'e03b1b95ceff4db6', 'enable', 'admin', 'admin@glacier.cn', null, null, '2015-01-23 16:11:10', '127.0.0.1[本地]', '1067', '8b25651c2d896297530b64e4b80ec503', '2014-02-27 02:58:02');
+INSERT INTO `t_user` VALUES ('8b25651c2d896297530b64e4b80ec503', 'admin', '超级管理员', '5dc10e7826e648ec6f136974c38f81d0e5e1d0ae', '1ff32f3ab5bd95584a429130956fecea', 'e03b1b95ceff4db6', 'enable', 'admin', 'admin@glacier.cn', null, null, '2015-01-30 14:38:55', '127.0.0.1[本地]', '1084', '8b25651c2d896297530b64e4b80ec503', '2014-02-27 02:58:02');
 INSERT INTO `t_user` VALUES ('b3c392662caa88d95aeda0ac72ec5cc2', 'xiaowang', '小王', 'bec3f1905a46ac3fc2254b20a4e01e039d2358b9', '8ed000a5781bcfb2448a0dd5067ea709', 'f479bd75d16f6ffe', 'enable', 'custom', '2165456456@qq.com', null, '', null, null, '0', '8b25651c2d896297530b64e4b80ec503', '2015-01-15 17:21:56');
 INSERT INTO `t_user` VALUES ('d31a15b0c9abe32744dc16203b9547d8', 'administrators', '客户管理员', 'f418eabf12e35e6112d8783ef6751c0da68782b5', '1ff32f3ab5bd95584a429130956fecea', 'd5a18894f8d85631', 'enable', 'custom', 'administrators@qq.com', null, '后台管理员', null, null, '0', '8b25651c2d896297530b64e4b80ec503', '2014-07-28 16:30:17');
 INSERT INTO `t_user` VALUES ('d6dc13121742a3b331dcb6f93d4f4bce', 'adminTest', '客户管理员', 'd7d62bc0a343ffea509247f1a7c92120e762771d', '1ff32f3ab5bd95584a429130956fecea', 'baaa252597ec918e', 'enable', 'custom', 'adminTest@163.com', null, '客户、测试使用账号', '2014-08-04 17:53:34', '127.0.0.1[本地]', '4', '8b25651c2d896297530b64e4b80ec503', '2014-07-14 13:40:42');

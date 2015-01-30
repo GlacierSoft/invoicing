@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.glacier.frame.dao.basicdatas.ParSuppliersContactMapper" >
+  <resultMap id="BaseResultMap" type="com.glacier.frame.entity.basicdatas.ParSuppliersContact" >
+    <id column="temp_par_suppliers_contact_supplier_contact_id" property="supplierContactId" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_contact_contact_type_id" property="contactTypeId" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_contact_supplier_id" property="supplierId" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_contact_name" property="name" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_contact_sex" property="sex" jdbcType="CHAR" />
+    <result column="temp_par_suppliers_contact_department" property="department" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_contact_post" property="post" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_contact_responsible_business" property="responsibleBusiness" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_contact_work_phone" property="workPhone" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_contact_mobile_telephone" property="mobileTelephone" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_contact_fax" property="fax" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_contact_postcode" property="postcode" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_contact_home_phone" property="homePhone" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_contact_home_adress" property="homeAdress" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_contact_msn" property="msn" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_contact_qq" property="qq" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_contact_birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="temp_par_suppliers_contact_hobby" property="hobby" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_contact_remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_contact_enabled" property="enabled" jdbcType="CHAR" />
+    <result column="temp_par_suppliers_contact_creater" property="creater" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_contact_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_par_suppliers_contact_updater" property="updater" jdbcType="VARCHAR" />
+    <result column="temp_par_suppliers_contact_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="temp_par_suppliers_contact_contact_type_name" property="contactTypeName" jdbcType="VARCHAR" /><!--增加自定义字段  -->
+    <result column="temp_par_suppliers_contact_supplier_name" property="supplierName" jdbcType="VARCHAR" /><!--增加自定义字段  -->
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    temp_par_suppliers_contact.supplier_contact_id as temp_par_suppliers_contact_supplier_contact_id, 
+    temp_par_suppliers_contact.contact_type_id as temp_par_suppliers_contact_contact_type_id, 
+    temp_par_suppliers_contact.supplier_id as temp_par_suppliers_contact_supplier_id, 
+    temp_par_suppliers_contact.name as temp_par_suppliers_contact_name, temp_par_suppliers_contact.sex as temp_par_suppliers_contact_sex, 
+    temp_par_suppliers_contact.department as temp_par_suppliers_contact_department, temp_par_suppliers_contact.post as temp_par_suppliers_contact_post, 
+    temp_par_suppliers_contact.responsible_business as temp_par_suppliers_contact_responsible_business, 
+    temp_par_suppliers_contact.work_phone as temp_par_suppliers_contact_work_phone, temp_par_suppliers_contact.mobile_telephone as temp_par_suppliers_contact_mobile_telephone, 
+    temp_par_suppliers_contact.fax as temp_par_suppliers_contact_fax, temp_par_suppliers_contact.postcode as temp_par_suppliers_contact_postcode, 
+    temp_par_suppliers_contact.home_phone as temp_par_suppliers_contact_home_phone, temp_par_suppliers_contact.home_adress as temp_par_suppliers_contact_home_adress, 
+    temp_par_suppliers_contact.msn as temp_par_suppliers_contact_msn, temp_par_suppliers_contact.qq as temp_par_suppliers_contact_qq, 
+    temp_par_suppliers_contact.birthday as temp_par_suppliers_contact_birthday, temp_par_suppliers_contact.hobby as temp_par_suppliers_contact_hobby, 
+    temp_par_suppliers_contact.remark as temp_par_suppliers_contact_remark, temp_par_suppliers_contact.enabled as temp_par_suppliers_contact_enabled, 
+    temp_par_suppliers_contact.creater as temp_par_suppliers_contact_creater, temp_par_suppliers_contact.create_time as temp_par_suppliers_contact_create_time, 
+    temp_par_suppliers_contact.updater as temp_par_suppliers_contact_updater, temp_par_suppliers_contact.update_time as temp_par_suppliers_contact_update_time
+    <!-- 自定义扩展字段 -->
+    ,temp_par_com_contact_type.contact_type_name as temp_par_suppliers_contact_contact_type_name
+    ,temp_suppliers.suppliers_name as temp_par_suppliers_contact_supplier_name
+  </sql>
+  <sql id="Base_extend">
+    LEFT JOIN t_par_com_contact_type temp_par_com_contact_type ON temp_par_com_contact_type.contact_type_id =temp_par_suppliers_contact.contact_type_id<!-- 扩展 -->
+   	LEFT JOIN t_suppliers temp_suppliers ON temp_suppliers.supplier_id =temp_par_suppliers_contact.supplier_id <!-- 扩展 -->
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.basicdatas.ParSuppliersContactExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_par_suppliers_contact temp_par_suppliers_contact
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_par_suppliers_contact temp_par_suppliers_contact
+    <include refid="Base_extend" />
+    where temp_par_suppliers_contact.supplier_contact_id = #{supplierContactId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_par_suppliers_contact
+    where supplier_contact_id = #{supplierContactId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.glacier.frame.entity.basicdatas.ParSuppliersContactExample" >
+    delete temp_par_suppliers_contact from t_par_suppliers_contact temp_par_suppliers_contact
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.glacier.frame.entity.basicdatas.ParSuppliersContact" >
+    insert into t_par_suppliers_contact (supplier_contact_id, contact_type_id, 
+      supplier_id, name, sex, 
+      department, post, responsible_business, 
+      work_phone, mobile_telephone, fax, 
+      postcode, home_phone, home_adress, 
+      msn, qq, birthday, 
+      hobby, remark, enabled, 
+      creater, create_time, updater, 
+      update_time)
+    values (#{supplierContactId,jdbcType=VARCHAR}, #{contactTypeId,jdbcType=VARCHAR}, 
+      #{supplierId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, 
+      #{department,jdbcType=VARCHAR}, #{post,jdbcType=VARCHAR}, #{responsibleBusiness,jdbcType=VARCHAR}, 
+      #{workPhone,jdbcType=VARCHAR}, #{mobileTelephone,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, 
+      #{postcode,jdbcType=VARCHAR}, #{homePhone,jdbcType=VARCHAR}, #{homeAdress,jdbcType=VARCHAR}, 
+      #{msn,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP}, 
+      #{hobby,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{enabled,jdbcType=CHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.glacier.frame.entity.basicdatas.ParSuppliersContact" >
+    insert into t_par_suppliers_contact
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supplierContactId != null" >
+        supplier_contact_id,
+      </if>
+      <if test="contactTypeId != null" >
+        contact_type_id,
+      </if>
+      <if test="supplierId != null" >
+        supplier_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="post != null" >
+        post,
+      </if>
+      <if test="responsibleBusiness != null" >
+        responsible_business,
+      </if>
+      <if test="workPhone != null" >
+        work_phone,
+      </if>
+      <if test="mobileTelephone != null" >
+        mobile_telephone,
+      </if>
+      <if test="fax != null" >
+        fax,
+      </if>
+      <if test="postcode != null" >
+        postcode,
+      </if>
+      <if test="homePhone != null" >
+        home_phone,
+      </if>
+      <if test="homeAdress != null" >
+        home_adress,
+      </if>
+      <if test="msn != null" >
+        msn,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="hobby != null" >
+        hobby,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supplierContactId != null" >
+        #{supplierContactId,jdbcType=VARCHAR},
+      </if>
+      <if test="contactTypeId != null" >
+        #{contactTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="post != null" >
+        #{post,jdbcType=VARCHAR},
+      </if>
+      <if test="responsibleBusiness != null" >
+        #{responsibleBusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="workPhone != null" >
+        #{workPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileTelephone != null" >
+        #{mobileTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhone != null" >
+        #{homePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAdress != null" >
+        #{homeAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="msn != null" >
+        #{msn,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hobby != null" >
+        #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.glacier.frame.entity.basicdatas.ParSuppliersContactExample" resultType="java.lang.Integer" >
+    select count(*) from t_par_suppliers_contact temp_par_suppliers_contact
+    <include refid="Base_extend" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_par_suppliers_contact temp_par_suppliers_contact
+    <set >
+      <if test="record.supplierContactId != null" >
+        temp_par_suppliers_contact.supplier_contact_id = #{record.supplierContactId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactTypeId != null" >
+        temp_par_suppliers_contact.contact_type_id = #{record.contactTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplierId != null" >
+        temp_par_suppliers_contact.supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        temp_par_suppliers_contact.name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        temp_par_suppliers_contact.sex = #{record.sex,jdbcType=CHAR},
+      </if>
+      <if test="record.department != null" >
+        temp_par_suppliers_contact.department = #{record.department,jdbcType=VARCHAR},
+      </if>
+      <if test="record.post != null" >
+        temp_par_suppliers_contact.post = #{record.post,jdbcType=VARCHAR},
+      </if>
+      <if test="record.responsibleBusiness != null" >
+        temp_par_suppliers_contact.responsible_business = #{record.responsibleBusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workPhone != null" >
+        temp_par_suppliers_contact.work_phone = #{record.workPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobileTelephone != null" >
+        temp_par_suppliers_contact.mobile_telephone = #{record.mobileTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fax != null" >
+        temp_par_suppliers_contact.fax = #{record.fax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postcode != null" >
+        temp_par_suppliers_contact.postcode = #{record.postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homePhone != null" >
+        temp_par_suppliers_contact.home_phone = #{record.homePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeAdress != null" >
+        temp_par_suppliers_contact.home_adress = #{record.homeAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msn != null" >
+        temp_par_suppliers_contact.msn = #{record.msn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qq != null" >
+        temp_par_suppliers_contact.qq = #{record.qq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthday != null" >
+        temp_par_suppliers_contact.birthday = #{record.birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.hobby != null" >
+        temp_par_suppliers_contact.hobby = #{record.hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        temp_par_suppliers_contact.remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enabled != null" >
+        temp_par_suppliers_contact.enabled = #{record.enabled,jdbcType=CHAR},
+      </if>
+      <if test="record.creater != null" >
+        temp_par_suppliers_contact.creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        temp_par_suppliers_contact.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        temp_par_suppliers_contact.updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        temp_par_suppliers_contact.update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_par_suppliers_contact temp_par_suppliers_contact
+    set temp_par_suppliers_contact.supplier_contact_id = #{record.supplierContactId,jdbcType=VARCHAR},
+      temp_par_suppliers_contact.contact_type_id = #{record.contactTypeId,jdbcType=VARCHAR},
+      temp_par_suppliers_contact.supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      temp_par_suppliers_contact.name = #{record.name,jdbcType=VARCHAR},
+      temp_par_suppliers_contact.sex = #{record.sex,jdbcType=CHAR},
+      temp_par_suppliers_contact.department = #{record.department,jdbcType=VARCHAR},
+      temp_par_suppliers_contact.post = #{record.post,jdbcType=VARCHAR},
+      temp_par_suppliers_contact.responsible_business = #{record.responsibleBusiness,jdbcType=VARCHAR},
+      temp_par_suppliers_contact.work_phone = #{record.workPhone,jdbcType=VARCHAR},
+      temp_par_suppliers_contact.mobile_telephone = #{record.mobileTelephone,jdbcType=VARCHAR},
+      temp_par_suppliers_contact.fax = #{record.fax,jdbcType=VARCHAR},
+      temp_par_suppliers_contact.postcode = #{record.postcode,jdbcType=VARCHAR},
+      temp_par_suppliers_contact.home_phone = #{record.homePhone,jdbcType=VARCHAR},
+      temp_par_suppliers_contact.home_adress = #{record.homeAdress,jdbcType=VARCHAR},
+      temp_par_suppliers_contact.msn = #{record.msn,jdbcType=VARCHAR},
+      temp_par_suppliers_contact.qq = #{record.qq,jdbcType=VARCHAR},
+      temp_par_suppliers_contact.birthday = #{record.birthday,jdbcType=TIMESTAMP},
+      temp_par_suppliers_contact.hobby = #{record.hobby,jdbcType=VARCHAR},
+      temp_par_suppliers_contact.remark = #{record.remark,jdbcType=VARCHAR},
+      temp_par_suppliers_contact.enabled = #{record.enabled,jdbcType=CHAR},
+      temp_par_suppliers_contact.creater = #{record.creater,jdbcType=VARCHAR},
+      temp_par_suppliers_contact.create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      temp_par_suppliers_contact.updater = #{record.updater,jdbcType=VARCHAR},
+      temp_par_suppliers_contact.update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.glacier.frame.entity.basicdatas.ParSuppliersContact" >
+    update t_par_suppliers_contact
+    <set >
+      <if test="contactTypeId != null" >
+        contact_type_id = #{contactTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        supplier_id = #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="post != null" >
+        post = #{post,jdbcType=VARCHAR},
+      </if>
+      <if test="responsibleBusiness != null" >
+        responsible_business = #{responsibleBusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="workPhone != null" >
+        work_phone = #{workPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileTelephone != null" >
+        mobile_telephone = #{mobileTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        postcode = #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhone != null" >
+        home_phone = #{homePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAdress != null" >
+        home_adress = #{homeAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="msn != null" >
+        msn = #{msn,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hobby != null" >
+        hobby = #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where supplier_contact_id = #{supplierContactId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.glacier.frame.entity.basicdatas.ParSuppliersContact" >
+    update t_par_suppliers_contact
+    set contact_type_id = #{contactTypeId,jdbcType=VARCHAR},
+      supplier_id = #{supplierId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      department = #{department,jdbcType=VARCHAR},
+      post = #{post,jdbcType=VARCHAR},
+      responsible_business = #{responsibleBusiness,jdbcType=VARCHAR},
+      work_phone = #{workPhone,jdbcType=VARCHAR},
+      mobile_telephone = #{mobileTelephone,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      postcode = #{postcode,jdbcType=VARCHAR},
+      home_phone = #{homePhone,jdbcType=VARCHAR},
+      home_adress = #{homeAdress,jdbcType=VARCHAR},
+      msn = #{msn,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      hobby = #{hobby,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      enabled = #{enabled,jdbcType=CHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where supplier_contact_id = #{supplierContactId,jdbcType=VARCHAR}
+  </update>
+</mapper>

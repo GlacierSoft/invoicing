@@ -13,24 +13,27 @@
 package com.glacier.frame.service.basicdatas; 
 import java.util.Date;
 import java.util.List;
-import org.apache.commons.lang3.StringUtils; 
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional; 
+import org.springframework.transaction.annotation.Transactional;
+
+import com.glacier.basic.util.JackJson;
 import com.glacier.basic.util.RandomGUID;
 import com.glacier.frame.dao.basicdatas.ParComContactTypeMapper;
 import com.glacier.frame.dto.query.basicdatas.ParComContactTypeQueryDTO;
-import com.glacier.jqueryui.util.JqGridReturn;
-import com.glacier.jqueryui.util.JqPager; 
-import com.glacier.jqueryui.util.JqReturnJson;
-import com.glacier.frame.entity.system.User;
 import com.glacier.frame.entity.basicdatas.ParComContactType;
 import com.glacier.frame.entity.basicdatas.ParComContactTypeExample;
 import com.glacier.frame.entity.basicdatas.ParComContactTypeExample.Criteria;
+import com.glacier.frame.entity.system.User;
 import com.glacier.frame.util.MethodLog;
+import com.glacier.jqueryui.util.JqGridReturn;
+import com.glacier.jqueryui.util.JqPager;
+import com.glacier.jqueryui.util.JqReturnJson;
 /*** 
  * @ClassName:  ParComContactTypeService
  * @Description: TODO(联系人类型表业务类)
@@ -185,5 +188,19 @@ public class ParComContactTypeService {
             }
         }
         return returnResult;
+    }
+    
+    /**
+     * 
+     * @Title: getContactTypeCombo  
+     * @Description: TODO(供应商联系人类型下拉项显示)  
+     * @param @return    设定文件  
+     * @return Object    返回类型  
+     * @throws
+     */
+    public Object getContactTypeCombo() { 
+        ParComContactTypeExample parComContactTypeExample=new ParComContactTypeExample();
+        parComContactTypeExample.createCriteria().andEnabledEqualTo("enable");
+        return JackJson.fromObjectToJson(parComContactTypeMapper.selectByExample(parComContactTypeExample));
     }
 }
