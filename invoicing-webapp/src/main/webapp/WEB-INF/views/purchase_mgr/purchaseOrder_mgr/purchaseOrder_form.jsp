@@ -167,9 +167,9 @@ $dg.datagrid({
 	remoteSort : true,//开启远程排序，默认为false 
 	idField : 'purOrderDetId', 
     columns:[[    
-       {field :'purOrderDetId', title : 'ID', hidden:true}, 
+      // {field :'purOrderDetId', title : 'ID', hidden:true}, 
         {field:'goodsId',title:'货品id',width:100,hidden:true},  
-        {field:'goodsCode',title:'货品编码',width:100},    
+        {field:'goodsCode',title:'货品编码',width:100,editor: { type: 'text' }},    
         {field:'goodsName',title:'名称',width:100},    
        {field:'goodsModel',title:'规格型号',width:100},   
        {field:'brand',title:'品牌',width:100},  
@@ -186,9 +186,8 @@ $dg.datagrid({
          {
           text: '添加商品', iconCls: 'icon-standard-pencil-add', handler: function () { 
         		var row= $dg.datagrid('getSelected');//获取上一次的选中行
-            	var index=$dg.datagrid('getRowIndex',row); 
-        	  selecRows=index;
-          addRows();
+            	var index=$dg.datagrid('getRowIndex',row);  
+                addRows();
           }
         },{
           text: '删除商品', iconCls: 'icon-standard-pencil-delete', handler: function () {  
@@ -225,17 +224,19 @@ $dg.datagrid({
     onDblClickRow:function(rowIndex, rowData){
     	stRows=rowIndex; 
     },
-    onSelect:function(rowIndex, rowData){   
-    	
-    	var row= $dg.datagrid('getSelected');//获取上一次的选中行
-    	var index=$dg.datagrid('getRowIndex',row);  
-    	//$dg.datagrid('endEdit', index);//.datagrid('refreshRow', index);//关闭上一次的 
-    	var computeRow = $dg.datagrid('getData').rows[rowIndex];//获取某一行数据
+    onSelect:function(rowIndex, rowData){     
+    	var rows = $dg.datagrid('getRows'); 
+    	if(rows.length==1){
+    		selecRows=0;
+    	} 
+    	$dg.datagrid('endEdit',selecRows);//.datagrid('refreshRow', selecRows); //关闭上一次选中的行 
+      	var computeRow = $dg.datagrid('getData').rows[rowIndex];//获取某一行数据 
 		if(computeRow.goodsCode != "<b>统计：</b>"){//如果不是统计行， 开启当前行可编辑
 			$dg.datagrid('beginEdit',rowIndex);
   	    	againBinding(rowIndex);
-  	    	stRows=rowIndex; 
-		  }   
+  	    	stRows=rowIndex;  
+		  }  
+		selecRows=rowIndex;  
         //移除那两个按钮
     	$("div[class='dialog-button datagrid-rowediting-panel']").remove(); 
     } 
@@ -334,7 +335,7 @@ function addRows(){
 	  							placeOfOrigin:rowsCheck[i].origin,
 	  							primeCost:rowsCheck[i].referenceCost,
 	  							discount:1.00,
-	  							price:rowsCheck[i].referenceRetailPrice,
+	  							price:rowsCheck[i].referenceCost,
 	  							quantity:0,
 	  							money:0.00,
 	  							cess:rowsCheck[i].taxRate,
@@ -342,15 +343,13 @@ function addRows(){
 	  						}
 	  					});
 	  					$dg.datagrid('beginEdit', i);
-	  					$dg.datagrid('endEdit', i).datagrid('refreshRow', i).datagrid('beginEdit', i);
-	  					
+	  					$dg.datagrid('endEdit', i).datagrid('refreshRow', i).datagrid('beginEdit', i); 
 	  					againBinding(i);//批量增加绑定的事件
 	  				}
-	  				$dg.datagrid('endEdit', rowsCheck.length-1); 
-	  				//selecRows+=selecRows+rowsCheck.length;
+	  				$dg.datagrid('endEdit', rowsCheck.length-1).datagrid('refreshRow', rowsCheck.length-1); 
+	  				selecRows=selecRows+rowsCheck.length; //上一次选中的行=原来选中的行+新添加的行数
 	  				dia.dialog("close");
-	  				compute();//调用统计
-	  				//compute();//调用统计
+	  				compute();//调用统计   
 	  			}
 			
 	  		},{
@@ -387,6 +386,7 @@ function discountBlur(obj){
 	var quantityTarget = $dg.datagrid('getEditor', {index:indexRows,field:'quantity'}).target; 
 	//交货期限
 	var deadlineTarget = $dg.datagrid('getEditor', {index:indexRows,field:'deadline'}).target; 
+	//备注
 	var remarkTarget = $dg.datagrid('getEditor', {index:indexRows,field:'remark'}).target; 
    //-----------------------------------自定义变量-----------------------------------
 	var discount = parseFloat(discountTarget.val()).toFixed(2);//折扣率
@@ -545,7 +545,72 @@ function moneyBlur(obj){
 	 againBinding(indexRows); 
 	 compute();//调用统计
 }  
-function againBinding(rows){      
+
+//货物编码编辑框点击事件
+function goodsCodeClick(obj){
+  	var indexRows = getRowIndex(obj); 
+	goodsDetail(indexRows); 
+}
+//去到货品目录方法
+function goodsDetail(rowIndex){ 
+	$.easyui.showDialog({
+		href : ctx + '/do/purchaseOrder/goodsDetail.htm',//从controller请求jsp页面进行渲染
+		width : 730,
+		height : 400,
+		resizable: false,
+		enableSaveButton : false,
+		enableApplyButton : false,
+		enableCloseButton : false,
+		title : "货品目录",
+		buttons : [ 
+		{
+			text : '确认',
+  			iconCls : 'icon-ok',
+			handler : function(dia) {
+				//确认后赋值
+				$dg.datagrid('updateRow', {
+					index:stRows,
+						row:{
+  							goodsId:setRowData.goodsId,
+  							goodsCode:setRowData.goodsCode,
+  							goodsName:setRowData.goodsName,
+  							goodsModel:setRowData.specification,
+  							brand:setRowData.brands,
+  							placeOfOrigin:setRowData.origin,
+  							primeCost:setRowData.referenceCost,
+  							discount:1.00,
+  							price:setRowData.referenceCost,
+  							quantity:0,
+  							money:0.00,
+  							cess:setRowData.taxRate,
+  							remark:setRowData.remark
+  						}
+				}); 
+				dia.dialog("close");  
+				 $dg.datagrid('endEdit', stRows).datagrid('refreshRow', stRows).datagrid('beginEdit', stRows);
+				 
+				//移除那两个按钮
+		    	$("div[class='dialog-button datagrid-rowediting-panel']").remove(); 
+				againBinding(stRows);
+				compute();//调用统计			
+			}
+		}, {
+			text : '取消',
+  			iconCls : 'icon-undo',
+  			handler : function(dia) {
+  				dia.dialog("close"); 
+  			}
+		}]
+	});
+};
+
+
+
+
+//事件绑定
+function againBinding(rows){       
+	//货品编码 
+	var goodsCodeTarget = $dg.datagrid('getEditor', {index:rows,field:'goodsCode'}).target;
 	//单价
 	var priceTarget = $dg.datagrid('getEditor', {index:rows,field:'price'}).target; 
 	//折扣率
@@ -557,7 +622,11 @@ function againBinding(rows){
 	//绑定事件---折扣率
 	$(discountTarget).bind("change",function(){ 
 		discountBlur(this);
-	}); 
+	});  
+	//货品编码
+	  $(goodsCodeTarget).bind("click",function(){ 
+		  goodsCodeClick(this);
+	});
 	//单价
 	  $(priceTarget).bind("change",function(){ 
 		  priceBlur(this);

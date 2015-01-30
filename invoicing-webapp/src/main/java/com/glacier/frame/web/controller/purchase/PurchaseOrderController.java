@@ -87,7 +87,13 @@ public class PurchaseOrderController extends AbstractController{
         ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/goods");
         return mav;
     }
-     
+    //根据仓库ID查询出所有货物信息展示页面
+    @RequestMapping(value = "/goodsDetail.htm")
+    private Object storageList() {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/purchaseGoods");
+        return mav;
+    }
+    
     //获取表格结构的所有订购合同数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
@@ -120,8 +126,7 @@ public class PurchaseOrderController extends AbstractController{
     	mav.addObject("deliverTypeDate", deliverTypeService.getDeliverTypeCombo());//交货方式
     	mav.addObject("purchaseTypeDate", purchaseTypeService.getParPurchaseTypeCombo());//采购类型
     	mav.addObject("paymentTypeDate", paymentTypeService.getParComPaymentTypeCombo());//约定支付
-    	
-    	return mav;
+      	return mav;
     }
     
     //进入Detail信息页面
