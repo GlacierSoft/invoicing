@@ -401,7 +401,7 @@ public class PurchaseOrderService {
 	  order.setAuditRemark(""); 
 	  Date time=null;
 	  order.setAuditDate(time);
-	  count = chaseOrderMapper.updateByPrimaryKeySelective(order); 
+	  count = chaseOrderMapper.updateByPrimaryKey(order); 
       if (count > 0) {
           returnResult.setSuccess(true);
           returnResult.setMsg("取消订购合同审核操作成功！");
