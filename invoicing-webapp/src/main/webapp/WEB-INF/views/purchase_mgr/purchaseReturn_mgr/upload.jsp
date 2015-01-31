@@ -3,63 +3,76 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <!-- 引入自定义权限标签 -->
 <%@ taglib prefix="glacierui" uri="http://com.glacier.permissions.com.cn/tag/easyui"%>
-	<div style="margin-top: 10px;"></div>
-	<input type="file" name="file" id="uploadify"/>
-	<div id="some_file_queue"></div>
-	<p>
-       <a href="javascript:$('#uploadify').uploadify('upload', '*')" style="border-radius:10px;" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">上传</a> 
-       <a href="javascript:$('#uploadify').uploadify('cancel')" style="margin-left: 30px;border-radius:10px;"  class="easyui-linkbutton" data-options="iconCls:'icon-undo'">撤销</a>
-    </p>   
+<!--跟路径  -->
+<%  
+String path = request.getContextPath();  
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";  
+%>
+<!--样式引入  -->
+<link href="<%=basePath %>resources/ajaxFileUpload/ajaxfileupload.css" rel="stylesheet" type="text/css" />
+<!--脚本引入  -->
+<script src="<%=basePath %>resources/ajaxFileUpload/ajaxfileupload.js" type="text/javascript"></script>
+	
+	<%=basePath %>
+<div id="wrapper">
+    <div id="content">
+    	<img id="loading" src="<%=basePath %>resources/ajaxFileUpload/loading.gif" style="display:none;">
+		<form name="form" action="" method="POST" enctype="multipart/form-data">
+		<table cellpadding="0" cellspacing="0" class="tableForm">
+			<thead>
+				<tr>
+					<th>Please select a file and click Upload button</th>
+				</tr>
+			</thead>
+			<tbody>	
+				<tr>
+					<td><input id="fileToUpload" type="file" size="45" name="fileToUpload" class="input"></td>
+			    </tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td><button class="button" id="buttonUpload" onclick="return ajaxFileUpload();">Upload</button></td>
+				</tr>
+			</tfoot>
+		</table>
+		</form>    	
+    </div>  
+</div>
 
 
 <script type="text/javascript">
 
-   $(function() {
-	   
-	 $('#uploadify').uploadify({
-    	  'auto': false,
-    	  'multi': true,
-    	  'method':'post',
-    	  'uploader' : ctx+'/do/purchaseReturn/uploadFile;jsessionid=${pageContext.session.id}',
-    	  'swf'      : ctx+'/resources/uploadify/uploadify.swf',
-    	  'buttonCursor' : 'arrow',
-    	  'progressData' : 'percentage',
-    	  'queueID'  : 'some_file_queue',
-    	  'fileTypeDesc' : 'Image Files',
-          'fileTypeExts' : '*.gif; *.jpg; *.png',
-          'buttonText': '浏览文件',
-          'fileSizeLimit' : '10MB',
-		  'fileObjName' : 'file',
-          'queueSizeLimit' : 5,
-          'overrideEvents': ['onSelectError', 'onDialogClose'],
-          'onSelectError':function(file, errorCode, errorMsg){
-              switch(errorCode) {
-                  case -100:
-                      alert("上传的文件数量已经超出系统限制的"+$('##uploadify').uploadify('settings','queueSizeLimit')+"个文件！");
-                      break;
-                  case -110:
-                      alert("文件 ["+file.name+"] 大小超出系统限制的"+$('##uploadify').uploadify('settings','fileSizeLimit')+"大小！");
-                      break;
-                  case -120:
-                      alert("文件 ["+file.name+"] 大小异常！");
-                      break;
-                  case -130:
-                      alert("文件 ["+file.name+"] 类型不正确！");
-                      break;
-              }
-          },
-          'onFallback':function(){
-              alert("您未安装FLASH控件，无法上传图片！请安装FLASH控件后再试。");
-          },
-          'onUploadSuccess':function(file, data, response) { 
-        	  console.info(file);
-        	  console.info(data);
-        	  console.info(response);
-              alert( file.name + ' 上传成功！ ');  
-          }
-      });
-      
-      
-   });
+function ajaxFileUpload()
+{
+	$("#loading")
+	.ajaxStart(function(){
+		$(this).show();
+	})
+	.ajaxComplete(function(){
+		$(this).hide();
+	});
+
+	$.ajaxFileUpload
+	(
+		{
+			url:ctx+'/do/purchaseReturn/uploadFile',
+			secureuri:false,
+			fileElementId:'fileToUpload',
+			dataType: 'json',
+			success: function (data, status)
+			{
+				alert("哈哈哈！！！");
+			},
+			error: function (data, status, e)
+			{
+				alert(data+"=================="+status+"==============="+e);
+				alert(e);
+			}
+		}
+	)
+	
+	return false;
+
+}
 </script>
 
