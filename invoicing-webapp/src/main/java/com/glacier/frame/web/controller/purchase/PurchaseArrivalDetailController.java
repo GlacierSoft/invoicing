@@ -15,6 +15,7 @@ import com.glacier.core.controller.AbstractController;
 import com.glacier.frame.dto.query.purchase.PurchaseArrivalDetailQueryDTO;
 import com.glacier.frame.entity.purchase.PurchaseArrivalDetail;
 import com.glacier.frame.service.purchase.PurchaseArrivalDetailService;
+import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 
 /*** 
@@ -42,8 +43,13 @@ public class PurchaseArrivalDetailController extends AbstractController{
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
     private Object listActionAsGridByMenuId(JqPager jqPager,PurchaseArrivalDetailQueryDTO purchaseArrivalDetailQueryDTO,String purArrivalId) {
-    	purchaseArrivalDetailQueryDTO.setPurArrivalId(purArrivalId);
-        return purchaseArrivalDetailService.listAsGrid(jqPager,purchaseArrivalDetailQueryDTO);
+    	if(purArrivalId==""){
+    		JqGridReturn returnResult = new JqGridReturn();
+    		return returnResult;
+    	}else{
+	    	purchaseArrivalDetailQueryDTO.setPurArrivalId(purArrivalId);
+	        return purchaseArrivalDetailService.listAsGrid(jqPager,purchaseArrivalDetailQueryDTO);
+    	}
     }
       
     //进入采购到货明细信息Detail信息页面

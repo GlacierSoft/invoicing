@@ -228,7 +228,7 @@ glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.purchaseArrivalDetailDa
         {field:'originalCost',title:'原价',width:100}, 
         {field:'depositRate',title:'折扣率',width:100}, 
         {field:'price',title:'单价',width:100}, 
-        {field:'money',title:'金额',width:100},
+        {field:'goodsMoney',title:'金额',width:100},
         {field:'cess',title:'税率',width:100}, 
         {field:'deadline',title:'交货期限',width:100},
         {field:'putstorage',title:'已入库数量',width:100},

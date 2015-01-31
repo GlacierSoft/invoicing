@@ -2,10 +2,12 @@ package com.glacier.frame.web.controller.purchase;
  
 import java.util.List;
 import javax.validation.Valid;
+
+import net.sf.json.JSONObject;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -96,9 +98,9 @@ public class PurchaseArrivalController extends AbstractController{
     //进入采购到货信息Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoGradeFormPnews(String purchaseId) {
+    	System.out.println("采购到货ID："+purchaseId);
         ModelAndView mav = new ModelAndView("purchase_mgr/purchaseArrival_mgr/purchaseArrival_form2");
     	mav.addObject("userDate", userService.getUserCombo(null));//员工信息
-    	//mav.addObject("userDate", userService.getUserCombo(null));//所属仓库
     	mav.addObject("deliverTypeDate", deliverTypeService.getDeliverTypeCombo());//所属仓库
     	mav.addObject("purchaseTypeDate", purchaseTypeService.getParPurchaseTypeCombo());//采购类型
     	mav.addObject("suppliersDate", suppliersService.getSuppliersCombo());//供应商
@@ -114,21 +116,17 @@ public class PurchaseArrivalController extends AbstractController{
     //增加采购到货信息
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addGrade(@Valid PurchaseArrival purchaseArrival, BindingResult bindingResult,String rows) {
-        if (bindingResult.hasErrors()) {// 后台校验的错误信息
-            return returnErrorBindingResult(bindingResult);
-        }
+    private Object addGrade(@Valid String purchaseArrival,String rows) {
         return purchaseArrivalService.addPurchaseArrival(purchaseArrival,rows);
     }
     
     //修改采购到货信息
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object editGrade(@Valid PurchaseArrival purchaseArrival, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {// 后台校验的错误信息
-            return returnErrorBindingResult(bindingResult);
-        }
-        return purchaseArrivalService.editPurchaseArrival(purchaseArrival);
+    private Object editGrade(String purchaseArrival,String rows) {
+    	JSONObject purchase = JSONObject.fromObject(purchaseArrival);  
+        PurchaseArrival arrival = (PurchaseArrival) JSONObject.toBean(purchase,PurchaseArrival.class);
+        return purchaseArrivalService.editPurchaseArrival(arrival,rows);
     }
     
     //批量删除采购到货信息

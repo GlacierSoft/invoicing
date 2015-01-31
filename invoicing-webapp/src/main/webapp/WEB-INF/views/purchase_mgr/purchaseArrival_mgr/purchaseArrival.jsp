@@ -192,7 +192,7 @@
 	//点击编辑按钮触发方法
 	glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.editPurchaseArrival = function(){
 		var row = glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.purchaseArrivalDataGrid.datagrid("getSelected");
-		glacier.basicAddOrEditDialog({
+		/* glacier.basicAddOrEditDialog({
 			title : '【采购到货】 - 编辑',
 			width : 620,
 			height : 500,
@@ -204,7 +204,8 @@
 			successFun : function (){
 				glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.purchaseArrivalDataGrid.datagrid('reload');
 			}
-		});
+		}); */
+		$("#layout_center_panel").panel("setTitle","修改采购到货").panel('refresh',ctx + '/do/purchaseArrival/intoForm.htm?purchaseId='+row.purArrivalId);
 	};
 	//点击删除按钮触发方法
 	glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.delPurchaseArrival = function(){
