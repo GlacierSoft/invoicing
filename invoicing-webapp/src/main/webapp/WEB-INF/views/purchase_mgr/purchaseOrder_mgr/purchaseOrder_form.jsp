@@ -45,7 +45,7 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 			   <input name="deliveryDadlines"  required="true" class="easyui-datebox" style="width:168px;height:20px"  value="<fmt:formatDate value="${purchaseOrderData.deliveryDadlines}" pattern="yyyy-MM-dd"/>" /> 
 			<td style="padding-left:10px;">供应商：</td>
 			<td >
-			    <input id="supplierCode" type="hidden" value="${purchaseOrderData.supplierCode}"  name="supplierCode"/>
+			    <input id="supplierCode" type="hidden" required="true" value="${purchaseOrderData.supplierCode}"  name="supplierCode"/>
 			
 				<input id="suppliers_mgr_suppliers_form_supplierType" required="true" value="${purchaseOrderData.supplierId}" style="width: 168px;height:20px" name="supplierId"  class="easyui-combogrid"  />
 			</td>
@@ -67,10 +67,10 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 			</td>
 			<td style="padding-left:10px;">联系人：</td>
 			<td>
-			  <input id="suppliers_mgr_suppliers_form_linkman"  value="${purchaseOrderData.linkman}" style="width: 168px;height:20px" name="linkman"  class="easyui-combogrid"  />
+			  <input id="suppliers_mgr_suppliers_form_linkman"  required="true" value="${purchaseOrderData.linkman}" style="width: 168px;height:20px" name="linkman"  class="easyui-combogrid"  />
 			</td>
 			<td style="padding-left:10px;">手机：</td>
-			<td><input id="moi" class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseOrderData.phone}"   /></td>
+			<td><input id="moi" class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseOrderData.phone}"  name="phone" /></td>
 			<td style="padding-left:10px;">传真：</td>
 			<td><input class="easyui-validatebox spinner"style="width:168px;height:20px" name="fax" value="${purchaseOrderData.fax}"  /></td>
   		</tr>  
@@ -454,8 +454,7 @@ function priceBlur(obj){
 	//当前行再次绑定事件 
 	 againBinding(indexRows); 
 	 compute();//调用统计
-}
-    
+} 
 
 //数量编辑框绑定事件
 function quantityBlur(obj){   
@@ -496,8 +495,7 @@ function quantityBlur(obj){
 	//当前行再次绑定事件 
 	 againBinding(indexRows); 
 	 compute();//调用统计
-}
-   
+} 
 
 //金额编辑框绑定事件
 function moneyBlur(obj){   
@@ -743,6 +741,7 @@ $("#purchaseOrder_mgr_purchaseOrder_form_purchaseTypeId").combobox({
 	height:20,
 	width:168,
     required:true,
+    editable:false,
     editable : false,
     missingMessage:'请选择采购类型',
 	textField : 'name',//这里为名称
@@ -754,6 +753,7 @@ $("#purchaseOrder_mgr_purchaseOrder_form_paymentTypeId").combobox({
 	data : $.parseJSON('${paymentTypeDate}'),//controller传来的数据源
 	height:20,
 	width:168,
+	editable:false,
     required:true,
     editable : false,
     missingMessage:'请选择约定支付方式',
@@ -767,6 +767,7 @@ $("#purchaseOrder_mgr_purchaseOrder_form_storage").combobox({
 	height:20,
 	width:168,
     required:true,
+    editable:false,
     editable : false,
     missingMessage:'请选择仓库',
 	textField : 'warehouseName',//这里为名称
@@ -778,6 +779,7 @@ $("#purchaseOrder_mgr_purchaseOrder_form_deliveryType").combobox({
 	data : $.parseJSON('${deliverTypeDate}'),//controller传来的数据源
 	height:20,
 	width:168,
+	editable:false,
     required:true,
     editable : false,
     missingMessage:'请选择交货方式',
@@ -791,6 +793,7 @@ $('#suppliers_mgr_suppliers_form_operators').combogrid({
 	panelWidth:570,
 	fit:true,//控件自动resize占满窗口大小
 	//iconCls:'icon-save',//图标样式
+	editable:false,
 	border:true,//是否存在边框
 	fitColumns:true,//自动填充行
 	nowrap: true,//禁止单元格中的文字自动换行
@@ -839,6 +842,7 @@ $('#suppliers_mgr_suppliers_form_supplierType').combogrid({
 	panelWidth:570,
 	fit:true,//控件自动resize占满窗口大小
 	//iconCls:'icon-save',//图标样式
+	editable:false,//定义用户是否可以直接输入文本到字段中。
 	border:true,//是否存在边框
 	fitColumns:true,//自动填充行
 	nowrap: true,//禁止单元格中的文字自动换行
@@ -888,27 +892,33 @@ $('#suppliers_mgr_suppliers_form_supplierType').combogrid({
  			$("#supplierAdd").attr("value",$(this).datagrid("getSelected").adress); 
 			$("#supplierCode").attr("value",$(this).datagrid("getSelected").supplierNumber); 
 			$('#suppliers_mgr_suppliers_form_linkman').combogrid("clear"); 
-			suppid=rowData.supplierId;
+			suppid=rowData.supplierId;  
+			$("#moi").attr("value","");
+			$('#suppliers_mgr_suppliers_form_linkman').combo('enable');
+			$('#suppliers_mgr_suppliers_form_linkman').combogrid('grid').datagrid('load',{"supplierId":suppid});
+		 
 		 } ,
 	loadMsg : '数据加载中....',  
 });  
- 
+
 //用于combogrid的联系人信息绑定
 $('#suppliers_mgr_suppliers_form_linkman').combogrid({
 	panelWidth:570,
 	fit:true,//控件自动resize占满窗口大小
 	//iconCls:'icon-save',//图标样式
+	editable:false,
 	border:false,//是否存在边框
 	fitColumns:true,//自动填充行
 	nowrap: true,//禁止单元格中的文字自动换行
 	autoRowHeight: false,//禁止设置自动行高以适应内容
 	striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
 	singleSelect:true,//限制单选
+	disabled:true, //禁用字段
 	checkOnSelect:false,//选择复选框的时候选择该行
 	selectOnCheck:false,//选择的时候复选框打勾
     idField:'supplierContactId',    
     textField:'name',    
-    url: ctx + '/do/suppliersContact/list.json?supplierId='+suppid,
+    url: ctx + '/do/suppliersContact/list.json',
     sortName: 'createTime',//排序字段名称
 	sortOrder: 'desc',//升序还是降序
 	remoteSort: true,//开启远程排序，默认为false
@@ -949,8 +959,7 @@ $('#suppliers_mgr_suppliers_form_linkman').combogrid({
 		rownumbers : true,//True 就会显示行号的列
 		onClickRow : function(rows) {  
 			$("#moi").attr("value",$(this).datagrid("getSelected").workPhone);   
-		}, 
-		
+		},   
 	loadMsg : '数据加载中....',  
 });   
  

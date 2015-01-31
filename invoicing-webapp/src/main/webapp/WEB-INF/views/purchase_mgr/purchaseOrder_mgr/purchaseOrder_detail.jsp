@@ -66,7 +66,7 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 				       <td style="padding-left:10px;">供应商地址：</td>
 					   <td><input class="spinner" style="width:168px" value="${purchaseOrderData.supplierAdd}" readonly="readonly"/></td>
 				 	   <td style="padding-left:10px;">联系人：</td>
-					   <td><input class="spinner" style="width:168px" value="${purchaseOrderData.linkman}" readonly="readonly"/></td>
+					   <td><input class="spinner" style="width:168px" value="${purchaseOrderData.contactName}" readonly="readonly"/></td>
 					   <td style="padding-left:10px;">联系电话：</td>
 				 	   <td><input class="spinner" style="width:168px" value="${purchaseOrderData.phone}"  readonly="readonly"/></td>
 					 </tr> 

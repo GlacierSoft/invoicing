@@ -60,8 +60,7 @@ import com.glacier.jqueryui.util.JqReturnJson;
 @Service
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 public class PurchaseOrderService {
-
-	 
+ 
 	@Autowired
     private PurchaseOrderMapper chaseOrderMapper;
 	 
@@ -343,4 +342,73 @@ public class PurchaseOrderService {
           }
     	  return returnResult; 
     }
+     
+    /** 
+     * @Title: auditPurchaseOrder  
+     * @Description: TODO(审核)  
+     * @param @param purchaseOrderIds
+     * @param @return    设定文件  
+     * @return Object    返回类型  
+     * @throws
+     */ 
+    @Transactional(readOnly = false) 
+    @MethodLog(opera = "PurchaseOrderList_audit")
+    public Object auditPurchaseOrder(PurchaseOrder purchaseOrder){
+  	  JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+  	  Subject pricipalSubject = SecurityUtils.getSubject();
+      User pricipalUser = (User) pricipalSubject.getPrincipal(); 
+  	  int count=0;
+  	  PurchaseOrder order=chaseOrderMapper.selectByPrimaryKey(purchaseOrder.getPurOrderId());
+  	  if(purchaseOrder.getAuditState().equals("authstr")){
+  		  returnResult.setMsg("审核状态不能为审核中！");
+  		  return returnResult; 
+  	  }
+	  if(order.getAuditState().equals("authstr")){ 
+		  order.setAuditState(purchaseOrder.getAuditState());
+		  order.setAuditor(pricipalUser.getUserCnName());
+		  order.setAuditRemark(purchaseOrder.getAuditRemark());
+		  order.setAuditDate(new Date());
+		  count = chaseOrderMapper.updateByPrimaryKeySelective(order);
+	  }else{
+		  returnResult.setMsg("该订单已经进行过审核操作！");
+  		  return returnResult; 
+	  }  
+      if (count > 0) {
+          returnResult.setSuccess(true);
+          returnResult.setMsg("订购合同审核操作成功！");
+      } else {
+          returnResult.setMsg("发生未知错误，审核操作失败");
+      }  
+  	  return returnResult; 
+  }
+    
+    /** 
+     * @Title: cancelAuditPurchaseOrder  
+     * @Description: TODO(取消审核)  
+     * @param @param purchaseOrderIds
+     * @param @return    设定文件  
+     * @return Object    返回类型  
+     * @throws
+     */ 
+    @Transactional(readOnly = false) 
+    @MethodLog(opera = "PurchaseOrderList_cancelAudit")
+    public Object cancelAuditPurchaseOrder(String purchaseOrderId){
+  	  JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+      int count=0;
+  	  PurchaseOrder order=chaseOrderMapper.selectByPrimaryKey(purchaseOrderId);
+      order.setAuditState("authstr");
+	  order.setAuditor("");
+	  order.setAuditRemark(""); 
+	  Date time=null;
+	  order.setAuditDate(time);
+	  count = chaseOrderMapper.updateByPrimaryKeySelective(order); 
+      if (count > 0) {
+          returnResult.setSuccess(true);
+          returnResult.setMsg("取消订购合同审核操作成功！");
+      } else {
+          returnResult.setMsg("发生未知错误，取消审核操作失败");
+      }  
+  	  return returnResult; 
+  }
+    
 }

@@ -49,11 +49,11 @@
     <!-- 自定义字段 --> 
     <result column="temp_purchase_order_suppliers_name" property="suppliersName" jdbcType="VARCHAR" />
     <result column="temp_purchase_order_storage_name" property="storageName" jdbcType="VARCHAR" /> 
-    
     <result column="temp_purchase_order_purchase_type_name" property="purchaseTypeName" jdbcType="VARCHAR" /> 
 	<result column="temp_purchase_order_operator_name" property="operatorName" jdbcType="VARCHAR" /> 
 	<result column="temp_purchase_order_payment_type_name" property="paymentTypeName" jdbcType="VARCHAR" /> 
 	<result column="temp_purchase_order_delivery_type_name" property="deliveryTypeName" jdbcType="VARCHAR" />  
+    <result column="temp_purchase_order_contact_name" property="contactName" jdbcType="VARCHAR" />  
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.glacier.frame.entity.purchase.PurchaseOrder" extends="BaseResultMap" >
     <result column="temp_purchase_order_contract_terms" property="contractTerms" jdbcType="LONGVARCHAR" />
@@ -146,6 +146,7 @@
     ,temp_user.user_cn_name as temp_purchase_order_operator_name
     ,temp_com_payment_type.payment_type_name as temp_purchase_order_payment_type_name
     ,temp_com_deliver_type.deliver_type_name as temp_purchase_order_delivery_type_name
+   ,temp_par_suppliers_contact.name as temp_purchase_order_contact_name 
   </sql>
   
   <sql id="Base_extend">
@@ -155,6 +156,8 @@
    	LEFT JOIN t_user temp_user ON temp_user.user_id =temp_purchase_order.operators <!-- 扩展 -->
    	LEFT JOIN t_par_com_payment_type temp_com_payment_type ON temp_com_payment_type.payment_type_id =temp_purchase_order.payment_type_id <!-- 扩展 -->
    	LEFT JOIN t_par_com_deliver_type temp_com_deliver_type ON temp_com_deliver_type.deliver_type_id =temp_purchase_order.delivery_type <!-- 扩展 -->
+   	LEFT JOIN t_par_suppliers_contact temp_par_suppliers_contact ON temp_par_suppliers_contact.supplier_contact_id =temp_purchase_order.linkman <!-- 扩展 -->
+  
   </sql>
   <sql id="Blob_Column_List" >
     temp_purchase_order.contract_terms as temp_purchase_order_contract_terms

@@ -81,6 +81,14 @@ public class PurchaseOrderController extends AbstractController{
         return mav;
     }
     
+    
+    //进入订单审核页面
+    @RequestMapping(value = "/auditForm.htm")
+    private Object audit(String purOrderId) {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/audit_form");
+        mav.addObject("purchaseOrderData", purchaseOrderService.getPurchaseOrder(purOrderId));
+        return mav;
+    }
     //进入货品展示页面
     @RequestMapping(value = "/goodsIndex.htm")
     private Object goodsIndex() {
@@ -181,6 +189,20 @@ public class PurchaseOrderController extends AbstractController{
     @ResponseBody
     public Object delPurchaseOrder(@RequestParam List<String> purOrderIds,@RequestParam List<String> orderCodes) {
     	return purchaseOrderService.delPurchaseOrder(purOrderIds, orderCodes);
+    } 
+     
+  //审核订购合同
+    @RequestMapping(value = "/audit.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object auditPurchaseOrder(PurchaseOrder order) { 
+    	return purchaseOrderService.auditPurchaseOrder(order);
+    } 
+    
+    //取消审核订购合同
+    @RequestMapping(value = "/cancelAudit.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object cancelAuditPurchaseOrder(String purOrderId) { 
+    	return purchaseOrderService.cancelAuditPurchaseOrder(purOrderId);
     } 
     
     //启用或禁用订购合同订购合同

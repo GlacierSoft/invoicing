@@ -113,10 +113,18 @@ public class PurchaseOrder {
     private String paymentTypeName;//支付方式
     
     private String deliveryTypeName;//交货方式
-      
-     
     
-    public String getPurchaseTypeName() {
+    private String contactName;//供应商联系人名字 
+      
+    public String getContactName() {
+		return contactName;
+	}
+
+	public void setContactName(String contactName) {
+		this.contactName = contactName;
+	}
+
+	public String getPurchaseTypeName() {
 		return purchaseTypeName;
 	}
 

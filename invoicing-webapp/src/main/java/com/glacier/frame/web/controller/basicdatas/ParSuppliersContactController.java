@@ -52,8 +52,8 @@ public class ParSuppliersContactController extends AbstractController{
     //获取表格结构的所有供应商联系人数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByMenuId(JqPager jqPager, ParSuppliersContactQueryDTO suppliersContactQueryDTO) {
-        return parSuppliersContactService.listAsGrid(jqPager, suppliersContactQueryDTO);
+    private Object listActionAsGridByMenuId(JqPager jqPager, ParSuppliersContactQueryDTO suppliersContactQueryDTO,String supplierId) {
+       return parSuppliersContactService.listAsGrid(jqPager, suppliersContactQueryDTO);
     }
       
     //进入供应商联系人信息Detail信息页面

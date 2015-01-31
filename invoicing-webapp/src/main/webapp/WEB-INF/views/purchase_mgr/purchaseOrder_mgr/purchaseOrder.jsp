@@ -51,6 +51,14 @@
 			sortable : true,
 			width : 120
 		},{
+			field : 'auditState',
+			title : '审核状态', 
+			width : 120,
+			sortable : true, 
+			formatter : function(value, row, index) {
+				return renderGridValue(value, fields.auditState);
+			}
+		},{
 			field : 'storageName',
 			title : '仓库',
 			sortable : true,
@@ -303,6 +311,63 @@
 		});
 		}
 	} 
+	
+	//审核
+	glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.auditPurchaseOrder=function (){ 
+		var row =glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.purchaseOrderDataGrid.datagrid("getSelected"); 
+		glacier.basicAddOrEditDialog({
+			title : '审核订货单',
+			width : 410,
+			height : 250,
+			queryUrl : ctx + '/do/purchaseOrder/auditForm.htm',
+			submitUrl : ctx + '/do/purchaseOrder/audit.json',
+			queryParams : {
+				purOrderId : row.purOrderId
+			},
+			successFun : function (){
+				glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.purchaseOrderDataGrid.datagrid('reload');
+			}
+		});
+	} 
+	//取消审核
+	glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.cancelAuditPurchaseOrder=function (){
+		var row =glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.purchaseOrderDataGrid.datagrid("getSelected");  
+		if(row.auditState=='authstr'){
+		    $.messager.alert('提示','该记录未进行过审核操作！','info'); 
+		    return ;
+		}
+		$.messager.confirm('请确认','是否要取消审核该记录?',function(r){
+            if (r){
+            	 $.ajax({ 
+            		type: "POST",
+            	    url : ctx+ '/do/purchaseOrder/cancelAudit.json',
+					data : {
+						purOrderId :row.purOrderId 
+					},
+					dataType : 'json',
+					success : function(r) {
+						if (r.success) {//因为失败成功的方法都一样操作，这里故未做处理
+							$.messager.show({
+								title : '提示',
+								timeout : 3000,
+								msg : r.msg
+							});
+							glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.purchaseOrderDataGrid.datagrid('reload');
+						} else {
+							$.messager.show({//后台验证弹出错误提示信息框
+										title : '错误提示',
+										width : 380,
+										height : 120,
+										msg : '<span style="color:red">'+ r.msg+ '<span>',
+										timeout : 4500
+							 });
+						}
+					}
+				});
+			}
+		}); 
+	} 
+	
 	//下拉项的值
 	$('#purchaseOrderSearchForm_enabled').combobox({
 		valueField : 'value',
