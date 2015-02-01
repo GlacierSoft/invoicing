@@ -4,6 +4,14 @@
 <!-- 引入自定义权限标签 -->
 <%@ taglib prefix="glacierui"
 	uri="http://com.glacier.permissions.com.cn/tag/easyui"%>
+	
+<style type="text/css">
+.file-box{ position:relative;width:340px}
+.txt{ height:22px; border:1px solid #cdcdcd; width:180px;}
+.btn{ background-color:#FFF; border:1px solid #CDCDCD;height:24px; width:70px;}
+.file{ position:absolute; top:0; right:80px; height:24px; filter:alpha(opacity:0);opacity: 0;width:260px }
+</style>	
+	
 <script type="text/javascript">
 
 $.util.namespace('glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
@@ -139,7 +147,10 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 </tr> 
 <tr>
    <td style="padding-left:10px;">附件：</td>
-   <td colspan="7"><a style="margin-top: 5px" href="javascript:doUpload();" class="easyui-linkbutton" data-options="iconCls:'icon-hamburg-up'">上传</a></td>
+   <td colspan="7">
+   	  <a style="margin-top: 5px" href="javascript:doUpload();" class="easyui-linkbutton" data-options="iconCls:'icon-hamburg-up'">上传</a>
+      <label id="fileText"></label>
+     </td>
 </tr>
 </table>
 <br/>
@@ -153,27 +164,80 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
     </div>
 </form>
 
+<!--附件上传  -->
+<div id="FileDialog" data-options="closed:true" class="easyui-dialog">
+    <div style="margin-top: 50px;">
+	<div class="file-box">
+	  <form action="" method="post" enctype="multipart/form-data">
+	 	
+	 	<input type='text' name='textfield' id='textfield' class='txt' />  
+	 	
+	 	<input type='button' class='btn' value='浏览...' />
+		
+	    <input type="file" name="fileToUpload" class="file"  id="fileToUpload"  size="45"   onchange="document.getElementById('textfield').value=this.value" >
+		
+		<input type="button" name="submit" class="btn" value="上传"  onclick="return ajaxFileUpload();"/> 
+		
+	  </form>
+	</div>
+	</div>
+</div>
+
 <script>
 
 //附件上传
 function doUpload(){
-	$.easyui.showDialog({
-		href : ctx + '/do/purchaseReturn/upload.htm',//从controller请求jsp页面进行渲染
-		width : 360,
-		height : 400,
-		resizable: false,
-		title : "附件上传",
-		enableSaveButton : false,
-		enableApplyButton : false,
-		enableCloseButton:false,
-		buttons :[ {
-			text : '取消',
-			iconCls : 'icon-save',
-			handler : function(target) {
-				target.dialog("close");
-			}
+	$('#FileDialog').dialog({    
+	    title: '附件上传',    
+	    width: 360,    
+	    height: 200,    
+	    closed: false,    
+	    cache: false,    
+	    modal: true , 
+	    buttons:[
+			{
+			text:'取消',
+			iconCls:'icon-cancel',
+			handler:function(){
+			   $("#FileDialog").dialog('close'); 	
+			 }
 		}]
-	});
+	});  
+}
+
+//附件上传
+function ajaxFileUpload()
+{
+   $.ajaxFileUpload
+	(
+		{
+			url:ctx+'/do/purchaseReturn/uploadFile',
+			secureuri:false,
+			fileElementId:'fileToUpload',
+			data:{name:'logan', id:'id'},
+			dataType: 'json',
+			success: function (data, status)
+			{
+				$("#fileText").html("");
+				var AllImgExt=".jpg|.jpeg|.gif|.bmp|.png|"//全部图片格式类型 
+				var FileExt=$.parseJSON(data).name.substr($.parseJSON(data).name.lastIndexOf(".")).toLowerCase();
+				$("#FileDialog").dialog('close');
+				$.messager.alert('附件提示','上传成功！','info');
+				$("<a href='"+ctx+"/"+$.parseJSON(data).path+"'>"+$.parseJSON(data).name+"</a>").appendTo("#fileText");
+				if(AllImgExt.indexOf(FileExt+"|")!=-1){
+					$("<img src='"+ctx+"/"+$.parseJSON(data).path+"'  width='50' height='50'  />").appendTo("#fileText");
+				}
+				 
+			},
+			error: function (data, status, e)
+			{
+				$.messager.alert('上传提示','上传失败，请联系管理员！','info');
+			}
+		}
+	)
+	
+	return false;
+
 }
 
 //明细添加

@@ -52,6 +52,9 @@
 <!-- 引入自定义js-->
 <script src="${ctx}/resources/js/common/glacier.util.js" type="text/javascript"></script>
 
+<!--脚本引入  -->
+<script src="${ctx}/resources/ajaxFileUpload/ajaxfileupload.js" type="text/javascript"></script>
+
 <!-- 加入富文本编辑器kindeditor-->
 <script src="${ctx}/resources/js/kindeditor/kindeditor.js" type="text/javascript" charset="utf-8"></script>
 <script src="${ctx}/resources/js/kindeditor/lang/zh_CN.js" type="text/javascript" charset="utf-8"></script>

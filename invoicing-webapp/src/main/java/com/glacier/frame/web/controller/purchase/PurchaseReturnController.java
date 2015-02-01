@@ -22,7 +22,6 @@ package com.glacier.frame.web.controller.purchase;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -169,17 +168,16 @@ public class PurchaseReturnController {
     @ResponseBody
     public Object uploadFile(HttpServletResponse response,HttpServletRequest request) throws IOException{ 
        MultipartHttpServletRequest multipartRequest=(MultipartHttpServletRequest)request;
-       Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();    
-       //构建返回结果集
-       List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
-       //文件保存路径
+       /**构建返回结果集**/
+       Map<String,Object> map=new HashMap<String,Object>();
+       /**页面控件的文件流**/      
+       MultipartFile multipartFile = multipartRequest.getFile("fileToUpload");   
+      //文件保存路径
        String extendPath=request.getSession().getServletContext().getRealPath("/")+File.separator+"uploadFiles";
        //文件命名
        SimpleDateFormat sf=new SimpleDateFormat("yyyyMM");
        String real_date=sf.format(new Date());
        extendPath+=File.separator+real_date+File.separator;
-       //文件路径输出
-       System.out.println("文件存放地址:"+extendPath);
        //创建文件夹
        File file=new File(extendPath);
        if(!file.exists()){
@@ -187,24 +185,18 @@ public class PurchaseReturnController {
        }
        //文件存储
        String fileName=null;
-       for(Map.Entry<String ,MultipartFile> entity : fileMap.entrySet()){
-    	   //文件上传
-    	   MultipartFile mf=entity.getValue();
-    	   fileName=mf.getOriginalFilename();
-    	   //文件名输出
-    	   System.out.println("当前要存放的文件名称为:"+fileName);
-    	   File uploadFile=new File(extendPath+fileName);
-    	   try{
-    		   FileCopyUtils.copy(mf.getBytes(),uploadFile ); 
-    		}catch(IOException e){
-    		   e.printStackTrace();
-    	   }
-    	   //文件存储
-    	  Map<String,Object> map=new HashMap<String, Object>();
-    	  map.put("name", fileName);
-    	  map.put("address", extendPath+fileName);
-    	  list.add(map); 
-    	}
-       return JackJson.fromObjectToJson(list);
+       //文件上传
+	   fileName=multipartFile.getOriginalFilename();
+	   //文件名输出
+	   File uploadFile=new File(extendPath+fileName);
+	   try{
+		   FileCopyUtils.copy(multipartFile.getBytes(),uploadFile ); 
+		}catch(IOException e){
+		   e.printStackTrace();
+	   }
+	   //数据存储
+	   map.put("name", fileName);
+	   map.put("path", "uploadFiles/"+real_date+"/"+fileName);
+       return JackJson.fromObjectToJson(map);
     }
 }

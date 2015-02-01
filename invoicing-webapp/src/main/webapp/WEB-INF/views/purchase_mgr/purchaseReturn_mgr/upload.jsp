@@ -8,36 +8,32 @@
 String path = request.getContextPath();  
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";  
 %>
-<!--样式引入  -->
-<link href="<%=basePath %>resources/ajaxFileUpload/ajaxfileupload.css" rel="stylesheet" type="text/css" />
-<!--脚本引入  -->
-<script src="<%=basePath %>resources/ajaxFileUpload/ajaxfileupload.js" type="text/javascript"></script>
+
+<style type="text/css">
+body{ font-size:14px;}
+input{ vertical-align:middle; margin:0; padding:0}
+.file-box{ position:relative;width:340px}
+.txt{ height:22px; border:1px solid #cdcdcd; width:180px;}
+.btn{ background-color:#FFF; border:1px solid #CDCDCD;height:24px; width:70px;}
+.file{ position:absolute; top:0; right:80px; height:24px; filter:alpha(opacity:0);opacity: 0;width:260px }
+</style>
 	
-	<%=basePath %>
-<div id="wrapper">
-    <div id="content">
-    	<img id="loading" src="<%=basePath %>resources/ajaxFileUpload/loading.gif" style="display:none;">
-		<form name="form" action="" method="POST" enctype="multipart/form-data">
-		<table cellpadding="0" cellspacing="0" class="tableForm">
-			<thead>
-				<tr>
-					<th>Please select a file and click Upload button</th>
-				</tr>
-			</thead>
-			<tbody>	
-				<tr>
-					<td><input id="fileToUpload" type="file" size="45" name="fileToUpload" class="input"></td>
-			    </tr>
-			</tbody>
-			<tfoot>
-				<tr>
-					<td><button class="button" id="buttonUpload" onclick="return ajaxFileUpload();">Upload</button></td>
-				</tr>
-			</tfoot>
-		</table>
-		</form>    	
-    </div>  
-</div>
+  <div style="margin-top: 50px;">
+	<div class="file-box">
+	  <form action="" method="post" enctype="multipart/form-data">
+	 	
+	 	<input type='text' name='textfield' id='textfield' class='txt' />  
+	 	
+	 	<input type='button' class='btn' value='浏览...' />
+		
+	    <input type="file" name="fileToUpload" class="file"  id="fileToUpload"  size="45"   onchange="document.getElementById('textfield').value=this.value" >
+		
+		<input type="button" name="submit" class="btn" value="上传"  onclick="return ajaxFileUpload();"/> 
+		
+	  </form>
+	</div>
+	</div>
+
 
 
 <script type="text/javascript">
@@ -58,15 +54,16 @@ function ajaxFileUpload()
 			url:ctx+'/do/purchaseReturn/uploadFile',
 			secureuri:false,
 			fileElementId:'fileToUpload',
+			data:{name:'logan', id:'id'},
 			dataType: 'json',
 			success: function (data, status)
 			{
-				alert("哈哈哈！！！");
+				$.messager.alert('附件提示','上传成功！','info');
+				
 			},
 			error: function (data, status, e)
 			{
-				alert(data+"=================="+status+"==============="+e);
-				alert(e);
+				$.messager.alert('上传提示','上传失败，请联系管理员！','info');
 			}
 		}
 	)
