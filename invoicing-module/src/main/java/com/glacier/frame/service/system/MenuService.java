@@ -94,9 +94,9 @@ public class MenuService {
     @MethodLog(opera = "MenuTree_add")
     public Object addMenu(Menu menu) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        MenuExample menuExample = new MenuExample();
+//        MenuExample menuExample = new MenuExample();
         int count = 0;
-        // 防止菜单名称重复
+        /*// 防止菜单名称重复
         menuExample.createCriteria().andMenuCnNameEqualTo(menu.getMenuCnName());
         count = menuMapper.countByExample(menuExample);// 查找相同中文名称的菜单数量
         if (count > 0) {
@@ -110,7 +110,7 @@ public class MenuService {
         if (count > 0) {
             returnResult.setMsg("英文名称重复");
             return returnResult;
-        }
+        }*/
         menu.setMenuId(RandomGUID.getRandomGUID());
         if (menu.getPid().equals("ROOT") || menu.getPid().equals("")) {// 如果父级菜单的Id为"ROOT"或为空，则将父级菜单的值设置为null保存到数据库
             menu.setPid(null);
@@ -145,9 +145,9 @@ public class MenuService {
             returnResult.setMsg("禁止选择菜单本身及子菜单作为上级菜单");
             return returnResult;
         }
-        MenuExample menuExample = new MenuExample();
+//        MenuExample menuExample = new MenuExample();
         int count = 0;
-        // 防止菜单名称重复
+        /*// 防止菜单名称重复
         menuExample.createCriteria().andMenuCnNameEqualTo(menu.getMenuCnName()).andMenuIdNotEqualTo(menu.getMenuId());
         count = menuMapper.countByExample(menuExample);// 查找相同中文名称的菜单数量
         if (count > 0) {
@@ -161,7 +161,7 @@ public class MenuService {
         if (count > 0) {
             returnResult.setMsg("英文名称重复");
             return returnResult;
-        }
+        }*/
         if (menu.getPid().equals("ROOT") || menu.getPid().equals("")) {// 如果父级菜单的Id为"ROOT"或为空，则将父级菜单的值设置为null保存到数据库
             menu.setPid(null);
         }

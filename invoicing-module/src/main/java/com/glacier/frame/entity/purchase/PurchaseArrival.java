@@ -106,6 +106,8 @@ public class PurchaseArrival {
 
     private String tailAfterStatus;//货物跟踪状态
 
+    private String affirmArrival;//是否收货确认
+    
     private String summary;//物品摘要
 
     private String remark;
@@ -519,6 +521,14 @@ public class PurchaseArrival {
         this.tailAfterStatus = tailAfterStatus;
     }
 
+    public String getAffirmArrival() {
+        return affirmArrival;
+    }
+
+    public void setAffirmArrival(String affirmArrival) {
+        this.affirmArrival = affirmArrival;
+    }
+    
     public String getSummary() {
         return summary;
     }
@@ -683,6 +693,7 @@ public class PurchaseArrival {
             && (this.getConfirmorDepartment() == null ? other.getConfirmorDepartment() == null : this.getConfirmorDepartment().equals(other.getConfirmorDepartment()))
             && (this.getConfirmorTime() == null ? other.getConfirmorTime() == null : this.getConfirmorTime().equals(other.getConfirmorTime()))
             && (this.getTailAfterStatus() == null ? other.getTailAfterStatus() == null : this.getTailAfterStatus().equals(other.getTailAfterStatus()))
+            && (this.getAffirmArrival() == null ? other.getAffirmArrival() == null : this.getAffirmArrival().equals(other.getAffirmArrival()))
             && (this.getSummary() == null ? other.getSummary() == null : this.getSummary().equals(other.getSummary()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
@@ -743,6 +754,7 @@ public class PurchaseArrival {
         result = prime * result + ((getConfirmorDepartment() == null) ? 0 : getConfirmorDepartment().hashCode());
         result = prime * result + ((getConfirmorTime() == null) ? 0 : getConfirmorTime().hashCode());
         result = prime * result + ((getTailAfterStatus() == null) ? 0 : getTailAfterStatus().hashCode());
+        result = prime * result + ((getAffirmArrival() == null) ? 0 : getAffirmArrival().hashCode());
         result = prime * result + ((getSummary() == null) ? 0 : getSummary().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());

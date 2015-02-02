@@ -50,6 +50,7 @@
     <result column="temp_purchase_arrival_confirmor_department" property="confirmorDepartment" jdbcType="VARCHAR" />
     <result column="temp_purchase_arrival_confirmor_time" property="confirmorTime" jdbcType="TIMESTAMP" />
     <result column="temp_purchase_arrival_tail_after_status" property="tailAfterStatus" jdbcType="CHAR" />
+    <result column="temp_purchase_arrival_affirm_arrival" property="affirmArrival" jdbcType="CHAR" />
     <result column="temp_purchase_arrival_summary" property="summary" jdbcType="VARCHAR" />
     <result column="temp_purchase_arrival_remark" property="remark" jdbcType="VARCHAR" />
     <result column="temp_purchase_arrival_creater" property="creater" jdbcType="VARCHAR" />
@@ -148,9 +149,10 @@
     temp_purchase_arrival.operators as temp_purchase_arrival_operators, temp_purchase_arrival.operator_dep as temp_purchase_arrival_operator_dep, 
     temp_purchase_arrival.confirmor as temp_purchase_arrival_confirmor, temp_purchase_arrival.confirmor_department as temp_purchase_arrival_confirmor_department, 
     temp_purchase_arrival.confirmor_time as temp_purchase_arrival_confirmor_time, temp_purchase_arrival.tail_after_status as temp_purchase_arrival_tail_after_status, 
-    temp_purchase_arrival.summary as temp_purchase_arrival_summary, temp_purchase_arrival.remark as temp_purchase_arrival_remark, 
-    temp_purchase_arrival.creater as temp_purchase_arrival_creater, temp_purchase_arrival.create_time as temp_purchase_arrival_create_time, 
-    temp_purchase_arrival.updater as temp_purchase_arrival_updater, temp_purchase_arrival.update_time as temp_purchase_arrival_update_time
+    temp_purchase_arrival.affirm_arrival as temp_purchase_arrival_affirm_arrival, temp_purchase_arrival.summary as temp_purchase_arrival_summary, 
+    temp_purchase_arrival.remark as temp_purchase_arrival_remark, temp_purchase_arrival.creater as temp_purchase_arrival_creater, 
+    temp_purchase_arrival.create_time as temp_purchase_arrival_create_time, temp_purchase_arrival.updater as temp_purchase_arrival_updater, 
+    temp_purchase_arrival.update_time as temp_purchase_arrival_update_time
   	<!-- 以下字段属于扩展 -->
     ,temp_userCnName.user_cn_name as temp_purchase_arrival_operators_display
     ,temp_suppliersName.suppliers_name as temp_purchase_arrival_supplier_display
@@ -219,7 +221,7 @@
       audit_date, audit_remark, enabled, 
       operators, operator_dep, confirmor, 
       confirmor_department, confirmor_time, tail_after_status, 
-      summary, remark, creater, 
+      affirm_arrival, summary, remark, creater, 
       create_time, updater, update_time
       )
     values (#{purArrivalId,jdbcType=VARCHAR}, #{purchaseTypeId,jdbcType=VARCHAR}, #{arrivalCode,jdbcType=VARCHAR}, 
@@ -238,7 +240,7 @@
       #{auditDate,jdbcType=TIMESTAMP}, #{auditRemark,jdbcType=VARCHAR}, #{enabled,jdbcType=CHAR}, 
       #{operators,jdbcType=VARCHAR}, #{operatorDep,jdbcType=VARCHAR}, #{confirmor,jdbcType=VARCHAR}, 
       #{confirmorDepartment,jdbcType=VARCHAR}, #{confirmorTime,jdbcType=TIMESTAMP}, #{tailAfterStatus,jdbcType=CHAR}, 
-      #{summary,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{affirmArrival,jdbcType=CHAR}, #{summary,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -388,6 +390,9 @@
       </if>
       <if test="tailAfterStatus != null" >
         tail_after_status,
+      </if>
+      <if test="affirmArrival != null" >
+        affirm_arrival,
       </if>
       <if test="summary != null" >
         summary,
@@ -552,6 +557,9 @@
       </if>
       <if test="tailAfterStatus != null" >
         #{tailAfterStatus,jdbcType=CHAR},
+      </if>
+      <if test="affirmArrival != null" >
+        #{affirmArrival,jdbcType=CHAR},
       </if>
       <if test="summary != null" >
         #{summary,jdbcType=VARCHAR},
@@ -727,6 +735,9 @@
       <if test="record.tailAfterStatus != null" >
         temp_purchase_arrival.tail_after_status = #{record.tailAfterStatus,jdbcType=CHAR},
       </if>
+      <if test="record.affirmArrival != null" >
+        temp_purchase_arrival.affirm_arrival = #{record.affirmArrival,jdbcType=CHAR},
+      </if>
       <if test="record.summary != null" >
         temp_purchase_arrival.summary = #{record.summary,jdbcType=VARCHAR},
       </if>
@@ -800,6 +811,7 @@
       temp_purchase_arrival.confirmor_department = #{record.confirmorDepartment,jdbcType=VARCHAR},
       temp_purchase_arrival.confirmor_time = #{record.confirmorTime,jdbcType=TIMESTAMP},
       temp_purchase_arrival.tail_after_status = #{record.tailAfterStatus,jdbcType=CHAR},
+      temp_purchase_arrival.affirm_arrival = #{record.affirmArrival,jdbcType=CHAR},
       temp_purchase_arrival.summary = #{record.summary,jdbcType=VARCHAR},
       temp_purchase_arrival.remark = #{record.remark,jdbcType=VARCHAR},
       temp_purchase_arrival.creater = #{record.creater,jdbcType=VARCHAR},
@@ -954,6 +966,9 @@
       <if test="tailAfterStatus != null" >
         tail_after_status = #{tailAfterStatus,jdbcType=CHAR},
       </if>
+      <if test="affirmArrival != null" >
+        affirm_arrival = #{affirmArrival,jdbcType=CHAR},
+      </if>
       <if test="summary != null" >
         summary = #{summary,jdbcType=VARCHAR},
       </if>
@@ -1024,6 +1039,7 @@
       confirmor_department = #{confirmorDepartment,jdbcType=VARCHAR},
       confirmor_time = #{confirmorTime,jdbcType=TIMESTAMP},
       tail_after_status = #{tailAfterStatus,jdbcType=CHAR},
+      affirm_arrival = #{affirmArrival,jdbcType=CHAR},
       summary = #{summary,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
       creater = #{creater,jdbcType=VARCHAR},
