@@ -112,7 +112,6 @@ $('#purchase_arrival_form').datagrid({
 	barrival : true,//是否存在边框 
 	fitColumns : false,//自动填充行
 	nowrap : true,//禁止单元格中的文字自动换行
-	loadMsg: '',
 	autoRowHeight : false,//禁止设置自动行高以适应内容
 	striped : true,//true就是把行条纹化。（即奇偶行使用不同背景色）
 	singleSelect : true,//限制单选
@@ -189,19 +188,24 @@ $('#purchase_arrival_form').datagrid({
     ]],
     onLoadSuccess:function(data){
     	console.log(data.rows.length);
-    	for(var i=0;i<data.rows.length;i++){
+    	$(this).datagrid("beginEdit",1);
+    	$("div[class='dialog-button datagrid-rowediting-panel']").remove();
+    	/* for(var i=0;i<data.rows.length;i++){
     		//这里循环第二次就为空了
-			$('#purchase_arrival_form').datagrid("beginEdit",i);
-    		
-		}
+    		console.log($dg);
+    		$("div[class='dialog-button datagrid-rowediting-panel']").remove();
+			$dg.datagrid("beginEdit",i);
+    		alert(i);
+		} */
     },
     toolbar: [{
 	   text: '添加商品', iconCls: 'icon-standard-pencil-add', handler: function () {
-		   var rows = $('#purchase_arrival_form').datagrid("getRows");
+		   /* var rows = $('#purchase_arrival_form').datagrid("getRows");
 		   for(var i=0;i<rows.length;i++){
 	    		//这里循环第二次就为空了，这里也一样
 			   $('#purchase_arrival_form').datagrid("beginEdit",i);
-		  }
+		  } */
+		   test();
 	   }
     },{
        text: '删除商品', iconCls: 'icon-standard-pencil-delete', handler: function () {  
@@ -221,6 +225,12 @@ $('#purchase_arrival_form').datagrid({
      }]
 });
 });
+
+function test(){
+	$dg.datagrid("beginEdit",1);
+	$("div[class='dialog-button datagrid-rowediting-panel']").remove();
+}
+
 //到货数量的绑定调用方法
 function arrivalChange(indexRows,rec){
 	var deliveryTarget = $dg.datagrid('getEditor', {index:indexRows,field:'delivery'}).target;

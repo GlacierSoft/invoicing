@@ -3,6 +3,8 @@ package com.glacier.frame.entity.purchase;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class PurchaseArrival {
     private String purArrivalId;
 
@@ -26,6 +28,7 @@ public class PurchaseArrival {
 
     private String deliveryType;//交货方式
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date deliveryDead;//交货期限
 
     private String paymentAgrId;//付款约定ID
@@ -54,6 +57,7 @@ public class PurchaseArrival {
 
     private BigDecimal derateMoney;//应付减免金额
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date arrivalDate;//到货时间
 
     private String acceptor;//验收人
@@ -82,6 +86,7 @@ public class PurchaseArrival {
 
     private String auditor;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditDate;
 
     private String auditRemark;
@@ -96,6 +101,7 @@ public class PurchaseArrival {
 
     private String confirmorDepartment;//运费确认部门
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date confirmorTime;//确认日期
 
     private String tailAfterStatus;//货物跟踪状态
@@ -106,10 +112,12 @@ public class PurchaseArrival {
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
     
     //自定义字段
@@ -124,6 +132,8 @@ public class PurchaseArrival {
     private String paymentTypeDisplay;
     
     private String deliveryTypeDisplay;
+    
+    private String logCompanyDisplay;
 
     public String getPurArrivalId() {
         return purArrivalId;
@@ -603,6 +613,14 @@ public class PurchaseArrival {
 
 	public void setDeliveryTypeDisplay(String deliveryTypeDisplay) {
 		this.deliveryTypeDisplay = deliveryTypeDisplay;
+	}
+
+	public String getLogCompanyDisplay() {
+		return logCompanyDisplay;
+	}
+
+	public void setLogCompanyDisplay(String logCompanyDisplay) {
+		this.logCompanyDisplay = logCompanyDisplay;
 	}
 
 	@Override

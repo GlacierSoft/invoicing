@@ -60,7 +60,7 @@ glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.param = {
  	    <td>供应商传真：</td>
 	    <td><input class="spinner"  value="${purchaseDate.fax}"/></td>
 	 	<td>交货方式：</td>
-		<td ><input name="deliveryType" class="spinner"   value='${purchaseDate.deliveryType}' /></td>
+		<td ><input name="deliveryType" class="spinner"   value='${purchaseDate.deliveryTypeDisplay}' /></td>
 	 	<td>交货期限：</td>
 		<td><input id="deliveryDead" name="deliveryDead" class="spinner"  value="<fmt:formatDate value="${purchaseDate.deliveryDead}" pattern="yyyy-MM-dd"/>" /></td>
 	 </tr> 
@@ -92,7 +92,7 @@ glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.param = {
 		<td>运费确认部门：</td>
 		<td><input name="logTotalTmount" class="spinner" value='${purchaseDate.confirmorDepartment}' /></td>
 	 	<td>物流公司：</td>
-		<td><input id="purchaseArrival_mgr_purchaseArrival_detail_logCompany" name="logCompany"  value="${purchaseDate.logCompany}" class="spinner"/></td>
+		<td><input id="purchaseArrival_mgr_purchaseArrival_detail_logCompany" name="logCompany"  value="${purchaseDate.logCompanyDisplay}" class="spinner"/></td>
 	 </tr>
 	 <tr>
 	 	<td>物流联系人：</td>

@@ -63,6 +63,7 @@
     <result column="temp_purchase_arrival_operators_display" property="operatorsDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
     <result column="temp_purchase_arrival_payment_type_display" property="paymentTypeDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
     <result column="temp_purchase_arrival_delivery_type_display" property="deliveryTypeDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
+    <result column="temp_purchase_arrival_log_company_display" property="logCompanyDisplay" jdbcType="VARCHAR"/> <!--自定义扩展字段 -->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -156,6 +157,7 @@
     ,temp_paymentType.payment_type_name as temp_purchase_arrival_payment_type_display
     ,temp_purchaseType.name as temp_purchase_arrival_purchase_type_display
     ,temp_warehouse.warehouse_name as temp_purchase_arrival_storage_display
+    ,temp_logCompanyName.suppliers_name as temp_purchase_arrival_log_company_display
   </sql>
   <sql id="Base_extend">
      LEFT JOIN t_user temp_userCnName ON temp_userCnName.user_id = temp_purchase_arrival.operators <!-- 扩展 -->
@@ -163,6 +165,7 @@
      LEFT JOIN t_par_com_payment_type temp_paymentType ON temp_paymentType.payment_type_id = temp_purchase_arrival.payment_type_id <!-- 扩展 -->
   	 LEFT JOIN t_par_purchase_type temp_purchaseType ON temp_purchaseType.purchase_type_id = temp_purchase_arrival.purchase_type_id <!-- 扩展 -->
   	 LEFT JOIN t_warehouse temp_warehouse ON temp_warehouse.warehouse_id = temp_purchase_arrival.storage <!-- 扩展 -->
+  	 LEFT JOIN t_suppliers temp_logCompanyName ON temp_logCompanyName.supplier_id = temp_purchase_arrival.log_company <!-- 扩展 -->
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.purchase.PurchaseArrivalExample" >
     select

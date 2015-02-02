@@ -48,12 +48,12 @@
 				width:120,
 				sortable:true
 			},{
-				field:'storage',
+				field:'storageDisplay',
 				title:'仓库',
 				width:120,
 				sortable:true
 			},{
-				field:'supplierId',
+				field:'supplierDisplay',
 				title:'供应商',
 				width:120,
 				sortable:true
@@ -207,6 +207,25 @@
 		}); */
 		$("#layout_center_panel").panel("setTitle","修改采购到货").panel('refresh',ctx + '/do/purchaseArrival/intoForm.htm?purchaseId='+row.purArrivalId);
 	};
+	
+	//点击收货确认触发方法
+	glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.affirmPurchaseArrival = function(){
+		var row = glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.purchaseArrivalDataGrid.datagrid("getSelected");
+		glacier.basicAddOrEditDialog({
+			title : '【采购到货】 - 收货确认',
+			width : 720,
+			height : 300,
+			queryUrl : ctx + '/do/purchaseArrival/affirmPurchaseArrival.htm',
+			submitUrl : ctx + '/do/purchaseArrival/affirm.json',
+			queryParams : {
+				purchaseId : row.purArrivalId
+			},
+			successFun : function (){
+				glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.purchaseArrivalDataGrid.datagrid('reload');
+			}
+		});
+	};
+	
 	//点击删除按钮触发方法
 	glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.delPurchaseArrival = function(){
 		var rows = glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.purchaseArrivalDataGrid.datagrid("getChecked");
