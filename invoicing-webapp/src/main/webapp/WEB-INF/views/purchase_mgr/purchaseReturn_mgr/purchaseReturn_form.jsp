@@ -28,6 +28,9 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 </script>
 <form id="purchaseArrival_mgr_purchaseArrival_form" method="post">
 <table  class="formtable" style="margin-left: 20px;margin-top: 20px;">
+
+<glacierui:toolbar panelEnName="PurchaseReturnList" toolbarId="purchaseReturnDataGrid_toolbar" menuEnName="purchaseReturn"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+
 <tr>
     <td colspan="8">
       <hr> 
@@ -86,10 +89,10 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
     <td>
        <input class="easyui-validatebox spinner"  id="returnReasonId" name="returnReasonId" style="width:168px" value="${purchaseReturnDate.returnReasonId}" required="true"/>
     </td>
-    <td style="padding-left:10px;">退货说明：</td>
-    <td>
-    	<input  id="returnPolicy" name="returnPolicy" class="spinner" style="width:168px" value="${purchaseReturnDate.returnPolicy }" required="true"/>
-    </td>
+	<td style="padding-left:10px;">退货说明：</td>
+	<td>
+	<input  id="returnPolicy" name="returnPolicy" class="spinner" style="width:168px" value="${purchaseReturnDate.returnPolicy }" required="true"/>
+	</td>
 </tr> 
 <tr> 
     <td style="padding-left:10px;">供应商：</td>
@@ -127,7 +130,7 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 		<input id="notPayAmo" name="notPayAmo" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${purchaseReturnDate.notPayAmo }' pattern="#,#00.00元"/>" required="true"/>
 	</td>
 </tr> 
- <tr> 
+<tr> 
      <td style="padding-left:10px;">已付款金额：</td>
      <td >
         <input id="alrPayAmo" name="alrPayAmo" class="easyui-validatebox spinner" style="width:168px;" value="<fmt:formatNumber value='${purchaseReturnDate.alrPayAmo}' pattern="#,#00.00元"/>" required="true"/>
@@ -141,6 +144,12 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
    <td style="padding-left:10px;">已开票金额：</td>
    <td><input name="alrInvAmo" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${purchaseReturnDate.alrInvAmo}' pattern="#,#00.00元"/>" required="true"/></td>
 </tr>
+<tr>
+    <td style="padding-left:10px;">总金额：</td>
+	<td>
+	    <input id="totalAmount" readonly="readonly" name="totalAmount" class=" spinner" style="width:168px;height:20px;border-left-style: none;border-right-style: none;border-top-style: none;"   value="<fmt:formatNumber value='${purchaseReturnDate.totalAmount}' pattern="#,#00.00元"/>" />
+	</td> 
+</tr>
 <tr> 
    <td style="padding-left:10px;">备 注：</td>
    <td colspan="7"> <textarea   name="remark" class="easyui-validatebox spinner" style="width:920px;" readonly="readonly" >${purchaseReturnDate.remark}</textarea></td>
@@ -153,16 +162,22 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
      </td>
 </tr>
 </table>
-<br/>
-<!--采购退货明细  -->
-<table id="purchase_return_form" style="height: 200px;margin-top: 10px;">  
-</table>
-<hr> 
-	<div style= "text-align:center ;margin-top: 30px;margin-bottom: 30px">
-       <a id="save" href="javascript:doSave();" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">保存</a> 
-       <a style="margin-left: 30px" href="javascript:doClear();" class="easyui-linkbutton" data-options="iconCls:'icon-undo'">撤销</a> 
-    </div>
-</form>
+	<hr> 
+     <div style="text-align: center;">
+        <font size="3" style="margin-top: 30px"><b>货品详情</b></font> 
+     </div> 
+     <hr>        
+     <!-- 所有列表面板和表格 -->  
+	<div id="purchaseReturnPanel" data-options="region:'center',border:true">
+		<table id="goodsList" style="margin-bottom: 50px">  
+		</table>
+		<hr> 
+		<div style= "text-align:center ;margin-top: 30px;margin-bottom: 30px">
+	      <a id="saveOk" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">保存</a> 
+	      <a style="margin-left: 30px" id="unbo" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-undo'">关闭</a> 
+	   </div> 
+	</div>   
+</form> 
 
 <!--附件上传  -->
 <div id="FileDialog" data-options="closed:true" class="easyui-dialog">
@@ -182,6 +197,7 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 	</div>
 	</div>
 </div>
+
 
 <script>
 
@@ -225,9 +241,8 @@ function ajaxFileUpload()
 				$.messager.alert('附件提示','上传成功！','info');
 				$("<a href='"+ctx+"/"+$.parseJSON(data).path+"'>"+$.parseJSON(data).name+"</a>").appendTo("#fileText");
 				if(AllImgExt.indexOf(FileExt+"|")!=-1){
-					$("<img src='"+ctx+"/"+$.parseJSON(data).path+"'  width='50' height='50'  />").appendTo("#fileText");
+					$("<img src='"+ctx+"/"+$.parseJSON(data).path+"'  width='50' height='50'/>").appendTo("#fileText");
 				}
-				 
 			},
 			error: function (data, status, e)
 			{
@@ -235,17 +250,19 @@ function ajaxFileUpload()
 			}
 		}
 	)
-	
 	return false;
-
 }
 
 //明细添加
+var $dg = $("#goodsList");
 
-var setWarehouse="";//保存仓库ID
+var storageVal="";//保存仓库ID
+var stRows="";//保存行数
+var divs = "";//保存goodsDetail中的dialog节点
 var setRowData="";//保存选中的值
+var selecRows=0;
 
-$('#purchase_return_form').datagrid({  
+$dg.datagrid({  
 	fit : false,//控件自动resize占满窗口大小
 	iconCls : 'icon-save',//图标样式
 	barrival : true,//是否存在边框 
@@ -260,40 +277,60 @@ $('#purchase_return_form').datagrid({
 	sortOrder : 'DESC',//升序还是降序
 	remoteSort : true,//开启远程排序，默认为false
 	idField : 'purOrderDetId', 
+	columns:[[    
+	           {field:'goodsCode',title:'货品编码',width:100},    
+	           {field:'goodsName',title:'货品名称',width:100},
+	           {field:'goodsId',title:'货品编号',width:100,hidden:true},    
+	           {field:'goodsModel',title:'规格型号',width:100},   
+	           {field:'goodsUnit',title:'单位',width:100}, 
+	           {field:'batchInformation',title:'批次信息',width:100},
+	           {field:'quantity',title:'退货数量',width:100,editor: { type: 'numberbox', options: { required: true } } },
+	           {field:'price',title:'退货单价',width:100,editor: { type: 'numberbox', options: { required: true } } },
+	           {field:'money',title:'退货金额',width:100},
+	           {field:'cess',title:'税率',width:100,editor: { type: 'numberbox', options: { required: true } } }, 
+	           {field:'remark',title:'备注',width:100,editor: { type: 'text' }}
+	       ]], 
 	toolbar: [{
 		 text:'货物添加',
 		iconCls: 'icon-standard-pencil-add',
-		handler: function(){addRow();}
+		handler: function(){
+    		var row= $dg.datagrid('getSelected');//获取上一次的选中行
+        	var index=$dg.datagrid('getRowIndex',row);  
+            addRows();
+		}
 	 },'-',{
 		text:'货物删除',
 		iconCls: 'icon-standard-pencil-delete',
 		handler: function(){
-			$.messager.confirm('提示','确认删除数据?',function(r){
-        		if (r){
-        			var row= $('#purchase_return_form').datagrid("getSelected"); 
-        			if(row){
-                    	$('#purchase_return_form').datagrid('deleteRow',row);
-                    }else{
-                    	$('#purchase_return_form').datagrid('deleteRow',0);
-                    }
+		  var rows=$dg.datagrid('getRows');//获取总行数，统计行不能删除 
+      	  var selectRows = $dg.datagrid("getSelected");//获取选中行
+      	  var row=$dg.datagrid('getRowIndex', selectRows);//获取选中行下标
+      	  if(selectRows==null){ 
+      		  $.messager.alert('提示','未选择删除商品！','info'); 
+                return;
+      	  }  
+      	  var computeRow = $dg.datagrid('getData').rows[row];//获取最后一行数据
+      	  if(computeRow.goodsCode == "<b>统计：</b>"){//如果是统计行，就不让删除
+      		  $.messager.alert('提示','统计行不能删除！','info'); 
+                return;
+		  } 
+        	$.messager.confirm('提示','确认删除数据?',function(r){
+        		if (r){ 
+        			var rows = $dg.datagrid("getSelected"); 
+        			var sum=$("#totalAmount").attr("value");
+        		 	$("#totalAmount").attr("value","").attr("value",(sum-rows.money).toFixed(2));
+                    var	row=$dg.datagrid('getRowIndex', rows);
+          			$dg.datagrid('deleteRow',row); 
+          		     compute();//删除后调用统计
+          		var rows = $dg.datagrid('getRows'); //删除后重新获取所有行
+					if(rows.length==2){ //如果正好是两行，就把统计行也删除
+						$dg.datagrid('deleteRow',1);//删除统计行 
+					 } 
         		}
-        	});  
+        	});   
 		}
 	}],
-   columns:[[    
-        {field:'goodsCode',title:'货品编码',width:100},    
-        {field:'goodsName',title:'货品名称',width:100},
-        {field:'goodsId',title:'货品编号',width:100,hidden:true},    
-        {field:'goodsModel',title:'规格型号',width:100},   
-        {field:'goodsUnit',title:'单位',width:100}, 
-        {field:'batchInformation',title:'批次信息',width:100},
-        {field:'quantity',title:'退货数量',width:100,editor: { type: 'numberbox', options: { required: true } } },
-        {field:'price',title:'退货单价',width:100,editor: { type: 'numberbox', options: { required: true } } },
-        {field:'money',title:'退货金额',width:100},
-        {field:'cess',title:'税率',width:100,editor: { type: 'numberbox', options: { required: true } } }, 
-        {field:'remark',title:'备注',width:100,editor: { type: 'text' }}
-    ]], 
-    onDblClickRow:function(rowIndex, rowData){
+   onDblClickRow:function(rowIndex, rowData){
     	showDetail(rowIndex,rowData);
     }
   });
