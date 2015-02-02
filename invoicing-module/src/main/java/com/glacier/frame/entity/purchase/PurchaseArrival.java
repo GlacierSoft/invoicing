@@ -3,6 +3,8 @@ package com.glacier.frame.entity.purchase;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class PurchaseArrival {
     private String purArrivalId;
 
@@ -26,6 +28,7 @@ public class PurchaseArrival {
 
     private String deliveryType;//交货方式
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date deliveryDead;//交货期限
 
     private String paymentAgrId;//付款约定ID
@@ -54,6 +57,7 @@ public class PurchaseArrival {
 
     private BigDecimal derateMoney;//应付减免金额
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date arrivalDate;//到货时间
 
     private String acceptor;//验收人
@@ -82,6 +86,7 @@ public class PurchaseArrival {
 
     private String auditor;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date auditDate;
 
     private String auditRemark;
@@ -96,20 +101,25 @@ public class PurchaseArrival {
 
     private String confirmorDepartment;//运费确认部门
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date confirmorTime;//确认日期
 
     private String tailAfterStatus;//货物跟踪状态
 
+    private String affirmArrival;//是否收货确认
+    
     private String summary;//物品摘要
 
     private String remark;
 
     private String creater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private String updater;
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
     
     //自定义字段
@@ -124,6 +134,8 @@ public class PurchaseArrival {
     private String paymentTypeDisplay;
     
     private String deliveryTypeDisplay;
+    
+    private String logCompanyDisplay;
 
     public String getPurArrivalId() {
         return purArrivalId;
@@ -509,6 +521,14 @@ public class PurchaseArrival {
         this.tailAfterStatus = tailAfterStatus;
     }
 
+    public String getAffirmArrival() {
+        return affirmArrival;
+    }
+
+    public void setAffirmArrival(String affirmArrival) {
+        this.affirmArrival = affirmArrival;
+    }
+    
     public String getSummary() {
         return summary;
     }
@@ -605,6 +625,14 @@ public class PurchaseArrival {
 		this.deliveryTypeDisplay = deliveryTypeDisplay;
 	}
 
+	public String getLogCompanyDisplay() {
+		return logCompanyDisplay;
+	}
+
+	public void setLogCompanyDisplay(String logCompanyDisplay) {
+		this.logCompanyDisplay = logCompanyDisplay;
+	}
+
 	@Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -665,6 +693,7 @@ public class PurchaseArrival {
             && (this.getConfirmorDepartment() == null ? other.getConfirmorDepartment() == null : this.getConfirmorDepartment().equals(other.getConfirmorDepartment()))
             && (this.getConfirmorTime() == null ? other.getConfirmorTime() == null : this.getConfirmorTime().equals(other.getConfirmorTime()))
             && (this.getTailAfterStatus() == null ? other.getTailAfterStatus() == null : this.getTailAfterStatus().equals(other.getTailAfterStatus()))
+            && (this.getAffirmArrival() == null ? other.getAffirmArrival() == null : this.getAffirmArrival().equals(other.getAffirmArrival()))
             && (this.getSummary() == null ? other.getSummary() == null : this.getSummary().equals(other.getSummary()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getCreater() == null ? other.getCreater() == null : this.getCreater().equals(other.getCreater()))
@@ -725,6 +754,7 @@ public class PurchaseArrival {
         result = prime * result + ((getConfirmorDepartment() == null) ? 0 : getConfirmorDepartment().hashCode());
         result = prime * result + ((getConfirmorTime() == null) ? 0 : getConfirmorTime().hashCode());
         result = prime * result + ((getTailAfterStatus() == null) ? 0 : getTailAfterStatus().hashCode());
+        result = prime * result + ((getAffirmArrival() == null) ? 0 : getAffirmArrival().hashCode());
         result = prime * result + ((getSummary() == null) ? 0 : getSummary().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getCreater() == null) ? 0 : getCreater().hashCode());

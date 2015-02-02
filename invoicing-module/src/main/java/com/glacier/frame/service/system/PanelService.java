@@ -126,9 +126,9 @@ public class PanelService {
     @MethodLog(opera ="PanelList_add")
     public Object addPanel(Panel panel) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        PanelExample panelExample = new PanelExample();
+//        PanelExample panelExample = new PanelExample();
         int count = 0;
-        // 防止面板名称重复
+       /* // 防止面板名称重复
         panelExample.createCriteria().andPanelCnNameEqualTo(panel.getPanelCnName());
         count = panelMapper.countByExample(panelExample);// 查找相同中文名称的面板数量
         if (count > 0) {
@@ -142,7 +142,7 @@ public class PanelService {
         if (count > 0) {
             returnResult.setMsg("英文名称重复，请重新填写!");
             return returnResult;
-        }
+        }*/
         panel.setPanelId(RandomGUID.getRandomGUID());
         count = panelMapper.insert(panel);
         if (count == 1) {
@@ -168,9 +168,9 @@ public class PanelService {
     @MethodLog(opera = "PanelList_edit")
     public Object editPanel(Panel panel) {
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-        PanelExample panelExample = new PanelExample();
+//        PanelExample panelExample = new PanelExample();
         int count = 0;
-        // 防止面板名称重复
+        /*// 防止面板名称重复
         panelExample.createCriteria().andPanelIdNotEqualTo(panel.getPanelId()).andPanelCnNameEqualTo(panel.getPanelCnName());
         count = panelMapper.countByExample(panelExample);// 查找相同中文名称的面板数量
         if (count > 0) {
@@ -184,7 +184,7 @@ public class PanelService {
         if (count > 0) {
             returnResult.setMsg("英文名称重复，请重新填写!");
             return returnResult;
-        }
+        }*/
         count = panelMapper.updateByPrimaryKey(panel);
         if (count == 1) {
             returnResult.setSuccess(true);

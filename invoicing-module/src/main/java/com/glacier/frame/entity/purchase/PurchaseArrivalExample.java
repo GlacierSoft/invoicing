@@ -3356,6 +3356,76 @@ public class PurchaseArrivalExample {
             return (Criteria) this;
         }
 
+        public Criteria andAffirmArrivalIsNull() {
+            addCriterion("temp_purchase_arrival.affirm_arrival is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAffirmArrivalIsNotNull() {
+            addCriterion("temp_purchase_arrival.affirm_arrival is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAffirmArrivalEqualTo(String value) {
+            addCriterion("temp_purchase_arrival.affirm_arrival =", value, "affirmArrival");
+            return (Criteria) this;
+        }
+
+        public Criteria andAffirmArrivalNotEqualTo(String value) {
+            addCriterion("temp_purchase_arrival.affirm_arrival <>", value, "affirmArrival");
+            return (Criteria) this;
+        }
+
+        public Criteria andAffirmArrivalGreaterThan(String value) {
+            addCriterion("temp_purchase_arrival.affirm_arrival >", value, "affirmArrival");
+            return (Criteria) this;
+        }
+
+        public Criteria andAffirmArrivalGreaterThanOrEqualTo(String value) {
+            addCriterion("temp_purchase_arrival.affirm_arrival >=", value, "affirmArrival");
+            return (Criteria) this;
+        }
+
+        public Criteria andAffirmArrivalLessThan(String value) {
+            addCriterion("temp_purchase_arrival.affirm_arrival <", value, "affirmArrival");
+            return (Criteria) this;
+        }
+
+        public Criteria andAffirmArrivalLessThanOrEqualTo(String value) {
+            addCriterion("temp_purchase_arrival.affirm_arrival <=", value, "affirmArrival");
+            return (Criteria) this;
+        }
+
+        public Criteria andAffirmArrivalLike(String value) {
+            addCriterion("temp_purchase_arrival.affirm_arrival like", value, "affirmArrival");
+            return (Criteria) this;
+        }
+
+        public Criteria andAffirmArrivalNotLike(String value) {
+            addCriterion("temp_purchase_arrival.affirm_arrival not like", value, "affirmArrival");
+            return (Criteria) this;
+        }
+
+        public Criteria andAffirmArrivalIn(List<String> values) {
+            addCriterion("temp_purchase_arrival.affirm_arrival in", values, "affirmArrival");
+            return (Criteria) this;
+        }
+
+        public Criteria andAffirmArrivalNotIn(List<String> values) {
+            addCriterion("temp_purchase_arrival.affirm_arrival not in", values, "affirmArrival");
+            return (Criteria) this;
+        }
+
+        public Criteria andAffirmArrivalBetween(String value1, String value2) {
+            addCriterion("temp_purchase_arrival.affirm_arrival between", value1, value2, "affirmArrival");
+            return (Criteria) this;
+        }
+
+        public Criteria andAffirmArrivalNotBetween(String value1, String value2) {
+            addCriterion("temp_purchase_arrival.affirm_arrival not between", value1, value2, "affirmArrival");
+            return (Criteria) this;
+        }
+        
         public Criteria andSummaryIsNull() {
             addCriterion("temp_purchase_arrival.summary is null");
             return (Criteria) this;

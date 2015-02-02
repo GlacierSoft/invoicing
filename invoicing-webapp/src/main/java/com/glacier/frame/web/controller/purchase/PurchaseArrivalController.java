@@ -2,9 +2,7 @@ package com.glacier.frame.web.controller.purchase;
  
 import java.util.List;
 import javax.validation.Valid;
-
 import net.sf.json.JSONObject;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -84,7 +82,16 @@ public class PurchaseArrivalController extends AbstractController{
     private Object listActionAsGridByMenuId(JqPager jqPager, PurchaseArrivalQueryDTO carTypeQueryDTO) {
         return purchaseArrivalService.listAsGrid(jqPager, carTypeQueryDTO);
     }
-      
+    
+    //收货确认页面
+    @RequestMapping(value = "/affirmPurchaseArrival.htm")
+    private Object affirmPurchaseArrival(String purchaseId) {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseArrival_mgr/PurchaseArrivalAffirm");
+        mav.addObject("purchaseDate", purchaseArrivalService.getPurchaseArrival(purchaseId));
+        mav.addObject("userDate", userService.getUserCombo(null));//员工信息
+        return mav;
+    }
+    
     //进入采购到货信息Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoMemberGradeDetailPage(String purchaseId) { 
@@ -98,7 +105,6 @@ public class PurchaseArrivalController extends AbstractController{
     //进入采购到货信息Form表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object intoGradeFormPnews(String purchaseId) {
-    	System.out.println("采购到货ID："+purchaseId);
         ModelAndView mav = new ModelAndView("purchase_mgr/purchaseArrival_mgr/purchaseArrival_form2");
     	mav.addObject("userDate", userService.getUserCombo(null));//员工信息
     	mav.addObject("deliverTypeDate", deliverTypeService.getDeliverTypeCombo());//所属仓库

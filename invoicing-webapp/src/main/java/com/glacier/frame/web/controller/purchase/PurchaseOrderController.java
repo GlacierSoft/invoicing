@@ -21,10 +21,13 @@ package com.glacier.frame.web.controller.purchase;
 
 import java.util.ArrayList;
 import java.util.List;  
+
+import javax.servlet.http.HttpSession;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject; 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.stereotype.Controller; 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -79,9 +82,36 @@ public class PurchaseOrderController extends AbstractController{
     private Object intoIndexParea() {
         ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/purchaseOrder");
         return mav;
-    }
+    } 
     
+    //进入未审核的列表展示页面
+    @RequestMapping(value = "/batchAudit.htm")
+    private Object batchAudit() {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/batch/batchAudit/purchaseOrder");
+        return mav;
+    } 
     
+    //进入已审核的列表展示页面
+    @RequestMapping(value = "/batchCancelAudit.htm")
+    private Object batchCancelAudit() {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/batch/batchCancelAudit/purchaseOrder");
+        return mav;
+    }  
+    
+    //进入已禁用的列表展示页面
+    @RequestMapping(value = "/batchEnable.htm")
+    private Object batchEnable() {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/batch/batchEnable/purchaseOrder");
+        return mav;
+    }  
+    
+    //进入已启用的列表展示页面
+    @RequestMapping(value = "/batchDisable.htm")
+    private Object batchDisable() {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/batch/batchDisable/purchaseOrder");
+        return mav;
+    }  
+     
     //进入订单审核页面
     @RequestMapping(value = "/auditForm.htm")
     private Object audit(String purOrderId) {
@@ -89,6 +119,7 @@ public class PurchaseOrderController extends AbstractController{
         mav.addObject("purchaseOrderData", purchaseOrderService.getPurchaseOrder(purOrderId));
         return mav;
     }
+    
     //进入货品展示页面
     @RequestMapping(value = "/goodsIndex.htm")
     private Object goodsIndex() {
@@ -109,6 +140,7 @@ public class PurchaseOrderController extends AbstractController{
         return purchaseOrderService.listAsGrid(jqPager, purchaseOrderQueryDTO);
     }
     
+  
     //获取订购合同详细信息
     @RequestMapping(value = "/orderDetail.json", method = RequestMethod.POST)
     @ResponseBody
@@ -181,7 +213,7 @@ public class PurchaseOrderController extends AbstractController{
 		 	  list.add(resourceBean); 
 		  }  
 		}  
-         return purchaseOrderService.editPurchaseOrder(order,list);
+        return purchaseOrderService.editPurchaseOrder(order,list);
     }
     
     //删除订购合同
@@ -215,4 +247,33 @@ public class PurchaseOrderController extends AbstractController{
     		return purchaseOrderService.enablePurchaseOrder(purOrderIds);
     	} 
     } 
+    
+    //进入订单批量审核页面
+    @RequestMapping(value = "/auditFormList.htm")
+    private Object auditFormList(@RequestParam List<String> purOrderIds,HttpSession session) {
+    	
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/batch/batchAudit/audit_form");
+        if(purOrderIds.size()!=0){
+        	session.setAttribute("auditIds", purOrderIds);//存放批量审核的ID
+        }
+        return mav;
+    }
+    
+    //审核批量订购合同
+    @RequestMapping(value = "/auditList.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object auditList(PurchaseOrder order,HttpSession session) { 
+    	@SuppressWarnings("unchecked")
+		List<String> list=(List<String>)session.getAttribute("auditIds");  
+    	session.removeAttribute("auditIds");//删除session
+    	return purchaseOrderService.auditPurchaseOrderList(order,list);
+    } 
+    
+    //批量取消审核订购合同
+    @RequestMapping(value = "/batchCancelAudit.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object batchCancelAudit(@RequestParam List<String> purOrderIds) { 
+    	return purchaseOrderService.batchCancelAudit(purOrderIds);
+    } 
+    
 }

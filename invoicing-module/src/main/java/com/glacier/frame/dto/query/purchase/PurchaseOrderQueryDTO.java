@@ -29,21 +29,31 @@ import com.glacier.frame.entity.purchase.PurchaseOrderExample.Criteria;
 
 /**
  * @ClassName: PurchaseOrderQueryDTO
- * @Description: TODO(采购订购合同DTP)
+ * @Description: TODO(采购订购合同DTO)
  * @author songjundong
  * @email 985776597@QQ.com
  * @date 2015-1-15 上午11:16:25
  */
 public class PurchaseOrderQueryDTO extends PurchaseOrder {
 
+	private String sta;  //用于记录已经审核了数据
+	 
 	private Date createStartTime;
 
 	private Date createEndTime;
 
 	public Date getCreateStartTime() {
 		return createStartTime;
+	} 
+	
+	public String getSta() {
+		return sta;
 	}
-
+  
+	public void setSta(String sta) {
+		this.sta = sta;
+	}
+  
 	public void setCreateStartTime(Date createStartTime) {
 		this.createStartTime = createStartTime;
 	}
@@ -63,6 +73,15 @@ public class PurchaseOrderQueryDTO extends PurchaseOrder {
 				&& StringUtils.isNotBlank(this.getOrderCode())) {
 			queryCriteria.andOrderCodeLike("%" + this.getOrderCode() + "%");
 		} 
+		
+		//记录已经进行过审核操作的数据
+		if(sta!=null){
+			queryCriteria.andAuditStateNotEqualTo("authstr");
+		}
+		
+		if(null!=this.getAuditState()){
+			queryCriteria.andAuditStateEqualTo(this.getAuditState());
+		}
 		
 		// 状态Enum查询
 		if (null != this.getEnabled()) {

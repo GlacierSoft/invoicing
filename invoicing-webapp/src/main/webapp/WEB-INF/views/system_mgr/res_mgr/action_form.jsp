@@ -66,7 +66,7 @@
 				<tr>
 					<td>调用方法：</td>
 					<td colspan="3">
-						<input id="res_mgr_action_form_method" type="text" class="spinner" name="method" style="width:420px;height:18px;" maxlength="100" />
+						<input id="res_mgr_action_form_method" type="text" class="spinner" name="method" style="width:420px;height:18px;" maxlength="200" />
 					</td>
 				</tr>
 				<tr>
