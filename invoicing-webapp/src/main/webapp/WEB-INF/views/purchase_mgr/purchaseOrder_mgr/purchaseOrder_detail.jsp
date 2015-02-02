@@ -13,10 +13,11 @@ $.util.namespace('glacier.purchase_mgr.purchaseOrderDetail_mgr.purchaseOrderDeta
 glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 	toolbarId : 'purchaseOrderDataGrid_toolbar',
 	actions : {
-            edit:{flag:'edit',controlType:'single'},
-            del:{flag:'del',controlType:'multiple'},
-            state:{flag:'state',controlType:'single'}
-         }
+        edit:{flag:'edit',controlType:'single'},
+        del:{flag:'del',controlType:'multiple'},
+        enable:{flag:'enable',controlType:'multiple'},
+        disable:{flag:'disable',controlType:'multiple'}
+     }
  };
 </script>
 <form id="purchase_mgr_purchaseOrder_form" method="post" >
@@ -202,6 +203,146 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.param = {
 
 <script type="text/javascript">  
 $dg=$('#purchase_order_detail');
+var purOrderId="${purchaseOrderData.purOrderId }"; 
+//启用 
+glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.enablePurchaseOrder=function (){ 
+	var purOrderIds = [];//启用的id标识  
+		purOrderIds.push(purOrderId);  
+	$.messager.confirm('请确认','是否要启用这记录?',function(r){
+        if (r){
+        	 $.ajax({ 
+        		type: "POST",
+        	    url : ctx+ '/do/purchaseOrder/enableOrDisable.json?status=enable',
+				data : {
+					purOrderIds : purOrderIds.join(',') 
+				},
+				dataType : 'json',
+				success : function(r) {
+					if (r.success) {//因为失败成功的方法都一样操作，这里故未做处理
+						$.messager.show({
+							title : '提示',
+							timeout : 3000,
+							msg : r.msg
+						});
+						load();
+						} else {
+						$.messager.show({//后台验证弹出错误提示信息框
+									title : '错误提示',
+									width : 380,
+									height : 120,
+									msg : '<span style="color:red">'+ r.msg+ '<span>',
+									timeout : 4500
+								});
+					}
+				}
+			});
+		}
+	}); 
+}
+
+//重新载入当前页面
+function load(){
+	$("#layout_center_panel").panel("setTitle","订购订货合同详情"); 
+	$("#layout_center_panel").panel("refresh",ctx +"/do/purchaseOrder/intoDetail.htm?purOrderId="+ purOrderId);
+
+}
+//禁用 
+glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.disablePurchaseOrder=function (){ 
+	var purOrderIds = [];//启用的id标识  
+		purOrderIds.push(purOrderId);   
+	if (purOrderIds.length > 0) {
+	$.messager.confirm('请确认','是否要禁用这记录?',function(r){
+        if (r){
+        	 $.ajax({ 
+        		type: "POST",
+        	    url : ctx+ '/do/purchaseOrder/enableOrDisable.json?status=disable',
+				data : {
+					purOrderIds : purOrderIds.join(',') 
+				},
+				dataType : 'json',
+				success : function(r) {
+					if (r.success) {//因为失败成功的方法都一样操作，这里故未做处理
+						$.messager.show({
+							title : '提示',
+							timeout : 3000,
+							msg : r.msg
+						});
+						load();
+					} else {
+						$.messager.show({//后台验证弹出错误提示信息框
+									title : '错误提示',
+									width : 380,
+									height : 120,
+									msg : '<span style="color:red">'+ r.msg+ '<span>',
+									timeout : 4500
+						 });
+					}
+				}
+			});
+		}
+	});
+	}
+} 
+
+//审核
+glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.auditPurchaseOrder=function (){  
+	glacier.basicAddOrEditDialog({
+		title : '审核订货单',
+		width : 410,
+		height : 250,
+		queryUrl : ctx + '/do/purchaseOrder/auditForm.htm',
+		submitUrl : ctx + '/do/purchaseOrder/audit.json',
+		queryParams : {
+			purOrderId :purOrderId
+		},
+		successFun : function (){
+			load();
+		}
+	});
+} 
+//取消审核
+glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.cancelAuditPurchaseOrder=function (){ 
+	if("${purchaseOrderData.auditState}"=='authstr'){
+	    $.messager.alert('提示','该记录未进行过审核操作！','info'); 
+	    return ;
+	}
+	$.messager.confirm('请确认','是否要取消审核该记录?',function(r){
+        if (r){
+        	 $.ajax({ 
+        		type: "POST",
+        	    url : ctx+ '/do/purchaseOrder/cancelAudit.json',
+				data : {
+					purOrderId :purOrderId
+				},
+				dataType : 'json',
+				success : function(r) {
+					if (r.success) {//因为失败成功的方法都一样操作，这里故未做处理
+						$.messager.show({
+							title : '提示',
+							timeout : 3000,
+							msg : r.msg
+						});
+						load();
+					} else {
+						$.messager.show({//后台验证弹出错误提示信息框
+									title : '错误提示',
+									width : 380,
+									height : 120,
+									msg : '<span style="color:red">'+ r.msg+ '<span>',
+									timeout : 4500
+						 });
+					}
+				}
+			});
+		}
+	}); 
+} 
+//点击编辑按钮触发方法
+glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.editPurchaseOrder= function(){ 
+	$("#layout_center_panel").panel("setTitle","编辑订购订货合同");
+	$('#layout_center_panel').panel('refresh',ctx +'/do/purchaseOrder/intoForm.htm?purOrderId=${purchaseOrderData.purOrderId }'); 
+};
+
 glacier.purchase_mgr.purchaseOrderDetail_mgr.purchaseOrderDetail.purchaseOrderDetailDataGrid = $('#purchase_order_detail').datagrid({  
 	fit : false,//控件自动resize占满窗口大小
 	iconCls : 'icon-save',//图标样式

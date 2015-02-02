@@ -35,7 +35,7 @@
 		columns : [ [ 
 		             {field:'goodsCode',title:'货品编码',width:100},    
 		             {field:'goodsName',title:'名称',width:100},    
-		             {field:'goodsTypeId',title:'货品分类',width:100},
+		             {field:'warehouseTypeDisplay',title:'货品分类',width:100},
 		             {field:'specification',title:'规格型号',width:100}, 
 		             {field:'unit',title:'单位',width:100},
 		             {field:'origin',title:'产地',width:100},
