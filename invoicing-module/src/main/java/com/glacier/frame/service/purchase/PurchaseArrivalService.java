@@ -140,6 +140,7 @@ public class PurchaseArrivalService {
         purchaseArrival.setPayState("nonePay");//付款状态
         purchaseArrival.setAuditState("authstr");//审核状态
         purchaseArrival.setInvState("noneInv");//开票状态
+        purchaseArrival.setTailAfterStatus("storage");//入库状态
         purchaseArrival.setArrivalCode("arrival"+formatDate.format(new Date()));
         purchaseArrival.setCreater(pricipalUser.getUserCnName());
         purchaseArrival.setCreateTime(new Date());

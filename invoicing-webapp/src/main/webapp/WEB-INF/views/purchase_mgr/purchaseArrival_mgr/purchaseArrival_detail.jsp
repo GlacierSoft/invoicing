@@ -254,7 +254,7 @@ glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.purchaseArrivalDetailDa
 		} */
 });
 
-$('#purchase_mgr_purchaseOrder_form_auditState').val(renderGridValue('${purchaseDate.auditState}',fields.auditState)); 
+$('#purchase_mgr_purchaseArrival_form_auditState').val(renderGridValue('${purchaseDate.auditState}',fields.auditState)); 
 $('#payState').val(renderGridValue('${purchaseDate.payState}',fields.payState));
 $('#invState').val(renderGridValue('${purchaseDate.invState}',fields.invState));
 $('#purchaseArrival_mgr_purchaseArrival_detail_logSettlementId').val(renderGridValue('${purchaseDate.logSettlementId}',fields.logSettlementId));

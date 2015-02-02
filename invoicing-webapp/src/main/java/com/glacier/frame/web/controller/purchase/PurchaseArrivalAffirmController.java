@@ -25,9 +25,16 @@ public class PurchaseArrivalAffirmController extends AbstractController{
 	private PurchaseArrivalAffirmService affirmService;
 
 	//增加收货确认信息
-    @RequestMapping(value = "/addaffirm.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/addAffirm.json", method = RequestMethod.POST)
     @ResponseBody
     private Object addAffirmPurchaseArrival(@Valid PurchaseArrivalAffirm purchaseArrivalAffirm) {
         return affirmService.addPurchaseArrivalAffirm(purchaseArrivalAffirm);
+    }
+    
+    //批量删除采购到货信息
+    @RequestMapping(value = "/delAffirm.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object delAffirmPurchaseArrival(String purArrivalId) {
+    	return affirmService.delPurchaseArrivalAffirm(purArrivalId);
     }
 }
