@@ -35,7 +35,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
 import com.glacier.frame.dto.query.purchase.PurchaseRequisitionQueryDTO;
+import com.glacier.frame.entity.basicdatas.GoodsList;
 import com.glacier.frame.entity.purchase.PurchaseRequisition;
+import com.glacier.frame.service.basicdatas.ParPurchaseTypeService;
+import com.glacier.frame.service.basicdatas.WarehouseService;
 import com.glacier.frame.service.purchase.PurchaseRequisitionService;
 import com.glacier.jqueryui.util.JqPager;
 
@@ -52,6 +55,12 @@ public class PurchaseRequisitionController extends AbstractController{
 
     @Autowired
     private PurchaseRequisitionService purchaseRequisitionService;
+    
+    @Autowired
+    private WarehouseService warehouseService;
+    
+    @Autowired
+    private ParPurchaseTypeService purchaseTypeService;
     
     //进入采购申请信息列表展示页面
     @RequestMapping(value = "/index.htm")
@@ -81,20 +90,28 @@ public class PurchaseRequisitionController extends AbstractController{
     @RequestMapping(value = "/intoForm.htm")
     private Object intoGradeFormPnews(String purchaseRequisitionId) {
         ModelAndView mav = new ModelAndView("purchase_mgr/purchaseRequisition_mgr/purchaseRequisition_form");
+        mav.addObject("warehouseDate", warehouseService.getWareHouseCombo());//仓库
+        mav.addObject("purchaseTypeDate", purchaseTypeService.getParPurchaseTypeCombo());//采购类型
         if(StringUtils.isNotBlank(purchaseRequisitionId)){
             mav.addObject("purchaseRequisitionDate", purchaseRequisitionService.getPurchaseRequisition(purchaseRequisitionId));
         }
+        return mav;
+    }
+        
+    //根据仓库ID查询出所有货物信息展示页面
+    @RequestMapping(value = "/goodsDetail.htm")
+    private Object storageList() {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseRequisition_mgr/purchaseGoods");
         return mav;
     }
     
     //增加采购申请信息
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addGrade(@Valid PurchaseRequisition purchaseRequisition, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {// 后台校验的错误信息
-            return returnErrorBindingResult(bindingResult);
-        }
-        return purchaseRequisitionService.addPurchaseRequisition(purchaseRequisition);
+    private Object addGrade(PurchaseRequisition purchaseRequisition, GoodsList goodsLists) {
+        System.out.println("purchaseRequisition==="+purchaseRequisition);
+        System.out.println("goodsLists==="+goodsLists);
+        return purchaseRequisitionService.addPurchaseRequisition(purchaseRequisition, goodsLists);
     }
     
     //修改采购申请信息
