@@ -76,11 +76,46 @@ public class PurchaseArrivalController extends AbstractController{
         return mav;
     }
     
+    //审核页面
+    @RequestMapping(value = "/batchAuditForm.htm")
+    private Object batchAuditArrivalForm() {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseArrival_mgr/batch/batchAudit/audit_form");
+        return mav;
+    }
+    
+    //批量审核
+    @RequestMapping(value = "/batchAudit.htm")
+    private Object batchAuditArrival() {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseArrival_mgr/batch/batchAudit/batchAuditArrival");
+        return mav;
+    }
+    
+    //批量取消审核
+    @RequestMapping(value = "/batchCancelAudit.htm")
+    private Object batchCancelAuditArrival() {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseArrival_mgr/batch/batchCancelAudit/batchCancelAudit");
+        return mav;
+    }
+    
+    //批量启用
+    @RequestMapping(value = "/batchEnable.htm")
+    private Object batchEnableArrival() {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseArrival_mgr/batch/batchEnable/batchEnable");
+        return mav;
+    }
+    
+    //批量禁用
+    @RequestMapping(value = "/batchDisable.htm")
+    private Object batchDisableArrival() {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseArrival_mgr/batch/batchDisable/batchDisable");
+        return mav;
+    }
+    
     //获取表格结构的所有采购到货数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object listActionAsGridByMenuId(JqPager jqPager, PurchaseArrivalQueryDTO carTypeQueryDTO) {
-        return purchaseArrivalService.listAsGrid(jqPager, carTypeQueryDTO);
+    private Object listActionAsGridByMenuId(JqPager jqPager, PurchaseArrivalQueryDTO arrivalQueryDTO) {
+        return purchaseArrivalService.listAsGrid(jqPager, arrivalQueryDTO);
     }
     
     //收货确认页面
@@ -140,5 +175,33 @@ public class PurchaseArrivalController extends AbstractController{
     @ResponseBody
     public Object delGrade(@RequestParam List<String> purchaseArrivalIds,@RequestParam List<String> purchaseArrivalNames) {
     	return purchaseArrivalService.delPurchaseArrival(purchaseArrivalIds, purchaseArrivalNames);
+    }
+    
+    //批量审核采购到货信息
+    @RequestMapping(value = "/batchAudit.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object auditArrival(@RequestParam List<String> arrivalIds,PurchaseArrival arrival) {
+    	return purchaseArrivalService.batchAuditArrival(arrivalIds, arrival);
+    }
+    
+    //批量取消审核采购到货信息
+    @RequestMapping(value = "/batchCancelAudit.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object cancelAuditArrival(@RequestParam List<String> purchaseArrivalIds) {
+    	return purchaseArrivalService.batchCancelAuditArrival(purchaseArrivalIds);
+    }
+    
+    //批量启用采购到货信息
+    @RequestMapping(value = "/batchEnableArrival.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object batchEnableArrival(@RequestParam List<String> purchaseArrivalIds) {
+    	return purchaseArrivalService.batchEnableArrival(purchaseArrivalIds);
+    }
+    
+    //批量禁用采购到货信息
+    @RequestMapping(value = "/batchDisableArrival.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object batchDisableArrival(@RequestParam List<String> purchaseArrivalIds) {
+    	return purchaseArrivalService.batchDisableArrival(purchaseArrivalIds);
     }
 }

@@ -217,7 +217,7 @@ public class PurchaseArrivalService {
     /**
      * @Title: delPurchaseArrival 
      * @Description: TODO(删除采购到货) 
-     * @param @param gradeIds
+     * @param @param purchaseIds ArrivalCodes
      * @param @return    设定文件 
      * @return Object    返回类型 
      * @throws
@@ -239,5 +239,142 @@ public class PurchaseArrivalService {
             }
         }
         return returnResult;
+    }
+    
+    /**
+     * @Title: batchAuditArrival 
+     * @Description: TODO(批量审核) 
+     * @param @param purchaseIds purchaseArrival
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "PurchaseArrivalList_batchAudit")
+    public Object batchAuditArrival(List<String> purchaseIds,PurchaseArrival purchaseArrival) {
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    	Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+    	int count=0;
+        if(purchaseIds.size()>0){
+        	if(purchaseArrival.getAuditState()==""){
+            	returnResult.setSuccess(false);
+    	        returnResult.setMsg("审核状态必须选择其中一项！");
+            }else{
+            	for (String purchaseId : purchaseIds) {
+        			PurchaseArrival arrival = purchaseArrivalMapper.selectByPrimaryKey(purchaseId);
+        			arrival.setAuditState(purchaseArrival.getAuditState());
+        			arrival.setAuditor(pricipalUser.getUserCnName());
+        			arrival.setAuditDate(new Date());
+        			arrival.setAuditRemark(purchaseArrival.getAuditRemark());
+        			count = purchaseArrivalMapper.updateByPrimaryKeySelective(arrival);
+    			}
+        		if(count > 0){
+        			returnResult.setSuccess(true);
+        	        returnResult.setMsg("采购到货审核操作成功！");
+        		}else{
+        			returnResult.setMsg("发生未知错误，审核操作失败");
+        		}
+            }
+    	}
+    	return returnResult;
+    }
+    
+    /**
+     * @Title: batchCancelAuditArrival 
+     * @Description: TODO(批量取消审核) 
+     * @param @param purchaseIds
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "PurchaseArrivalList_batchCancelAudit")
+    public Object batchCancelAuditArrival(List<String> purchaseIds) {
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    	int count=0;
+        if(purchaseIds.size()>0){
+    		for (String purchaseId : purchaseIds) {
+    			PurchaseArrival arrival = purchaseArrivalMapper.selectByPrimaryKey(purchaseId);
+    			arrival.setAuditState("authstr");
+    			arrival.setAuditor("");
+    			arrival.setAuditDate(null);
+    			arrival.setAuditRemark("");
+    			count = purchaseArrivalMapper.updateByPrimaryKeySelective(arrival);
+			}
+    		if(count > 0){
+    			returnResult.setSuccess(true);
+    	        returnResult.setMsg("采购到货取消审核操作成功！");
+    		}else{
+    			returnResult.setMsg("发生未知错误，取消审核操作失败");
+    		}
+    	}
+    	return returnResult;
+    }
+    
+    /**
+     * @Title: batchEnableArrival 
+     * @Description: TODO(批量启用) 
+     * @param @param gradeIds
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "PurchaseArrivalList_batchEnable")
+    public Object batchEnableArrival(List<String> purchaseIds) {
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    	Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+    	int count=0;
+        if(purchaseIds.size()>0){
+    		for (String purchaseId : purchaseIds) {
+    			PurchaseArrival arrival = purchaseArrivalMapper.selectByPrimaryKey(purchaseId);
+    			arrival.setEnabled("enable"); 
+    			arrival.setUpdater(pricipalUser.getUserCnName());
+    			arrival.setUpdateTime(new Date());
+    			count = purchaseArrivalMapper.updateByPrimaryKeySelective(arrival);
+			}
+    		if(count > 0){
+    			returnResult.setSuccess(true);
+    	        returnResult.setMsg("采购到货启用操作成功！");
+    		}else{
+    			returnResult.setMsg("发生未知错误，启用操作失败");
+    		}
+    	}
+    	return returnResult;
+    }
+    
+    /**
+     * @Title: batchDisableArrival 
+     * @Description: TODO(批量禁用) 
+     * @param @param gradeIds
+     * @param @return    设定文件 
+     * @return Object    返回类型 
+     * @throws
+     */
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "PurchaseArrivalList_batchDisable")
+    public Object batchDisableArrival(List<String> purchaseIds) {
+    	JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    	Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+    	int count=0;
+        if(purchaseIds.size()>0){
+    		for (String purchaseId : purchaseIds) {
+    			PurchaseArrival arrival = purchaseArrivalMapper.selectByPrimaryKey(purchaseId);
+    			arrival.setEnabled("disable"); 
+    			arrival.setUpdater(pricipalUser.getUserCnName());
+    			arrival.setUpdateTime(new Date());
+    			count = purchaseArrivalMapper.updateByPrimaryKeySelective(arrival);
+			}
+    		if(count > 0){
+    			returnResult.setSuccess(true);
+    	        returnResult.setMsg("采购到货禁用操作成功！");
+    		}else{
+    			returnResult.setMsg("发生未知错误，禁用操作失败");
+    		}
+    	}
+    	return returnResult;
     }
 }

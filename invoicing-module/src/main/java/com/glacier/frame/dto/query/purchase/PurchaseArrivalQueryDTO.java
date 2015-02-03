@@ -30,6 +30,8 @@ public class PurchaseArrivalQueryDTO extends PurchaseArrival{
     
     private String loginEndCount;
     
+    private String authstr;
+    
 
     public Date getCreateStartTime() {
         return createStartTime;
@@ -78,24 +80,38 @@ public class PurchaseArrivalQueryDTO extends PurchaseArrival{
 	public void setLoginEndCount(String loginEndCount) {
 		this.loginEndCount = loginEndCount;
 	}
+	
+	public String getAuthstr() {
+		return authstr;
+	}
+
+	public void setAuthstr(String authstr) {
+		this.authstr = authstr;
+	}
 
 	public void setQueryCondition(Criteria queryCriteria){
-   	 if(null != this.getArrivalCode() && StringUtils.isNotBlank(this.getArrivalCode())){//采购到货名称Like查询
+	  if(null != authstr){
+		  queryCriteria.andAuditStateNotEqualTo(authstr);
+	  }
+	  if(null != this.getAuditState()){
+		  queryCriteria.andAuditStateEqualTo(this.getAuditState());
+	  }
+   	  if(null != this.getArrivalCode() && StringUtils.isNotBlank(this.getArrivalCode())){//采购到货单号Like查询
             queryCriteria.andArrivalCodeLike("%" + this.getArrivalCode() + "%");
-        }
-   	 if(null != this.getEnabled()){//状态Enum查询
+      }
+   	  if(null != this.getEnabled()){//状态Enum查询
         queryCriteria.andEnabledEqualTo(this.getEnabled().toString());
-   	 	}
-     if(null != createStartTime && null != createEndTime){//创建时间段查询
+   	  }
+      if(null != createStartTime && null != createEndTime){//创建时间段查询
            queryCriteria.andCreateTimeBetween(createStartTime, createEndTime); 
-     }else{
+      }else{
           if(null != createStartTime){
               queryCriteria.andCreateTimeGreaterThanOrEqualTo(createStartTime);
           }
           if(null != createEndTime){
               queryCriteria.andCreateTimeLessThanOrEqualTo(createEndTime);
           } 
-       }
+      }
     }
    
    @Override
