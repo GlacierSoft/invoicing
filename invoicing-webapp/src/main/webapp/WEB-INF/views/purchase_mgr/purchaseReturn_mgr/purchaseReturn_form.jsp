@@ -157,8 +157,13 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 <tr>
    <td style="padding-left:10px;">附件：</td>
    <td colspan="7">
-   	  <a style="margin-top: 5px" href="javascript:doUpload();" class="easyui-linkbutton" data-options="iconCls:'icon-hamburg-up'">上传</a>
-      <label id="fileText"></label>
+      <label style="float: left;margin-top: 10px;">
+   	      <a style="margin-right: 5px;" href="javascript:doUpload();" class="easyui-linkbutton" data-options="iconCls:'icon-hamburg-up'">上传</a>
+      </label>
+      <label id="fileText" style="float: left;height:50px;"></label>
+      <label id="fileButton" style="display: none;float: left;">
+          <a style="margin-top: 10px;margin-left: 5px;" href="javascript:doFiledelete();" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" >取消</a>
+      </label>
      </td>
 </tr>
 </table>
@@ -239,10 +244,12 @@ function ajaxFileUpload()
 				var FileExt=$.parseJSON(data).name.substr($.parseJSON(data).name.lastIndexOf(".")).toLowerCase();
 				$("#FileDialog").dialog('close');
 				$.messager.alert('附件提示','上传成功！','info');
-				$("<a href='"+ctx+"/"+$.parseJSON(data).path+"'>"+$.parseJSON(data).name+"</a>").appendTo("#fileText");
 				if(AllImgExt.indexOf(FileExt+"|")!=-1){
 					$("<img src='"+ctx+"/"+$.parseJSON(data).path+"'  width='50' height='50'/>").appendTo("#fileText");
+				}else{
+					$("<a href='"+ctx+"/"+$.parseJSON(data).path+"' style='padding-top:15px;line-height:50px;'>"+$.parseJSON(data).name+"</a>").appendTo("#fileText");
 				}
+				$("#fileButton").css({"display":"block"});
 			},
 			error: function (data, status, e)
 			{
@@ -251,6 +258,12 @@ function ajaxFileUpload()
 		}
 	)
 	return false;
+}
+
+//附件取消
+function doFiledelete(){
+	$("#fileText").html("");
+	$("#fileButton").css({"display":"none"});
 }
 
 //明细添加
