@@ -219,7 +219,7 @@
 <div class="easyui-layout" data-options="fit:true">
 	<div id="creditGridPanel" data-options="region:'center',border:true" >
 		<table id="purchaseArrivalDataGrid">
-			<glacierui:toolbar panelEnName="BatchDisableList" toolbarId="purchaseArrivalDataGrid_toolbar" menuEnName="batchDisable"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
+			<glacierui:toolbar panelEnName="BatchDisableArrList" toolbarId="purchaseArrivalDataGrid_toolbar" menuEnName="batchDisableArr"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
 	<div data-options="region:'north',split:true"
