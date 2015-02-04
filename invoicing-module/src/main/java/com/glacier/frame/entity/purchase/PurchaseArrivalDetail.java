@@ -3,6 +3,8 @@ package com.glacier.frame.entity.purchase;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class PurchaseArrivalDetail {
     private String purArrivalDetId;
 
@@ -24,6 +26,7 @@ public class PurchaseArrivalDetail {
 
     private BigDecimal goodsMoney;//货品金额
 
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date deadline;//交货期限
 
     private Integer notReturnNum;//未退数量

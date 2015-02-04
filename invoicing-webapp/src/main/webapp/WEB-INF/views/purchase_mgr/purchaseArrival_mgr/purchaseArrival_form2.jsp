@@ -88,7 +88,7 @@
 </tr>
 </table>
 <div style="margin-top: 25px;">
-	<table id="purchase_arrival_form" style="height: 200px;margin-top: 50px;">  
+	<table id="purchase_arrival_form" style="height: 300px;margin-top: 50px;">  
 	</table>
 	<hr> 
 	<div style= "text-align:center ;margin-top: 30px;margin-bottom: 30px">
@@ -104,131 +104,94 @@ var stRows="";//保存行数
 var divs = "";//保存goodsDetail中的dialog节点
 var setRowData="";//保存选中的值
 var $dg = $('#purchase_arrival_form');
-var isYesOrNo = true;
 $(function(){
-$('#purchase_arrival_form').datagrid({  
-	fit : false,//控件自动resize占满窗口大小
-	iconCls : 'icon-save',//图标样式
-	barrival : true,//是否存在边框 
-	fitColumns : false,//自动填充行
-	nowrap : true,//禁止单元格中的文字自动换行
-	autoRowHeight : false,//禁止设置自动行高以适应内容
-	striped : true,//true就是把行条纹化。（即奇偶行使用不同背景色）
-	singleSelect : true,//限制单选
-	checkOnSelect : false,//选择复选框的时候选择该行
-	selectOnCheck : false,//选择的时候复选框打勾 
-	url: ctx + '/do/purchaseArrivalDetail/list.json?purArrivalId=${purchaseDate.purArrivalId }',
-	sortName : 'goodsCode',//排序字段名称
-	sortOrder : 'DESC',//升序还是降序
-	remoteSort : true,//开启远程排序，默认为false
-	idField : 'purOrderDetId', 
-    columns:[[
-        {field:'goodsCode',title:'货品编码',width:100,editor: { type: 'text',required: true }},    
-        {field:'goodsName',title:'货品名称',width:100},
-       	{field:'goodsId',title:'货品编号',width:100,hidden:true},
-        {field:'placeOfOrigin',title:'产地',width:100,hidden:true},
-        {field:'goodsModel',title:'规格型号',width:100},   
-        {field:'goodsUnit',title:'单位',width:100}, 
-        {field:'batchInformation',title:'批次信息',width:100,editor: { type: 'text' }},
-        {field:'arrival',title:'到货数量',width:100,editor: { type: 'numberbox', options: { 
-        	required: true,
-        	onChange:function(rec){
-        		var indexRows = getRowIndex(this);
-        		//到货数量
-        		arrivalChange(indexRows,rec);
-        	}	
-        } } },
-        {field:'delivery',title:'收货数量',width:100,editor: { type: 'numberbox', options: { 
-        	required: true, 
-        	onChange:function(rec){
-        		var indexRows = getRowIndex(this);
-        		//到货数量
-        		deliveryChange(indexRows,rec);
-        	}
-        } } },
-        {field:'rejection',title:'拒收数量',width:100,editor: { type: 'numberbox', options: { 
-        	required: true,
-        	onChange:function(rec){
-        		var indexRows = getRowIndex(this);
-        		//拒收数量
-        		rejectionChange(indexRows,rec);
-        	}
-        } } },
-        {field:'originalCost',title:'原价',width:100}, 
-        {field:'depositRate',title:'折扣率',width:100,editor: { type: 'numberbox', options: { 
-        	required: true,
-        	precision: 2,
-        	onChange:function(rec){
-        		var indexRows = getRowIndex(this);
-        		//折扣率数量
-        		depositRateChange(indexRows,rec);
-        	}
-        } } }, 
-        {field:'price',title:'单价',width:100,editor: { type: 'numberbox', options: { 
-        	required: true,
-        	precision: 2,
-        	onChange:function(rec){
-        		var indexRows = getRowIndex(this);
-        		//折扣率
-        		priceChange(indexRows,rec);
-        	}
-        } } }, 
-        {field:'goodsMoney',title:'总金额',width:100,editor: { type: 'numberbox', options: { 
-        	required: true,
-        	precision: 2,
-        	onChange:function(rec){
-        		var indexRows = getRowIndex(this);
-        		//总金额
-        		goodsMoneyChange(indexRows,rec);
-        	}
-        } } },
-        {field:'cess',title:'税率',width:100,hidden:true,editor: { type: 'numberbox', options: { required: true,precision: 2 } } }, 
-        {field:'deadline',title:'交货期限',width:100,editor: { type: 'datebox', options: { } } },
-        {field:'remark',title:'备注',width:100,editor: { type: 'text' } }
-    ]],
-    onLoadSuccess:function(data){
-    	console.log(data.rows.length);
-    	$(this).datagrid("beginEdit",1);
-    	$("div[class='dialog-button datagrid-rowediting-panel']").remove();
-    	/* for(var i=0;i<data.rows.length;i++){
-    		//这里循环第二次就为空了
-    		console.log($dg);
-    		$("div[class='dialog-button datagrid-rowediting-panel']").remove();
-			$dg.datagrid("beginEdit",i);
-    		alert(i);
-		} */
-    },
-    toolbar: [{
-	   text: '添加商品', iconCls: 'icon-standard-pencil-add', handler: function () {
-		   /* var rows = $('#purchase_arrival_form').datagrid("getRows");
-		   for(var i=0;i<rows.length;i++){
-	    		//这里循环第二次就为空了，这里也一样
-			   $('#purchase_arrival_form').datagrid("beginEdit",i);
-		  } */
-		   test();
-	   }
-    },{
-       text: '删除商品', iconCls: 'icon-standard-pencil-delete', handler: function () {  
-	      $.messager.confirm('提示','确认删除数据?',function(r){
-       		if (r){
-       			var rows = $('#purchase_arrival_form').datagrid("getSelected"); 
-                var	row = $('#purchase_arrival_form').datagrid('getRowIndex', rows);
-                $('#purchase_arrival_form').datagrid('deleteRow',row); 
-                compute();
-       		}
-	      });  
-       }
-     },{
-   	      text: '批量添加商品', iconCls: 'icon-standard-pencil-add', handler: function () { 
-   	    	batchRows();
-   	      }
-     }]
-});
+	$('#purchase_arrival_form').datagrid({  
+		fit : false,//控件自动resize占满窗口大小
+		iconCls : 'icon-save',//图标样式
+		barrival : true,//是否存在边框 
+		fitColumns : false,//自动填充行
+		nowrap : true,//禁止单元格中的文字自动换行
+		autoRowHeight : false,//禁止设置自动行高以适应内容
+		striped : true,//true就是把行条纹化。（即奇偶行使用不同背景色）
+		singleSelect : true,//限制单选
+		checkOnSelect : false,//选择复选框的时候选择该行
+		selectOnCheck : false,//选择的时候复选框打勾 
+		url: ctx + '/do/purchaseArrivalDetail/list.json?purArrivalId=${purchaseDate.purArrivalId }',
+		sortName : 'goodsCode',//排序字段名称
+		sortOrder : 'DESC',//升序还是降序
+		remoteSort : true,//开启远程排序，默认为false
+		idField : 'purOrderDetId', 
+	    columns:[[
+	        {field:'goodsCode',title:'货品编码',width:100,editor: { type: 'text',required: true }},    
+	        {field:'goodsName',title:'货品名称',width:100},
+	       	{field:'goodsId',title:'货品编号',width:100,hidden:true},
+	        {field:'placeOfOrigin',title:'产地',width:100,hidden:true},
+	        {field:'goodsModel',title:'规格型号',width:100},   
+	        {field:'goodsUnit',title:'单位',width:100}, 
+	        {field:'batchInformation',title:'批次信息',width:100,editor: { type: 'text' }},
+	        {field:'arrival',title:'到货数量',width:100,editor: { type: 'numberbox', options: { required: true } } },
+	        {field:'delivery',title:'收货数量',width:100,editor: { type: 'numberbox', options: { required: true } } },
+	        {field:'rejection',title:'拒收数量',width:100,editor: { type: 'numberbox', options: { required: true } } },
+	        {field:'originalCost',title:'原价',width:100}, 
+	        {field:'depositRate',title:'折扣率',width:100,editor: { type: 'numberbox', options: { required: true,precision: 2 } } }, 
+	        {field:'price',title:'单价',width:100,editor: { type: 'numberbox', options: { required: true,precision: 2 } } }, 
+	        {field:'goodsMoney',title:'总金额',width:100,editor: { type: 'numberbox', options: { required: true,precision: 2 } } },
+	        {field:'cess',title:'税率',width:100,hidden:true,editor: { type: 'numberbox', options: { required: true,precision: 2 } } }, 
+	        {field:'deadline',title:'交货期限',width:100,editor: { type: 'datebox', options: { } } },
+	        {field:'remark',title:'备注',width:100,editor: { type: 'text' } }
+	    ]],
+	    onLoadSuccess:function(data){
+	    	for(var i=0;i<data.rows.length;i++){
+	    		//这里循环第二次就为空了
+				$dg.datagrid("beginEdit",i);
+				againBinding(i);
+				$("div[class='dialog-button datagrid-rowediting-panel']").remove();
+			}
+	    	compute();//调用统计
+	    },
+	    toolbar: [{
+	       text: '删除商品', iconCls: 'icon-standard-pencil-delete', handler: function () {  
+		      $.messager.confirm('提示','确认删除数据?',function(r){
+	       		if (r){
+	       			var rows = $('#purchase_arrival_form').datagrid("getSelected"); 
+	                var	row = $('#purchase_arrival_form').datagrid('getRowIndex', rows);
+	                $('#purchase_arrival_form').datagrid('deleteRow',row); 
+	                compute();
+	                var rows = $("#purchase_arrival_form").datagrid("getRows");
+  					if(rows.length >= 2){
+  						for(var i = 0; i < rows.length-1;i++){
+	  						againBinding(i);
+	  					}
+  					}else{
+	  					againBinding(0);
+  					}
+	       		}
+		      });  
+	       }
+	     },{
+	   	      text: '批量添加商品', iconCls: 'icon-standard-pencil-add', handler: function () { 
+	   	    	batchRows();
+	   	      }
+	     }]
+	});
 });
 
-function test(){
-	$dg.datagrid("beginEdit",1);
-	$("div[class='dialog-button datagrid-rowediting-panel']").remove();
+//绑定事件
+function againBinding(indexRows){
+	var goodsCodesTarget = $dg.datagrid('getEditor', {index:indexRows,field:'goodsCode'}).target;//货物编码元素
+	var deliveryTarget = $dg.datagrid('getEditor', {index:indexRows,field:'delivery'}).target;//收货元素
+	var arrivalTarget = $dg.datagrid('getEditor', {index:indexRows,field:'arrival'}).target;//到货元素
+	var rejectionTarget = $dg.datagrid('getEditor', {index:indexRows,field:'rejection'}).target;//拒收元素
+	var priceTarget = $dg.datagrid('getEditor', {index:indexRows,field:'price'}).target;//单价元素
+	var depositRateTarget = $dg.datagrid('getEditor', {index:indexRows,field:'depositRate'}).target;//折扣率元素
+	var goodsMoneyTarget = $dg.datagrid('getEditor', {index:indexRows,field:'goodsMoney'}).target;//总金额元素
+	$(goodsCodesTarget).bind("click",function(){goodsCodeClick(this);});//货物编码编辑框
+	$(arrivalTarget).numberbox({onChange(newVal,oldVal){arrivalChange(indexRows,newVal);}});//到货编辑框
+	$(deliveryTarget).numberbox({onChange(newVal,oldVal){deliveryChange(indexRows,newVal);}});//收货编辑框
+	$(rejectionTarget).numberbox({onChange(newVal,oldVal){rejectionChange(indexRows,newVal);}});//拒收编辑框
+	$(depositRateTarget).numberbox({onChange(newVal,oldVal){depositRateChange(indexRows,newVal);}});//折扣率编辑框
+	$(priceTarget).numberbox({onChange(newVal,oldVal){priceChange(indexRows,newVal);}});//单价编辑框
+	$(goodsMoneyTarget).numberbox({onChange(newVal,oldVal){goodsMoneyChange(indexRows,newVal);}});//总金额编辑框
 }
 
 //到货数量的绑定调用方法
@@ -326,45 +289,6 @@ function goodsMoneyChange(indexRows,rec){
 	}
 }
 
-//绑定事件
-function againBinding(indexRows){
-	var goodsCodesTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:indexRows,field:'goodsCode'}).target;
-	$(goodsCodesTarget).bind("click",function(){goodsCodeClick(this);});
-}
-
-//增加行
-function addRow(){
-	storageVal = $('#purchaseArrival_mgr_purchaseArrival_form_storage').combobox('getValue');
-	if(storageVal!=''){//判断
-		var row = $('#purchase_arrival_form').datagrid('getSelected');
-		if(row){
-			var index = $('#purchase_arrival_form').datagrid('getRowIndex', row);
-		} else {
-			index = 0;
-		}
-		$('#purchase_arrival_form').datagrid('insertRow', {
-			index: index,
-			row:{
-				goodsCode:"",goodsName:"",
-				goodsModel:"",goodsUnit:"",
-				arrival:0,delivery:0,rejection:0,goodsMoney:0,
-				cess:setRowData.taxRate,depositRate:1,
-				originalCost:0,price:0,
-				goodsId:"",placeOfOrigin:"",
-				remark:"",deadline:"",batchInformation:""
-			}
-		});
-		$('#purchase_arrival_form').datagrid('selectRow',index);
-		$('#purchase_arrival_form').datagrid('beginEdit',index);
-		againBinding(index);
-		compute();//调用统计
-	}else{
-		$.messager.alert('提示信息','请先选择仓库！','info'); 
-		$('#purchaseArrival_mgr_purchaseArrival_form_storage').focus(); 
-		return false;
-	}
-}
-
 //批量增加
 function batchRows(){
 	storageVal = $('#purchaseArrival_mgr_purchaseArrival_form_storage').combobox('getValue');
@@ -399,13 +323,21 @@ function batchRows(){
 		  						}
 		  					});
 		  					$("#purchase_arrival_form").datagrid("beginEdit",0);
-		  					againBinding(0);
+		  					$("div[class='dialog-button datagrid-rowediting-panel']").remove();
 		  				}
+	  					compute();//调用统计
+	  					var rows = $("#purchase_arrival_form").datagrid("getRows");
+	  					if(rows.length >= 2){
+	  						for(var i = 0; i < rows.length-1;i++){
+		  						againBinding(i);
+		  					}
+	  					}else{
+		  					againBinding(0);
+	  					}
 	  				}else{
 	  					$.messager.alert('提示信息','请选择所需货物！','info');
 	  					return false;
 	  				}
-	  				compute();//调用统计
 	  				dia.dialog("close");
 	  			}
 	  		},{
@@ -429,16 +361,48 @@ function getRowIndex(target){
 }
 
 function goSave(){
-	if($('#purchaseArrival_mgr_purchaseArrival_form').form("validate")){//验证判断
-		//先取出所有行的条数
-		var delOldRows = $("#purchase_arrival_form").datagrid("getRows");
-		//进行删除最后一行统计
-		if(delOldRows.length >= 3){
-			$("#purchase_arrival_form").datagrid("deleteRow",delOldRows.length-1);
+	if("${purchaseDate.purArrivalId}"==""){
+		if(!($('#purchaseArrival_mgr_purchaseArrival_form').form("validate"))){//验证判断
+			return;
 		}
-		var rowsCount = $("#purchase_arrival_form").datagrid("getRows");
+	}
+	//先取出所有行的条数
+	var delOldRows = $("#purchase_arrival_form").datagrid("getRows");
+	//进行删除最后一行统计
+	if(delOldRows.length >= 3){
+		$("#purchase_arrival_form").datagrid("deleteRow",delOldRows.length-1);
+	}
+	var rowsCount = $("#purchase_arrival_form").datagrid("getRows");
+	if("${purchaseDate.purArrivalId}"==""){//增加操作
 		for(var i=0;i<rowsCount.length;i++){//全部关闭
-			$('#purchase_arrival_form').datagrid('endEdit', i);
+			$dg.datagrid('endEdit', i);
+		}
+	}else{//修改操作
+		for(var i=0;i<rowsCount.length;i++){
+			var moneyTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'goodsMoney'}).target;
+			var deadlineTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'deadline'}).target;
+			var remarkTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'remark'}).target;
+			var depositRateTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'depositRate'}).target;
+			var arrivalTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'arrival'}).target;
+			var rejectionTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'rejection'}).target;
+			var deliveryTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'delivery'}).target;
+			var batchInformationTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'batchInformation'}).target;
+			var priceTarget = $('#purchase_arrival_form').datagrid('getEditor', {index:i,field:'price'}).target;
+			$('#purchase_arrival_form').datagrid('updateRow',{
+				index: i,
+				row: {
+					goodsMoney: moneyTarget.val(),
+					deadline:$(deadlineTarget).datebox('getValue'),
+					rejection:rejectionTarget.val(),
+					remark:remarkTarget.val(),
+					depositRate:depositRateTarget.val(),
+					arrival:arrivalTarget.val(),
+					delivery:deliveryTarget.val(),
+					batchInformation:batchInformationTarget.val(),
+					price:priceTarget.val()
+				}
+			});
+			$('#purchase_arrival_form').datagrid('endEdit', i);//刷新
 		}
 	}
 	//取出datagrid中所有值
@@ -463,7 +427,7 @@ function goSave(){
 		 });
 	}else{
 		//新增
-	   	 $.post(ctx + '/do/purchaseArrival/add.json', { rows: json,purchaseArrival:str},
+	   	$.post(ctx + '/do/purchaseArrival/add.json', { rows: json,purchaseArrival:str},
 		   function(data){
 			$.messager.show({
 	    		title:'提示信息',
@@ -478,7 +442,6 @@ function goSave(){
 			$("#layout_center_panel").panel("setTitle","采购到货").panel('refresh',ctx + '/do/purchaseArrival/index.htm');
 		 });
 	}
-	
 }
 
 //底部统计
@@ -562,6 +525,7 @@ function goodsDetail(rowIndex){
 				dia.dialog("close"); 
 				$('#purchase_arrival_form').datagrid('endEdit', stRows).datagrid('refreshRow', stRows).datagrid('beginEdit', stRows);
 				againBinding(stRows);
+				$("div[class='dialog-button datagrid-rowediting-panel']").remove();
 				compute();//调用统计			
 			}
 		},{
