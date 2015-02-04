@@ -21,6 +21,7 @@ package com.glacier.frame.web.controller.basicdatas;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -38,6 +39,7 @@ import com.glacier.frame.entity.basicdatas.GoodsList;
 import com.glacier.frame.service.basicdatas.GoodsListService;
 import com.glacier.frame.service.basicdatas.ParWarGoodsTypeService;
 import com.glacier.frame.service.basicdatas.WarehouseService;
+import com.glacier.frame.service.purchase.PurchaseOrderService;
 import com.glacier.frame.service.system.DepService;
 import com.glacier.jqueryui.util.JqPager;
 
@@ -62,6 +64,9 @@ public class GoodsListController {
 	private WarehouseService warehouseService;
 	
 	@Autowired
+	private PurchaseOrderService purchaseOrderService;
+	
+	@Autowired
 	private DepService depService;
 	
 	//进入货物档案信息列表展示页面
@@ -75,11 +80,23 @@ public class GoodsListController {
         //返回结果集
         return mav;
     } 
-
+    
     //获取表格结构的所有菜单数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
     private Object listActionAsGridByMenuId(JqPager jqPager, GoodsListQueryDTO goodsListQueryDTO,String storageVal) {
+    	goodsListQueryDTO.setWarehouseTypeId(storageVal);
+    	return goodsListService.listAsGrid(jqPager, goodsListQueryDTO);
+    } 
+    
+    //获取属于该订购合同的商品信息
+    @RequestMapping(value = "/listArr.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object listArr(JqPager jqPager, GoodsListQueryDTO goodsListQueryDTO,String storageVal,String purOrderDetId,HttpSession session) {
+     	String orderId=(String) session.getAttribute("arrId");
+    	@SuppressWarnings("unchecked")
+		List<String> goodsIds=(List<String>)purchaseOrderService.getGoodsId(orderId); 
+      	goodsListQueryDTO.setGoodsIds(goodsIds);
     	goodsListQueryDTO.setWarehouseTypeId(storageVal);
     	return goodsListService.listAsGrid(jqPager, goodsListQueryDTO);
     }
@@ -90,8 +107,7 @@ public class GoodsListController {
     private Object listPartGoods(String warehouseTypeId) {
     	return goodsListService.listPartGoodsList(warehouseTypeId);
     }
-    
-    
+     
     //进入货物档案信息Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")
     private Object intoSuppliersIndustryDetail(String goodsId) { 

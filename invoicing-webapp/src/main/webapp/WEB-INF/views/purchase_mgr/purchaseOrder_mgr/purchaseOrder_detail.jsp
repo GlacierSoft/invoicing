@@ -343,6 +343,12 @@ glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.editPurchaseOrder= function
 	$('#layout_center_panel').panel('refresh',ctx +'/do/purchaseOrder/intoForm.htm?purOrderId=${purchaseOrderData.purOrderId }'); 
 };
 
+//点击到货按钮触发方法
+glacier.purchase_mgr.purchaseOrder_mgr.purchaseOrder.arrPurchaseOrder= function(){
+	$("#layout_center_panel").panel("setTitle","到货");
+	$('#layout_center_panel').panel('refresh',ctx +'/do/purchaseOrder/arr.htm?purOrderId=${purchaseOrderData.purOrderId }');
+   
+};
 glacier.purchase_mgr.purchaseOrderDetail_mgr.purchaseOrderDetail.purchaseOrderDetailDataGrid = $('#purchase_order_detail').datagrid({  
 	fit : false,//控件自动resize占满窗口大小
 	iconCls : 'icon-save',//图标样式
@@ -383,6 +389,9 @@ glacier.purchase_mgr.purchaseOrderDetail_mgr.purchaseOrderDetail.purchaseOrderDe
 	onLoadSuccess:function(){ 
 		compute(); //添加统计行
 	},
+	onLoadSuccess:function(data){
+	   	 compute();
+	    },
 	onDblClickRow : function(rowIndex, rowData){
         $.easyui.showDialog({
 				title : '商品【' + rowData.goodsName + '】详细信息',

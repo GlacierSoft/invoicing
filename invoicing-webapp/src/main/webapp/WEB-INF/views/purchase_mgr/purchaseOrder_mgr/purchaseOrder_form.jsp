@@ -213,6 +213,9 @@ $dg.datagrid({
     onDblClickRow:function(rowIndex, rowData){
     	stRows=rowIndex; 
     },
+    onLoadSuccess:function(data){
+   	 compute();
+    },
     onSelect:function(rowIndex, rowData){     
     	var rows = $dg.datagrid('getRows'); 
     	if(rows.length==1){
@@ -592,10 +595,7 @@ function goodsDetail(rowIndex){
 		}]
 	});
 };
-
-
-
-
+ 
 //事件绑定
 function againBinding(rows){       
 	$("div[class='dialog-button datagrid-rowediting-panel']").remove();

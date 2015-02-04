@@ -72,6 +72,13 @@ public class PurchaseOrderDetailService {
 			purchaseOrderDetailExample.setOrderByClause(jqPager.getOrderBy("temp_purchaseOrder_detail_"));
 		}
 		List<PurchaseOrderDetail> carrierCarTypeList = purchaseOrderDetailMapper.selectByExample(purchaseOrderDetailExample); // 查询所有列表
+		if(carrierCarTypeList.size()>0){
+			for (PurchaseOrderDetail detail : carrierCarTypeList) {
+				detail.setArrival(detail.getQuantity());
+				detail.setDelivery(detail.getQuantity());
+				detail.setRejection(0);
+			}
+		} 
 		int total = purchaseOrderDetailMapper.countByExample(purchaseOrderDetailExample); // 查询总页数
 		returnResult.setRows(carrierCarTypeList);
 		returnResult.setTotal(total);

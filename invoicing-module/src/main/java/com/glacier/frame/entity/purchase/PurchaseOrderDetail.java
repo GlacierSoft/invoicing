@@ -60,8 +60,50 @@ public class PurchaseOrderDetail {
     private BigDecimal alrTerMoney;
 
     private String remark;
+    
+    //----临时字段------
+    
+    private Integer arrival;//到货数量
+    
+    private Integer delivery;//收货数量
+    
+    private Integer rejection;//拒收数量
+    
+    private String batchInformation;//批次信息
+      
+    public String getBatchInformation() {
+		return batchInformation;
+	}
 
-    public String getPurOrderDetId() {
+	public void setBatchInformation(String batchInformation) {
+		this.batchInformation = batchInformation;
+	}
+
+	public Integer getArrival() {
+		return arrival;
+	}
+
+	public void setArrival(Integer arrival) {
+		this.arrival = arrival;
+	}
+
+	public Integer getDelivery() {
+		return delivery;
+	}
+
+	public void setDelivery(Integer delivery) {
+		this.delivery = delivery;
+	}
+
+	public Integer getRejection() {
+		return rejection;
+	}
+
+	public void setRejection(Integer rejection) {
+		this.rejection = rejection;
+	}
+
+	public String getPurOrderDetId() {
         return purOrderDetId;
     }
 

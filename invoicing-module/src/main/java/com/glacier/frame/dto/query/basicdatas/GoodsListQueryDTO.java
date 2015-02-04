@@ -1,6 +1,7 @@
 package com.glacier.frame.dto.query.basicdatas;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -9,6 +10,9 @@ import com.glacier.frame.entity.basicdatas.GoodsList;
 import com.glacier.frame.entity.basicdatas.GoodsListExample.Criteria;
 
 public class GoodsListQueryDTO extends GoodsList{
+	
+     private List<String> goodsIds;
+	
 	 private Date createStartTime;
 		
 	 private Date createEndTime;
@@ -29,12 +33,26 @@ public class GoodsListQueryDTO extends GoodsList{
 	        this.createEndTime = createEndTime;
 	    }
 	    
-      public void setQueryCondition(Criteria queryCriteria){
-	   	 if(null != this.getGoodsName() && StringUtils.isNotBlank(this.getGoodsName())){//车辆类型名称Like查询
+	     
+      public List<String> getGoodsIds() {
+			return goodsIds;
+		}
+
+		public void setGoodsIds(List<String> goodsIds) {
+			this.goodsIds = goodsIds;
+		}
+
+	public void setQueryCondition(Criteria queryCriteria){
+		
+		if(null != this.getGoodsIds()){//根据商品id集合查询数据
+            queryCriteria.andGoodsIdIn(this.getGoodsIds());
+        } 
+		
+	   	 if(null != this.getGoodsName() && StringUtils.isNotBlank(this.getGoodsName())){ 
 	            queryCriteria.andGoodsNameLike("%" + this.getGoodsName() + "%");
 	        }  
 	   	 
-	   	if(null != this.getGoodsTypeId() && StringUtils.isNotBlank(this.getGoodsTypeId())){//车辆类型名称Like查询
+	   	if(null != this.getGoodsTypeId() && StringUtils.isNotBlank(this.getGoodsTypeId())){ 
             queryCriteria.andGoodsTypeIdLike("%" + this.getGoodsTypeId() + "%");
         } 
 	   	

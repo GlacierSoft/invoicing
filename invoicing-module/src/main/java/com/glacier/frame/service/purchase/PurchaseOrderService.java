@@ -24,8 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
-
+import java.util.List; 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -36,9 +35,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.CollectionsUtil;
 import com.glacier.basic.util.RandomGUID; 
+import com.glacier.frame.dao.purchase.PurchaseArrivalDetailMapper;
+import com.glacier.frame.dao.purchase.PurchaseArrivalMapper;
 import com.glacier.frame.dao.purchase.PurchaseOrderMapper;
 import com.glacier.frame.dao.purchase.PurchaseOrderDetailMapper;
 import com.glacier.frame.dto.query.purchase.PurchaseOrderQueryDTO;
+import com.glacier.frame.entity.purchase.PurchaseArrival;
+import com.glacier.frame.entity.purchase.PurchaseArrivalDetail;
 import com.glacier.frame.entity.purchase.PurchaseOrder;
 import com.glacier.frame.entity.purchase.PurchaseOrderDetail;
 import com.glacier.frame.entity.purchase.PurchaseOrderDetailExample;
@@ -62,10 +65,17 @@ import com.glacier.jqueryui.util.JqReturnJson;
 public class PurchaseOrderService {
  
 	@Autowired
+	private PurchaseArrivalMapper purchaseArrivalMapper;
+	
+	@Autowired
+	private PurchaseArrivalDetailMapper purchaseArrivalDetailMapper;
+	
+	@Autowired
     private PurchaseOrderMapper chaseOrderMapper;
 	 
 	@Autowired
     private PurchaseOrderDetailMapper chaseOrderDetailMapper;
+	
 	 /***
 	  * @Title: getPurchaseOrder  
 	  * @Description: TODO(根据id获取采购订购合同)  
@@ -77,6 +87,27 @@ public class PurchaseOrderService {
     public Object getPurchaseOrder(String purchaseOrderId) {
         return chaseOrderMapper.selectByPrimaryKey(purchaseOrderId);
     } 
+    
+    /** 
+     * @Title: getGoodsId  
+     * @Description: TODO(通过订购id获取属于该合同的商品id)  
+     * @param @param purchaseOrderId
+     * @param @return    设定文件  
+     * @return Object    返回类型  
+     * @throws
+     */
+   public Object getGoodsId(String purchaseOrderId) { 
+	   PurchaseOrderDetailExample purchaseOrderDetailExample=new PurchaseOrderDetailExample();
+	   purchaseOrderDetailExample.createCriteria().andPurOrderIdEqualTo(purchaseOrderId);
+	   List<PurchaseOrderDetail> list=chaseOrderDetailMapper.selectByExample(purchaseOrderDetailExample);
+	   List<String> goodsId=new ArrayList<String>();
+	   if(list.size()>0){
+		   for (PurchaseOrderDetail detail : list) {
+			   goodsId.add(detail.getGoodsId());
+		   }
+	   } 
+       return goodsId;
+   } 
       
     /**
      * @Title: listAsGrid
@@ -472,5 +503,81 @@ public class PurchaseOrderService {
           returnResult.setMsg("发生未知错误，取消审核操作失败");
       }  
   	  return returnResult; 
-  }
-}
+  } 
+    /** 
+     * @Title: addPurchaseArr  
+     * @Description: TODO(订购合同，进行到货操作)  
+     * @param @param arr
+     * @param @param list
+     * @param @return    设定文件  
+     * @return Object    返回类型  
+     * @throws
+     */
+    @Transactional(readOnly = false)
+    @MethodLog(opera = "PurchaseOrderList_arr")
+    public Object addPurchaseArr(PurchaseArrival purchaseArrival,List<PurchaseOrderDetail> list) {
+        Subject pricipalSubject = SecurityUtils.getSubject();
+        User pricipalUser = (User) pricipalSubject.getPrincipal();
+        JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
+        int count = 0;    
+        //采购到货编号格式:表名_年_月_日_分_秒
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+        purchaseArrival.setPurArrivalId(RandomGUID.getRandomGUID());
+        purchaseArrival.setDerateMoney(new BigDecimal(0));//应付减免金额
+        purchaseArrival.setAlrPayAmo(new BigDecimal(0));//已付款金额 
+        purchaseArrival.setNotInvAmo(new BigDecimal(0));//未开票金额 
+        purchaseArrival.setAlrReturnAmo(new BigDecimal(0));//已退货金额 
+        purchaseArrival.setReturnState("noneCancel");//退货状态
+        purchaseArrival.setPayState("nonePay");//付款状态
+        purchaseArrival.setAuditState("authstr");//审核状态
+        purchaseArrival.setInvState("noneInv");//开票状态
+        purchaseArrival.setTailAfterStatus("storage");//入库状态
+        purchaseArrival.setArrivalCode("arrival"+formatDate.format(new Date()));
+        purchaseArrival.setCreater(pricipalUser.getUserCnName());
+        purchaseArrival.setCreateTime(new Date());
+        purchaseArrival.setUpdater(pricipalUser.getUserCnName());
+        purchaseArrival.setUpdateTime(new Date());
+        count = purchaseArrivalMapper.insert(purchaseArrival); //新增到货单
+        if (count == 1) {
+        	 for (PurchaseOrderDetail purchaseOrderDetail : list) {
+        		 PurchaseArrivalDetail arrivalDetail=new PurchaseArrivalDetail();
+        		//采购到货详情信息增加 
+        		   arrivalDetail.setPurArrivalDetId(RandomGUID.getRandomGUID());
+        		   arrivalDetail.setPurArrivalId(purchaseArrival.getPurArrivalId());
+        		   arrivalDetail.setGoodsId(purchaseOrderDetail.getGoodsId());//商品id
+        		   arrivalDetail.setGoodsCode(purchaseOrderDetail.getGoodsCode());//商品编码
+        		   arrivalDetail.setGoodsName(purchaseOrderDetail.getGoodsName());//商品名称
+        		   arrivalDetail.setGoodsModel(purchaseOrderDetail.getGoodsModel());//规格型号
+        		   arrivalDetail.setGoodsUnit(purchaseOrderDetail.getGoodsUnit());//单位 
+        		   arrivalDetail.setQuantity(purchaseOrderDetail.getQuantity());//订购数量
+        		   arrivalDetail.setPrice(purchaseOrderDetail.getPrice());//单价
+        		   arrivalDetail.setGoodsMoney(purchaseOrderDetail.getMoney());//商品金额
+        		   arrivalDetail.setDeadline(purchaseOrderDetail.getDeadline());//交货期限
+        		   arrivalDetail.setNotReturnNum(0);//未退货数量
+        		   arrivalDetail.setAlrReturnNum(0);//已退货数量
+        		   arrivalDetail.setNotPayNum(purchaseOrderDetail.getDelivery());//未付款数量=收货数量
+        		   arrivalDetail.setAlrPayNum(0);//已付款数量
+        		   arrivalDetail.setNotInvNum(purchaseOrderDetail.getDelivery());//未开票数量
+        		   arrivalDetail.setAlrInvNum(0);//已开票数量
+        		   arrivalDetail.setBrand(purchaseOrderDetail.getBrand());//品牌
+        		   arrivalDetail.setPlaceOfOrigin(purchaseOrderDetail.getPlaceOfOrigin());//产地
+        		   arrivalDetail.setBatchInformation(purchaseOrderDetail.getBatchInformation());//批次信息
+        		   arrivalDetail.setArrival(purchaseOrderDetail.getArrival());//到货数量
+        		   arrivalDetail.setDelivery(purchaseOrderDetail.getDelivery());//收货数量
+        		   arrivalDetail.setRejection(purchaseOrderDetail.getRejection());//拒收数量
+        		   arrivalDetail.setOriginalCost(purchaseOrderDetail.getPrimeCost());//原价
+        		   arrivalDetail.setDepositRate(purchaseOrderDetail.getDiscount());//折扣率
+        		   arrivalDetail.setPutstorage(purchaseOrderDetail.getDelivery());//已入库数量
+        		   arrivalDetail.setTakestorage(0);//未入库数量
+        		   arrivalDetail.setRemark(purchaseOrderDetail.getRemark());//备注 
+        		   purchaseArrivalDetailMapper.insert(arrivalDetail);//执行增加到货明细操作 
+			} 
+            returnResult.setSuccess(true);
+            returnResult.setMsg("[" + purchaseArrival.getArrivalCode() + "] 采购到货信息已保存");
+        } else {
+            returnResult.setMsg("发生未知错误，采购到货信息保存失败");
+        }
+        //调用到货单审核方法
+        
+        return returnResult; 
+}}

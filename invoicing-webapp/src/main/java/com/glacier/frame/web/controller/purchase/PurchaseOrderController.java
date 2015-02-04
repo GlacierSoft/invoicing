@@ -18,7 +18,8 @@
  * 
  */
 package com.glacier.frame.web.controller.purchase;
-
+ 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;  
 
@@ -37,14 +38,17 @@ import org.springframework.web.servlet.ModelAndView;
 import com.glacier.core.controller.AbstractController; 
 import com.glacier.frame.dto.query.purchase.PurchaseOrderDetailQueryDTO;
 import com.glacier.frame.dto.query.purchase.PurchaseOrderQueryDTO;
+import com.glacier.frame.entity.purchase.PurchaseArrival;
 import com.glacier.frame.entity.purchase.PurchaseOrder;
 import com.glacier.frame.entity.purchase.PurchaseOrderDetail;
 import com.glacier.frame.service.basicdatas.ParComDeliverTypeService;
 import com.glacier.frame.service.basicdatas.ParComPaymentTypeService;
 import com.glacier.frame.service.basicdatas.ParPurchaseTypeService;
+import com.glacier.frame.service.basicdatas.SuppliersService;
 import com.glacier.frame.service.basicdatas.WarehouseService;
 import com.glacier.frame.service.purchase.PurchaseOrderDetailService;
 import com.glacier.frame.service.purchase.PurchaseOrderService;
+import com.glacier.frame.service.system.UserService;
 import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager; 
 
@@ -76,6 +80,12 @@ public class PurchaseOrderController extends AbstractController{
 	
 	@Autowired
 	private WarehouseService warehouseService;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private SuppliersService suppliersService;
     
     //进入列表展示页面
     @RequestMapping(value = "/index.htm")
@@ -90,6 +100,22 @@ public class PurchaseOrderController extends AbstractController{
         ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/batch/batchAudit/purchaseOrder");
         return mav;
     } 
+    
+  //进入到货展示页面
+    @RequestMapping(value = "/arr.htm")
+    private Object arr(String purOrderId,HttpSession session) {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/arr");
+    	mav.addObject("userDate", userService.getUserCombo(null));//员工信息
+    	mav.addObject("deliverTypeDate", deliverTypeService.getDeliverTypeCombo());//所属仓库
+    	mav.addObject("purchaseTypeDate", purchaseTypeService.getParPurchaseTypeCombo());//采购类型
+    	mav.addObject("suppliersDate", suppliersService.getSuppliersCombo());//供应商
+    	mav.addObject("suppliersLogisticsDate", suppliersService.getSuppliersLogisticsCombo());//物流供应商
+    	mav.addObject("paymentTypeDate", paymentTypeService.getParComPaymentTypeCombo());//约定支付
+    	mav.addObject("warehouseDate", warehouseService.getWareHouseCombo());//仓库 
+        mav.addObject("purchaseDate", purchaseOrderService.getPurchaseOrder(purOrderId));
+        session.setAttribute("arrId", purOrderId);
+        return mav;
+    }  
     
     //进入已审核的列表展示页面
     @RequestMapping(value = "/batchCancelAudit.htm")
@@ -133,14 +159,20 @@ public class PurchaseOrderController extends AbstractController{
         return mav;
     }
     
+    //根据订购合同id查询商品展示页面
+    @RequestMapping(value = "/goodsArr.htm")
+    private Object goodsArr() {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/goodsArr");
+        return mav;
+    }
+    
     //获取表格结构的所有订购合同数据
     @RequestMapping(value = "/list.json", method = RequestMethod.POST)
     @ResponseBody
     private Object listPurchaseOrder(JqPager jqPager,PurchaseOrderQueryDTO purchaseOrderQueryDTO) {
         return purchaseOrderService.listAsGrid(jqPager, purchaseOrderQueryDTO);
     }
-    
-  
+     
     //获取订购合同详细信息
     @RequestMapping(value = "/orderDetail.json", method = RequestMethod.POST)
     @ResponseBody
@@ -198,6 +230,37 @@ public class PurchaseOrderController extends AbstractController{
      	return  purchaseOrderService.addPurchaseOrder(order,list);
     }  
     
+    //到货操作
+    @RequestMapping(value = "/addArr.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object addArr(String purchaseArr,String data) {   
+    	JSONObject purchase = JSONObject.fromObject(purchaseArr);  
+    	PurchaseArrival arr = (PurchaseArrival) JSONObject.toBean(purchase,PurchaseArrival.class); 
+    	JSONArray array = JSONArray.fromObject(data);    
+    	List<PurchaseOrderDetail> list=new ArrayList<PurchaseOrderDetail>();  
+    	for (int i = 0; i < array.toArray().length; i++) {//遍历循环,去除最后一项统计栏的信息
+		   JSONObject json = JSONObject.fromObject(array.toArray()[i]);
+		   PurchaseOrderDetail resourceBean = (PurchaseOrderDetail) JSONObject.toBean(json,PurchaseOrderDetail.class);
+			if(resourceBean.getGoodsCode().equals("<b>统计：</b>")){
+			 	continue; 
+			}     
+			if(arr.getNotPayAmo()==null){
+				arr.setNotPayAmo(new BigDecimal(0));
+			}
+			 if(arr.getAlrInvAmo()==null){
+				arr.setAlrInvAmo(new BigDecimal(0));
+			} 
+			 if(arr.getNotReturnAmo()==null){
+				arr.setNotReturnAmo(new BigDecimal(0));
+			}
+		   arr.setNotPayAmo(arr.getNotPayAmo().add(resourceBean.getMoney()));//未付款金额
+		   arr.setAlrInvAmo(arr.getAlrInvAmo().add(resourceBean.getMoney()));//已开票金额
+		   arr.setNotReturnAmo(arr.getNotReturnAmo().add(resourceBean.getMoney()));//未退货金额
+		   list.add(resourceBean);  
+		}     
+      	return  purchaseOrderService.addPurchaseArr(arr,list);
+    }  
+     
     //修改订购合同
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
@@ -223,7 +286,7 @@ public class PurchaseOrderController extends AbstractController{
     	return purchaseOrderService.delPurchaseOrder(purOrderIds, orderCodes);
     } 
      
-  //审核订购合同
+    //审核订购合同
     @RequestMapping(value = "/audit.json", method = RequestMethod.POST)
     @ResponseBody
     public Object auditPurchaseOrder(PurchaseOrder order) { 
