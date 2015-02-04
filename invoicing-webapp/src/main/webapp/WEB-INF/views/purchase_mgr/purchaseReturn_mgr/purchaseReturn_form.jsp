@@ -26,16 +26,14 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
          }
  };
 </script>
-<form id="purchaseArrival_mgr_purchaseArrival_form" method="post">
-<table  class="formtable" style="margin-left: 20px;margin-top: 20px;">
-
+<form id="purchaseReturn_mgr_purchaseReturn_form" method="post">
+<table  class="formtable" style="margin-left: 20px;margin-top: 5px;">
 <glacierui:toolbar panelEnName="PurchaseReturnList" toolbarId="purchaseReturnDataGrid_toolbar" menuEnName="purchaseReturn"/><!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
-
 <tr>
     <td colspan="8">
       <hr> 
-      <div style="margin-left: 410px">
-         <font size="3" style="margin-top: 30px"><b>采购退货单</b></font> 
+        <div style="margin-left: 520px;" >
+            <font size="3" ><b>采购退货单</b></font> 
 	      </div> 
  	  <hr> 
      </td>
@@ -43,6 +41,7 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 <tr> 
          <td style="padding-left:10px;">所属仓库：</td>
 		<td>
+		    <input type="hidden" name="purReturnId" value="${purchaseReturnDate.purReturnId}">
 			<input id="storage" name="storage" class="easyui-combobox spinner" style="width:168px" value="${purchaseReturnDate.storage }"   required="true"/>
 		</td> 
 		<td style="padding-left:10px;">运费总额：</td>
@@ -58,24 +57,7 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 	        <input id="logCode" name="logCode" class="easyui-combobox spinner" style="width:168px;" value="${purchaseReturnDate.logCode}" required="true"/>
 	    </td>
 </tr>   
- <tr>
-     <td style="padding-left:10px;">联系人：</td>
-	 <td >
-	 		<input name="linkman" class="easyui-validatebox spinner" style="width:168px" value="${purchaseReturnDate.linkman}" required="true"/>
-	 </td>
-     <td style="padding-left:10px;">联系电话：</td>
-     <td>
-     	<input id="phone" name="phone" class="easyui-validatebox spinner" style="width:168px" value="${purchaseReturnDate.phone}" required="true"/>
-     </td>
-    <td style="padding-left:10px;">联系传真：</td>
-	<td>
-	    <input  name="fax" class="easyui-validatebox spinner" style="width:168px" value="${purchaseReturnDate.fax}" required="true"/>
-	</td>
-      <td style="padding-left:10px;">退货金额：</td>
-    <td>
-       <input id="refundTotal" name="refundTotal" class="easyui-validatebox spinner" style="width:168px;" value="<fmt:formatNumber value='${purchaseReturnDate.refundTotal}' pattern="#,#00.00元"/>" required="true"/>
-   </td> 
-  </tr>
+
 <tr>
     <td style="padding-left:10px;">退货方式：</td>
 	<td>
@@ -142,13 +124,10 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
    <td style="padding-left:10px;">未开票金额：</td>
    <td><input id="notInvAmo"  name="notInvAmo" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${purchaseReturnDate.notInvAmo}' pattern="#,#00.00元"/>" required="true"/></td>
    <td style="padding-left:10px;">已开票金额：</td>
-   <td><input name="alrInvAmo" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${purchaseReturnDate.alrInvAmo}' pattern="#,#00.00元"/>" required="true"/></td>
-</tr>
-<tr>
-    <td style="padding-left:10px;">总金额：</td>
-	<td>
-	    <input id="totalAmount" readonly="readonly" name="totalAmount" class=" spinner" style="width:168px;height:20px;border-left-style: none;border-right-style: none;border-top-style: none;"   value="<fmt:formatNumber value='${purchaseReturnDate.totalAmount}' pattern="#,#00.00元"/>" />
-	</td> 
+   <td>
+       <input name="alrInvAmo" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${purchaseReturnDate.alrInvAmo}' pattern="#,#00.00元"/>" required="true"/>
+       <input type="hidden" id="totalAmount" readonly="readonly" name="totalAmount" class=" spinner" style="width:168px;height:20px;border-left-style: none;border-right-style: none;border-top-style: none;"   value="<fmt:formatNumber value='${purchaseReturnDate.totalAmount}' pattern="#,#00.00元"/>" />
+   </td>
 </tr>
 <tr> 
    <td style="padding-left:10px;">备 注：</td>
@@ -169,7 +148,7 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 </table>
 	<hr> 
      <div style="text-align: center;">
-        <font size="3" style="margin-top: 30px"><b>货品详情</b></font> 
+        <font size="3"><b>货品详情</b></font> 
      </div> 
      <hr>        
      <!-- 所有列表面板和表格 -->  
@@ -291,7 +270,8 @@ $dg.datagrid({
 	remoteSort : true,//开启远程排序，默认为false
 	idField : 'purOrderDetId', 
 	columns:[[    
-	           {field:'goodsCode',title:'货品编码',width:100},    
+			   {field:'goodsId',title:'货品ID',width:100,hidden:true},  
+			   {field:'goodsCode',title:'货品编码',width:100},    
 	           {field:'goodsName',title:'货品名称',width:100},
 	           {field:'goodsId',title:'货品编号',width:100,hidden:true},    
 	           {field:'goodsModel',title:'规格型号',width:100},   
@@ -343,229 +323,525 @@ $dg.datagrid({
         	});   
 		}
 	}],
+   rownumbers : true,//True 就会显示行号的列
    onDblClickRow:function(rowIndex, rowData){
-    	showDetail(rowIndex,rowData);
-    }
+	   stRows=rowIndex; 
+    },
+   onSelect:function(rowIndex, rowData){
+	   var rows = $dg.datagrid('getRows'); 
+   		if(rows.length==1){
+   		selecRows=0;
+   	    } 
+   		$dg.datagrid('endEdit',selecRows);
+   		var computeRow = $dg.datagrid('getData').rows[rowIndex];//获取某一行数据 
+		if(computeRow.goodsCode != "<b>统计：</b>"){//如果不是统计行， 开启当前行可编辑
+			$dg.datagrid('beginEdit',rowIndex);
+  	    	againBinding(rowIndex);
+  	    	stRows=rowIndex;  
+		  }  
+		selecRows=rowIndex;  
+        //移除那两个按钮
+    	$("div[class='dialog-button datagrid-rowediting-panel']").remove();
+   } 
   });
   
-//增加行
-function addRow(){
+  
+//统计
+function  compute(){
+	//获取数据行
+	  var rows = $dg.datagrid('getRows'); 
+	  var moneyTotal = 0,quantityTotal = 0;//计算moneyTotal的总和以及统计arrivalTotal的总和，deliveryTotal总和
+	  if(rows.length >= 2){
+		    //新增一行显示统计信息
+		    var computeRow = $dg.datagrid('getData').rows[rows.length-1];//获取某一行数据
+		    var row=$dg.datagrid('getSelected');//获取当前选中的行 
+		    if(computeRow.goodsCode == "<b>统计：</b>"){//修改 
+		    	for (var i = 0; i < rows.length-1; i++) { 
+			    	if(row==i){ //如果是选中行，则获取编辑器的值
+		    			var moneyTarget = $dg.datagrid('getEditor', {index:i,field:'money'}).target;
+				    	moneyTotal += parseFloat(moneyTarget.val());
+				    	var quantityTarget = $dg.datagrid('getEditor', {index:i,field:'quantity'}).target;
+				    	if(parseInt(quantityTarget.val())>9999){
+				    		quantityTotal+=9999;
+				    	}else{
+				    		quantityTotal += parseInt(quantityTarget.val());
+				    	}  
+		    		}else{//否则直接获取列值相加
+		    			moneyTotal +=parseFloat(rows[i]['money']);
+		    			quantityTotal += rows[i]['quantity'];
+		    		} 
+			    	
+			    }
+		    	$dg.datagrid('updateRow', {
+		    		index:rows.length-1,
+		    		row:{  
+					     money: moneyTotal,
+					     quantity: quantityTotal
+					     }
+		    	});
+		    	$dg.datagrid('refreshRow', rows.length-1);
+		    }else{//增加 
+		    	for (var i = 0; i < rows.length; i++) {
+		    		if(row==i){ //如果是选中行，则获取编辑器的值
+		    			var moneyTarget = $dg.datagrid('getEditor', {index:i,field:'money'}).target;
+				    	moneyTotal += parseFloat(moneyTarget.val());
+				    	var quantityTarget = $dg.datagrid('getEditor', {index:i,field:'quantity'}).target;
+				     	if(parseInt(quantityTarget.val())>9999){
+				    		quantityTotal+=9999;
+				    	}else{
+				    		quantityTotal += parseInt(quantityTarget.val());
+				    	}  
+		    		}else{//否则直接获取列值相加
+		    			moneyTotal += parseFloat(rows[i]['money']);
+		    			quantityTotal += rows[i]['quantity'];
+		    		} 
+			    }
+		    	$dg.datagrid('appendRow', { 
+			    	goodsCode: '<b>统计：</b>', 
+			    	money: moneyTotal,
+			    	quantity: quantityTotal
+			       }
+			    );
+		    }
+	  }else{
+		  moneyTotal=parseFloat(rows[0]['money']);
+	  }
+	  $("#totalAmount").attr("value","").attr("value",moneyTotal); 
+}
+
+//批量增加
+function addRows(){
+	storageVal = $('#storage').combobox('getValue');
+	if(storageVal!=''){//判断
+		$.easyui.showDialog({
+			title: "增加货物目录",
+			href : ctx + '/do/purchaseOrder/goodsIndex.htm',//从controller请求jsp页面进行渲染
+			width : 730,
+			height : 400,
+			resizable: false,
+			enableApplyButton : false,
+			enableSaveButton : false,
+			enableCloseButton : false,
+			buttons : [{
+	  			text : '确认',
+	  			iconCls : 'icon-ok',
+	  			handler : function(dia) { 
+	  				var rowsCheck =  $('#goodsListDataGrid').datagrid('getChecked');
+	  				for(var i = 0; i < rowsCheck.length;i++){
+	  					$dg.datagrid('insertRow', {
+	  						index: i,
+	  						row:{
+	  							goodsId:rowsCheck[i].goodsId,
+	  							goodsCode:rowsCheck[i].goodsCode,
+	  							goodsName:rowsCheck[i].goodsName,
+	  							goodsModel:rowsCheck[i].specification,
+	  							goodsUnit:rowsCheck[i].unit,
+	  							price:rowsCheck[i].referenceCost,
+	  							quantity:0,
+	  							money:0.00,
+	  							cess:rowsCheck[i].taxRate,
+	  							remark:rowsCheck[i].remark
+	  						}
+	  					});
+	  					$dg.datagrid('beginEdit', i);
+	  					$dg.datagrid('endEdit', i).datagrid('refreshRow', i).datagrid('beginEdit', i); 
+	  					againBinding(i);//批量增加绑定的事件
+	  				}
+	  				$dg.datagrid('endEdit', rowsCheck.length-1).datagrid('refreshRow', rowsCheck.length-1); 
+	  				selecRows=selecRows+rowsCheck.length; //上一次选中的行=原来选中的行+新添加的行数
+	  				dia.dialog("close");
+	  				compute();//调用统计   
+	  			}
+			
+	  		},{
+	  			text : '取消',
+	  			iconCls : 'icon-undo',
+	  			handler : function(dia) {
+	  				dia.dialog("close"); 
+	  			}
+	  		}]
+		});
+	}else{
+		$.messager.alert('提示信息','请先选择仓库！','info'); 
+		$('#storage').focus(); 
+		return false;
+	}
+}
+  
+  
+//获取行号
+function getRowIndex(target){
+	var tr = $(target).closest('tr.datagrid-row'); 
+	return parseInt(tr.attr('datagrid-row-index'));
+} 
+
+//事件绑定
+function againBinding(rows){       
+	$("div[class='dialog-button datagrid-rowediting-panel']").remove();
+	//货品编码 
+	var goodsCodeTarget = $dg.datagrid('getEditor', {index:rows,field:'goodsCode'}).target;
+	//单价
+	var priceTarget = $dg.datagrid('getEditor', {index:rows,field:'price'}).target; 
+	//数量
+	var quantityTarget = $dg.datagrid('getEditor', {index:rows,field:'quantity'}).target; 
+	//金额
+	var moneyTarget = $dg.datagrid('getEditor', {index:rows,field:'money'}).target; 
+	//货品编码
+	 $(goodsCodeTarget).bind("click",function(){ 
+		  goodsCodeClick(this);
+	});
+	//单价
+	  $(priceTarget).bind("change",function(){ 
+		  priceBlur(this);
+	});
+	//数量
+	$(quantityTarget).bind("change",function(){ 
+		quantityBlur(this);
+	});  
+	//金额
+	$(moneyTarget).bind("change",function(){ 
+		moneyBlur(this);
+	});   
+}
+
+//单价编辑框绑定事件
+function priceBlur(obj){   
+	var rows=$dg.datagrid('getRows'); 
+	var indexRows = getRowIndex(obj);  //获取行号 
+	var yuanjia = $dg.datagrid('getData').rows[indexRows].primeCost;  
+	//-------------------------------取编辑框对象------------------------------
+	//单价
+	var priceTarget = $dg.datagrid('getEditor', {index:indexRows,field:'price'}).target;
+	//数量
+	var quantityTarget = $dg.datagrid('getEditor', {index:indexRows,field:'quantity'}).target; 
+	var remarkTarget = $dg.datagrid('getEditor', {index:indexRows,field:'remark'}).target; 
+    //-----------------------------------自定义变量-----------------------------------
+	var price = parseFloat(priceTarget.val()).toFixed(2);
+	var quantity = parseInt(quantityTarget.val());//数量   
+	var sun=accMul(price,quantity);//总额=单价*数量 
+	$dg.datagrid('updateRow',{
+		index: indexRows,
+		row: {
+			money: sun.toFixed(2),
+			price:price,
+			quantity:quantity, 
+			remark:remarkTarget.val()
+		}
+	});   
+	$("#goodsList").datagrid('endEdit', indexRows); 
+	$("#goodsList").datagrid('refreshRow', indexRows);
+	$("#goodsList").datagrid('beginEdit', indexRows); 
+	//当前行再次绑定事件 
+	 againBinding(indexRows); 
+	 compute();//调用统计
+} 
+
+//数量编辑框绑定事件
+function quantityBlur(obj){   
+	var rows=$dg.datagrid('getRows');  
+	var indexRows = getRowIndex(obj);  //获取行号  
+	//-------------------------------取编辑框对象------------------------------
+	//单价
+	var priceTarget = $dg.datagrid('getEditor', {index:indexRows,field:'price'}).target;
+	//数量
+	var quantityTarget = $dg.datagrid('getEditor', {index:indexRows,field:'quantity'}).target; 
+	//交货期限
+	var remarkTarget = $dg.datagrid('getEditor', {index:indexRows,field:'remark'}).target; 
+   //-----------------------------------自定义变量-----------------------------------
+	var priceOne = parseFloat(priceTarget.val()).toFixed(2);
+	var quantity = parseInt(quantityTarget.val());//数量    
+	if(quantityTarget.val()>9999){
+		quantity=9999;
+	}
+	var sun=accMul(priceOne,quantity);//总额=单价*数量 
+	 $dg.datagrid('updateRow',{
+		index: indexRows,
+		row: {
+			money: sun.toFixed(2),
+			price:priceOne,
+			quantity:quantity, 
+			remark:remarkTarget.val()
+		}
+	});   
+	$("#goodsList").datagrid('endEdit', indexRows); 
+	$("#goodsList").datagrid('refreshRow', indexRows);
+	$("#goodsList").datagrid('beginEdit', indexRows); 
+	//当前行再次绑定事件 
+	 againBinding(indexRows); 
+	 compute();//调用统计
+} 
+
+//金额编辑框绑定事件
+function moneyBlur(obj){   
+	var rows=$dg.datagrid('getRows'); 
+	var indexRows = getRowIndex(obj);  //获取行号 
+	var yuanjia = $dg.datagrid('getData').rows[indexRows].primeCost;  
+	//-------------------------------取编辑框对象------------------------------
+	//单价
+	var priceTarget = $dg.datagrid('getEditor', {index:indexRows,field:'price'}).target;
+	//数量
+	var quantityTarget = $dg.datagrid('getEditor', {index:indexRows,field:'quantity'}).target; 
+	//金额
+	var moneyTarget = $dg.datagrid('getEditor', {index:indexRows,field:'money'}).target; 
+	//交货期限
+	var remarkTarget = $dg.datagrid('getEditor', {index:indexRows,field:'remark'}).target; 
+    //-----------------------------------自定义变量-----------------------------------
+	var price = parseFloat(priceTarget.val()).toFixed(2);
+	var quantity = parseInt(quantityTarget.val());//数量  
+	var money=parseFloat(moneyTarget.val()).toFixed(2); //金额 
+	if(quantity<=0){
+	
+	}else{
+		//单价
+		price=money/quantity;
+		//折扣率
+		discount=price/yuanjia;
+	} 
+	 $dg.datagrid('updateRow',{
+		index: indexRows,
+		row: {
+			money: money,
+			discount:discount,
+			price:price,
+			quantity:quantity, 
+			remark:remarkTarget.val()
+		}
+	});   
+	$("#goodsList").datagrid('endEdit', indexRows); 
+	$("#goodsList").datagrid('refreshRow', indexRows);
+	$("#goodsList").datagrid('beginEdit', indexRows); 
+	//当前行再次绑定事件 
+	 againBinding(indexRows); 
+	 compute();//调用统计
+}  
+
+
+//货物编码编辑框点击事件
+function goodsCodeClick(obj){
+  	var indexRows = getRowIndex(obj); 
+	goodsDetail(indexRows); 
+}
+
+//去到货品目录方法
+function goodsDetail(rowIndex){ 
 	$.easyui.showDialog({
-		href : ctx + '/do/purchaseReturn/showGoods.htm',//从controller请求jsp页面进行渲染
-		width : 600,
-		height : 420,
+		href : ctx + '/do/purchaseOrder/goodsDetail.htm',//从controller请求jsp页面进行渲染
+		width : 730,
+		height : 400,
 		resizable: false,
-		title : "货品目录",
 		enableSaveButton : false,
 		enableApplyButton : false,
-		enableCloseButton:false,
+		enableCloseButton : false,
+		title : "货品目录",
 		buttons : [ 
-		 {
-			text : '取消',
-			iconCls : 'icon-save',
-			handler : function(target) {
-				target.dialog("close");
-			}
-		},{
+		{
 			text : '确认',
-			iconCls : 'icon-save',
-			handler : function(target) {
-				if($("#goodsListDataGrid").datagrid('getSelections')){
-				  var setName=$("#goodsListDataGrid").datagrid('getSelections');
-				  var returnName=$("#purchase_return_form").datagrid("getRows");
-				  if(returnName.length==0){
-                     for(var i=0;i<setName.length;i++){
-                    	 $('#purchase_return_form').datagrid('insertRow', {
- 							index:0,
- 							row:{
- 								goodsCode:setName[i].goodsCode,
- 								goodsName:setName[i].goodsName,
- 								goodsModel:setName[i].specification,
- 								goodsUnit:setName[i].unit,
- 								quantity:0,
- 								price:0,
- 								rejection:0,
- 								money:0,
- 								cess:$("#goodsListDataGrid").datagrid('getSelected').taxRate,
- 								prices:0
- 							}
- 						});
- 					    $('#purchase_return_form').datagrid('endEdit', 0).datagrid('refreshRow', 0).datagrid('beginEdit', 0); 
-                     }
-                     target.dialog("close");
-					}else{
-						for(var i=0;i<setName.length;i++){
-							  var count=0;
-							  for(var j=0;j<returnName.length;j++){
-								  if(setName[i].goodsName==returnName[j].goodsName)
-								     	    count+=1;
-							  }
-							if(count==0){
-								  $('#purchase_return_form').datagrid('insertRow', {
-			 							index:0,
-			 							row:{
-			 								goodsCode:setName[i].goodsCode,
-			 								goodsName:setName[i].goodsName,
-			 								goodsModel:setName[i].specification,
-			 								goodsUnit:setName[i].unit,
-			 								quantity:0,
-			 								price:0,
-			 								rejection:0,
-			 								money:0,
-			 								cess:$("#goodsListDataGrid").datagrid('getSelected').taxRate,
-			 								prices:0
-			 							}
-			 						});
-			 					    $('#purchase_return_form').datagrid('endEdit', 0).datagrid('refreshRow', 0).datagrid('beginEdit', 0);
-							  }
-							  
-						}
-						target.dialog("close");	
-					}
-				}else{
-				  target.dialog("close");
-			  }
-			  
+  			iconCls : 'icon-ok',
+			handler : function(dia) {
+				//确认后赋值
+				$dg.datagrid('updateRow', {
+					index:stRows,
+						row:{
+  							goodsId:setRowData.goodsId,
+  							goodsCode:setRowData.goodsCode,
+  							goodsName:setRowData.goodsName,
+  							goodsModel:setRowData.specification,
+  							goodsUnit:setRowData.unit,
+  							batchInformation:setRowData.specification,
+  							price:setRowData.referenceCost,
+  							quantity:0,
+  							money:0.00,
+  							cess:setRowData.taxRate,
+  							remark:setRowData.remark
+  						}
+				}); 
+				 dia.dialog("close");  
+				 $dg.datagrid('endEdit', stRows).datagrid('refreshRow', stRows).datagrid('beginEdit', stRows);
+				 
+				//移除那两个按钮
+		    	$("div[class='dialog-button datagrid-rowediting-panel']").remove(); 
+				againBinding(stRows);
+				compute();//调用统计			
 			}
+		}, {
+			text : '取消',
+  			iconCls : 'icon-undo',
+  			handler : function(dia) {
+  				dia.dialog("close"); 
+  			}
 		}]
 	});
- }
-	//去到货品目录方法
-	function showDetail(rowIndex,rowData){
-		$.easyui.showDialog({
-			href : ctx + '/do/purchaseReturn/showGoods.htm',//从controller请求jsp页面进行渲染
-			width : 600,
-			height : 420,
-			resizable: false,
-			title : "货品目录",
-			enableSaveButton : false,
-			enableApplyButton : false,
-			enableCloseButton:false,
-			buttons : [ 
-			 {
-				text : '取消',
-				iconCls : 'icon-save',
-				handler : function(dia) {
-					dia.dialog("close");
-				}
-			},{
-				text : '确认',
-				iconCls : 'icon-save',
-				handler : function(target) {
-					 var row=$('#goodsListDataGrid').datagrid("getSelected");
-				     var returnName=$("#purchase_return_form").datagrid("getRows");
-				     var count=0;
-				     for(var i=0;i<returnName.length;i++){
-				    	 if(row.goodsName==returnName[i].goodsName) count+=1;
-				     }
-				     if(count==0){
-				    	  $('#purchase_return_form').datagrid('updateRow', {
-								index:rowIndex,
-								row:{
-									goodsCode:row.goodsCode,
-									goodsName:row.goodsName,
-									goodsModel:row.specification,
-									goodsUnit:row.unit,
-									quantity:0,
-									price:0,
-									rejection:0,
-									money:0,
-									cess:row.taxRate,
-									prices:0
-								}
-							});
-							$('#purchase_return_form').datagrid('endEdit', rowIndex).datagrid('refreshRow', rowIndex).datagrid('beginEdit', rowIndex); 
-				     }
-				     target.dialog("close"); 
-				}
-			}]
-		});
-	};
+};
+
+
+
+//乘法函数，用来得到精确的乘法结果 
+//说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。 
+//调用：accMul(arg1,arg2) 
+//返回值：arg1乘以arg2的精确结果 
+function accMul(arg1,arg2) 
+{ 
+	var m=0,s1=arg1.toString(),s2=arg2.toString(); 
+	try{m+=s1.split(".")[1].length}catch(e){} 
+	try{m+=s2.split(".")[1].length}catch(e){} 
+	return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m) 
+} 
+
+//放弃添加订购合同，返回订购合同显示页面
+$("#unbo").click(function(){ 
+	$("#layout_center_panel").panel("setTitle","采购退货");
+	$('#layout_center_panel').panel('refresh',ctx +'/do/purchaseReturn/index.htm');
+});
 	
-	  //提交操作
-	  function doSave(){
-	      alert("哈哈哈哈！！！！我提交了!");	  
-	  }
-	
-     //撤销操作
-	 function doClear(){
-		 $('#purchase_return_form').datagrid('loadData',{total:0,rows:[]}); 
-	 }
-	
-	//仓库列表
-     $("#storage").combobox({
-		 	data:$.parseJSON('${allWareHouseDate}'),
-			valueField:'warehouseId',    
-		    textField:'warehouseName',
-		    panelHeight : 'auto',
-		    editable:false 
-	   });
-     
-     //经办部门
-     $("#operatorDep").combotree({
-			data :$.parseJSON('${allDepTreeNodeData}'),
-			width:168,
-			panelHeight : 'auto',
-		    missingMessage:'请选择上级部门',
-		    smooth: true,       //该属性用以启用当前 easyui-tree 控件对平滑数据格式的支持
-		    lines : true,
-		    editable:false,
-		    onBeforeSelect:function(node){
-		    	if(node.state){
-                     $("#operatorDep").combotree("unselect");
-                 }
-		    },
-		    onSelect:function(record){
-		    	$.ajax({
-		    		type: "post", 
-		    		url:ctx + "/do/user/dept.json?depId="+record.id,
-		    		dataType:"json",
-		    		success: function (date){
-		    			   console.info(date);
-		    			   $("#logCode").combobox({
-		    				 	data:$.parseJSON(date),
-		    					valueField:'id',    
-		    				    textField:'text',
-		    				    panelHeight : 'auto',
-		    				    editable:false 
-		    			   });
-		    			   if($.parseJSON(date).length>0){
-				    		   $("#logCode").combobox('select', $.parseJSON(date)[0].id);
-						   }else{
-							   $("#logCode").combobox('setValue', '');
-						   }
-		    			}
-		    	});
-		        
-		    }
-		});	
-     
-     //供应商信息
-     $("#supplierId").combobox({
-		 	data:$.parseJSON('${allSuppliesTreeNodeData}'),
-			valueField:'supplierId',    
-		    textField:'suppliersName',
-		    panelHeight : 'auto',
-		    editable:false 
-	  });
+//点击保存，获取表格的数据
+$("#saveOk").click(function(){  
+    var row=$dg.datagrid('getRows');  
+	var date= $dg.datagrid('getData').rows; 
+	var jsonDate=JSON.stringify(date);   
+    var str=JSON.stringify($("#purchaseReturn_mgr_purchaseReturn_form").serializeObject());
+    var status=$("#purReturnId").attr("value");//状态判断，如何为空，则是新增合同，否则为修改合同 
+    if(row.length<1){
+    	$.messager.alert('提示信息','至少选择一件货物！','info'); 
+		 return;
+    }
     
-     //退货原因
-      $("#returnReasonId").combobox({
-		 	data:$.parseJSON('${allReturnReasonData}'),
-			valueField:'returnReasonId',    
-		    textField:'name',
-		    panelHeight : 'auto',
-		    editable:false 
-	  });
-     
-     //退货方式
-      $("#returnedPurchaseTypeId").combobox({
-		 	data:$.parseJSON('${allReturnTypeData}'),
-			valueField:'returnedPurchaseTypeId',    
-		    textField:'name',
-		    panelHeight : 'auto',
-		    editable:false 
-	  });
-     
+    for(var i=0;i<row.length;i++){ 
+    	if(row[i]['quantity']==0){ 
+    		$.messager.alert('提示信息','请完善货物信息，订购数量不能为0！','info'); 
+    		 return;
+    	}
+    }    
+    //修改
+    if(status!=""){ 
+    	 $.post(ctx + '/do/purchaseReturn/edit.json', { data: jsonDate,purchaseOrder:str},
+  			   function(data){
+  				$.messager.show({
+  		    		title:'提示信息',
+  		    		msg:'货物修改成功!',
+  		    		showType:'show',  
+  		    		style:{
+  		    			right:'',
+  		    			top:document.body.scrollTop+document.documentElement.scrollTop,
+  		    			bottom:''
+  		    		}
+  		    	});
+  		    	$("#layout_center_panel").panel("setTitle","采购退货");
+  		    	$('#layout_center_panel').panel('refresh',ctx +'/do/purchaseReturn/index.htm'); 
+  			 });  
+    }else{ 
+    	 //新增
+     	 $.post(ctx + '/do/purchaseReturn/add.json', { data: jsonDate,purchaseOrder:str},
+   			   function(data){
+   				$.messager.show({
+   		    		title:'提示信息',
+   		    		msg:'货物订购成功!',
+   		    		showType:'show',
+   		    		style:{
+   		    			right:'',
+   		    			top:document.body.scrollTop+document.documentElement.scrollTop,
+   		    			bottom:''
+   		    		}
+   		    	});
+   		    	$("#layout_center_panel").panel("setTitle","采购退货");
+   		    	$('#layout_center_panel').panel('refresh',ctx +'/do/purchaseReturn/index.htm'); 
+   			 });  
+        } 
+   
+}); 
+
+    
+  //将序列化的form值，转化为json格式
+$.fn.serializeObject = function (){
+    var order = {};
+    var formInfo = this.serializeArray(); 
+    $.each(formInfo, function(key,value) { 
+    	if (order[value.name] !== undefined) {
+            if (!order[value.name].push) {
+            	order[value.name] = [order[value.name]];
+            }
+            order[value.name].push(value.value);
+        } else {
+        	order[value.name] = value.value;
+        } 
+    });
+    return order;
+};    
+    
+    
+//仓库列表
+  $("#storage").combobox({
+	data:$.parseJSON('${allWareHouseDate}'),
+	valueField:'warehouseId',    
+    textField:'warehouseName',
+    panelHeight : 'auto',
+    editable:false 
+ });
+    
+   //经办部门
+   $("#operatorDep").combotree({
+	data :$.parseJSON('${allDepTreeNodeData}'),
+	width:168,
+	panelHeight : 'auto',
+    missingMessage:'请选择上级部门',
+    smooth: true,       //该属性用以启用当前 easyui-tree 控件对平滑数据格式的支持
+    lines : true,
+    editable:false,
+    onBeforeSelect:function(node){
+    	if(node.state){
+                   $("#operatorDep").combotree("unselect");
+               }
+    },
+    onSelect:function(record){
+    	$.ajax({
+    		type: "post", 
+    		url:ctx + "/do/user/dept.json?depId="+record.id,
+    		dataType:"json",
+    		success: function (date){
+   			   console.info(date);
+   			   $("#logCode").combobox({
+   				 	data:$.parseJSON(date),
+   					valueField:'id',    
+   				    textField:'text',
+   				    panelHeight : 'auto',
+   				    editable:false 
+   			   });
+   			   if($.parseJSON(date).length>0){
+	    		   $("#logCode").combobox('select', $.parseJSON(date)[0].id);
+			   }else{
+				   $("#logCode").combobox('setValue', '');
+			   }
+   			}
+    	});
+        
+    }
+});	
+   
+   //供应商信息
+   $("#supplierId").combobox({
+ 	data:$.parseJSON('${allSuppliesTreeNodeData}'),
+	valueField:'supplierId',    
+    textField:'suppliersName',
+    panelHeight : 'auto',
+    editable:false 
+ });
+  
+   //退货原因
+    $("#returnReasonId").combobox({
+ 	data:$.parseJSON('${allReturnReasonData}'),
+	valueField:'returnReasonId',    
+    textField:'name',
+    panelHeight : 'auto',
+    editable:false 
+ });
+   
+   //退货方式
+    $("#returnedPurchaseTypeId").combobox({
+ 	data:$.parseJSON('${allReturnTypeData}'),
+	valueField:'returnedPurchaseTypeId',    
+    textField:'name',
+    panelHeight : 'auto',
+    editable:false 
+ });
+
 </script>
 
