@@ -434,7 +434,7 @@ function goSave(){
 		 });
 	}else{
 		//新增
-	   	/* $.post(ctx + '/do/purchaseArrival/add.json', { rows: json,purchaseArrival:str},
+	   	$.post(ctx + '/do/purchaseArrival/add.json', { rows: json,purchaseArrival:str},
 		   function(data){
 			$.messager.show({
 	    		title:'提示信息',
@@ -447,7 +447,7 @@ function goSave(){
 	    		}
 	    	});
 			$("#layout_center_panel").panel("setTitle","采购到货").panel('refresh',ctx + '/do/purchaseArrival/index.htm');
-		 }); */
+		 });
 	}
 }
 

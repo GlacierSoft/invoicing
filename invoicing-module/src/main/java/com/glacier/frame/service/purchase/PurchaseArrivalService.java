@@ -12,6 +12,8 @@
  */
 package com.glacier.frame.service.purchase; 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -101,6 +103,7 @@ public class PurchaseArrivalService {
     }
     
     /**
+     * @throws ParseException 
      * @Title: addPurchaseArrival 
      * @Description: TODO(新增采购到货) 
      * @param @param purchaseArrival
@@ -110,7 +113,7 @@ public class PurchaseArrivalService {
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "PurchaseArrivalList_add")
-    public Object addPurchaseArrival(String arrival,String rows) {
+    public Object addPurchaseArrival(String arrival,String rows) throws ParseException {
         Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
@@ -149,11 +152,18 @@ public class PurchaseArrivalService {
         count = purchaseArrivalMapper.insert(purchaseArrival);
         if (count == 1) {
         	//采购到货详情信息增加
+        	DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
         	for (int i = 0; i < array.toArray().length; i++) {//遍历循环
       		   JSONObject json = JSONObject.fromObject(array.toArray()[i]);
       		   PurchaseArrivalDetail arrivalDetail = (PurchaseArrivalDetail) JSONObject.toBean(json,PurchaseArrivalDetail.class);
       		   arrivalDetail.setPurArrivalDetId(RandomGUID.getRandomGUID());
       		   arrivalDetail.setPurArrivalId(purchaseArrival.getPurArrivalId());
+      		   if(json.getString("deadline").length()==0){
+    			  arrivalDetail.setDeadline(null);
+    		   }else{
+   				Date date = fmt.parse(json.getString("deadline"));
+   				arrivalDetail.setDeadline(date);
+    		   }
       		   arrivalDetail.setAlrReturnNum(0);
       		   arrivalDetail.setAlrPayNum(0);
       		   arrivalDetail.setNotInvNum(0);
@@ -179,7 +189,7 @@ public class PurchaseArrivalService {
      */
     @Transactional(readOnly = false)
     @MethodLog(opera = "PurchaseArrivalList_edit")
-    public Object editPurchaseArrival(PurchaseArrival purchaseArrival,String rows) {
+    public Object editPurchaseArrival(PurchaseArrival purchaseArrival,String rows) throws Exception  {
     	Subject pricipalSubject = SecurityUtils.getSubject();
         User pricipalUser = (User) pricipalSubject.getPrincipal();
         JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
@@ -188,17 +198,23 @@ public class PurchaseArrivalService {
         PurchaseArrivalDetailExample arrivalDetailExample = new PurchaseArrivalDetailExample();
         arrivalDetailExample.createCriteria().andPurArrivalIdEqualTo(purchaseArrival.getPurArrivalId());
         purchaseArrivalDetailMapper.deleteByExample(arrivalDetailExample);//执行删除
+        DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
         for (int i = 0; i < array.toArray().length; i++) {//遍历循环
  		   JSONObject json = JSONObject.fromObject(array.toArray()[i]);
  		   PurchaseArrivalDetail arrivalDetail = (PurchaseArrivalDetail) JSONObject.toBean(json,PurchaseArrivalDetail.class);
  		   arrivalDetail.setPurArrivalDetId(RandomGUID.getRandomGUID());
  		   arrivalDetail.setPurArrivalId(purchaseArrival.getPurArrivalId());
+ 		   if(json.getString("deadline").length()==0){
+ 			  arrivalDetail.setDeadline(null);
+ 		   }else{
+				Date date = fmt.parse(json.getString("deadline"));
+				arrivalDetail.setDeadline(date);
+ 		   }
  		   arrivalDetail.setAlrReturnNum(0);
  		   arrivalDetail.setAlrPayNum(0);
  		   arrivalDetail.setNotInvNum(0);
  		   arrivalDetail.setPutstorage(arrivalDetail.getDelivery());
  		   arrivalDetail.setTakestorage(arrivalDetail.getRejection());
- 		   System.out.println("时间:"+arrivalDetail.getDeadline());
  		   purchaseArrivalDetailMapper.insert(arrivalDetail);//执行增加操作
  		}
         int count = 0;

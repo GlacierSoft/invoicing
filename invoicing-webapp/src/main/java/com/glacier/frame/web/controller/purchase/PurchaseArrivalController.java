@@ -157,14 +157,14 @@ public class PurchaseArrivalController extends AbstractController{
     //增加采购到货信息
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addGrade(@Valid String purchaseArrival,String rows) {
+    private Object addGrade(@Valid String purchaseArrival,String rows) throws Exception {
         return purchaseArrivalService.addPurchaseArrival(purchaseArrival,rows);
     }
     
     //修改采购到货信息
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object editGrade(String purchaseArrival,String rows) {
+    private Object editGrade(String purchaseArrival,String rows) throws Exception {
     	JSONObject purchase = JSONObject.fromObject(purchaseArrival);  
         PurchaseArrival arrival = (PurchaseArrival) JSONObject.toBean(purchase,PurchaseArrival.class);
         return purchaseArrivalService.editPurchaseArrival(arrival,rows);
