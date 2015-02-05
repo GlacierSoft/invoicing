@@ -22,6 +22,7 @@ package com.glacier.frame.web.controller.purchase;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +32,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject; 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,10 +46,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.glacier.basic.util.JackJson;
 import com.glacier.frame.dto.query.purchase.PurchaseReturnQueryDTO;
 import com.glacier.frame.entity.purchase.PurchaseReturn;
+import com.glacier.frame.entity.purchase.PurchaseReturnDetail;
 import com.glacier.frame.service.basicdatas.ParPurchaseReturnReasonService;
 import com.glacier.frame.service.basicdatas.ParPurchaseReturnedTypeService;
 import com.glacier.frame.service.basicdatas.SuppliersService;
@@ -145,8 +148,20 @@ public class PurchaseReturnController {
     //增加采购退货信息
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addGrade(@Valid PurchaseReturn purchaseReturn, BindingResult bindingResult) {
-        return purchaseReturnService.addPurchaseReturn(purchaseReturn);
+    private Object addGrade(String purchaseReturn,String data) {
+    	JSONObject purchase = JSONObject.fromObject(purchaseReturn);
+    	PurchaseReturn purReturn=(PurchaseReturn)JSONObject.toBean(purchase, PurchaseReturn.class);
+    	JSONArray array = JSONArray.fromObject(data);
+    	List<PurchaseReturnDetail> list=new ArrayList<PurchaseReturnDetail>();
+    	for(int i=0;i<array.size();i++){
+    		JSONObject json=JSONObject.fromObject(array.toArray()[i]);
+    		PurchaseReturnDetail returnBean=(PurchaseReturnDetail)JSONObject.toBean(json, PurchaseReturnDetail.class);
+    		if(returnBean.getGoodsCode().equals("<b>统计：</b>")){
+    			continue;
+    		}
+    		list.add(returnBean);
+    	}
+    	return purchaseReturnService.addPurchaseReturn(purReturn, list);
     }
     
     //修改采购退货类型信息

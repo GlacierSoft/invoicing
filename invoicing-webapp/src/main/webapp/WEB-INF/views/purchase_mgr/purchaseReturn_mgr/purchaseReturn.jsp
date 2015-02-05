@@ -51,23 +51,13 @@
 					return renderGridValue(value,fields.status);
 				}
 			},{
-				field:'storage',
+				field:'storageDisplay',
 				title:'仓库',
 				width:120,
 				sortable:true
 			},{
-				field:'supplierId',
+				field:'supplierIdDisplay',
 				title:'供应商',
-				width:120,
-				sortable:true
-			},{
-				field:'proCame',
-				title:'项目名称',
-				width:120,
-				sortable:true
-			},{
-				field:'linkman',
-				title:'联系人',
 				width:120,
 				sortable:true
 			},{

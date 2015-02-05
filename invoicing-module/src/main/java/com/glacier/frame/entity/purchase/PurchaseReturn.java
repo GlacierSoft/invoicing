@@ -92,12 +92,55 @@ public class PurchaseReturn {
 
     private Date updateTime;
     
-    
     private String returnedPurchaseTypeDisplay;
     
     private String returnReasonDisplay;
     
-    public String getReturnedPurchaseTypeDisplay() {
+    //经办人
+    private String logCodeDisplay;
+    
+    //经办部门
+    private String  operatorDepDisplay; 
+    
+    //仓库
+    private String storageDisplay;
+    
+    //供应商
+    private String supplierIdDisplay;
+    
+    public String getLogCodeDisplay() {
+		return logCodeDisplay;
+	}
+
+	public void setLogCodeDisplay(String logCodeDisplay) {
+		this.logCodeDisplay = logCodeDisplay;
+	}
+
+	public String getOperatorDepDisplay() {
+		return operatorDepDisplay;
+	}
+
+	public void setOperatorDepDisplay(String operatorDepDisplay) {
+		this.operatorDepDisplay = operatorDepDisplay;
+	}
+
+	public String getStorageDisplay() {
+		return storageDisplay;
+	}
+
+	public void setStorageDisplay(String storageDisplay) {
+		this.storageDisplay = storageDisplay;
+	}
+
+	public String getSupplierIdDisplay() {
+		return supplierIdDisplay;
+	}
+
+	public void setSupplierIdDisplay(String supplierIdDisplay) {
+		this.supplierIdDisplay = supplierIdDisplay;
+	}
+
+	public String getReturnedPurchaseTypeDisplay() {
 		return returnedPurchaseTypeDisplay;
 	}
 
