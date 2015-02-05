@@ -34,7 +34,7 @@
 		if(row.enabled=="disable"){
 			$('#purchaseArrival_btn_PurchaseArrivalList_disable').linkbutton('disable');//置灰禁用按钮
 		}
-		if(row.enabled=="enabled"){
+		if(row.enabled=="enable"){
 			$('#purchaseArrival_btn_PurchaseArrivalList_enable').linkbutton('disable');//置灰启用按钮
 		}
 		if(row.auditState=="pass"||row.auditState=="failure"){
@@ -256,8 +256,8 @@
 		var row = glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.purchaseArrivalDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
 			title : '【采购到货】 - 收货确认',
-			width : 660,
-			height : 300,
+			width : 640,
+			height : 270,
 			queryUrl : ctx + '/do/purchaseArrival/affirmPurchaseArrival.htm',
 			submitUrl : ctx + '/do/purchaseArrivalAffirm/addAffirm.json',
 			queryParams : {

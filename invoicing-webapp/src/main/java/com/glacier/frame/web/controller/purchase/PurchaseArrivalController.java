@@ -76,10 +76,18 @@ public class PurchaseArrivalController extends AbstractController{
         return mav;
     }
     
-    //审核页面
+    //批量审核页面
     @RequestMapping(value = "/batchAuditForm.htm")
     private Object batchAuditArrivalForm() {
         ModelAndView mav = new ModelAndView("purchase_mgr/purchaseArrival_mgr/batch/batchAudit/audit_form");
+        return mav;
+    }
+    
+    //审核页面
+    @RequestMapping(value = "/auditForm.htm")
+    private Object auditArrivalForm(String purchaseId) {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseArrival_mgr/audit_form");
+        mav.addObject("purchaseDate", purchaseArrivalService.getPurchaseArrival(purchaseId));
         return mav;
     }
     

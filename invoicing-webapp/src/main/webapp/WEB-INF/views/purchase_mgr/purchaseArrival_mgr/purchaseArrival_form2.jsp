@@ -367,11 +367,11 @@ function getRowIndex(target){
 }
 
 function goSave(){
-	/* if("${purchaseDate.purArrivalId}"==""){
+	if("${purchaseDate.purArrivalId}"==""){
 		if(!($('#purchaseArrival_mgr_purchaseArrival_form').form("validate"))){//验证判断
 			return;
 		}
-	} */
+	}
 	//先取出所有行的条数
 	var delOldRows = $("#purchase_arrival_form").datagrid("getRows");
 	//进行删除最后一行统计

@@ -317,7 +317,7 @@ public class PurchaseArrivalService {
     			arrival.setAuditor("");
     			arrival.setAuditDate(null);
     			arrival.setAuditRemark("");
-    			count = purchaseArrivalMapper.updateByPrimaryKeySelective(arrival);
+    			count = purchaseArrivalMapper.updateByPrimaryKey(arrival);
 			}
     		if(count > 0){
     			returnResult.setSuccess(true);

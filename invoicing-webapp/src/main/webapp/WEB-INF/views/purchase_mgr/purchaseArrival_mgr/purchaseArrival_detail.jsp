@@ -8,14 +8,39 @@
 $.util.namespace('glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 
 //定义toolbar的操作，对操作进行控制
-glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.param = {
+/* glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.param = {
 	toolbarId : 'purchaseDateGrid_toolbar',
 	actions : {
             edit:{flag:'edit',controlType:'single'},
             del:{flag:'del',controlType:'multiple'},
             state:{flag:'state',controlType:'single'}
          }
- };
+ }; */
+
+ function titleAsh(){
+	 if('${purchaseDate.affirmArrival}'=="no"){
+		$('#purchaseArrival_btn_PurchaseArrivalList_cancelAffirm').linkbutton('disable');//置灰取消收货确认按钮
+	}
+	if('${purchaseDate.affirmArrival}'=="yes"){
+		$('#purchaseArrival_btn_PurchaseArrivalList_affirm').linkbutton('disable');//置灰收货确认按钮
+	}
+	if('${purchaseDate.enabled}'=="disable"){
+		$('#purchaseArrival_btn_PurchaseArrivalList_disable').linkbutton('disable');//置灰禁用按钮
+	}
+	if('${purchaseDate.enabled}'=="enable"){
+		$('#purchaseArrival_btn_PurchaseArrivalList_enable').linkbutton('disable');//置灰启用按钮
+	}
+	if('${purchaseDate.auditState}'=="pass"||'${purchaseDate.auditState}'=="failure"){
+		$('#purchaseArrival_btn_PurchaseArrivalList_audit').linkbutton('disable');//置灰审核按钮
+	}
+	if('${purchaseDate.auditState}'=="authstr"){
+		$('#purchaseArrival_btn_PurchaseArrivalList_cancelAudit').linkbutton('disable');//置灰取消审核按钮
+	}
+	if('${purchaseDate.payState}'=="allPay"||'${purchaseDate.payState}'=="portionPay"){
+		$('#purchaseArrival_btn_PurchaseArrivalList_pay').linkbutton('disable');//置灰付款按钮
+	}
+ }
+
  
 //点击编辑按钮触发方法
 glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.editPurchaseArrival = function(){
@@ -27,7 +52,7 @@ glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.affirmPurchaseArrival =
 	glacier.basicAddOrEditDialog({
 		title : '【采购到货】 - 收货确认',
 		width : 660,
-		height : 300,
+		height : 270,
 		queryUrl : ctx + '/do/purchaseArrival/affirmPurchaseArrival.htm',
 		submitUrl : ctx + '/do/purchaseArrivalAffirm/addAffirm.json',
 		queryParams : {
@@ -39,6 +64,7 @@ glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.affirmPurchaseArrival =
 	});
 };
 
+//取消收货确认
 glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.cancelAffirmPurchaseArrival = function(){
 	$.messager.confirm('请确认', '是否要取消采购到货单号为${purchaseDate.arrivalCode}的收货确认吗？', function(r){
 		if (r){
@@ -71,6 +97,125 @@ glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.cancelAffirmPurchaseArr
 	});
 }
  
+//点击禁用按钮触发方法
+glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.disablePurchaseArrival = function(){
+	var purchaseArrivalIds = ['${purchaseDate.purArrivalId}'];//要存储禁用的id标识
+	if(purchaseArrivalIds.length > 0){
+		$.messager.confirm('请确认', '是否要禁用${purchaseDate.arrivalCode}的采购到货信息', function(r){
+			if (r){
+				$.ajax({
+					   type: "POST",
+					   url: ctx + '/do/purchaseArrival/batchDisableArrival.json',
+					   data: {purchaseArrivalIds:purchaseArrivalIds.join(',')},
+					   dataType:'json',
+					   success: function(r){
+						   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
+							   $.messager.show({
+									title:'提示',
+									timeout:3000,
+									msg:r.msg
+								});
+							   $("#layout_center_panel").panel("setTitle","采购到货详细信息").panel('refresh',ctx + '/do/purchaseArrival/intoDetail.htm?purchaseId=${purchaseDate.purArrivalId}');
+						   }else{
+								$.messager.show({//后台验证弹出错误提示信息框
+									title:'错误提示',
+									width:380,
+									height:120,
+									msg: '<span style="color:red">'+r.msg+'<span>',
+									timeout:4500
+								});
+							}
+					   }
+				});
+			}
+		});
+	}
+};
+
+//点击启用按钮触发方法
+glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.enablePurchaseArrival = function(){
+	var purchaseArrivalIds = ['${purchaseDate.purArrivalId}'];//存储要启用的id标识
+	if(purchaseArrivalIds.length > 0){
+		$.messager.confirm('请确认', '是否要启用${purchaseDate.arrivalCode}的采购到货信息', function(r){
+			if (r){
+				$.ajax({
+					   type: "POST",
+					   url: ctx + '/do/purchaseArrival/batchEnableArrival.json',
+					   data: {purchaseArrivalIds:purchaseArrivalIds.join(',')},
+					   dataType:'json',
+					   success: function(r){
+						   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
+							   $.messager.show({
+									title:'提示',
+									timeout:3000,
+									msg:r.msg
+								});
+							   $("#layout_center_panel").panel("setTitle","采购到货详细信息").panel('refresh',ctx + '/do/purchaseArrival/intoDetail.htm?purchaseId=${purchaseDate.purArrivalId}');
+						   }else{
+								$.messager.show({//后台验证弹出错误提示信息框
+									title:'错误提示',
+									width:380,
+									height:120,
+									msg: '<span style="color:red">'+r.msg+'<span>',
+									timeout:4500
+								});
+							}
+					   }
+				});
+			}
+		});
+	}
+};
+
+//点击审核按钮触发方法
+glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.auditPurchaseArrival = function(){
+	var purchaseArrivalIds = ['${purchaseDate.purArrivalId}'];//存储需要审核的id标识 
+	glacier.basicAddOrEditDialog({
+		title : '【采购到货】 - 审核',
+		width : 410,
+		height : 250,
+		queryUrl : ctx + '/do/purchaseArrival/auditForm.htm?purchaseId=${purchaseDate.purArrivalId}',
+		submitUrl : ctx + '/do/purchaseArrival/batchAudit.json?arrivalIds='+purchaseArrivalIds.join(','),
+		successFun : function (){
+			$("#layout_center_panel").panel("setTitle","采购到货详细信息").panel('refresh',ctx + '/do/purchaseArrival/intoDetail.htm?purchaseId=${purchaseDate.purArrivalId}');
+		}
+	});
+};
+
+//点击取消审核按钮触发方法
+glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.cancelAuditPurchaseArrival = function(){
+	var purchaseArrivalIds = ['${purchaseDate.purArrivalId}'];//存储取消审核的id标识
+	if(purchaseArrivalIds.length > 0){
+		$.messager.confirm('请确认', '是否要重置${purchaseDate.arrivalCode}的审核信息', function(r){
+			if (r){
+				$.ajax({
+					   type: "POST",
+					   url: ctx + '/do/purchaseArrival/batchCancelAudit.json',
+					   data: {purchaseArrivalIds:purchaseArrivalIds.join(',')},
+					   dataType:'json',
+					   success: function(r){
+						   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
+							   $.messager.show({
+									title:'提示',
+									timeout:3000,
+									msg:r.msg
+								});
+							   $("#layout_center_panel").panel("setTitle","采购到货详细信息").panel('refresh',ctx + '/do/purchaseArrival/intoDetail.htm?purchaseId=${purchaseDate.purArrivalId}');
+						   }else{
+								$.messager.show({//后台验证弹出错误提示信息框
+									title:'错误提示',
+									width:380,
+									height:120,
+									msg: '<span style="color:red">'+r.msg+'<span>',
+									timeout:4500
+								});
+							}
+					   }
+				});
+			}
+		});
+	}
+};
  //$("#detailtable td").attr("align","right");
  $(":input").attr("readonly","readonly"); 
 </script>
@@ -222,7 +367,7 @@ glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.cancelAffirmPurchaseArr
  </div> 
 <hr>     
 <!-- 所有列表面板和表格 -->
-<div class="easyui-layout" data-options="fit:true,height:300"> 
+<div> 
 	<div data-options="region:'north',split:true"
 		style="height: 40px; padding-left: 10px;">
 		<form id="purchaseArrivalSearchForm">
@@ -246,7 +391,7 @@ glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.cancelAffirmPurchaseArr
 		</form>
 	</div>
 	<div id="purchaseArrivalPanel" data-options="region:'center',barrival:true">
-		<table id="purchase_arrival_detail" style="height: 200px;margin-top: 50px;">  
+		<table id="purchase_arrival_detail" style="height: 300px;margin-top: 50px;">  
 		</table>
 	</div>
 </div>
@@ -256,7 +401,7 @@ glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.purchaseArrivalDetailDa
 	fit : false,//控件自动resize占满窗口大小
 	iconCls : 'icon-save',//图标样式
 	barrival : true,//是否存在边框 
-	fitColumns : true,//自动填充行
+	fitColumns : false,//自动填充行
 	nowrap : true,//禁止单元格中的文字自动换行
 	autoRowHeight : false,//禁止设置自动行高以适应内容
 	striped : true,//true就是把行条纹化。（即奇偶行使用不同背景色）
@@ -295,6 +440,10 @@ glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.purchaseArrivalDetailDa
 	pcarrierCarTypeSize : 10,//注意，pcarrierCarTypeSize必须在pcarrierCarTypeList存在
 	pcarrierCarTypeList : [ 2, 10, 50, 100 ],//从session中获取
 	rownumbers : true,//True 就会显示行号的列
+	onLoadSuccess:function(data){
+    	compute();//调用统计
+    	titleAsh();//调用置灰按钮
+    }
 	/* onDblClickRow : function(rowIndex, rowData){
         $.easyui.showDialog({
 				title : '商品【' + rowData.goodsName + '】详细信息',
@@ -308,7 +457,30 @@ glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.purchaseArrivalDetailDa
 		} */
 });
 
-$('#purchase_mgr_purchaseArrival_form_auditState').val(renderGridValue('${purchaseDate.auditState}',fields.auditState)); 
+//底部统计
+function compute(){//计算函数
+	//获取数据行
+    var rows = $('#purchase_arrival_detail').datagrid('getRows');
+    var goodsMoneyTotal = 0,arrivalTotal = 0,deliveryTotal = 0,rejectionTotal = 0;//计算goodsMoneyTotal的总和以及统计arrivalTotal的总和，deliveryTotal总和
+    if(rows.length >= 2){
+	    //新增一行显示统计信息
+    	for (var i = 0; i < rows.length; i++) {
+    		goodsMoneyTotal += parseFloat(rows[i]['goodsMoney']);
+	        deliveryTotal += parseInt(rows[i]['delivery']);
+	        rejectionTotal += parseInt(rows[i]['rejection']);
+	    	arrivalTotal += parseInt(rows[i]['arrival']);
+	    }
+    	$('#purchase_arrival_detail').datagrid('appendRow', { 
+	    	goodsCode: '<b>统计：</b>', arrival: arrivalTotal,
+	    	delivery: parseInt(deliveryTotal),goodsMoney: goodsMoneyTotal,
+	    	rejection: rejectionTotal
+	       }
+	    );
+    }
+}
+
+$('#purchase_mgr_purchaseArrival_form_auditState').val(renderGridValue('${purchaseDate.auditState}',fields.auditState));
+$('#tailAfterStatus').val(renderGridValue('${purchaseDate.tailAfterStatus}',fields.tailAfterStatus));
 $('#payState').val(renderGridValue('${purchaseDate.payState}',fields.payState));
 $('#invState').val(renderGridValue('${purchaseDate.invState}',fields.invState));
 $('#purchaseArrival_mgr_purchaseArrival_detail_logSettlementId').val(renderGridValue('${purchaseDate.logSettlementId}',fields.logSettlementId));
