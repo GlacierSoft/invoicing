@@ -137,7 +137,7 @@ $(function(){
 	        {field:'price',title:'单价',width:100,editor: { type: 'numberbox', options: { required: true,precision: 2 } } }, 
 	        {field:'goodsMoney',title:'总金额',width:100,editor: { type: 'numberbox', options: { required: true,precision: 2 } } },
 	        {field:'cess',title:'税率',width:100,hidden:true,editor: { type: 'numberbox', options: { required: true,precision: 2 } } }, 
-	        {field:'deadline',title:'交货期限',width:100,editor: { type: 'datebox', options: { } } },
+	        {field:'deadline',title:'交货期限',width:100,editor: { type: 'datebox' } },
 	        {field:'remark',title:'备注',width:100,editor: { type: 'text' } }
 	    ]],
 	    onLoadSuccess:function(data){
@@ -150,28 +150,34 @@ $(function(){
 	    	compute();//调用统计
 	    },
 	    toolbar: [{
-	       text: '删除商品', iconCls: 'icon-standard-pencil-delete', handler: function () {  
-		      $.messager.confirm('提示','确认删除数据?',function(r){
-	       		if (r){
-	       			var rows = $('#purchase_arrival_form').datagrid("getSelected"); 
-	                var	row = $('#purchase_arrival_form').datagrid('getRowIndex', rows);
-	                $('#purchase_arrival_form').datagrid('deleteRow',row); 
-	                compute();
-	                var rows = $("#purchase_arrival_form").datagrid("getRows");
-  					if(rows.length >= 2){
-  						for(var i = 0; i < rows.length-1;i++){
-	  						againBinding(i);
+	   	      text: '添加商品', iconCls: 'icon-standard-pencil-add', handler: function () { 
+		   	    	batchRows();
+		   	      }
+		     },{
+		       text: '删除商品', iconCls: 'icon-standard-pencil-delete', handler: function () {
+		    	  //判断是否选中
+		    	  var selectRows = $dg.datagrid("getSelected");//获取选中行
+		    	  if(selectRows==null){
+		    		  $.messager.alert('提示','未选择删除商品！','info'); 
+	                  return;
+		    	  }
+			      $.messager.confirm('提示','确认删除数据?',function(r){
+		       		if (r){
+		       			var rows = $('#purchase_arrival_form').datagrid("getSelected"); 
+		                var	row = $('#purchase_arrival_form').datagrid('getRowIndex', rows);
+		                $('#purchase_arrival_form').datagrid('deleteRow',row); 
+		                compute();
+		                var rows = $("#purchase_arrival_form").datagrid("getRows");
+	  					if(rows.length >= 2){
+	  						for(var i = 0; i < rows.length-1;i++){
+		  						againBinding(i);
+		  					}
+	  					}else{
+		  					againBinding(0);
 	  					}
-  					}else{
-	  					againBinding(0);
-  					}
-	       		}
-		      });  
-	       }
-	     },{
-	   	      text: '批量添加商品', iconCls: 'icon-standard-pencil-add', handler: function () { 
-	   	    	batchRows();
-	   	      }
+		       		}
+			      });  
+		       }
 	     }]
 	});
 });
@@ -349,7 +355,7 @@ function batchRows(){
 	  		}]
 		});
 	}else{
-		alert("仓库不能为空");
+		$.messager.alert('提示','仓库不能为空！','info'); 
 		return false;
 	}
 }
@@ -361,11 +367,11 @@ function getRowIndex(target){
 }
 
 function goSave(){
-	if("${purchaseDate.purArrivalId}"==""){
+	/* if("${purchaseDate.purArrivalId}"==""){
 		if(!($('#purchaseArrival_mgr_purchaseArrival_form').form("validate"))){//验证判断
 			return;
 		}
-	}
+	} */
 	//先取出所有行的条数
 	var delOldRows = $("#purchase_arrival_form").datagrid("getRows");
 	//进行删除最后一行统计
@@ -410,6 +416,7 @@ function goSave(){
 	var str=JSON.stringify($("#purchaseArrival_mgr_purchaseArrival_form").serializeObject());
 	//转化为json
 	var json = JSON.stringify(rowsAll);
+	console.log(json);
 	if("${purchaseDate.purArrivalId}"!=""){
 		$.post(ctx + '/do/purchaseArrival/edit.json', { rows: json,purchaseArrival:str},
 		   function(data){
@@ -427,7 +434,7 @@ function goSave(){
 		 });
 	}else{
 		//新增
-	   	$.post(ctx + '/do/purchaseArrival/add.json', { rows: json,purchaseArrival:str},
+	   	/* $.post(ctx + '/do/purchaseArrival/add.json', { rows: json,purchaseArrival:str},
 		   function(data){
 			$.messager.show({
 	    		title:'提示信息',
@@ -440,7 +447,7 @@ function goSave(){
 	    		}
 	    	});
 			$("#layout_center_panel").panel("setTitle","采购到货").panel('refresh',ctx + '/do/purchaseArrival/index.htm');
-		 });
+		 }); */
 	}
 }
 

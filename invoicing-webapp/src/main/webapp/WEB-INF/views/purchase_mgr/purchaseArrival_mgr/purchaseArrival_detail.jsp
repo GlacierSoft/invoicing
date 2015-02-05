@@ -17,7 +17,61 @@ glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.param = {
          }
  };
  
- $("#detailtable td").attr("align","right");
+//点击编辑按钮触发方法
+glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.editPurchaseArrival = function(){
+	$("#layout_center_panel").panel("setTitle","修改采购到货").panel('refresh',ctx + '/do/purchaseArrival/intoForm.htm?purchaseId=${purchaseDate.purArrivalId}');
+};
+
+//点击收货确认触发方法
+glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.affirmPurchaseArrival = function(){
+	glacier.basicAddOrEditDialog({
+		title : '【采购到货】 - 收货确认',
+		width : 660,
+		height : 300,
+		queryUrl : ctx + '/do/purchaseArrival/affirmPurchaseArrival.htm',
+		submitUrl : ctx + '/do/purchaseArrivalAffirm/addAffirm.json',
+		queryParams : {
+			purchaseId : '${purchaseDate.purArrivalId}'
+		},
+		successFun : function (){
+			$("#layout_center_panel").panel("setTitle","采购到货详细信息").panel('refresh',ctx + '/do/purchaseArrival/intoDetail.htm?purchaseId=${purchaseDate.purArrivalId}');
+		}
+	});
+};
+
+glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.cancelAffirmPurchaseArrival = function(){
+	$.messager.confirm('请确认', '是否要取消采购到货单号为${purchaseDate.arrivalCode}的收货确认吗？', function(r){
+		if (r){
+			$.ajax({
+				   type: "POST",
+				   url: ctx + '/do/purchaseArrivalAffirm/delAffirm.json?purArrivalId=${purchaseDate.purArrivalId}',
+				   dataType:'json',
+				   success: function(r){
+					   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
+						   $.messager.show({
+								title:'提示',
+								timeout:3000,
+								msg:r.msg,
+								width:480,
+								height:120
+							});
+						   $("#layout_center_panel").panel("setTitle","采购到货详细信息").panel('refresh',ctx + '/do/purchaseArrival/intoDetail.htm?purchaseId=${purchaseDate.purArrivalId}');
+					   }else{
+							$.messager.show({//后台验证弹出错误提示信息框
+								title:'错误提示',
+								width:480,
+								height:220,
+								msg: '<span style="color:red">'+r.msg+'<span>',
+								timeout:4500
+							});
+						}
+				   }
+			});
+		}
+	});
+}
+ 
+ //$("#detailtable td").attr("align","right");
  $(":input").attr("readonly","readonly"); 
 </script>
 <style type="text/css">
@@ -168,7 +222,7 @@ glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.param = {
  </div> 
 <hr>     
 <!-- 所有列表面板和表格 -->
-<div class="easyui-layout" data-options="fit:true,height:300"  > 
+<div class="easyui-layout" data-options="fit:true,height:300"> 
 	<div data-options="region:'north',split:true"
 		style="height: 40px; padding-left: 10px;">
 		<form id="purchaseArrivalSearchForm">
@@ -213,7 +267,7 @@ glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.purchaseArrivalDetailDa
 	sortName : 'goodsCode',//排序字段名称
 	sortOrder : 'DESC',//升序还是降序
 	remoteSort : true,//开启远程排序，默认为false
-	idField : 'purOrderDetId', 
+	idField : 'purArrivalDetId', 
     columns:[[    
         {field :'purArrivalDetId', title : 'ID', checkbox : true}, 
         {field:'goodsCode',title:'货品编码',width:100},    

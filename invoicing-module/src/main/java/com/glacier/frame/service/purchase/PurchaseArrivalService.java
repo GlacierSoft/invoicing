@@ -198,6 +198,7 @@ public class PurchaseArrivalService {
  		   arrivalDetail.setNotInvNum(0);
  		   arrivalDetail.setPutstorage(arrivalDetail.getDelivery());
  		   arrivalDetail.setTakestorage(arrivalDetail.getRejection());
+ 		   System.out.println("时间:"+arrivalDetail.getDeadline());
  		   purchaseArrivalDetailMapper.insert(arrivalDetail);//执行增加操作
  		}
         int count = 0;
