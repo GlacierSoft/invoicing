@@ -528,7 +528,7 @@ public class PurchaseOrderService {
         purchaseArrival.setNotInvAmo(new BigDecimal(0));//未开票金额 
         purchaseArrival.setAlrReturnAmo(new BigDecimal(0));//已退货金额 
         purchaseArrival.setReturnState("noneCancel");//退货状态
-        purchaseArrival.setPayState("nonePay");//付款状态
+        purchaseArrival.setPayState("nonePay");//付款状态 
         purchaseArrival.setAuditState("authstr");//审核状态
         purchaseArrival.setInvState("noneInv");//开票状态
         purchaseArrival.setTailAfterStatus("storage");//入库状态

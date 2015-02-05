@@ -23,10 +23,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.glacier.core.controller.AbstractController;
+import com.glacier.frame.dto.query.purchase.PurchaseOrderDetailQueryDTO;
 import com.glacier.frame.service.purchase.PurchaseOrderDetailService;
+import com.glacier.jqueryui.util.JqPager;
 
 /**
  * @ClassName:  PurchaseOrderDetailController
@@ -41,6 +45,14 @@ public class PurchaseOrderDetailController  extends AbstractController{
 
     @Autowired
     private PurchaseOrderDetailService purchaseOrderDetailService;// 注入service
+    
+    //获取属于该订购合同的商品信息
+    @RequestMapping(value = "/list.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object listArr(JqPager jqPager,String purOrderId, PurchaseOrderDetailQueryDTO purchaseOrderDetailQueryDTO) {
+      	purchaseOrderDetailQueryDTO.setPurOrderId(purOrderId);
+    	return purchaseOrderDetailService.listAsGrid(jqPager, purchaseOrderDetailQueryDTO);
+    }
     
     //进入Detail信息页面
     @RequestMapping(value = "/intoDetail.htm")

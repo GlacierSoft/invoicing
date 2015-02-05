@@ -69,18 +69,18 @@ public class PurchaseOrderDetailService {
 			purchaseOrderDetailExample.setLimitEnd(jqPager.getRows());
 		}
 		if (StringUtils.isNotBlank(jqPager.getSort())&& StringUtils.isNotBlank(jqPager.getOrder())) {// 设置排序信息
-			purchaseOrderDetailExample.setOrderByClause(jqPager.getOrderBy("temp_purchaseOrder_detail_"));
+			purchaseOrderDetailExample.setOrderByClause(jqPager.getOrderBy("temp_purchase_order_detail_"));
 		}
-		List<PurchaseOrderDetail> carrierCarTypeList = purchaseOrderDetailMapper.selectByExample(purchaseOrderDetailExample); // 查询所有列表
-		if(carrierCarTypeList.size()>0){
-			for (PurchaseOrderDetail detail : carrierCarTypeList) {
+		List<PurchaseOrderDetail> PurchaseOrderDetailList = purchaseOrderDetailMapper.selectByExample(purchaseOrderDetailExample); // 查询所有列表
+		if(PurchaseOrderDetailList.size()>0){
+			for (PurchaseOrderDetail detail : PurchaseOrderDetailList) {
 				detail.setArrival(detail.getQuantity());
 				detail.setDelivery(detail.getQuantity());
 				detail.setRejection(0);
 			}
 		} 
 		int total = purchaseOrderDetailMapper.countByExample(purchaseOrderDetailExample); // 查询总页数
-		returnResult.setRows(carrierCarTypeList);
+		returnResult.setRows(PurchaseOrderDetailList);
 		returnResult.setTotal(total);
 		return returnResult;// 返回ExtGrid表
 	}

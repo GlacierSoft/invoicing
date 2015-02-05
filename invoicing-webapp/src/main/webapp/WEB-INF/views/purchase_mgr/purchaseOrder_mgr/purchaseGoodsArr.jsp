@@ -24,29 +24,29 @@
 		nowrap : true,//禁止单元格中的文字自动换行
 		autoRowHeight : false,//禁止设置自动行高以适应内容
 		striped : true,//true就是把行条纹化。（即奇偶行使用不同背景色）
-		singleSelect : true,//限制单选
-		checkOnSelect : false,//选择复选框的时候选择该行
-		selectOnCheck : false,//选择的时候复选框打勾
+		singleSelect : false,//限制单选
+		checkOnSelect : true,//选择复选框的时候选择该行
+		selectOnCheck : true,//选择的时候复选框打勾
 		url : ctx + '/do/purchaseOrderDetail/list.json?purOrderId='+id,
 		sortName : 'deadline',//排序字段名称
 		sortOrder : 'DESC',//升序还是降序
 		remoteSort : true,//开启远程排序，默认为false
 		idField : 'goodsId',
-		columns : [ [ 
-		             {field:'quantity',title:'订购数量',width:100,hidden:true},
-		  		     {field :'goodsId', title : 'ID', hidden:true }, 
-		             {field:'goodsCode',title:'货品编码',width:100},    
-		             {field:'goodsName',title:'名称',width:100},     
-		             {field:'goodsModel',title:'规格型号',width:100}, 
-		             {field:'goodsUnit',title:'单位',width:100},
-		             {field:'brand',title:'品牌',width:100}, 
-		             {field:'placeOfOrigin',title:'产地',width:100},
-		             {field:'cess',title:'税率',width:100,hidden:true},
-		             {field:'price',title:'单价',width:100,hidden:true},
-		             {field:'discount',title:'折扣率',width:100,hidden:true},
-		             {field:'money',title:'金额',width:100,hidden:true},
-		             {field:'primeCost',title:'原价',width:100,hidden:true} 
-		          ] ],
+		columns : [ [
+           {field:'quantity',title:'订购数量',width:100,hidden:true},
+		   { field :'goodsId', title : 'ID', checkbox : true }, 
+           {field:'goodsCode',title:'货品编码',width:100},    
+           {field:'goodsName',title:'名称',width:100},     
+           {field:'goodsModel',title:'规格型号',width:100}, 
+           {field:'goodsUnit',title:'单位',width:100},
+           {field:'brand',title:'品牌',width:100}, 
+           {field:'placeOfOrigin',title:'产地',width:100}, 
+           {field:'cess',title:'税率',width:100,hidden:true},
+           {field:'price',title:'价格',width:100,hidden:true},
+           {field:'discount',title:'折扣率',width:100,hidden:true},
+           {field:'money',title:'金额',width:100,hidden:true},
+           {field:'primeCost',title:'原价',width:100,hidden:true} 
+        ] ],
 		pagination : true,//True 就会在 datagrid 的底部显示分页栏
 		pcarrierCarTypeSize : 10,//注意，pcarrierCarTypeSize必须在pcarrierCarTypeList存在
 		pcarrierCarTypeList : [ 2, 10, 50, 100 ],//从session中获取

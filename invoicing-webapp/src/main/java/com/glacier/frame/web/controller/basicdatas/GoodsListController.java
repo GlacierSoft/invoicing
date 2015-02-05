@@ -19,9 +19,7 @@
  */
 package com.glacier.frame.web.controller.basicdatas;
 
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
+import java.util.List; 
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -88,19 +86,7 @@ public class GoodsListController {
     	goodsListQueryDTO.setWarehouseTypeId(storageVal);
     	return goodsListService.listAsGrid(jqPager, goodsListQueryDTO);
     } 
-    
-    //获取属于该订购合同的商品信息
-    @RequestMapping(value = "/listArr.json", method = RequestMethod.POST)
-    @ResponseBody
-    private Object listArr(JqPager jqPager, GoodsListQueryDTO goodsListQueryDTO,String storageVal,String purOrderDetId,HttpSession session) {
-     	String orderId=(String) session.getAttribute("arrId");
-    	@SuppressWarnings("unchecked")
-		List<String> goodsIds=(List<String>)purchaseOrderService.getGoodsId(orderId); 
-      	goodsListQueryDTO.setGoodsIds(goodsIds);
-    	goodsListQueryDTO.setWarehouseTypeId(storageVal);
-    	return goodsListService.listAsGrid(jqPager, goodsListQueryDTO);
-    }
-    
+     
     //获取特定仓库下的所有货物档案信息
     @RequestMapping(value = "/listPartGoods.json", method = RequestMethod.POST)
     @ResponseBody

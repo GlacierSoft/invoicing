@@ -159,6 +159,13 @@ public class PurchaseOrderController extends AbstractController{
         return mav;
     }
     
+    //到货，商品筛选页面
+    @RequestMapping(value = "/goodsDetailArr.htm")
+    private Object goodsDetailArr() {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/purchaseGoodsArr");
+        return mav;
+    }
+    
     //根据订购合同id查询商品展示页面
     @RequestMapping(value = "/goodsArr.htm")
     private Object goodsArr() {
