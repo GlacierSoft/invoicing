@@ -19,7 +19,9 @@
  */
 package com.glacier.frame.service.purchase;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -36,6 +38,7 @@ import com.glacier.frame.dao.purchase.PurchaseReturnMapper;
 import com.glacier.frame.dto.query.purchase.PurchaseReturnQueryDTO;
 import com.glacier.frame.entity.purchase.PurchaseReturn;
 import com.glacier.frame.entity.purchase.PurchaseReturnDetail;
+import com.glacier.frame.entity.purchase.PurchaseReturnDetailExample;
 import com.glacier.frame.entity.purchase.PurchaseReturnExample;
 import com.glacier.frame.entity.purchase.PurchaseReturnExample.Criteria;
 import com.glacier.frame.entity.system.User;
@@ -120,7 +123,7 @@ public class PurchaseReturnService {
 	    purchaseReturn.setPurReturnId(RandomGUID.getRandomGUID());
 		purchaseReturn.setReturnCode("PRC_"+(int)(Math.random()*9000+1000));
 		purchaseReturn.setAuditor(pricipalUser.getUserCnName());
-		purchaseReturn.setAuditState("pass");
+		purchaseReturn.setAuditState("authstr");
 		purchaseReturn.setAuditDate(new Date());
 		purchaseReturn.setEnabled("enable");
 		purchaseReturn.setCreater(pricipalUser.getUserCnName());
@@ -132,6 +135,10 @@ public class PurchaseReturnService {
 		for(PurchaseReturnDetail returndetail:list){
 			returndetail.setPurReturnDetId(RandomGUID.getRandomGUID());
 			returndetail.setPurReturnId(purchaseReturn.getPurReturnId());
+			returndetail.setNotPayNum(0);//未付款数量
+			returndetail.setAlrPayNum(0);//已付款数量
+			returndetail.setNotInvNum(0);//未开票数量
+			returndetail.setAlrInvNum(0);//已开票数量
 			purchaseReturnDetailMapper.insert(returndetail);
 		}		
 		if (count == 1) {
@@ -151,24 +158,61 @@ public class PurchaseReturnService {
 	 * @return Object 返回类型
 	 * @throws
 	 */
-	@Transactional(readOnly = false)
-	@MethodLog(opera = "PurchaseReturn_edit")
-	public Object editPurchaseReturn(PurchaseReturn purchaseReturn) {
-		Subject pricipalSubject = SecurityUtils.getSubject();
-		User pricipalUser = (User) pricipalSubject.getPrincipal();
-		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
-		purchaseReturn.setUpdater(pricipalUser.getUserCnName());
-		purchaseReturn.setUpdateTime(new Date());
-		int count=0;
-		count = purchaseReturnMapper.updateByPrimaryKeySelective(purchaseReturn);
-		if (count == 1) {
-			returnResult.setSuccess(true);
-			returnResult.setMsg("【" + purchaseReturn.getReturnCode()+ "】采购退货信息已保存");
-		} else {
-			returnResult.setMsg("发生未知错误，采购退货信息保存失败");
-		}
-		return returnResult;
-	}
+   @Transactional(readOnly = false) 
+   @MethodLog(opera = "PurchaseReturn_edit")
+   public Object editPurchaseReturn(PurchaseReturn purchaseReturn,List<PurchaseReturnDetail> list) {
+       Subject pricipalSubject = SecurityUtils.getSubject();
+       User pricipalUser = (User) pricipalSubject.getPrincipal(); 
+       JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false 
+       int count = 0;  
+       purchaseReturn.setUpdater(pricipalUser.getUserCnName());
+       purchaseReturn.setUpdateTime(new Date());
+       count = purchaseReturnMapper.updateByPrimaryKeySelective(purchaseReturn);
+       //查询出该合同的所有明细信息
+       PurchaseReturnDetailExample purchaseReturnDetailExample=new PurchaseReturnDetailExample();
+       purchaseReturnDetailExample.createCriteria().andPurReturnIdEqualTo(purchaseReturn.getPurReturnId());
+       List<PurchaseReturnDetail> detailList=purchaseReturnDetailMapper.selectByExample(purchaseReturnDetailExample); 
+       //用于存放删除了的id
+       List<String> orderDetailList=new ArrayList<String>(); 
+       //后台原有的数据 
+       Iterator<PurchaseReturnDetail> iterOne = detailList.iterator(); 
+       //用迭代器挑选出前台删除了的货物，然后在数据库清除多余的数据
+       while(iterOne.hasNext()){  
+    	PurchaseReturnDetail order = iterOne.next();  
+       	for (PurchaseReturnDetail str : list) {
+       		if(order.getPurReturnDetId().equals(str.getPurReturnDetId())){  
+       			iterOne.remove();  
+               }
+			} 
+       }    
+     	//如何集合里还有数据，就说明删除了数据
+     	if(detailList.size()>0){
+     		//把删除了货品明细id存放在集合里
+     		for (PurchaseReturnDetail ord : detailList) { 
+         		orderDetailList.add(ord.getPurReturnDetId()); 
+   		}
+     	  //执行批量删除，提高效率
+     	  PurchaseReturnDetailExample detailExample = new PurchaseReturnDetailExample();
+     	  detailExample.createCriteria().andPurReturnDetIdIn(orderDetailList);
+     	  purchaseReturnDetailMapper.deleteByExample(detailExample); 
+     	} 
+       //修改合同明细  
+       for (PurchaseReturnDetail detail : list) {    
+       	 //存在id就修改
+       	if(detail.getPurReturnDetId()!=null){   
+       		purchaseReturnDetailMapper.updateByPrimaryKeySelective(detail);
+       	}else{ //不存在id就新增  
+       		purchaseReturnDetailMapper.insert(detail);
+       	} 
+	   }  
+       if (count == 1) {
+           returnResult.setSuccess(true);
+           returnResult.setMsg("信息已保存");
+       } else {
+           returnResult.setMsg("发生未知错误，信息保存失败");
+       }
+       return returnResult;
+   }
 
 	/**
 	 * @Title: delPurchaseReturn
@@ -184,6 +228,13 @@ public class PurchaseReturnService {
 		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
 		int count = 0;
 		if (purReturnIds.size() > 0) {
+			//删除退货明细信息
+			for (String id : purReturnIds) {
+				PurchaseReturnDetailExample purchaseReturnDetailExample=new PurchaseReturnDetailExample();
+				purchaseReturnDetailExample.createCriteria().andPurReturnIdEqualTo(id);
+				purchaseReturnDetailMapper.deleteByExample(purchaseReturnDetailExample);
+			} 
+			//删除采购退货单
 			PurchaseReturnExample purchaseReturnExample = new PurchaseReturnExample();
 			purchaseReturnExample.createCriteria().andPurReturnIdIn(purReturnIds);
 			count = purchaseReturnMapper.deleteByExample(purchaseReturnExample);

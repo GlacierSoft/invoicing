@@ -30,7 +30,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject; 
@@ -38,7 +38,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,6 +47,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import com.glacier.basic.util.JackJson;
+import com.glacier.frame.dto.query.purchase.PurchaseReturnDetailQueryDTO;
 import com.glacier.frame.dto.query.purchase.PurchaseReturnQueryDTO;
 import com.glacier.frame.entity.purchase.PurchaseReturn;
 import com.glacier.frame.entity.purchase.PurchaseReturnDetail;
@@ -54,8 +55,10 @@ import com.glacier.frame.service.basicdatas.ParPurchaseReturnReasonService;
 import com.glacier.frame.service.basicdatas.ParPurchaseReturnedTypeService;
 import com.glacier.frame.service.basicdatas.SuppliersService;
 import com.glacier.frame.service.basicdatas.WarehouseService;
+import com.glacier.frame.service.purchase.PurchaseReturnDetailService;
 import com.glacier.frame.service.purchase.PurchaseReturnService;
 import com.glacier.frame.service.system.DepService;
+import com.glacier.jqueryui.util.JqGridReturn;
 import com.glacier.jqueryui.util.JqPager;
 
 /**
@@ -85,6 +88,10 @@ public class PurchaseReturnController {
 	
 	@Autowired
 	private ParPurchaseReturnReasonService returnReasonService;
+	
+	@Autowired
+	private PurchaseReturnDetailService purchaseReturnDetailService;
+	
 	
 	// 进入采购退货信息列表展示页面
     @RequestMapping(value = "/index.htm")
@@ -145,10 +152,23 @@ public class PurchaseReturnController {
         return mav;
     }
     
+    //获取退货合同详细信息
+    @RequestMapping(value = "/returnDetail.json", method = RequestMethod.POST)
+    @ResponseBody
+    private Object listReturnDetail(JqPager jqPager,PurchaseReturnDetailQueryDTO purchaseReturnDetailQueryDTO,String purReturnId) {
+    	if(purReturnId==""){ 
+    		JqGridReturn returnResult = new JqGridReturn();
+    		return returnResult;
+    	}else{
+    		purchaseReturnDetailQueryDTO.setPurReturnId(purReturnId);
+        	return purchaseReturnDetailService.listAsGrid(jqPager, purchaseReturnDetailQueryDTO);
+    	} 
+    }
+    
     //增加采购退货信息
     @RequestMapping(value = "/add.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object addGrade(String purchaseReturn,String data) {
+    private Object addReturn(String purchaseReturn,String data) {
     	JSONObject purchase = JSONObject.fromObject(purchaseReturn);
     	PurchaseReturn purReturn=(PurchaseReturn)JSONObject.toBean(purchase, PurchaseReturn.class);
     	JSONArray array = JSONArray.fromObject(data);
@@ -156,10 +176,9 @@ public class PurchaseReturnController {
     	for(int i=0;i<array.size();i++){
     		JSONObject json=JSONObject.fromObject(array.toArray()[i]);
     		PurchaseReturnDetail returnBean=(PurchaseReturnDetail)JSONObject.toBean(json, PurchaseReturnDetail.class);
-    		if(returnBean.getGoodsCode().equals("<b>统计：</b>")){
-    			continue;
+    		if(returnBean.getGoodsCode().equals("<b>统计：</b>")==false){
+    			list.add(returnBean);
     		}
-    		list.add(returnBean);
     	}
     	return purchaseReturnService.addPurchaseReturn(purReturn, list);
     }
@@ -167,8 +186,19 @@ public class PurchaseReturnController {
     //修改采购退货类型信息
     @RequestMapping(value = "/edit.json", method = RequestMethod.POST)
     @ResponseBody
-    private Object editGrade(@Valid PurchaseReturn purchaseReturn, BindingResult bindingResult) {
-        return purchaseReturnService.editPurchaseReturn(purchaseReturn);
+    private Object editGrade(String purchaseReturn,String data) {
+    	JSONObject purchase = JSONObject.fromObject(purchaseReturn);
+    	PurchaseReturn purReturn=(PurchaseReturn)JSONObject.toBean(purchase, PurchaseReturn.class);
+    	JSONArray array = JSONArray.fromObject(data);
+    	List<PurchaseReturnDetail> list=new ArrayList<PurchaseReturnDetail>();
+    	for(int i=0;i<array.size();i++){
+    		JSONObject json=JSONObject.fromObject(array.toArray()[i]);
+    		PurchaseReturnDetail returnBean=(PurchaseReturnDetail)JSONObject.toBean(json, PurchaseReturnDetail.class);
+    		if(returnBean.getGoodsCode().equals("<b>统计：</b>")==false){
+    			list.add(returnBean);
+    		}
+    	}
+        return purchaseReturnService.editPurchaseReturn(purReturn, list);
     }
     
     //删除采购退货信息
@@ -187,7 +217,7 @@ public class PurchaseReturnController {
        Map<String,Object> map=new HashMap<String,Object>();
        /**页面控件的文件流**/      
        MultipartFile multipartFile = multipartRequest.getFile("fileToUpload");   
-      //文件保存路径
+       //文件保存路径
        String extendPath=request.getSession().getServletContext().getRealPath("/")+File.separator+"uploadFiles";
        //文件命名
        SimpleDateFormat sf=new SimpleDateFormat("yyyyMM");

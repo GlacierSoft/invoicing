@@ -42,6 +42,7 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
          <td style="padding-left:10px;">所属仓库：</td>
 		<td>
 		    <input type="hidden" name="purReturnId" value="${purchaseReturnDate.purReturnId}" id="purReturnId">
+			<input type="hidden" name="refundTotal" value="${purchaseReturnDate.refundTotal}" id="refundTotal">
 			<input id="storage" name="storage" class="easyui-combobox spinner" style="width:168px" value="${purchaseReturnDate.storage }"   required="true"/>
 		</td> 
 		<td style="padding-left:10px;">运费总额：</td>
@@ -54,7 +55,7 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 		</td>
 		<td style="padding-left:10px;">经办人员：</td>
 	    <td >
-	        <input id="operators" name="operators" class="easyui-combobox spinner" style="width:168px;" value="${purchaseReturnDate.logCode}" required="true"/>
+	        <input id="operators" name="operators" class="easyui-combobox spinner" style="width:168px;" value="${purchaseReturnDate.operators}" required="true"/>
 	    </td>
 </tr>   
 
@@ -65,7 +66,7 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 	</td>
     <td style="padding-left:10px;">退货期限：</td>
 	<td>
-		<input class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatDate value='${purchaseReturnDate.returnDeadlines}' pattern="yyyy-MM-dd HH:mm:ss"/>" required="true"/>
+	    <input style="width:168px;height: 18px;" class="easyui-datebox"  name="returnDeadlines" value="<fmt:formatDate value="${purchaseReturnDate.returnDeadlines}" pattern="yyyy-MM-dd HH:mm:ss"/>"  required="true" />
 	</td>
     <td style="padding-left:10px;">退货原因：</td>
     <td>
@@ -126,7 +127,7 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
    <td style="padding-left:10px;">已开票金额：</td>
    <td>
        <input name="alrInvAmo" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${purchaseReturnDate.alrInvAmo}' pattern="#,#00.00元"/>" required="true"/>
-       <input type="hidden" id="totalAmount" name="totalAmount" class=" spinner" style="width:168px;height:20px;border-left-style: none;border-right-style: none;border-top-style: none;"   value="<fmt:formatNumber value='${purchaseReturnDate.totalAmount}' pattern="#,#00.00元"/>" />
+       <input type="hidden" id="totalAmount" name="totalAmount" class=" spinner" style="width:168px;height:20px;border-left-style: none;border-right-style: none;border-top-style: none;" />
    </td>
 </tr>
 <tr> 
@@ -267,20 +268,21 @@ $dg.datagrid({
 	selectOnCheck : false,//选择的时候复选框打勾 
 	sortName : 'goodsCode',//排序字段名称
 	sortOrder : 'DESC',//升序还是降序
+	url: ctx + '/do/purchaseReturn/returnDetail.json?purReturnId=${purchaseReturnDate.purReturnId}',
 	remoteSort : true,//开启远程排序，默认为false
-	idField : 'purOrderDetId', 
+	idField : 'purReturnDetId', 
 	columns:[[    
 			   {field:'goodsId',title:'货品ID',width:100,hidden:true},  
 			   {field:'goodsCode',title:'货品编码',width:100,editor: { type: 'text' }},    
 	           {field:'goodsName',title:'货品名称',width:100},
-	           {field:'goodsId',title:'货品编号',width:100,hidden:true},    
-	           {field:'goodsModel',title:'规格型号',width:100},   
+	           {field:'goodsModel',title:'规格型号',width:100},
 	           {field:'goodsUnit',title:'单位',width:100}, 
-	           {field:'batchInformation',title:'批次信息',width:100},
-	           {field:'quantity',title:'退货数量',width:100,editor: { type: 'numberbox', options: { required: true } } },
+	           {field:'brand',title:'品牌',width:100},   
+	           {field:'placeOfOrigin',title:'产地',width:100},
 	           {field:'price',title:'退货单价',width:100,editor: { type: 'numberbox', options: { required: true } } },
+	           {field:'quantity',title:'退货数量',width:100,editor: { type: 'numberbox', options: { required: true } } },
 	           {field:'money',title:'退货金额',width:100,editor: { type: 'numberbox',options:{precision:2}} },
-	           {field:'cess',title:'税率',width:100,editor: { type: 'numberbox', options: { required: true } } }, 
+	           {field:'deadline',title:'交货期限',width:100,editor: { type: 'datebox'}}, 
 	           {field:'remark',title:'备注',width:100,editor: { type: 'text' }}
 	       ]], 
 	toolbar: [{
@@ -314,8 +316,8 @@ $dg.datagrid({
         		 	$("#totalAmount").attr("value","").attr("value",(sum-rows.money).toFixed(2));
                     var	row=$dg.datagrid('getRowIndex', rows);
           			$dg.datagrid('deleteRow',row); 
-          		     compute();//删除后调用统计
-          		var rows = $dg.datagrid('getRows'); //删除后重新获取所有行
+          		    compute();//删除后调用统计
+          		  var rows = $dg.datagrid('getRows'); //删除后重新获取所有行
 					if(rows.length==2){ //如果正好是两行，就把统计行也删除
 						$dg.datagrid('deleteRow',1);//删除统计行 
 					 } 
@@ -406,7 +408,7 @@ function  compute(){
 	  }else{
 		  moneyTotal=parseFloat(rows[0]['money']);
 	  }
-	  $("#totalAmount").attr("value","").attr("value",moneyTotal); 
+	  $("#refundTotal").attr("value","").attr("value",moneyTotal); 
 }
 
 //批量增加
@@ -434,12 +436,15 @@ function addRows(){
 	  							goodsId:rowsCheck[i].goodsId,
 	  							goodsCode:rowsCheck[i].goodsCode,
 	  							goodsName:rowsCheck[i].goodsName,
-	  							goodsModel:rowsCheck[i].specification,
 	  							goodsUnit:rowsCheck[i].unit,
+	  							goodsModel:rowsCheck[i].specification,
+	  							brand:rowsCheck[i].brands,
+	  							placeOfOrigin:rowsCheck[i].origin,
+	  							primeCost:rowsCheck[i].referenceCost,
+	  							discount:1.00,
 	  							price:rowsCheck[i].referenceCost,
 	  							quantity:0,
 	  							money:0.00,
-	  							cess:rowsCheck[i].taxRate,
 	  							remark:rowsCheck[i].remark
 	  						}
 	  					});
@@ -486,6 +491,10 @@ function againBinding(rows){
 	var quantityTarget = $dg.datagrid('getEditor', {index:rows,field:'quantity'}).target; 
 	//金额
 	var moneyTarget = $dg.datagrid('getEditor', {index:rows,field:'money'}).target; 
+	//备注
+	var remarkTarget = $dg.datagrid('getEditor', {index:rows,field:'remark'}).target; 
+	//交货期限
+	var deadlineTarget = $dg.datagrid('getEditor', {index:rows,field:'deadline'}).target; 
 	//货品编码
 	 $(goodsCodeTarget).bind("click",function(){ 
 		  goodsCodeClick(this);
@@ -547,8 +556,9 @@ function quantityBlur(obj){
 	var quantityTarget = $dg.datagrid('getEditor', {index:indexRows,field:'quantity'}).target; 
 	//交货期限
 	var remarkTarget = $dg.datagrid('getEditor', {index:indexRows,field:'remark'}).target; 
-   //-----------------------------------自定义变量-----------------------------------
+    //-----------------------------------自定义变量-----------------------------------
 	var priceOne = parseFloat(priceTarget.val()).toFixed(2);
+   
 	var quantity = parseInt(quantityTarget.val());//数量    
 	if(quantityTarget.val()>9999){
 		quantity=9999;
@@ -713,7 +723,7 @@ $("#saveOk").click(function(){
     
     //修改
 	if(status!=""){ 
-	    	$.post(ctx + '/do/purchaseReturn/edit.json', { data: jsonDate,purchaseReturn:str},
+		   $.post(ctx + '/do/purchaseReturn/edit.json', { data: jsonDate,purchaseReturn:str},
   			   function(data){
   				$.messager.show({
   		    		title:'提示信息',
@@ -797,7 +807,7 @@ $.fn.serializeObject = function (){
     		dataType:"json",
     		success: function (date){
    			   console.info(date);
-   			   $("#logCode").combobox({
+   			   $("#operators").combobox({
    				 	data:$.parseJSON(date),
    					valueField:'id',    
    				    textField:'text',
@@ -805,9 +815,9 @@ $.fn.serializeObject = function (){
    				    editable:false 
    			   });
    			   if($.parseJSON(date).length>0){
-	    		   $("#logCode").combobox('select', $.parseJSON(date)[0].id);
+	    		   $("#operators").combobox('select', $.parseJSON(date)[0].id);
 			   }else{
-				   $("#logCode").combobox('setValue', '');
+				   $("#operators").combobox('setValue', '');
 			   }
    			}
     	});

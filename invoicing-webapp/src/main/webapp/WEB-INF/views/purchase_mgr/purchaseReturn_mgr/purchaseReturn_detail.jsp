@@ -6,10 +6,10 @@
 	uri="http://com.glacier.permissions.com.cn/tag/easyui"%>
 <script type="text/javascript">
 
-$.util.namespace('glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_detail');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
+$.util.namespace('glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturnDetail');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
 
 //定义toolbar的操作，对操作进行控制
-glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_detail.param = {
+glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturnDetail.param = {
 	toolbarId : 'purchaseReturnDetail_toolbar',
 	actions : {
             edit:{flag:'edit',controlType:'single'},
@@ -24,7 +24,7 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_detail.param = {
 					 <tr>
 					     <td colspan="8">
 					       <hr> 
-						      <div style="margin-left: 410px">
+						      <div style="margin-left: 400px">
 						         <font size="3" style="margin-top: 30px"><b>采购退货详情</b></font> 
 						      </div> 
 	     					 <hr> 
@@ -135,13 +135,137 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_detail.param = {
 	      </div> 
 	      <hr>     
   </form> 
+   <div data-options="region:'north',split:true"
+		style="height: 40px; padding-left: 10px;">
+		<form id="purchaseReturnDetailSearchForm">
+		 <input type="hidden" name="orderId" value="${purchaseReturnDate.purReturnId }">
+			<table>
+				<tr>
+					<td>货品名称：</td>
+					<td><input name="goodsName" style="width: 80px;"class="spinner" /></td> 
+					<td>交货期限：</td>
+					<td><input name="deadline" class="easyui-datebox"
+						style="width: 100px;" /> - <input name="deadlineEndTime"
+						class="easyui-datebox" style="width: 100px;" /></td>
+					<td><a href="javascript:void(0);" class="easyui-linkbutton"
+						data-options="iconCls:'icon-standard-zoom-in',plain:true"
+						onclick="glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturnDetail.purchaseReturnDetailDataGrid.datagrid('load',glacier.serializeObject($('#purchaseReturnDetailSearchForm')));">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton"
+						data-options="iconCls:'icon-standard-zoom-out',plain:true"
+						onclick="$('#purchaseReturnDetailSearchForm input').val('');glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturnDetail.purchaseReturnDetailDataGrid.datagrid('load',{});">重置条件</a>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div id="purchaseReturnPanel" style="height: auto;margin-bottom: 50px" data-options="region:'center',border:true">
+		<table id="purchase_return_detail" style="height: auto">  
+		</table> 
+</div>  
+  
+  
+  
  <SCRIPT>
-        //跟踪状态
-        $("#paymentState").val(renderGridValue('${purchaseReturnDate.paymentState}',fields.payState));
-        //结算方式
-        $("#logSettlement").val(renderGridValue('${purchaseReturnDate.logSettlement}',fields.logSettlementId));
-        //开票状态
-  		$("#invState").val(renderGridValue('${purchaseReturnDate.invState}',fields.invState));
+ 
+ $dg=$('#purchase_return_detail');
+
+ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturnDetail.purchaseReturnDetailDataGrid = $('#purchase_return_detail').datagrid({  
+		fit : false,//控件自动resize占满窗口大小
+		iconCls : 'icon-save',//图标样式
+		border : true,//是否存在边框 
+		fitColumns : true,//自动填充行
+		nowrap : true,//禁止单元格中的文字自动换行
+		autoRowHeight : false,//禁止设置自动行高以适应内容
+		striped : true,//true就是把行条纹化。（即奇偶行使用不同背景色）
+		singleSelect : true,//限制单选
+		checkOnSelect : false,//选择复选框的时候选择该行
+		selectOnCheck : false,//选择的时候复选框打勾 
+	    url: ctx + '/do/purchaseReturn/returnDetail.json?purReturnId=${purchaseReturnDate.purReturnId}',   
+		sortName : 'goodsCode',//排序字段名称
+		sortOrder : 'DESC',//升序还是降序
+		remoteSort : true,//开启远程排序，默认为false
+		idField : 'purReturnDetId', 
+	    columns:[[    
+	        {field :'purReturnDetId', title : 'ID', hidden:true}, 
+	        {field:'goodsCode',title:'货品编码',width:100},    
+	        {field:'goodsName',title:'名称',width:100},    
+	        {field:'goodsModel',title:'规格型号',width:100},   
+	        {field:'goodsNnit',title:'单位',width:100},  
+	        {field:'placeOfOrigin',title:'产地',width:100}, 
+	        {field:'primeCost',title:'原价',width:100}, 
+	        {field:'cess',title:'税率',width:100}, 
+	        {field:'deadline',title:'交货期限',width:100},
+	        {field:'price',title:'单价',width:100},  
+	        {field:'quantity',title:'数量',width:100},  
+	        {field:'money',title:'金额',width:100},
+	        {field:'notPayNum',title:'未付款数量',width:100},
+	        {field:'alrPayNum',title:'已付款数量',width:100},
+	        {field:'notInvNum',title:'未开票数量',width:100},
+	        {field:'alrInvNum',title:'已开票数量',width:100},
+	        {field:'remark',title:'备注',width:100}
+	    ]], 
+		rownumbers : true,//True 就会显示行号的列
+		onLoadSuccess:function(){ 
+			compute(); //添加统计行
+		},
+		onLoadSuccess:function(data){
+		   	 compute();
+		},
+		onDblClickRow : function(rowIndex, rowData){
+	        $.easyui.showDialog({
+					title : '商品【' + rowData.goodsName + '】详细信息',
+					href : ctx+ '/do/purchaseOrderDetail/intoDetail.htm?purOrderDetId='+ rowData.purOrderDetId,//从controller请求jsp页面进行渲染
+					width : 560,
+					height : 390,
+					resizable : false,
+					enableApplyButton : false,
+					enableSaveButton : false
+				});
+			}
+	});  
+ 
+ 
+//底部统计
+ function compute(){//计算函数 
+ 	//获取数据行
+   var rows = $dg.datagrid('getRows'); 
+   var moneyTotal = 0,
+ 	  quantityTotal = 0,
+ 	  alrArrNumTotal=0,
+ 	  notArrNumTotal=0,
+ 	  alrTerNumTotal=0,
+ 	  alrTerMoneyTotal=0;//计算总和
+   if(rows.length >1){
+ 	    //新增一行显示统计信息
+ 	    var computeRow = $dg.datagrid('getData').rows[rows.length-1];//获取某一行数据
+ 	    var row=$dg.datagrid('getSelected');//获取当前选中的行 
+ 	    for (var i = 0; i < rows.length; i++) { 
+    			moneyTotal += parseFloat(rows[i]['money']);
+    			quantityTotal += parseInt(rows[i]['quantity']);
+    			alrArrNumTotal += parseInt(rows[i]['alrArrNum']);
+    			notArrNumTotal +=parseInt(rows[i]['notArrNum']);
+    			alrTerNumTotal += parseInt(rows[i]['alrTerNum']);
+    			alrTerMoneyTotal +=parseFloat(rows[i]['alrTerMoney']);  
+ 	    }
+     	$dg.datagrid('appendRow', { 
+ 	    	goodsCode: '<b>统计：</b>', 
+ 	    	money: moneyTotal,
+ 	    	quantity: quantityTotal,
+ 	    	alrArrNum: alrArrNumTotal,
+ 	    	notArrNum: notArrNumTotal,
+ 	    	alrTerNum: alrTerNumTotal,
+ 	    	alrTerMoney: alrTerMoneyTotal 
+ 	       }
+ 	    );
+   }  
+ }
+ 
+ 
+  	//跟踪状态
+    $("#paymentState").val(renderGridValue('${purchaseReturnDate.paymentState}',fields.payState));
+    //结算方式
+    $("#logSettlement").val(renderGridValue('${purchaseReturnDate.logSettlement}',fields.logSettlementId));
+    //开票状态
+    $("#invState").val(renderGridValue('${purchaseReturnDate.invState}',fields.invState));
   		
-        
 </script>  

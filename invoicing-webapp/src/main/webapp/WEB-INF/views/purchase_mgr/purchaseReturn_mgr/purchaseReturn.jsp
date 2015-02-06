@@ -11,7 +11,12 @@
 			toolbarId : 'purchaseReturnDataGrid_toolbar',
 			actions : {
 				edit:{flag:'edit',controlType:'single'},
-				del:{flag:'del',controlType:'multiple'}
+				del:{flag:'del',controlType:'multiple'},
+				audit:{flag:'audit',controlType:'single'},
+				cancelAudit:{flag:'cancelAudit',controlType:'single'},
+				enable:{flag:'enable',controlType:'single'},
+				disable:{flag:'disable',controlType:'single'},
+				pay:{flag:'pay',controlType:'single'}
 			}
 	};
 	
@@ -43,12 +48,12 @@
 				width:120,
 				sortable:true
 			},{
-				field:'enabled',
-				title:'状态',
+				field:'auditState',
+				title:'审核状态',
 				width:120,
 				sortable:true,
 				formatter: function(value,row,index){
-					return renderGridValue(value,fields.status);
+					return renderGridValue(value,fields.auditState);
 				}
 			},{
 				field:'storageDisplay',
@@ -133,12 +138,19 @@
 	//点击编辑按钮触发方法
 	glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.editPurchaseReturn = function(){
 		var row = glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.purchaseReturnDataGrid.datagrid("getSelected");
+		$("#layout_center_panel").panel("setTitle","【采购退货】编辑");
+		$('#layout_center_panel').panel('refresh',ctx +'/do/purchaseReturn/intoForm.htm?purReturnId='+ row.purReturnId); 
+	};
+	
+	//点击审核按钮触发方法
+	glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.auditPurchaseReturn=function(){
+		var row = glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.purchaseReturnDataGrid.datagrid("getSelected");
 		glacier.basicAddOrEditDialog({
-			title : '【采购到货】 - 编辑',
-			width : 620,
-			height : 500,
-			queryUrl : ctx + '/do/purchaseReturn/intoForm.htm',
-			submitUrl : ctx + '/do/purchaseReturn/edit.json',
+			title : '审核采购退货单',
+			width : 410,
+			height : 250,
+			queryUrl : ctx + '/do/purchaseReturn/auditForm.htm',
+			submitUrl : ctx + '/do/purchaseReturn/audit.json',
 			queryParams : {
 				purReturnId : row.purReturnId
 			},
@@ -146,13 +158,35 @@
 				glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.purchaseReturnDataGrid.datagrid('reload');
 			}
 		});
-	};
+	}
+	
+	//取消审核按钮触发事件
+	glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.cancelAuditPurchaseReturn=function(){
+		 alert("我是取消审核按钮！");
+	}
+	
+	//启用按钮触发事件
+	glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.enablePurchaseReturn=function(){
+	    alert("我是启用按钮!");	
+	}
+	
+	//禁用按钮触发事件
+	glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.disablePurchaseReturn=function(){
+		alert("我是禁用！");
+	}
+    
+	//付款按钮触发事件
+	glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.payPurchaseReturn=function(){
+		alert("我是付款！");
+	}
+
+	
 	//点击删除按钮触发方法
 	glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.delPurchaseReturn= function(){
 		var rows =  glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.purchaseReturnDataGrid.datagrid("getChecked");
 		var purReturnIds = [];//删除的id标识
 		for(var i =0;i<rows.length;i++){
-			purReturnIds.push(rows[i].purReturnIds);
+			purReturnIds.push(rows[i].purReturnId);
 		}
 		if(purReturnIds.length > 0){
 			$.messager.confirm('请确认', '是否要删除该记录', function(r){
