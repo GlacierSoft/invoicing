@@ -101,7 +101,7 @@ public class PurchaseOrderController extends AbstractController{
         return mav;
     } 
     
-  //进入到货展示页面
+    //进入到货展示页面
     @RequestMapping(value = "/arr.htm")
     private Object arr(String purOrderId,HttpSession session) {
         ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/arr");
@@ -166,7 +166,7 @@ public class PurchaseOrderController extends AbstractController{
         return mav;
     }
     
-    //根据订购合同id查询商品展示页面
+    //到货操作显示商品页面
     @RequestMapping(value = "/goodsArr.htm")
     private Object goodsArr() {
         ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/goodsArr");
@@ -321,7 +321,6 @@ public class PurchaseOrderController extends AbstractController{
     //进入订单批量审核页面
     @RequestMapping(value = "/auditFormList.htm")
     private Object auditFormList(@RequestParam List<String> purOrderIds,HttpSession session) {
-    	
         ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/batch/batchAudit/audit_form");
         if(purOrderIds.size()!=0){
         	session.setAttribute("auditIds", purOrderIds);//存放批量审核的ID
@@ -334,7 +333,7 @@ public class PurchaseOrderController extends AbstractController{
     @ResponseBody
     public Object auditList(PurchaseOrder order,HttpSession session) { 
     	@SuppressWarnings("unchecked")
-		List<String> list=(List<String>)session.getAttribute("auditIds");  
+		List<String> list=(List<String>)session.getAttribute("auditIds"); 
     	session.removeAttribute("auditIds");//删除session
     	return purchaseOrderService.auditPurchaseOrderList(order,list);
     } 

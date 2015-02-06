@@ -169,8 +169,9 @@
 	});
 	
 	function info(rowData){
+		alert($("#layout_center_panel").panel("panel"));
 		$("#layout_center_panel").panel("setTitle","订购订货合同详情"); 
-		$("#layout_center_panel").panel("refresh",ctx +"/do/purchaseOrder/intoDetail.htm?purOrderId="+ rowData.purOrderId);
+		$("#layout_center_panel").panel('open').panel("refresh",ctx +"/do/purchaseOrder/intoDetail.htm?purOrderId="+ rowData.purOrderId);
   	}
 	
 	//点击增加按钮触发方法

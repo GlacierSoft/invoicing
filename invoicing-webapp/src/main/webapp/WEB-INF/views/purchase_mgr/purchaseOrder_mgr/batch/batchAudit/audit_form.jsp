@@ -8,7 +8,9 @@
 		<tr>
 			<td>审核状态：</td>
 			<td>
-			 <input id="clientType_from_clientType" name="auditState" style="width:300px;height: 18px;" class="easyui-combobox" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.auditState"/>
+			 	<input name="auditState" type="radio" value="pass" checked="checked" /><span>审核成功</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input name="auditState" type="radio" value="failure"  /><span>审核失败</span>
 			 </td> 
 		</tr> 
 		<tr>

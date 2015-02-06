@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List; 
+import java.util.List;  
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -177,6 +177,9 @@ public class PurchaseOrderService {
         purchaseOrder.setCreateTime(new Date());
         purchaseOrder.setUpdater(pricipalUser.getUserCnName());
         purchaseOrder.setUpdateTime(new Date());
+        purchaseOrder.setArrState("pass");//添加成功就默认为审核通过
+        purchaseOrder.setAuditDate(new Date()); 
+        purchaseOrder.setAuditor(pricipalUser.getUserCnName());
         count = chaseOrderMapper.insert(purchaseOrder); 
         //添加合同明细
         for (PurchaseOrderDetail detail : list) {
@@ -455,7 +458,7 @@ public class PurchaseOrderService {
     public Object auditPurchaseOrderList(PurchaseOrder purchaseOrder,List<String> list){
   	  JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
   	  Subject pricipalSubject = SecurityUtils.getSubject();
-      User pricipalUser = (User) pricipalSubject.getPrincipal(); 
+      User pricipalUser = (User) pricipalSubject.getPrincipal();  
   	  int count=0; 
   	  for (String id : list) {
   		 PurchaseOrder order=chaseOrderMapper.selectByPrimaryKey(id);

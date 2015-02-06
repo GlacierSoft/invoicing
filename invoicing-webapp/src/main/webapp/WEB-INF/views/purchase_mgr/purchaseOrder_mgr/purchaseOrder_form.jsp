@@ -3,12 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <!-- 引入自定义权限标签 -->
 <%@ taglib prefix="glacierui"
-	uri="http://com.glacier.permissions.com.cn/tag/easyui"%>
-<script type="text/javascript">
-
-$.util.namespace('glacier.purchase_mgr.purchaseOrderDetail_mgr.purchaseOrderDetail');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
- 
-</script> 
+	uri="http://com.glacier.permissions.com.cn/tag/easyui"%> 
 <form id="purchase_mgr_purchaseOrder_form" method="post" > 
  <table  class="formtable" >  
  <caption style="height:50px;color: blue;"><font size="4" style="padding-top: 30px;">采购订货合同</font></caption>
@@ -293,8 +288,12 @@ function compute(){//计算函数
 		       }
 		    );
 	    }
-  }else{
-	  moneyTotal=parseFloat(rows[0]['money']);
+  }else{ 
+	  if(rows==""){
+		  moneyTotal=0.00;
+	  }else{
+		  moneyTotal=parseFloat(rows[0]['money']);
+	  } 
   }
   $("#totalAmount").attr("value","").attr("value",moneyTotal); 
 }

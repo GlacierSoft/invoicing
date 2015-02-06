@@ -209,8 +209,8 @@
 <div class="easyui-layout" data-options="fit:true">
 	<div id="purchaseOrderPanel" data-options="region:'center',border:true">
 		<table id="purchaseOrderDataGrid">
-			<glacierui:toolbar panelEnName="BatchAuditList"
-				toolbarId="purchaseOrderDataGrid_toolbar" menuEnName="batchAudit" />
+			<glacierui:toolbar panelEnName="BatchAuditOrderList"
+				toolbarId="purchaseOrderDataGrid_toolbar" menuEnName="batchAuditOrder" />
 			<!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>

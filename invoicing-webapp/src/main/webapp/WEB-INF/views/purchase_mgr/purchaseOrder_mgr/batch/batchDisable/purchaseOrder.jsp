@@ -230,8 +230,8 @@
 <div class="easyui-layout" data-options="fit:true">
 	<div id="purchaseOrderPanel" data-options="region:'center',border:true">
 		<table id="purchaseOrderDataGrid">
-			<glacierui:toolbar panelEnName="BatchDisableList"
-				toolbarId="purchaseOrderDataGrid_toolbar" menuEnName="batchDisable" />
+			<glacierui:toolbar panelEnName="BatchDisableOrderList"
+				toolbarId="purchaseOrderDataGrid_toolbar" menuEnName="batchDisableOrder" />
 			<!-- 自定义标签：自动根据菜单获取当前用户权限，动态注册方法 -->
 		</table>
 	</div>
