@@ -91,7 +91,7 @@
 	<table id="purchase_arrival_form" style="height: 300px;margin-top: 50px;">  
 	</table>
 	<hr> 
-	<div style= "text-align:center ;margin-top: 30px;margin-bottom: 30px">
+	<div style="text-align:center;margin-top: 30px;margin-bottom: 30px;">
        <a id="save" href="javascript:goSave();" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">保存</a> 
        <a style="margin-left: 30px" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-undo'">返回</a> 
     </div>
@@ -192,12 +192,12 @@ function againBinding(indexRows){
 	var depositRateTarget = $dg.datagrid('getEditor', {index:indexRows,field:'depositRate'}).target;//折扣率元素
 	var goodsMoneyTarget = $dg.datagrid('getEditor', {index:indexRows,field:'goodsMoney'}).target;//总金额元素
 	$(goodsCodesTarget).bind("click",function(){goodsCodeClick(this);});//货物编码编辑框
-	$(arrivalTarget).numberbox({onChange(newVal,oldVal){arrivalChange(indexRows,newVal);}});//到货编辑框
-	$(deliveryTarget).numberbox({onChange(newVal,oldVal){deliveryChange(indexRows,newVal);}});//收货编辑框
-	$(rejectionTarget).numberbox({onChange(newVal,oldVal){rejectionChange(indexRows,newVal);}});//拒收编辑框
-	$(depositRateTarget).numberbox({onChange(newVal,oldVal){depositRateChange(indexRows,newVal);}});//折扣率编辑框
-	$(priceTarget).numberbox({onChange(newVal,oldVal){priceChange(indexRows,newVal);}});//单价编辑框
-	$(goodsMoneyTarget).numberbox({onChange(newVal,oldVal){goodsMoneyChange(indexRows,newVal);}});//总金额编辑框
+	$(arrivalTarget).numberbox({onChange:function(newVal,oldVal){arrivalChange(indexRows,newVal);}});//到货编辑框
+	$(deliveryTarget).numberbox({onChange:function(newVal,oldVal){deliveryChange(indexRows,newVal);}});//收货编辑框
+	$(rejectionTarget).numberbox({onChange:function(newVal,oldVal){rejectionChange(indexRows,newVal);}});//拒收编辑框
+	$(depositRateTarget).numberbox({onChange:function(newVal,oldVal){depositRateChange(indexRows,newVal);}});//折扣率编辑框
+	$(priceTarget).numberbox({onChange:function(newVal,oldVal){priceChange(indexRows,newVal);}});//单价编辑框
+	$(goodsMoneyTarget).numberbox({onChange:function(newVal,oldVal){goodsMoneyChange(indexRows,newVal);}});//总金额编辑框
 }
 
 //到货数量的绑定调用方法
@@ -331,15 +331,10 @@ function batchRows(){
 		  					$("#purchase_arrival_form").datagrid("beginEdit",0);
 		  					$("div[class='dialog-button datagrid-rowediting-panel']").remove();
 		  				}
-	  					compute();//调用统计
-	  					var rows = $("#purchase_arrival_form").datagrid("getRows");
-	  					if(rows.length >= 2){
-	  						for(var i = 0; i < rows.length-1;i++){
-		  						againBinding(i);
-		  					}
-	  					}else{
-		  					againBinding(0);
+  						for(var i = 0; i < rowsCheck.length;i++){
+	  						againBinding(i);
 	  					}
+  						compute();//调用统计
 	  				}else{
 	  					$.messager.alert('提示信息','请选择所需货物！','info');
 	  					return false;
@@ -518,7 +513,7 @@ function goodsDetail(rowIndex){
 			handler : function(dia) {
 				//确认后赋值
 				$('#purchase_arrival_form').datagrid('updateRow', {
-					index:stRows,
+					index:rowIndex,
 					row:{
 						goodsCode:setRowData.goodsCode,goodsName:setRowData.goodsName,
 						goodsModel:setRowData.specification,goodsUnit:setRowData.unit,
@@ -529,11 +524,12 @@ function goodsDetail(rowIndex){
 						remark:"",deadline:"",batchInformation:""
 					}
 				});
-				dia.dialog("close"); 
-				$('#purchase_arrival_form').datagrid('endEdit', stRows).datagrid('refreshRow', stRows).datagrid('beginEdit', stRows);
-				againBinding(stRows);
+				$('#purchase_arrival_form').datagrid('endEdit', rowIndex).datagrid('refreshRow', rowIndex).datagrid('beginEdit', rowIndex);
+				test(rowIndex);
+				dia.dialog("close");
+				againBinding(rowIndex);
 				$("div[class='dialog-button datagrid-rowediting-panel']").remove();
-				compute();//调用统计			
+				//compute();//调用统计			
 			}
 		},{
 			text : '取消',
@@ -545,6 +541,9 @@ function goodsDetail(rowIndex){
 	});
 };
 
+function test(rows){
+	$('#purchase_arrival_form').datagrid('beginEdit', rows);
+}
 
 //货物编码编辑框点击事件
 function goodsCodeClick(obj){

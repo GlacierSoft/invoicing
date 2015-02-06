@@ -342,6 +342,130 @@
 			});
 		}
 	};
+	
+	//点击禁用按钮触发方法
+	glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.disablePurchaseArrival = function(){
+		var row = glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.purchaseArrivalDataGrid.datagrid("getSelected");
+		var purchaseArrivalIds = [row.purArrivalId];//要存储禁用的id标识
+		if(purchaseArrivalIds.length > 0){
+			$.messager.confirm('请确认', '是否要禁用'+row.arrivalCode+'的采购到货信息', function(r){
+				if (r){
+					$.ajax({
+						   type: "POST",
+						   url: ctx + '/do/purchaseArrival/batchDisableArrival.json',
+						   data: {purchaseArrivalIds:purchaseArrivalIds.join(',')},
+						   dataType:'json',
+						   success: function(r){
+							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
+								   $.messager.show({
+										title:'提示',
+										timeout:3000,
+										msg:r.msg
+									});
+								   glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.purchaseArrivalDataGrid.datagrid('reload');
+							   }else{
+									$.messager.show({//后台验证弹出错误提示信息框
+										title:'错误提示',
+										width:380,
+										height:120,
+										msg: '<span style="color:red">'+r.msg+'<span>',
+										timeout:4500
+									});
+								}
+						   }
+					});
+				}
+			});
+		}
+	};
+
+	//点击启用按钮触发方法
+	glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.enablePurchaseArrival = function(){
+		var row = glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.purchaseArrivalDataGrid.datagrid("getSelected");
+		var purchaseArrivalIds = [row.purArrivalId];//存储要启用的id标识
+		if(purchaseArrivalIds.length > 0){
+			$.messager.confirm('请确认', '是否要启用'+row.arrivalCode+'的采购到货信息', function(r){
+				if (r){
+					$.ajax({
+						   type: "POST",
+						   url: ctx + '/do/purchaseArrival/batchEnableArrival.json',
+						   data: {purchaseArrivalIds:purchaseArrivalIds.join(',')},
+						   dataType:'json',
+						   success: function(r){
+							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
+								   $.messager.show({
+										title:'提示',
+										timeout:3000,
+										msg:r.msg
+									});
+								   glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.purchaseArrivalDataGrid.datagrid('reload');
+							   }else{
+									$.messager.show({//后台验证弹出错误提示信息框
+										title:'错误提示',
+										width:380,
+										height:120,
+										msg: '<span style="color:red">'+r.msg+'<span>',
+										timeout:4500
+									});
+								}
+						   }
+					});
+				}
+			});
+		}
+	};
+
+	//点击审核按钮触发方法
+	glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.auditPurchaseArrival = function(){
+		var row = glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.purchaseArrivalDataGrid.datagrid("getSelected");
+		var purchaseArrivalIds = [row.purArrivalId];//存储需要审核的id标识 
+		glacier.basicAddOrEditDialog({
+			title : '【采购到货】 - 审核',
+			width : 410,
+			height : 250,
+			queryUrl : ctx + '/do/purchaseArrival/auditForm.htm?purchaseId='+row.purArrivalId,
+			submitUrl : ctx + '/do/purchaseArrival/batchAudit.json?arrivalIds='+purchaseArrivalIds.join(','),
+			successFun : function (){
+				glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.purchaseArrivalDataGrid.datagrid('reload');
+			}
+		});
+	};
+
+	//点击取消审核按钮触发方法
+	glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.cancelAuditPurchaseArrival = function(){
+		var row = glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.purchaseArrivalDataGrid.datagrid("getSelected");
+		var purchaseArrivalIds = [row.purArrivalId];//存储取消审核的id标识
+		if(purchaseArrivalIds.length > 0){
+			$.messager.confirm('请确认', '是否要重置'+row.arrivalCode+'的审核信息', function(r){
+				if (r){
+					$.ajax({
+						   type: "POST",
+						   url: ctx + '/do/purchaseArrival/batchCancelAudit.json',
+						   data: {purchaseArrivalIds:purchaseArrivalIds.join(',')},
+						   dataType:'json',
+						   success: function(r){
+							   if(r.success){//因为失败成功的方法都一样操作，这里故未做处理
+								   $.messager.show({
+										title:'提示',
+										timeout:3000,
+										msg:r.msg
+									});
+								   glacier.purchase_mgr.purchaseArrival_mgr.purchaseArrival.purchaseArrivalDataGrid.datagrid('reload');
+							   }else{
+									$.messager.show({//后台验证弹出错误提示信息框
+										title:'错误提示',
+										width:380,
+										height:120,
+										msg: '<span style="color:red">'+r.msg+'<span>',
+										timeout:4500
+									});
+								}
+						   }
+					});
+				}
+			});
+		}
+	};
 </script>
 
 <!-- 所有采购到货列表面板和表格 -->
