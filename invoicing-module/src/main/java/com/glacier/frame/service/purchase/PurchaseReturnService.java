@@ -31,9 +31,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.glacier.basic.util.RandomGUID;
+import com.glacier.frame.dao.purchase.PurchaseReturnDetailMapper;
 import com.glacier.frame.dao.purchase.PurchaseReturnMapper;
 import com.glacier.frame.dto.query.purchase.PurchaseReturnQueryDTO;
 import com.glacier.frame.entity.purchase.PurchaseReturn;
+import com.glacier.frame.entity.purchase.PurchaseReturnDetail;
 import com.glacier.frame.entity.purchase.PurchaseReturnExample;
 import com.glacier.frame.entity.purchase.PurchaseReturnExample.Criteria;
 import com.glacier.frame.entity.system.User;
@@ -52,8 +54,12 @@ import com.glacier.jqueryui.util.JqReturnJson;
 @Service
 @Transactional(readOnly = true ,propagation = Propagation.REQUIRED)
 public class PurchaseReturnService {
+	
 	@Autowired
 	private PurchaseReturnMapper purchaseReturnMapper;
+	
+	@Autowired
+	private PurchaseReturnDetailMapper purchaseReturnDetailMapper;
 
 	/**
 	 * @Title: listAsGrid
@@ -106,12 +112,12 @@ public class PurchaseReturnService {
 	 */
 	@Transactional(readOnly = false)
 	@MethodLog(opera = "PurchaseReturn_add")
-	public Object addPurchaseReturn(PurchaseReturn purchaseReturn) {
+	public Object addPurchaseReturn(PurchaseReturn purchaseReturn,List<PurchaseReturnDetail> list) {
 		Subject pricipalSubject = SecurityUtils.getSubject();
 		User pricipalUser = (User) pricipalSubject.getPrincipal();
 		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
 		int count = 0;
-		purchaseReturn.setPurReturnId(RandomGUID.getRandomGUID());
+	    purchaseReturn.setPurReturnId(RandomGUID.getRandomGUID());
 		purchaseReturn.setReturnCode("PRC_"+(int)(Math.random()*9000+1000));
 		purchaseReturn.setAuditor(pricipalUser.getUserCnName());
 		purchaseReturn.setAuditState("pass");
@@ -122,6 +128,12 @@ public class PurchaseReturnService {
 		purchaseReturn.setUpdater(pricipalUser.getUserCnName());
 		purchaseReturn.setUpdateTime(new Date());
 		count = purchaseReturnMapper.insert(purchaseReturn);
+		//添加退货明细
+		for(PurchaseReturnDetail returndetail:list){
+			returndetail.setPurReturnDetId(RandomGUID.getRandomGUID());
+			returndetail.setPurReturnId(purchaseReturn.getPurReturnId());
+			purchaseReturnDetailMapper.insert(returndetail);
+		}		
 		if (count == 1) {
 			returnResult.setSuccess(true);
 			returnResult.setMsg("【" + purchaseReturn.getReturnCode()+ "】采购退货信息已保存");

@@ -37,10 +37,10 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_detail.param = {
 						</td>
 				        <td style="padding-left:10px;">所属仓库：</td>
 						<td>
-							<input id="storage" name="storage" class="spinner" style="width:168px" value="${purchaseReturnDate.storage }"  readonly="readonly"/>
+							<input id="storage" name="storage" class="spinner" style="width:168px" value="${purchaseReturnDate.storageDisplay }"  readonly="readonly"/>
 						</td> 
 					    <td style="padding-left:10px;">供应商：</td>
-						<td><input id="supplierId" name="supplierId" class="spinner" style="width:168px" value="${purchaseReturnDate.supplierId }" readonly="readonly"/></td>
+						<td><input id="supplierId" name="supplierId" class="spinner" style="width:168px" value="${purchaseReturnDate.supplierIdDisplay }" readonly="readonly"/></td>
 						 <td style="padding-left:10px;">供应地址：</td>
 						<td><input id="supplierAdd" name="supplierAdd" class="spinner" style="width:168px" value="${purchaseReturnDate.supplierAdd}" readonly="readonly"/></td>
 					  </tr>   
@@ -49,12 +49,12 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_detail.param = {
 						<td ><input name="linkman" class="spinner" style="width:168px" value="${purchaseReturnDate.linkman}" readonly="readonly"/></td>
 				 	    <td style="padding-left:10px;">联系电话：</td>
 					    <td><input id="phone" name="phone" class="spinner" style="width:168px" value="${purchaseReturnDate.phone}" readonly="readonly"/></td>
-				 	    <td style="padding-left:10px;">联系传真：</td>
-						<td ><input  name="fax" class="spinner" style="width:168px" value="${purchaseReturnDate.fax}" readonly="readonly"/></td>
-				        <td style="padding-left:10px;">退货金额：</td>
-					    <td >
-					      <input id="refundTotal" name="refundTotal" class="spinner" style="width:168px;" value="<fmt:formatNumber value='${purchaseReturnDate.refundTotal}' pattern="#,#00.00元"/>" readonly="readonly"/>
-					    </td> 
+				 	    <td style="padding-left:10px;">经办部门：</td>
+						<td ><input  name="fax" class="spinner" style="width:168px" value="${purchaseReturnDate.operatorDepDisplay}" readonly="readonly"/></td>
+				        <td style="padding-left:10px;">经办人：</td>
+						<td >
+						    <input id="logCode" name="logCode" class="spinner" style="width:168px;" value="${purchaseReturnDate.logCodeDisplay}" readonly="readonly"/>
+						</td>
 				    </tr>
 				 	<tr>
 					     <td style="padding-left:10px;">退货方式：</td>
@@ -67,10 +67,10 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_detail.param = {
 					    <td><input  id="returnPolicy" name="returnPolicy" class="spinner" style="width:168px" value="${purchaseReturnDate.returnPolicy }" readonly="readonly"/></td>
 					 </tr> 
 					 <tr> 
-				        <td style="padding-left:10px;">运单编号：</td>
-						<td >
-						    <input id="logCode" name="logCode" class="spinner" style="width:168px;" value="${purchaseReturnDate.logCode}" readonly="readonly"/>
-						</td>
+				        <td style="padding-left:10px;">退货金额：</td>
+					    <td >
+					      <input id="refundTotal" name="refundTotal" class="spinner" style="width:168px;" value="<fmt:formatNumber value='${purchaseReturnDate.refundTotal}' pattern="#,#00.00元"/>" readonly="readonly"/>
+					    </td> 
 				        <td style="padding-left:10px;">运费总额：</td>
 						<td>
 							<input id="logTotalAmount" name="logTotalAmount" class="spinner" style="width:168px" value="<fmt:formatNumber value='${purchaseReturnDate.logTotalAmount }' pattern="#,#00.00元"/>" readonly="readonly"/>

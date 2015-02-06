@@ -14,13 +14,14 @@
 	<td><input id="purchaseArrival_mgr_purchaseArrival_form_purchaseTypeId" name="purchaseTypeId" value='${purchaseDate.purchaseTypeId}' /></td>
 	<td style="padding-left:10px;">所属仓库：</td>
 	<td ><input id="purchaseArrival_mgr_purchaseArrival_form_storage" name="storage" value="${purchaseDate.storage}" /></td>
-	<td style="padding-left:10px;">供应商：</td>
-	<td><input id="purchaseArrival_mgr_purchaseArrival_form_supplierId" name="supplierId" value="${purchaseDate.supplierId}" /></td>
-</tr>
-<tr>
-	<td>合同编号：</td>
+    <td style="padding-left:10px;">合同编号：</td>
 	<td><input id="purchaseArrival_mgr_purchaseArrival_form_contractCode" name="contractCode" value='${purchaseDate.contractCode}' 
 		class="easyui-validatebox spinner" style="width:168px;height: 18px;"/></td>
+  
+</tr>
+<tr>
+	<td>供应商：</td>
+	<td><input id="purchaseArrival_mgr_purchaseArrival_form_supplierId" name="supplierId" value="${purchaseDate.supplierId}" /></td>
     <td style="padding-left:10px;">供应商地址：</td>
 	<td><input id="purchaseArrival_mgr_purchaseArrival_form_supplierAdd" name="supplierAdd" value="${purchaseDate.supplierAdd}" 
 		class="easyui-validatebox spinner" style="width:168px;height: 18px;"/></td>
@@ -79,8 +80,10 @@
 	<td><input  name="logLinkman" style="width:168px;height: 18px;" class="spinner" /></td>
     <td style="padding-left:10px;">物流电话：</td>
 	<td><input  name="logPhone" style="width:168px;height: 18px;" class="spinner"  /></td>
-	<td style="padding-left:10px;"> 备 注：</td><td><input  name="remark" style="width:168px;height: 18px;" class="spinner" value='${purchaseDate.remark}' /></td>
-	<td style="padding-left:10px;">总金额：</td><td><input  name="totalAmount" class="spinner" style="width:168px;height: 18px;" value='${purchaseDate.totalAmount}' /></td>
+	<td style="padding-left:10px;"> 备 注：</td>
+	<td><input  name="remark" style="width:168px;height: 18px;" class="spinner" value='${purchaseDate.remark}' /></td>
+	<td style="padding-left:10px;">总金额：</td>
+	<td><input  name="totalAmount" class="spinner" style="width:168px;height: 18px;" value='${purchaseDate.totalAmount}' disabled="disabled" /></td>
 </tr>
 <tr>
 	<td>付款约定：</td>
@@ -102,8 +105,7 @@
 <script type="text/javascript">
 var id="${purchaseDate.purOrderId}";
 var $dg = $("#goodsList"); 
-var storageVal="";//保存仓库ID
-var purOrderDetId="";//保存合同ID
+var storageVal="";//保存仓库ID 
 var stRows="";//保存行数
 var divs = "";//保存goodsDetail中的dialog节点
 var setRowData="";//保存选中的值
@@ -123,16 +125,16 @@ $dg.datagrid({
 	sortName : 'goodsCode',//排序字段名称
 	sortOrder : 'DESC',//升序还是降序
 	remoteSort : true,//开启远程排序，默认为false
-	idField : 'purOrderDetId', 
-    columns:[[
-        {field:'purOrderDetId',title:'ID',width:100,hidden:true},
+	idField : 'goodsId', 
+    columns:[[  
+		{field:'purOrderDetId',title:'明细id',width:100,hidden:true},
         {field:'goodsCode',title:'货品编码',width:100,editor: { type: 'text',required: true }},    
         {field:'goodsName',title:'货品名称',width:100},
        	{field:'goodsId',title:'货品编号',width:100,hidden:true},
         {field:'placeOfOrigin',title:'产地',width:100,hidden:true},
         {field:'goodsModel',title:'规格型号',width:100},  
         {field:'batchInformation',title:'批次信息',width:100,editor: { type: 'text' }},
-        {field:'quantity',title:'订购数量',width:100 },
+        {field:'quantity',title:'订购数量',width:100},
         {field:'arrival',title:'到货数量',width:100,editor: { type: 'numberbox',options:{min:0,max:9999}} },
         {field:'delivery',title:'收货数量',width:100,editor: { type: 'numberbox',options:{min:0,max:9999}} },
         {field:'rejection',title:'拒收数量',width:100},
@@ -205,17 +207,14 @@ $dg.datagrid({
              //移除那两个按钮
          	$("div[class='dialog-button datagrid-rowediting-panel']").remove(); 
          } 
-     });
- 
- 
-/* 
+     }); 
 //批量增加
 function addRows(){
-	storageVal = $('#purchaseOrder_mgr_purchaseOrder_form_storage').combobox('getValue');
+	storageVal = $('#purchaseArrival_mgr_purchaseArrival_form_storage').combobox('getValue');
 	if(storageVal!=''){//判断
 		$.easyui.showDialog({
 			title: "增加货物目录",
-			href : ctx + '/do/purchaseOrder/goodsArr.htm',//从controller请求jsp页面进行渲染
+			href : ctx + '/do/purchaseOrder/goodsDetailArr.htm',//从controller请求jsp页面进行渲染
 			width : 730,
 			height : 400,
 			resizable: false,
@@ -226,37 +225,59 @@ function addRows(){
 	  			text : '确认',
 	  			iconCls : 'icon-ok',
 	  			handler : function(dia) { 
-	  				var rowsCheck =  $('#goodsListDataGrid').datagrid('getChecked');
-	  				console.log(rowsCheck[0]);
+	  				var rowsCheck =  $("#goodsListDataGrid").datagrid('getChecked'); 
+	  				var data = $dg.datagrid('getData');//获取整个表格数据  
+	  				var rows = $dg.datagrid('getRows');//获取整个表格数据  
+	  				var indexSun=0; 
 	  				for(var i = 0; i < rowsCheck.length;i++){
-	  					$dg.datagrid('insertRow', {
-	  						index: i,
-	  						row:{
-	  							goodsId:rowsCheck[i].goodsId,
-	  							goodsCode:rowsCheck[i].goodsCode,
-	  							goodsName:rowsCheck[i].goodsName,
-	  							goodsModel:rowsCheck[i].specification,
-	  							brand:rowsCheck[i].brands,
-	  							placeOfOrigin:rowsCheck[i].origin,
-	  							primeCost:rowsCheck[i].referenceCost,
-	  							discount:1.00,
-	  							price:rowsCheck[i].referenceCost,
-	  							quantity:0,
-	  							money:0.00,
-	  							cess:rowsCheck[i].taxRate,
-	  							remark:rowsCheck[i].remark
-	  						}
-	  					});
-	  					$dg.datagrid('beginEdit', i);
-	  					$dg.datagrid('endEdit', i).datagrid('refreshRow', i).datagrid('beginEdit', i); 
-	  					againBinding(i);//批量增加绑定的事件
-	  				}
-	  				$dg.datagrid('endEdit', rowsCheck.length-1).datagrid('refreshRow', rowsCheck.length-1); 
-	  				selecRows=selecRows+rowsCheck.length; //上一次选中的行=原来选中的行+新添加的行数
+	  					//设置状态 
+	  					var te=false; 
+  						for(var r = 0; r<rows.length;r++){ 
+	  						if(data.rows[r].goodsId==rowsCheck[i].goodsId){ 
+	  							 te=true; 
+	  							 break;  //存在相同的，跳出当前循环
+	  						}  
+	  					} 
+	  					//如果是false,就添加一行数据
+	  					if(te){
+	  						$.messager.alert('提示信息','已存在的商品无需再次添加！','info'); 
+	  						return;
+	  					}else{ 
+	  						indexSun=indexSun+1;
+	  						$dg.datagrid('insertRow', {
+		  						index: i,
+		  						row:{
+		  							purOrderId:rowsCheck[i].purOrderId,
+		  							purOrderDetId:rowsCheck[i].purOrderDetId,
+		  							goodsId:rowsCheck[i].goodsId,
+		  							goodsCode:rowsCheck[i].goodsCode,
+		  							goodsName:rowsCheck[i].goodsName,
+		  							goodsModel:rowsCheck[i].goodsModel,
+		  							brand:rowsCheck[i].brands, 
+		  							primeCost:rowsCheck[i].primeCost,
+		  							discount:rowsCheck[i].discount, 
+		  							price:rowsCheck[i].price, 
+		  							arrival:rowsCheck[i].quantity,
+		  							delivery:rowsCheck[i].quantity,
+		  							rejection:0,
+		  							quantity:rowsCheck[i].quantity,
+		  							money:rowsCheck[i].money,
+		  							cess:rowsCheck[i].cess,
+		  							remark:rowsCheck[i].remark
+		  						}
+		  					});
+		  					$dg.datagrid('beginEdit', i);
+		  					$dg.datagrid('endEdit', i).datagrid('refreshRow', i).datagrid('beginEdit', i); 
+		  					againBinding(i);//批量增加绑定的事件
+	  					}
+	  					
+	  			 }
+	  				$dg.datagrid('endEdit', indexSun-1).datagrid('refreshRow', indexSun-1); 
+	  				selecRows=selecRows+indexSun; //上一次选中的行=原来选中的行+新添加的行数
 	  				dia.dialog("close");
 	  				compute();//调用统计   
 	  			}
-			
+	  		 
 	  		},{
 	  			text : '取消',
 	  			iconCls : 'icon-undo',
@@ -270,7 +291,7 @@ function addRows(){
 		$('#purchaseOrder_mgr_purchaseOrder_form_storage').focus(); 
 		return false;
 	}
-}  */
+} 
  
 //底部统计
 function compute(){//计算函数 
@@ -387,9 +408,9 @@ var moneyTotal = 0,
 		    );
 	    }
 }else{
-	  moneyTotal=parseFloat(rows[0]['money']);
+	 moneyTotal=parseFloat(rows[0]['money']);
 }
-//$("#totalAmount").attr("value","").attr("value",moneyTotal); 
+$("#totalAmount").attr("value","").attr("value",moneyTotal); 
 }
 
 //获取行号
@@ -627,28 +648,47 @@ function goodsDetail(rowIndex){
 			text : '确认',
   			iconCls : 'icon-ok',
 			handler : function(dia) {
+				var data = $dg.datagrid('getData');//获取整个表格数据  
+  				var rows = $dg.datagrid('getRows');//获取整个表格数据   
+  			    //设置状态 
+				var te=false; 
+				for(var r = 0; r<rows.length;r++){ 
+					if(data.rows[r].goodsId==setRowData.goodsId&&setRowData.goodsId!=data.rows[rowIndex].goodsId){ 
+						 te=true; 
+						 break;  //存在相同的，跳出当前循环
+					}  
+				} 
+				//如果是false,就添加一行数据
+				if(te){
+					$.messager.alert('提示信息','已存在的商品无需再次添加！','info'); 
+					return;
+				}else{ 
 				//确认后赋值
 				$dg.datagrid('updateRow', {
 					index:stRows,
 						row:{
+							purOrderDetId:setRowData.purOrderDetId,
+							purOrderId:setRowData.purOrderId,
   							goodsId:setRowData.goodsId,
   							goodsCode:setRowData.goodsCode,
   							goodsName:setRowData.goodsName,
-  							goodsModel:setRowData.specification,
-  							brand:setRowData.brands,
-  							placeOfOrigin:setRowData.origin,
-  							primeCost:setRowData.referenceCost,
-  							discount:1.00,
-  							price:setRowData.referenceCost,
-  							quantity:0,
-  							money:0.00,
-  							cess:setRowData.taxRate,
+  							goodsModel:setRowData.goodsModel,
+  							brand:setRowData.brands, 
+  							primeCost:setRowData.primeCost,
+  							discount:setRowData.discount,
+  							price:setRowData.price,
+  							arrival:setRowData.quantity,
+  							delivery:setRowData.quantity,
+  							rejection:0,
+  							quantity:setRowData.quantity,
+  							money:setRowData.money,
+  							cess:setRowData.cess,
   							remark:setRowData.remark
   						}
 				}); 
+		      }
 				dia.dialog("close");  
-				 $dg.datagrid('endEdit', stRows).datagrid('refreshRow', stRows).datagrid('beginEdit', stRows);
-				 
+				 $dg.datagrid('endEdit', stRows).datagrid('refreshRow', stRows).datagrid('beginEdit', stRows); 
 				//移除那两个按钮
 		    	$("div[class='dialog-button datagrid-rowediting-panel']").remove(); 
 				againBinding(stRows);
@@ -727,7 +767,7 @@ $("#saveOk").click(function(){
   var str=JSON.stringify($("#purchaseArrival_mgr_purchaseArrival_form").serializeObject()); 
   if(row.length<1){
   	$.messager.alert('提示信息','至少选择一件货物！','info'); 
-		 return;
+	return;
   }
   
   for(var i=0;i<row.length;i++){ 

@@ -50,6 +50,11 @@
     <result column="temp_purchase_return_returned_purchase_type_display" property="returnedPurchaseTypeDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
     <result column="temp_purchase_return_return_reason_display" property="returnReasonDisplay" jdbcType="VARCHAR"/> <!-- 自定义扩展字段 -->
   
+    <result column="temp_purchase_return_storage_display" property="storageDisplay" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_supplier_id_display" property="supplierIdDisplay" jdbcType="TIMESTAMP" />
+    
+    <result column="temp_purchase_return_operator_dep_display" property="operatorDepDisplay" jdbcType="VARCHAR" />
+    <result column="temp_purchase_return_log_code_display" property="logCodeDisplay" jdbcType="TIMESTAMP" />
   </resultMap>
   
   <sql id="Example_Where_Clause" >
@@ -136,12 +141,28 @@
     
     ,temp_returned_display.name as temp_purchase_return_returned_purchase_type_display 
     ,temp_reason_display.name as  temp_purchase_return_return_reason_display
+    
+    ,temp_dep_display.cn_name as temp_purchase_return_operator_dep_display 
+    ,temp_manager_display.user_cn_name as  temp_purchase_return_log_code_display
+    ,temp_warehouse_display.warehouse_name as  temp_purchase_return_storage_display
+    ,temp_suppliers_display.suppliers_name as temp_purchase_return_supplier_id_display
+     	
+     	
   </sql>
   
    <sql id="Base_extend">
     LEFT JOIN t_par_purchase_returned_type  temp_returned_display ON temp_returned_display.returned_purchase_type_id = temp_purchase_return.returned_purchase_type_id<!-- 扩展 -->
+   	<!--原因说明  -->
    	LEFT JOIN t_par_purchase_return_reason temp_reason_display ON temp_reason_display.return_reason_id =  temp_purchase_return.return_reason_id <!-- 扩展 -->
-  </sql>
+    <!--经办部门  -->
+    LEFT JOIN t_dep  temp_dep_display ON temp_dep_display.dep_id = temp_purchase_return.operator_dep<!-- 扩展 -->
+    <!--经办人  -->
+    LEFT JOIN t_user temp_manager_display ON temp_manager_display.user_id =temp_purchase_return.operators <!-- 扩展 -->
+    <!--仓库 -->
+    LEFT JOIN t_warehouse  temp_warehouse_display ON temp_warehouse_display.warehouse_id= temp_purchase_return.storage<!-- 扩展 -->
+    <!--供应商  -->
+    LEFT JOIN t_suppliers temp_suppliers_display ON temp_suppliers_display.supplier_id= temp_purchase_return.supplier_id<!-- 扩展 -->
+   </sql>
   
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.glacier.frame.entity.purchase.PurchaseReturnExample" >
     select

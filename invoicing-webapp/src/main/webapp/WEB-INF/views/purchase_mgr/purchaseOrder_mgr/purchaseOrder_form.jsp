@@ -159,9 +159,11 @@ $dg.datagrid({
       // {field :'purOrderDetId', title : 'ID', hidden:true}, 
        {field:'goodsId',title:'货品id',width:100,hidden:true},  
        {field:'goodsCode',title:'货品编码',width:100,editor: { type: 'text' }},    
-       {field:'goodsName',title:'名称',width:100},    
-       {field:'goodsModel',title:'规格型号',width:100},   
-       {field:'brand',title:'品牌',width:100},  
+       {field:'goodsName',title:'名称',width:100},  
+       {field:'goodsModel',title:'规格型号',width:100},  
+       {field:'goodsUnit',title:'单位',width:100},  
+       {field:'brand',title:'品牌',width:100}, 
+       {field:'goodsUnit',title:'单位',width:100},  
        {field:'placeOfOrigin',title:'产地',width:100}, 
        {field:'primeCost',title:'原价',width:100},   
        {field:'discount',title:'折扣率',width:100, editor: { type: 'numberbox',options:{precision:2}}}, 
@@ -315,30 +317,46 @@ function addRows(){
 	  			text : '确认',
 	  			iconCls : 'icon-ok',
 	  			handler : function(dia) { 
-	  				var rowsCheck =  $('#goodsListDataGrid').datagrid('getChecked');
-	  				console.log(rowsCheck[0]);
+	  				var rowsCheck =  $("#goodsListDataGrid").datagrid('getChecked'); 
+	  				var data = $dg.datagrid('getData');//获取整个表格数据  
+	  				var rows = $dg.datagrid('getRows');//获取整个表格数据   
 	  				for(var i = 0; i < rowsCheck.length;i++){
-	  					$dg.datagrid('insertRow', {
-	  						index: i,
-	  						row:{
-	  							goodsId:rowsCheck[i].goodsId,
-	  							goodsCode:rowsCheck[i].goodsCode,
-	  							goodsName:rowsCheck[i].goodsName,
-	  							goodsModel:rowsCheck[i].specification,
-	  							brand:rowsCheck[i].brands,
-	  							placeOfOrigin:rowsCheck[i].origin,
-	  							primeCost:rowsCheck[i].referenceCost,
-	  							discount:1.00,
-	  							price:rowsCheck[i].referenceCost,
-	  							quantity:0,
-	  							money:0.00,
-	  							cess:rowsCheck[i].taxRate,
-	  							remark:rowsCheck[i].remark
-	  						}
-	  					});
-	  					$dg.datagrid('beginEdit', i);
-	  					$dg.datagrid('endEdit', i).datagrid('refreshRow', i).datagrid('beginEdit', i); 
-	  					againBinding(i);//批量增加绑定的事件
+	  					//设置状态 
+	  					var te=false; 
+  						for(var r = 0; r<rows.length;r++){ 
+	  						if(data.rows[r].goodsId==rowsCheck[i].goodsId){ 
+	  							 te=true; 
+	  							 break;  //存在相同的，跳出当前循环
+	  						}  
+	  					} 
+	  					//如果是false,就添加一行数据
+	  					if(te){
+	  						$.messager.alert('提示信息','已存在的商品无需再次添加！','info'); 
+	  						return;
+	  					}else{  
+	  						$dg.datagrid('insertRow', {
+		  						index: i,
+		  						row:{
+		  							goodsId:rowsCheck[i].goodsId,
+		  							goodsCode:rowsCheck[i].goodsCode,
+		  							goodsName:rowsCheck[i].goodsName,
+		  							goodsUnit:rowsCheck[i].unit,
+		  							goodsModel:rowsCheck[i].specification,
+		  							brand:rowsCheck[i].brands,
+		  							placeOfOrigin:rowsCheck[i].origin,
+		  							primeCost:rowsCheck[i].referenceCost,
+		  							discount:1.00,
+		  							price:rowsCheck[i].referenceCost,
+		  							quantity:0,
+		  							money:0.00,
+		  							cess:rowsCheck[i].taxRate,
+		  							remark:rowsCheck[i].remark
+		  						}
+		  					});
+		  					$dg.datagrid('beginEdit', i);
+		  					$dg.datagrid('endEdit', i).datagrid('refreshRow', i).datagrid('beginEdit', i); 
+		  					againBinding(i);//批量增加绑定的事件
+	  			       } 
 	  				}
 	  				$dg.datagrid('endEdit', rowsCheck.length-1).datagrid('refreshRow', rowsCheck.length-1); 
 	  				selecRows=selecRows+rowsCheck.length; //上一次选中的行=原来选中的行+新添加的行数
@@ -559,6 +577,21 @@ function goodsDetail(rowIndex){
 			text : '确认',
   			iconCls : 'icon-ok',
 			handler : function(dia) {
+				var data = $dg.datagrid('getData');//获取整个表格数据  
+  				var rows = $dg.datagrid('getRows');//获取整个表格行数
+  			    //设置状态 
+				var te=false; 
+				for(var r = 0; r<rows.length;r++){ 
+					if(data.rows[r].goodsId==setRowData.goodsId&&setRowData.goodsId!=data.rows[rowIndex].goodsId){ 
+						 te=true; 
+						 break;  //存在相同的，跳出当前循环
+					}  
+				} 
+				//如果是false,就添加一行数据
+				if(te){
+					$.messager.alert('提示信息','已存在的商品无需再次添加！','info'); 
+					return;
+				}else{ 
 				//确认后赋值
 				$dg.datagrid('updateRow', {
 					index:stRows,
@@ -567,6 +600,7 @@ function goodsDetail(rowIndex){
   							goodsCode:setRowData.goodsCode,
   							goodsName:setRowData.goodsName,
   							goodsModel:setRowData.specification,
+  							goodsUnit:setRowData.unit,
   							brand:setRowData.brands,
   							placeOfOrigin:setRowData.origin,
   							primeCost:setRowData.referenceCost,
@@ -577,10 +611,10 @@ function goodsDetail(rowIndex){
   							cess:setRowData.taxRate,
   							remark:setRowData.remark
   						}
-				}); 
+					}); 
+				}
 				dia.dialog("close");  
-				 $dg.datagrid('endEdit', stRows).datagrid('refreshRow', stRows).datagrid('beginEdit', stRows);
-				 
+				 $dg.datagrid('endEdit', stRows).datagrid('refreshRow', stRows).datagrid('beginEdit', stRows); 
 				//移除那两个按钮
 		    	$("div[class='dialog-button datagrid-rowediting-panel']").remove(); 
 				againBinding(stRows);

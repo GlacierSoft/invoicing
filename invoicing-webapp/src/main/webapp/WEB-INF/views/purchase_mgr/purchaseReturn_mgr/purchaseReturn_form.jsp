@@ -41,7 +41,7 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 <tr> 
          <td style="padding-left:10px;">所属仓库：</td>
 		<td>
-		    <input type="hidden" name="purReturnId" value="${purchaseReturnDate.purReturnId}">
+		    <input type="hidden" name="purReturnId" value="${purchaseReturnDate.purReturnId}" id="purReturnId">
 			<input id="storage" name="storage" class="easyui-combobox spinner" style="width:168px" value="${purchaseReturnDate.storage }"   required="true"/>
 		</td> 
 		<td style="padding-left:10px;">运费总额：</td>
@@ -54,7 +54,7 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 		</td>
 		<td style="padding-left:10px;">经办人员：</td>
 	    <td >
-	        <input id="logCode" name="logCode" class="easyui-combobox spinner" style="width:168px;" value="${purchaseReturnDate.logCode}" required="true"/>
+	        <input id="operators" name="operators" class="easyui-combobox spinner" style="width:168px;" value="${purchaseReturnDate.logCode}" required="true"/>
 	    </td>
 </tr>   
 
@@ -101,7 +101,7 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 	</td>
     <td style="padding-left:10px;">跟踪状态：</td>
 	<td>
-		<input id="paymentState" name="paymentState" class="easyui-validatebox spinner" style="width:168px" value="${purchaseReturnDate.paymentState }"  required="true"/>
+		<input id="paymentState" name="paymentState" class="easyui-combobox spinner" style="width:168px" value="${purchaseReturnDate.paymentState }"  required="true" data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,data : fields.payState"/>
 	</td>  
 	<td style="padding-left:10px;">结算方式：</td>
 	<td>
@@ -126,12 +126,12 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
    <td style="padding-left:10px;">已开票金额：</td>
    <td>
        <input name="alrInvAmo" class="easyui-validatebox spinner" style="width:168px" value="<fmt:formatNumber value='${purchaseReturnDate.alrInvAmo}' pattern="#,#00.00元"/>" required="true"/>
-       <input type="hidden" id="totalAmount" readonly="readonly" name="totalAmount" class=" spinner" style="width:168px;height:20px;border-left-style: none;border-right-style: none;border-top-style: none;"   value="<fmt:formatNumber value='${purchaseReturnDate.totalAmount}' pattern="#,#00.00元"/>" />
+       <input type="hidden" id="totalAmount" name="totalAmount" class=" spinner" style="width:168px;height:20px;border-left-style: none;border-right-style: none;border-top-style: none;"   value="<fmt:formatNumber value='${purchaseReturnDate.totalAmount}' pattern="#,#00.00元"/>" />
    </td>
 </tr>
 <tr> 
    <td style="padding-left:10px;">备 注：</td>
-   <td colspan="7"> <textarea   name="remark" class="easyui-validatebox spinner" style="width:920px;" readonly="readonly" >${purchaseReturnDate.remark}</textarea></td>
+   <td colspan="7"> <textarea   name="remark" class="easyui-validatebox spinner" style="width:920px;">${purchaseReturnDate.remark}</textarea></td>
 </tr> 
 <tr>
    <td style="padding-left:10px;">附件：</td>
@@ -271,7 +271,7 @@ $dg.datagrid({
 	idField : 'purOrderDetId', 
 	columns:[[    
 			   {field:'goodsId',title:'货品ID',width:100,hidden:true},  
-			   {field:'goodsCode',title:'货品编码',width:100},    
+			   {field:'goodsCode',title:'货品编码',width:100,editor: { type: 'text' }},    
 	           {field:'goodsName',title:'货品名称',width:100},
 	           {field:'goodsId',title:'货品编号',width:100,hidden:true},    
 	           {field:'goodsModel',title:'规格型号',width:100},   
@@ -279,7 +279,7 @@ $dg.datagrid({
 	           {field:'batchInformation',title:'批次信息',width:100},
 	           {field:'quantity',title:'退货数量',width:100,editor: { type: 'numberbox', options: { required: true } } },
 	           {field:'price',title:'退货单价',width:100,editor: { type: 'numberbox', options: { required: true } } },
-	           {field:'money',title:'退货金额',width:100},
+	           {field:'money',title:'退货金额',width:100,editor: { type: 'numberbox',options:{precision:2}} },
 	           {field:'cess',title:'税率',width:100,editor: { type: 'numberbox', options: { required: true } } }, 
 	           {field:'remark',title:'备注',width:100,editor: { type: 'text' }}
 	       ]], 
@@ -699,21 +699,21 @@ $("#saveOk").click(function(){
 	var date= $dg.datagrid('getData').rows; 
 	var jsonDate=JSON.stringify(date);   
     var str=JSON.stringify($("#purchaseReturn_mgr_purchaseReturn_form").serializeObject());
-    var status=$("#purReturnId").attr("value");//状态判断，如何为空，则是新增合同，否则为修改合同 
+    var status=$("#purReturnId").val();//状态判断，如何为空，则是新增退货，否则为修改退货 
     if(row.length<1){
     	$.messager.alert('提示信息','至少选择一件货物！','info'); 
 		 return;
     }
-    
     for(var i=0;i<row.length;i++){ 
     	if(row[i]['quantity']==0){ 
     		$.messager.alert('提示信息','请完善货物信息，订购数量不能为0！','info'); 
     		 return;
     	}
     }    
+    
     //修改
-    if(status!=""){ 
-    	 $.post(ctx + '/do/purchaseReturn/edit.json', { data: jsonDate,purchaseOrder:str},
+	if(status!=""){ 
+	    	$.post(ctx + '/do/purchaseReturn/edit.json', { data: jsonDate,purchaseReturn:str},
   			   function(data){
   				$.messager.show({
   		    		title:'提示信息',
@@ -728,25 +728,24 @@ $("#saveOk").click(function(){
   		    	$("#layout_center_panel").panel("setTitle","采购退货");
   		    	$('#layout_center_panel').panel('refresh',ctx +'/do/purchaseReturn/index.htm'); 
   			 });  
-    }else{ 
-    	 //新增
-     	 $.post(ctx + '/do/purchaseReturn/add.json', { data: jsonDate,purchaseOrder:str},
-   			   function(data){
-   				$.messager.show({
-   		    		title:'提示信息',
-   		    		msg:'货物订购成功!',
-   		    		showType:'show',
-   		    		style:{
-   		    			right:'',
-   		    			top:document.body.scrollTop+document.documentElement.scrollTop,
-   		    			bottom:''
-   		    		}
-   		    	});
-   		    	$("#layout_center_panel").panel("setTitle","采购退货");
-   		    	$('#layout_center_panel').panel('refresh',ctx +'/do/purchaseReturn/index.htm'); 
-   			 });  
-        } 
-   
+	    }else{ 
+	    	 //新增
+	    	 $.post(ctx + '/do/purchaseReturn/add.json', { data: jsonDate,purchaseReturn:str},
+   	   			   function(data){
+   	   				$.messager.show({
+   	   		    		title:'提示信息',
+   	   		    		msg:'货物订购成功!',
+   	   		    		showType:'show',
+   	   		    		style:{
+   	   		    			right:'',
+   	   		    			top:document.body.scrollTop+document.documentElement.scrollTop,
+   	   		    			bottom:''
+   	   		    		}
+   	   		    	});
+   	   		    	$("#layout_center_panel").panel("setTitle","采购退货");
+   	   		    	$('#layout_center_panel').panel('refresh',ctx +'/do/purchaseReturn/index.htm'); 
+   	   			 }); 
+	   		 } 
 }); 
 
     
@@ -842,6 +841,6 @@ $.fn.serializeObject = function (){
     panelHeight : 'auto',
     editable:false 
  });
-
+   
 </script>
 
