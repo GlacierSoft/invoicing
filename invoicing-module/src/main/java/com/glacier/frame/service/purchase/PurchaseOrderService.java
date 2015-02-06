@@ -182,7 +182,7 @@ public class PurchaseOrderService {
         for (PurchaseOrderDetail detail : list) {
         	detail.setPurOrderDetId(RandomGUID.getRandomGUID());
         	detail.setPurOrderId(purchaseOrder.getPurOrderId());//订购合同id
-        	detail.setNotArrNum(0);//未到货数量
+        	detail.setNotArrNum(detail.getQuantity());//未到货数量
         	detail.setAlrArrNum(0);//已到货数量
         	detail.setNotPayNum(0);//未付款数量
         	detail.setAlrPayNum(0);//已付款数量
@@ -537,11 +537,13 @@ public class PurchaseOrderService {
         purchaseArrival.setCreateTime(new Date());
         purchaseArrival.setUpdater(pricipalUser.getUserCnName());
         purchaseArrival.setUpdateTime(new Date());
-        count = purchaseArrivalMapper.insert(purchaseArrival); //新增到货单
+        count = purchaseArrivalMapper.insert(purchaseArrival); //新增到货单 
+        int notArrNum=0;//计算未到货数量。如果未到货数量大于零，则更改该合同 到货状态 
+        BigDecimal alrArrAmo=new BigDecimal(0);//计算已到货金额 
         if (count == 1) {
         	 for (PurchaseOrderDetail purchaseOrderDetail : list) {
         		 PurchaseArrivalDetail arrivalDetail=new PurchaseArrivalDetail();
-        		//采购到货详情信息增加 
+        	  	   //采购到货详情信息增加 
         		   arrivalDetail.setPurArrivalDetId(RandomGUID.getRandomGUID());
         		   arrivalDetail.setPurArrivalId(purchaseArrival.getPurArrivalId());
         		   arrivalDetail.setGoodsId(purchaseOrderDetail.getGoodsId());//商品id
@@ -569,9 +571,36 @@ public class PurchaseOrderService {
         		   arrivalDetail.setDepositRate(purchaseOrderDetail.getDiscount());//折扣率
         		   arrivalDetail.setPutstorage(purchaseOrderDetail.getDelivery());//已入库数量
         		   arrivalDetail.setTakestorage(0);//未入库数量
-        		   arrivalDetail.setRemark(purchaseOrderDetail.getRemark());//备注 
+        		   arrivalDetail.setRemark(purchaseOrderDetail.getRemark());//备注  
         		   purchaseArrivalDetailMapper.insert(arrivalDetail);//执行增加到货明细操作 
+        		   //同时修改原来的订购合同明细状态 
+        		   purchaseOrderDetail.setNotArrNum(purchaseOrderDetail.getQuantity()-purchaseOrderDetail.getDelivery());//未到货数量=订购数量减去收货数量
+        		   purchaseOrderDetail.setAlrArrNum(purchaseOrderDetail.getDelivery());//已到货数量=收货数量 
+        		   
+        		   chaseOrderDetailMapper.updateByPrimaryKeySelective(purchaseOrderDetail);
+        		   //计算------------- 
+        		   alrArrAmo=alrArrAmo.add(purchaseOrderDetail.getMoney());//计算收货金额
+        		   notArrNum+=purchaseOrderDetail.getNotArrNum();//未到货数量  
 			} 
+        	 //查询出订购合同
+        	 PurchaseOrder ord= chaseOrderMapper.selectByPrimaryKey(list.get(0).getPurOrderId());
+        	//更改订购合同收货金额等、未收货金额等数量
+        	 if(notArrNum>0){ //未到货数量大于0 
+        		 ord.setArrState("portionArr");//到货状态为部分到货
+        		 ord.setAlrArrAmo(alrArrAmo);//到货金额
+        		 ord.setNotPayAmo(alrArrAmo);//未付款金额
+        		 ord.setNotArrAmo(ord.getTotalAmount().subtract(alrArrAmo));//未到货金额=总额-收货金额
+        		 ord.setNotInvAmo(alrArrAmo);//未开发票金额
+        		 ord.setOrderState("exeIng");//合同状态为执行中 
+        	 }else{ //未到货数量为0,就是全部到货
+        		 ord.setArrState("allArr");//到货状态为全部分到货
+        		 ord.setAlrArrAmo(alrArrAmo);//到货金额
+        		 ord.setNotPayAmo(alrArrAmo);//未付款金额
+        		 ord.setAlrArrAmo(ord.getTotalAmount().subtract(alrArrAmo));//已到货金额=总额-已到货金额
+        		 ord.setNotInvAmo(alrArrAmo);//未开发票金额
+        		 ord.setOrderState("exeIng");//合同状态为执行中 
+        	 }
+        	 chaseOrderMapper.updateByPrimaryKeySelective(ord);//更新订购合同的信息数据 
             returnResult.setSuccess(true);
             returnResult.setMsg("[" + purchaseArrival.getArrivalCode() + "] 采购到货信息已保存");
         } else {

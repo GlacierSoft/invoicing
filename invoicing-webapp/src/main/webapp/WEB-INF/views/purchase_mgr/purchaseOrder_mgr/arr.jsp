@@ -127,6 +127,7 @@ $dg.datagrid({
 	remoteSort : true,//开启远程排序，默认为false
 	idField : 'goodsId', 
     columns:[[  
+		{field:'purOrderDetId',title:'明细id',width:100,hidden:true},
         {field:'goodsCode',title:'货品编码',width:100,editor: { type: 'text',required: true }},    
         {field:'goodsName',title:'货品名称',width:100},
        	{field:'goodsId',title:'货品编号',width:100,hidden:true},
@@ -246,6 +247,8 @@ function addRows(){
 	  						$dg.datagrid('insertRow', {
 		  						index: i,
 		  						row:{
+		  							purOrderId:rowsCheck[i].purOrderId,
+		  							purOrderDetId:rowsCheck[i].purOrderDetId,
 		  							goodsId:rowsCheck[i].goodsId,
 		  							goodsCode:rowsCheck[i].goodsCode,
 		  							goodsName:rowsCheck[i].goodsName,
@@ -407,7 +410,7 @@ var moneyTotal = 0,
 }else{
 	 moneyTotal=parseFloat(rows[0]['money']);
 }
-//$("#totalAmount").attr("value","").attr("value",moneyTotal); 
+$("#totalAmount").attr("value","").attr("value",moneyTotal); 
 }
 
 //获取行号
@@ -664,6 +667,8 @@ function goodsDetail(rowIndex){
 				$dg.datagrid('updateRow', {
 					index:stRows,
 						row:{
+							purOrderDetId:setRowData.purOrderDetId,
+							purOrderId:setRowData.purOrderId,
   							goodsId:setRowData.goodsId,
   							goodsCode:setRowData.goodsCode,
   							goodsName:setRowData.goodsName,

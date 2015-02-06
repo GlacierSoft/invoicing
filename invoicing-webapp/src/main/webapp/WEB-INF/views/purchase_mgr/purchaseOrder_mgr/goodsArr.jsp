@@ -33,6 +33,8 @@
 		remoteSort : true,//开启远程排序，默认为false
 		idField : 'goodsId',
 		columns : [ [ 
+					 {field :'purOrderDetId', title : '明细id', hidden:true }, 
+					 {field :'purOrderId', title : '合同id', hidden:true }, 
 		             {field:'quantity',title:'订购数量',width:100,hidden:true},
 		  		     {field :'goodsId', title : 'ID', hidden:true }, 
 		             {field:'goodsCode',title:'货品编码',width:100},    
