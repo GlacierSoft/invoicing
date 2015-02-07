@@ -12,7 +12,7 @@
 	value="<fmt:formatDate value="${purchaseDate.arrivalDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"  required="true" style="width:168px;height: 18px;" /></td>
 	<td style="padding-left:10px;">采购类型：</td>
 	<td><input id="purchaseArrival_mgr_purchaseArrival_form_purchaseTypeId" name="purchaseTypeId" value='${purchaseDate.purchaseTypeId}' /></td>
-	<td>所属仓库：</td>
+	<td style="padding-left:10px;">所属仓库：</td>
 	<td ><input id="purchaseArrival_mgr_purchaseArrival_form_storage" name="storage" value="${purchaseDate.storage}" /></td>
 	<td style="padding-left:10px;">供应商：</td>
 	<td><input id="purchaseArrival_mgr_purchaseArrival_form_supplierId" name="supplierId" value="${purchaseDate.supplierId}" /></td>
@@ -24,7 +24,7 @@
     <td style="padding-left:10px;">供应商地址：</td>
 	<td><input id="purchaseArrival_mgr_purchaseArrival_form_supplierAdd" name="supplierAdd" value="${purchaseDate.supplierAdd}" 
 		class="easyui-validatebox spinner" style="width:168px;height: 18px;"/></td>
-	<td>联系人：</td>
+	<td style="padding-left:10px;">联系人：</td>
 	<td><input id="purchaseArrival_mgr_purchaseArrival_form_linkman" name="linkman" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="${purchaseDate.linkman}" /></td>
     <td style="padding-left:10px;">联系电话：</td>
     <td><input id="purchaseArrival_mgr_purchaseArrival_form_phone" name="phone" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="${purchaseDate.phone}" /></td>
@@ -34,7 +34,7 @@
 	<td><input id="purchaseArrival_mgr_purchaseArrival_form_fax" name="fax" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="${purchaseDate.fax}"  /></td>
 	<td style="padding-left:10px;">交货方式：</td>
 	<td><input id="purchaseArrival_mgr_purchaseArrival_form_deliveryType" name="deliveryType" value="${purchaseDate.deliveryType}" /></td>
-	<td>交货期限：</td>
+	<td style="padding-left:10px;">交货期限：</td>
 	<td><input id="purchaseArrival_mgr_purchaseArrival_form_deliveryDead" name="deliveryDead" class="easyui-datebox" value="<fmt:formatDate value="${purchaseDate.deliveryDead}" pattern="yyyy-MM-dd HH:mm:ss"/>" 
 	style="width:168px;height: 18px;" /></td>
 	<td style="padding-left:10px;">交货地址：</td>
@@ -45,19 +45,19 @@
 	<td><input id="purchaseArrival_mgr_purchaseArrival_form_acceptor" name="acceptor" value="${purchaseDate.acceptor}" /></td>
    	<td style="padding-left:10px;">附件：</td>
   	<td><input class="easyui-validatebox spinner" style="width:168px;height: 18px;" name="accessory"  value="${purchaseDate.accessory}" /></td>
-	<td>经办人：</td>
+	<td style="padding-left:10px;">经办人：</td>
 	<td><input id="purchaseArrival_mgr_purchaseArrival_form_operators" name="operators"  value="${purchaseDate.operators}" /></td>
     <td style="padding-left:10px;">经办部门：</td>
 	<td><input id="operatorDep" class="easyui-validatebox spinner" style="width:168px;height: 18px;" name="operatorDep"  value="${purchaseDate.operatorDep}" disabled="disabled"/></td>
 </tr>
 <tr>
-	<td style="padding-left:10px;">是否开票：</td>
+	<td>是否开票：</td>
 	<td><input style="width:168px" value="${purchaseDate.invoice}" name="invoice" class="easyui-combobox" 
 	  	data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.yesOrNo"/></td>
 	<td style="padding-left:10px;">状态：</td>
 	<td><input style="width:168px" value="${purchaseDate.enabled}" name="enabled" class="easyui-combobox" 
 	  	data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.status"/></td>
-	<td>发票类型：</td>
+	<td style="padding-left:10px;">发票类型：</td>
 	<td><input style="width:168px" value="${purchaseDate.invoiceTypeId}" name="invoiceTypeId" class="easyui-combobox" 
 	 	  data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.invoiceTypeId"/></td>
 	   <td style="padding-left:10px;">约定支付方式：</td>
@@ -69,7 +69,7 @@
   	  data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.logSettlementId"/></td>
     <td style="padding-left:10px;">运单号：</td>
 	<td><input name="logCode" class="spinner" style="width:168px;height: 18px;" value="${purchaseDate.logCode}" /></td>
-	<td>运费总额：</td>
+	<td style="padding-left:10px;">运费总额：</td>
 	<td><input  name="logTotalTmount" class="spinner" style="width:168px;height: 18px;" value='${purchaseDate.logTotalTmount}' /></td>
     <td style="padding-left:10px;">物流公司：</td>
 	<td><input id="purchaseArrival_mgr_purchaseArrival_form_logCompany" name="logCompany"  value="${purchaseDate.logCompany}" /></td>
@@ -79,12 +79,14 @@
 	<td><input  name="logLinkman" style="width:168px;height: 18px;" class="spinner" value='${purchaseDate.logLinkman}' /></td>
     <td style="padding-left:10px;">物流电话：</td>
 	<td><input  name="logPhone" style="width:168px;height: 18px;" class="spinner" value='${purchaseDate.logPhone}' /></td>
-	<td>备 注：</td><td><input  name="remark" style="width:168px;height: 18px;" class="spinner" value='${purchaseDate.remark}' /></td>
-	<td></td><td></td>
+	<td style="padding-left:10px;">备 注：</td><td><input  name="remark" style="width:168px;height: 18px;" class="spinner" value='${purchaseDate.remark}' /></td>
+	<td style="padding-left:10px;">总金额：</td><td><span id="alrMoney">0</span>元</td>
 </tr>
 <tr>
 	<td>付款约定：</td>
-	<td colspan="3"><input id="purchaseArrival_mgr_purchaseArrival_form_paymentAgrId" name="paymentAgrId" value="${purchaseDate.paymentAgrId}" /></td>
+	<td colspan="3"><input id="purchaseArrival_mgr_purchaseArrival_form_paymentAgrId" name="paymentAgrId" value="${purchaseDate.paymentAgrId}" class="easyui-combobox" 
+	style="width:170px;height: 18px;"
+	data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.paymentAgrId"/></td>
 </tr>
 </table>
 <div style="margin-top: 25px;">
@@ -314,7 +316,6 @@ function batchRows(){
 	  			handler : function(dia) {
 	  				var rowsCheck = $('#goodsListDataGrid').datagrid('getChecked');
 	  				if(rowsCheck != ""){
-	  					var index = 0;
 	  					for(var i = 0; i < rowsCheck.length;i++){
 		  					$('#purchase_arrival_form').datagrid('insertRow', {
 		  						index: 0,
@@ -329,9 +330,9 @@ function batchRows(){
 		  						}
 		  					});
 		  					$("#purchase_arrival_form").datagrid("beginEdit",0);
-		  					$("div[class='dialog-button datagrid-rowediting-panel']").remove();
 		  				}
   						for(var i = 0; i < rowsCheck.length;i++){
+		  					$("div[class='dialog-button datagrid-rowediting-panel']").remove();
 	  						againBinding(i);
 	  					}
   						compute();//调用统计
@@ -474,6 +475,7 @@ function compute(){//计算函数
 				     }
 	    	});
 	    	$('#purchase_arrival_form').datagrid('refreshRow', rows.length-1);
+	    	$("#alrMoney").html(goodsMoneyTotal);
 	    }else{//增加
 	    	for (var i = 0; i < rows.length; i++) {
 	    		var rejectionTarget = $("#purchase_arrival_form").datagrid('getEditor', {index:i,field:'rejection'}).target;
@@ -491,6 +493,7 @@ function compute(){//计算函数
 		    	rejection: rejectionTotal
 		       }
 		    );
+	    	$("#alrMoney").html(goodsMoneyTotal);
 	    }
     }
 }
@@ -541,10 +544,6 @@ function goodsDetail(rowIndex){
 	});
 };
 
-function test(rows){
-	$('#purchase_arrival_form').datagrid('beginEdit', rows);
-}
-
 //货物编码编辑框点击事件
 function goodsCodeClick(obj){
 	var indexRows = getRowIndex(obj);
@@ -557,6 +556,23 @@ function goodsCodeClick(obj){
     	goodsDetail(indexRows);
 	}
 }
+
+//付款约定值发生改变的时候
+$("#purchaseArrival_mgr_purchaseArrival_form_paymentAgrId").combobox({
+	onSelect:function(record){
+		if(record.value=="stages"){
+			glacier.basicAddOrEditDialog({
+				title : '【采购到货】 - 请输入付款约定',
+				width : 410,
+				height : 250,
+				queryUrl : ctx + '/do/purchaseArrival/paymentAgr.htm',
+				successFun : function (){
+				}
+			});
+		}
+	}
+});
+
 
 //初始化采购类型下拉项
 $("#purchaseArrival_mgr_purchaseArrival_form_purchaseTypeId").combobox({
