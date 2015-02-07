@@ -35,7 +35,13 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturnDetail.param = {
 					 <tr>
 					     <td colspan="8">
 					       <hr> 
-						      <div style="margin-left: 400px;float: left;">
+					        <c:if test="${purchaseReturnDate.enabled == 'disable'}">   
+					  			<div style="display:inline;margin-left:5px;color: red;margin-top: 10px;width: 40px;height: 18px;font-size: 5;border: solid;border-width: 2px;font-family: 微软雅黑">已禁用 </div> 
+							</c:if>   
+				    		<c:if test="${purchaseReturnDate.auditState == 'pass'}">   
+					 		   <div style="display:inline;margin-left:5px;color: red;margin-top: 10px;width: 40px;height: 18px;font-size: 5;border: solid;border-width: 2px;font-family: 微软雅黑">已审核 </div> 
+							</c:if> 
+						      <div style="margin-left: 400px;display:inline;">
 						        <font size="3" style="margin-top: 30px"><b>采购退货详情</b></font> 
 						      </div>
 						     <hr> 
