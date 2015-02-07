@@ -197,7 +197,7 @@ public class PurchaseOrderController extends AbstractController{
     //进入表单页面
     @RequestMapping(value = "/intoForm.htm")
     private Object inForme(String purOrderId) {
-        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/purchaseOrder_form");
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseOrder_mgr/purchaseOrder_form");// purchaseArrival_form2
         if(StringUtils.isNotBlank(purOrderId)){
             mav.addObject("purchaseOrderData", purchaseOrderService.getPurchaseOrder(purOrderId));
         } 

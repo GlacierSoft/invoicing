@@ -177,7 +177,7 @@ public class PurchaseOrderService {
         purchaseOrder.setCreateTime(new Date());
         purchaseOrder.setUpdater(pricipalUser.getUserCnName());
         purchaseOrder.setUpdateTime(new Date());
-        purchaseOrder.setArrState("pass");//添加成功就默认为审核通过
+        purchaseOrder.setAuditState("pass");//添加成功就默认为审核通过
         purchaseOrder.setAuditDate(new Date()); 
         purchaseOrder.setAuditor(pricipalUser.getUserCnName());
         count = chaseOrderMapper.insert(purchaseOrder); 
