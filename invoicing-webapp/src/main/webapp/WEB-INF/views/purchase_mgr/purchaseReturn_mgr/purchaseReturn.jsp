@@ -14,8 +14,8 @@
 				del:{flag:'del',controlType:'multiple'},
 				audit:{flag:'audit',controlType:'single'},
 				cancelAudit:{flag:'cancelAudit',controlType:'single'},
-				enable:{flag:'enable',controlType:'single'},
-				disable:{flag:'disable',controlType:'single'},
+				enable:{flag:'enable',controlType:'multiple'},
+				disable:{flag:'disable',controlType:'multiple'},
 				pay:{flag:'pay',controlType:'single'}
 			}
 	};
@@ -54,6 +54,14 @@
 				sortable:true,
 				formatter: function(value,row,index){
 					return renderGridValue(value,fields.auditState);
+				}
+			},{
+				field:'enabled',
+				title:'启用/禁用',
+				width:120,
+				sortable:true,
+				formatter: function(value,row,index){
+					return renderGridValue(value,fields.status);
 				}
 			},{
 				field:'storageDisplay',
@@ -162,17 +170,123 @@
 	
 	//取消审核按钮触发事件
 	glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.cancelAuditPurchaseReturn=function(){
-		 alert("我是取消审核按钮！");
+		var row = glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.purchaseReturnDataGrid.datagrid("getSelected");  
+		if(row.auditState=='authstr'){
+		    $.messager.alert('提示','该记录未进行过审核操作！','info'); 
+		    return ;
+		}
+		$.messager.confirm('请确认','是否要取消审核该记录?',function(r){
+            if (r){
+            	 $.ajax({ 
+            		type: "POST",
+            	    url : ctx+ '/do/purchaseReturn/cancelAudit.json',
+					data : {
+						purReturnId :row.purReturnId 
+					},
+					dataType : 'json',
+					success : function(r) {
+						if (r.success) {//因为失败成功的方法都一样操作，这里故未做处理
+							$.messager.show({
+								title : '提示',
+								timeout : 3000,
+								msg : r.msg
+							});
+							glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.purchaseReturnDataGrid.datagrid('reload');
+						} else {
+							$.messager.show({//后台验证弹出错误提示信息框
+										title : '错误提示',
+										width : 380,
+										height : 120,
+										msg : '<span style="color:red">'+ r.msg+ '<span>',
+										timeout : 4500
+							 });
+						}
+					}
+				});
+			}
+		}); 
 	}
 	
 	//启用按钮触发事件
 	glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.enablePurchaseReturn=function(){
-	    alert("我是启用按钮!");	
+		var rows =glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.purchaseReturnDataGrid.datagrid("getChecked");
+		var purReturnIds = [];//启用的id标识 
+		for ( var i = 0; i < rows.length; i++) {
+			purReturnIds.push(rows[i].purReturnId); 
+		 }
+		if (purReturnIds.length > 0) {
+		$.messager.confirm('请确认','是否要启用这些记录?',function(r){
+            if (r){
+            	 $.ajax({ 
+            		type: "POST",
+            	    url : ctx+ '/do/purchaseReturn/enableOrDisable.json?status=enable',
+					data : {
+						purReturnIds : purReturnIds.join(',') 
+					},
+					dataType : 'json',
+					success : function(r) {
+						if (r.success) {//因为失败成功的方法都一样操作，这里故未做处理
+							$.messager.show({
+								title : '提示',
+								timeout : 3000,
+								msg : r.msg
+							});
+							glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.purchaseReturnDataGrid.datagrid('reload');
+						} else {
+							$.messager.show({//后台验证弹出错误提示信息框
+										title : '错误提示',
+										width : 380,
+										height : 120,
+										msg : '<span style="color:red">'+ r.msg+ '<span>',
+										timeout : 4500
+									});
+						}
+					}
+				});
+			}
+		});
+	  }
 	}
 	
 	//禁用按钮触发事件
 	glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.disablePurchaseReturn=function(){
-		alert("我是禁用！");
+		var rows =glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.purchaseReturnDataGrid.datagrid("getChecked");
+		var purReturnIds = [];//启用的id标识 
+		for ( var i = 0; i < rows.length; i++) {
+			purReturnIds.push(rows[i].purReturnId);  
+		 }
+		if (purReturnIds.length > 0) {
+		$.messager.confirm('请确认','是否要禁用这些记录?',function(r){
+            if (r){
+            	 $.ajax({ 
+            		type: "POST",
+            	    url : ctx+ '/do/purchaseReturn/enableOrDisable.json?status=disable',
+					data : {
+						purReturnIds : purReturnIds.join(',') 
+					},
+					dataType : 'json',
+					success : function(r) {
+						if (r.success) {//因为失败成功的方法都一样操作，这里故未做处理
+							$.messager.show({
+								title : '提示',
+								timeout : 3000,
+								msg : r.msg
+							});
+							glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.purchaseReturnDataGrid.datagrid('reload');
+						} else {
+							$.messager.show({//后台验证弹出错误提示信息框
+										title : '错误提示',
+										width : 380,
+										height : 120,
+										msg : '<span style="color:red">'+ r.msg+ '<span>',
+										timeout : 4500
+							 });
+						}
+					}
+				});
+			}
+		});
+	  }
 	}
     
 	//付款按钮触发事件
@@ -180,7 +294,6 @@
 		alert("我是付款！");
 	}
 
-	
 	//点击删除按钮触发方法
 	glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.delPurchaseReturn= function(){
 		var rows =  glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn.purchaseReturnDataGrid.datagrid("getChecked");

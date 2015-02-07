@@ -1,9 +1,20 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!-- 引入国际化标签 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <!-- 引入自定义权限标签 -->
 <%@ taglib prefix="glacierui"
 	uri="http://com.glacier.permissions.com.cn/tag/easyui"%>
+
+<style type="text/css">
+	
+#text_file:link { text-decoration: none;color: black}
+#text_file:active { text-decoration:none}
+#text_file:hover { text-decoration:none;color: black}
+#text_file:visited { text-decoration: none;color: black}
+	
+</style> 
+
 <script type="text/javascript">
 
 $.util.namespace('glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturnDetail');//自定义命名空间，相当于一个唯一变量(推荐按照webapp目录结构命名可避免重复)
@@ -24,10 +35,10 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturnDetail.param = {
 					 <tr>
 					     <td colspan="8">
 					       <hr> 
-						      <div style="margin-left: 400px">
-						         <font size="3" style="margin-top: 30px"><b>采购退货详情</b></font> 
-						      </div> 
-	     					 <hr> 
+						      <div style="margin-left: 400px;float: left;">
+						        <font size="3" style="margin-top: 30px"><b>采购退货详情</b></font> 
+						      </div>
+						     <hr> 
 					     </td>
 					 </tr>
 					<tr> 
@@ -45,16 +56,16 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturnDetail.param = {
 						<td><input id="supplierAdd" name="supplierAdd" class="spinner" style="width:168px" value="${purchaseReturnDate.supplierAdd}" readonly="readonly"/></td>
 					  </tr>   
 					  <tr>
-					    <td style="padding-left:10px;">联系人：</td>
-						<td ><input name="linkman" class="spinner" style="width:168px" value="${purchaseReturnDate.linkman}" readonly="readonly"/></td>
-				 	    <td style="padding-left:10px;">联系电话：</td>
-					    <td><input id="phone" name="phone" class="spinner" style="width:168px" value="${purchaseReturnDate.phone}" readonly="readonly"/></td>
-				 	    <td style="padding-left:10px;">经办部门：</td>
+					    <td style="padding-left:10px;">经办部门：</td>
 						<td ><input  name="fax" class="spinner" style="width:168px" value="${purchaseReturnDate.operatorDepDisplay}" readonly="readonly"/></td>
 				        <td style="padding-left:10px;">经办人：</td>
 						<td >
 						    <input id="logCode" name="logCode" class="spinner" style="width:168px;" value="${purchaseReturnDate.logCodeDisplay}" readonly="readonly"/>
 						</td>
+						<td style="padding-left:10px;">审核状态：</td>
+						<td><input id="auditState" name="auditState"  class="spinner" style="width:168px" value="${purchaseReturnDate.auditState}" readonly="readonly"/></td>
+				 	    <td style="padding-left:10px;">启用/禁用：</td>
+					    <td><input id="enabled" name="enabled" class="spinner" style="width:168px" value="${purchaseReturnDate.enabled=='disable'?'禁用':'启用'}" readonly="readonly"/></td>
 				    </tr>
 				 	<tr>
 					     <td style="padding-left:10px;">退货方式：</td>
@@ -126,7 +137,15 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturnDetail.param = {
 					 </tr> 
 					  <tr>
 					      <td style="padding-left:10px;">附件：</td>
-					      <td colspan="7"> <textarea   name="accessory" class="spinner" style="width:920px;" readonly="readonly" >${purchaseReturnDate.accessory}</textarea></td>
+					      <td colspan="7">
+					          <c:if test="${empty purchaseReturnDate.accessory}"> 
+					            <textarea   name="accessory" class="spinner" style="width:920px;" readonly="readonly" >暂无内容</textarea>
+					          </c:if>
+					          <c:if test="${!empty purchaseReturnDate.accessory}"> 
+					                <label id="fileText" style="float: left;height:50px;"></label>
+					                <a style="margin-top: 10px;margin-left: 5px;" href="javascript:doFiledown();" class="easyui-linkbutton" data-options="iconCls:'icon-hamburg-down'" >下载</a>
+					          </c:if>
+					      </td>
 				  	  </tr>   
 	              </table> 
 	      <hr> 
@@ -166,6 +185,21 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturnDetail.param = {
   
   
  <SCRIPT>
+ 
+ if('${purchaseReturnDate.accessory}'!=null&&'${purchaseReturnDate.accessory}'!=""){
+	     var AllImgExt=".jpg|.jpeg|.gif|.bmp|.png|";//全部图片格式类型 
+		 var filename='${purchaseReturnDate.accessory}'.substring('${purchaseReturnDate.accessory}'.lastIndexOf("/")+1,'${purchaseReturnDate.accessory}'.length);
+		 var FileExt='${purchaseReturnDate.accessory}'.substr('${purchaseReturnDate.accessory}'.lastIndexOf(".")).toLowerCase();
+		 if(AllImgExt.indexOf(FileExt+"|")!=-1){
+				$("<img src='${purchaseReturnDate.accessory}'  width='50' height='50'/>").appendTo("#fileText");
+			}else{
+				$("<a href='#' style='padding-top:15px;line-height:50px;' id='text_file'>"+filename+"</a>").appendTo("#fileText");
+		  }
+ }
+ 
+ function doFiledown(){
+     location.href='${purchaseReturnDate.accessory}';  
+ }
  
  $dg=$('#purchase_return_detail');
 
@@ -260,12 +294,15 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturnDetail.param = {
    }  
  }
  
+  
  
-  	//跟踪状态
+  //跟踪状态
     $("#paymentState").val(renderGridValue('${purchaseReturnDate.paymentState}',fields.payState));
     //结算方式
     $("#logSettlement").val(renderGridValue('${purchaseReturnDate.logSettlement}',fields.logSettlementId));
     //开票状态
     $("#invState").val(renderGridValue('${purchaseReturnDate.invState}',fields.invState));
+    //审核状态
+    $('#auditState').val(renderGridValue('${purchaseReturnDate.auditState}',fields.auditState)); 
   		
 </script>  

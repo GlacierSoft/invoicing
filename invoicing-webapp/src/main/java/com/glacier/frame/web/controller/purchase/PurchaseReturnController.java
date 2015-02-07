@@ -30,6 +30,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 import net.sf.json.JSONArray;
@@ -72,6 +73,7 @@ import com.glacier.jqueryui.util.JqPager;
 @RequestMapping(value = "/purchaseReturn")
 public class PurchaseReturnController {
 	@Autowired
+	
     private PurchaseReturnService purchaseReturnService;
 	
 	@Autowired
@@ -208,6 +210,17 @@ public class PurchaseReturnController {
         return purchaseReturnService.delPurchaseReturn(purReturnIds);
     }
     
+    //启用或禁用订购合同订购合同
+    @RequestMapping(value = "/enableOrDisable.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object enableOrDisable(@RequestParam List<String> purReturnIds,String status) {
+    	if(status.equals("disable")){ //禁用
+    		return purchaseReturnService.disablePurchaseReturn(purReturnIds);
+    	}else{//启用
+    		return purchaseReturnService.enablePurchaseReturn(purReturnIds);
+    	} 
+    } 
+    
     //附件上传
     @RequestMapping(value="/uploadFile",method=RequestMethod.POST)
     @ResponseBody
@@ -244,4 +257,82 @@ public class PurchaseReturnController {
 	   map.put("path", "uploadFiles/"+real_date+"/"+fileName);
        return JackJson.fromObjectToJson(map);
     }
+    
+    //进入采购退货审核页面
+    @RequestMapping(value = "/auditForm.htm")
+    private Object audit(String purReturnId) {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseReturn_mgr/audit_form");
+        mav.addObject("purchaseReturnData", purchaseReturnService.getPurchaseReturn(purReturnId));
+        return mav;
+    }
+    
+    //审核采购退货合同
+    @RequestMapping(value = "/audit.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object auditPurchaseOrder(PurchaseReturn purchaseReturn) { 
+    	return purchaseReturnService.auditPurchaseReturn(purchaseReturn);
+    } 
+    
+    //取消采购退货合同
+    @RequestMapping(value = "/cancelAudit.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object cancelAuditPurchaseOrder(String purReturnId) { 
+    	return purchaseReturnService.cancelAuditPurchaseReturn(purReturnId);
+    }  
+    
+    //进入未审核的列表展示页面
+    @RequestMapping(value = "/batchAudit.htm")
+    private Object batchAudit() {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseReturn_mgr/batch/batchAudit/purchaseReturn");
+        return mav;
+    }
+    
+    //进入已审核的列表展示页面
+    @RequestMapping(value = "/batchCancelAudit.htm")
+    private Object batchCancelAudit() {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseReturn_mgr/batch/batchCancelAudit/purchaseReturn");
+        return mav;
+    }  
+    
+    //进入已禁用的列表展示页面
+    @RequestMapping(value = "/batchEnable.htm")
+    private Object batchEnable() {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseReturn_mgr/batch/batchEnable/purchaseReturn");
+        return mav;
+    }  
+    
+    //进入已启用的列表展示页面
+    @RequestMapping(value = "/batchDisable.htm")
+    private Object batchDisable() {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseReturn_mgr/batch/batchDisable/purchaseReturn");
+        return mav;
+    } 
+    
+    //进入订单批量审核页面
+    @RequestMapping(value = "/auditFormList.htm")
+    private Object auditFormList(@RequestParam List<String> purReturnIds,HttpSession session) {
+        ModelAndView mav = new ModelAndView("purchase_mgr/purchaseReturn_mgr/batch/batchAudit/audit_form");
+        if(purReturnIds.size()!=0){
+        	session.setAttribute("auditIds", purReturnIds);//存放批量审核的ID
+        }
+        return mav;
+    }
+    
+    //审核批量订购合同
+    @RequestMapping(value = "/auditList.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object auditList(PurchaseReturn purchasereturn,HttpSession session) { 
+    	@SuppressWarnings("unchecked")
+		List<String> list=(List<String>)session.getAttribute("auditIds"); 
+    	session.removeAttribute("auditIds");//删除session
+    	return purchaseReturnService.auditPurchaseReturnList(purchasereturn,list);
+    }
+    
+    //批量取消审核订购合同
+    @RequestMapping(value = "/batchCancelAudit.json", method = RequestMethod.POST)
+    @ResponseBody
+    public Object batchCancelAudit(@RequestParam List<String> purReturnIds) { 
+    	return purchaseReturnService.batchCancelAudit(purReturnIds);
+    } 
+    
 }

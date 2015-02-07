@@ -19,6 +19,7 @@
  */
 package com.glacier.frame.service.purchase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -120,8 +121,9 @@ public class PurchaseReturnService {
 		User pricipalUser = (User) pricipalSubject.getPrincipal();
 		JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
 		int count = 0;
-	    purchaseReturn.setPurReturnId(RandomGUID.getRandomGUID());
-		purchaseReturn.setReturnCode("PRC_"+(int)(Math.random()*9000+1000));
+		SimpleDateFormat SF=new SimpleDateFormat("yyyy-MM-DD-HHmmss");
+		purchaseReturn.setPurReturnId(RandomGUID.getRandomGUID());
+	    purchaseReturn.setReturnCode("PR_"+SF.format(new Date()));
 		purchaseReturn.setAuditor(pricipalUser.getUserCnName());
 		purchaseReturn.setAuditState("authstr");
 		purchaseReturn.setAuditDate(new Date());
@@ -247,4 +249,199 @@ public class PurchaseReturnService {
 		}
 		return returnResult;
 	}
+	
+	/** 
+     * @Title: enablePurchaseReturn  
+     * @Description: TODO(启用采购退货合同)  
+     * @param @return    设定文件  
+     * @return Object    返回类型  
+     * @throws
+     */
+    @Transactional(readOnly = false) 
+    @MethodLog(opera = "PurchaseReturnList_enable")
+    public Object enablePurchaseReturn(List<String> purReturnIds){
+    	  JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    	  Subject pricipalSubject = SecurityUtils.getSubject();
+          User pricipalUser = (User) pricipalSubject.getPrincipal(); 
+    	  int count=0;
+    	  if (purReturnIds.size() > 0) {
+          	for (String id : purReturnIds) {
+          		PurchaseReturn purReturn=purchaseReturnMapper.selectByPrimaryKey(id);
+          		purReturn.setEnabled("enable"); 
+          		purReturn.setUpdater(pricipalUser.getUserCnName());
+          		purReturn.setUpdateTime(new Date());
+                count = purchaseReturnMapper.updateByPrimaryKeySelective(purReturn);
+  			} 
+            if (count > 0) {
+                returnResult.setSuccess(true);
+                returnResult.setMsg("采购退货合同启用成功！");
+            } else {
+                returnResult.setMsg("发生未知错误，采购退货启用操作失败");
+            }
+          }
+    	  return returnResult; 
+    } 
+    
+    /** 
+     * @Title: disablePurchaseReturn  
+     * @Description: TODO(禁用采购退货合同)  
+     * @param @return    设定文件  
+     * @return Object    返回类型  
+     * @throws
+     */
+    @Transactional(readOnly = false) 
+    @MethodLog(opera = "PurchaseReturnList_disable")
+    public Object disablePurchaseReturn(List<String> purReturnIds){
+    	  JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+    	  Subject pricipalSubject = SecurityUtils.getSubject();
+          User pricipalUser = (User) pricipalSubject.getPrincipal(); 
+    	  int count=0;
+    	  if (purReturnIds.size() > 0) {
+          	for (String id : purReturnIds) {
+          		PurchaseReturn purReturn=purchaseReturnMapper.selectByPrimaryKey(id);
+          		purReturn.setEnabled("disable"); 
+          		purReturn.setUpdater(pricipalUser.getUserCnName());
+          		purReturn.setUpdateTime(new Date());
+                count = purchaseReturnMapper.updateByPrimaryKeySelective(purReturn);
+  			} 
+            if (count > 0) {
+                returnResult.setSuccess(true);
+                returnResult.setMsg("采购退货合同禁用成功！");
+            } else {
+                returnResult.setMsg("发生未知错误，采购退货禁用操作失败");
+            }
+          }
+    	  return returnResult; 
+    }
+    
+    /** 
+     * @Title: auditPurchaseReturn 
+     * @Description: TODO(审核)  
+     * @param @param purchaseReturn
+     * @param @return    设定文件  
+     * @return Object    返回类型  
+     * @throws
+     */ 
+    @Transactional(readOnly = false) 
+    @MethodLog(opera = "PurchaseReturnList_audit")
+    public Object auditPurchaseReturn(PurchaseReturn purchaseReturn){
+  	  JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+  	  Subject pricipalSubject = SecurityUtils.getSubject();
+      User pricipalUser = (User) pricipalSubject.getPrincipal(); 
+  	  int count=0;
+  	  PurchaseReturn purReturn=purchaseReturnMapper.selectByPrimaryKey(purchaseReturn.getPurReturnId());
+  	  if(purchaseReturn.getAuditState().equals("authstr")){
+  		  returnResult.setMsg("审核状态不能为审核中！");
+  		  return returnResult; 
+  	  }
+	  if(purReturn.getAuditState().equals("authstr")){ 
+		  purReturn.setAuditState(purchaseReturn.getAuditState());
+		  purReturn.setAuditor(pricipalUser.getUserCnName());
+		  purReturn.setAuditRemark(purchaseReturn.getAuditRemark());
+		  purReturn.setAuditDate(new Date());
+		  count = purchaseReturnMapper.updateByPrimaryKeySelective(purReturn);
+	  }else{
+		  returnResult.setMsg("该订单已经进行过审核操作！");
+  		  return returnResult; 
+	  }  
+      if (count > 0) {
+          returnResult.setSuccess(true);
+          returnResult.setMsg("采购退货合同审核操作成功！");
+      } else {
+          returnResult.setMsg("发生未知错误，审核操作失败");
+      }  
+  	  return returnResult; 
+  }
+    
+    /** 
+     * @Title: cancelAuditPurchaseReturn  
+     * @Description: TODO(取消审核)  
+     * @param @param purchaseOrderIds
+     * @param @return    设定文件  
+     * @return Object    返回类型  
+     * @throws
+     */ 
+    @Transactional(readOnly = false) 
+    @MethodLog(opera = "PurchaseReturnList_cancelAudit")
+    public Object cancelAuditPurchaseReturn(String purReturnId){
+  	  JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+      int count=0;
+  	  PurchaseReturn purReturn=purchaseReturnMapper.selectByPrimaryKey(purReturnId);
+  	  purReturn.setAuditState("authstr");
+  	  purReturn.setAuditor("");
+  	  purReturn.setAuditRemark(""); 
+	  Date time=null;
+	  purReturn.setAuditDate(time);
+	  count = purchaseReturnMapper.updateByPrimaryKey(purReturn); 
+      if (count > 0) {
+          returnResult.setSuccess(true);
+          returnResult.setMsg("取消采购退货合同审核操作成功！");
+      } else {
+          returnResult.setMsg("发生未知错误，取消审核操作失败");
+      }  
+  	  return returnResult; 
+     } 
+    
+    /** 
+     * @Title: auditPurchaseReturnList  
+     * @Description: TODO(批量审核)  
+     * @param @param purchaseReturn,list
+     * @param @return    设定文件  
+     * @return Object    返回类型  
+     * @throws
+     */ 
+    @Transactional(readOnly = false) 
+    @MethodLog(opera = "PurchaseReturnList_batchAudit")
+    public Object auditPurchaseReturnList(PurchaseReturn purchaseReturn,List<String> list){
+  	  JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+  	  Subject pricipalSubject = SecurityUtils.getSubject();
+      User pricipalUser = (User) pricipalSubject.getPrincipal();  
+  	  int count=0; 
+  	  for (String id : list) {
+  		 PurchaseReturn purReturn=purchaseReturnMapper.selectByPrimaryKey(id);
+  		 purReturn.setAuditState(purchaseReturn.getAuditState());
+  		 purReturn.setAuditor(pricipalUser.getUserCnName());
+  		 purReturn.setAuditRemark(purchaseReturn.getAuditRemark());
+  		 purReturn.setAuditDate(new Date());
+		 count = purchaseReturnMapper.updateByPrimaryKeySelective(purReturn);
+	  }
+      if (count > 0) {
+          returnResult.setSuccess(true);
+          returnResult.setMsg("采购退货合同审核操作成功！");
+      } else {
+          returnResult.setMsg("发生未知错误，审核操作失败");
+      }  
+  	  return returnResult; 
+    } 
+    
+    /** 
+     * @Title: batchCancelAudit  
+     * @Description: TODO(取消审核)  
+     * @param @param purchaseOrderIds
+     * @param @return    设定文件  
+     * @return Object    返回类型  
+     * @throws
+     */ 
+    @Transactional(readOnly = false) 
+    @MethodLog(opera = "PurchaseReturnList_cancelAudit")
+    public Object batchCancelAudit(List<String> list){
+  	  JqReturnJson returnResult = new JqReturnJson();// 构建返回结果，默认结果为false
+      int count=0;
+      for (String id : list) {
+    	  PurchaseReturn purchaseReturn=purchaseReturnMapper.selectByPrimaryKey(id);
+    	  purchaseReturn.setAuditState("authstr");
+    	  purchaseReturn.setAuditor("");
+    	  purchaseReturn.setAuditRemark(""); 
+    	  Date time=null;
+    	  purchaseReturn.setAuditDate(time);
+    	  count = purchaseReturnMapper.updateByPrimaryKey(purchaseReturn); 
+	  } 
+      if (count > 0) {
+          returnResult.setSuccess(true);
+          returnResult.setMsg("取消采购退货审核操作成功！");
+      } else {
+          returnResult.setMsg("发生未知错误，取消审核操作失败");
+      }  
+  	  return returnResult; 
+    }    
 }

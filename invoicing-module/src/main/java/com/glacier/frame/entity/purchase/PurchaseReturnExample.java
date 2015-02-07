@@ -126,6 +126,18 @@ public class PurchaseReturnExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
+        //供应商查询
+        public Criteria andSupplierIdDisplayLike(String value) {
+            addCriterion("temp_suppliers_display.suppliers_name like", value, "supplierIdDisplay");
+            return (Criteria) this;
+        }
+        
+        //仓库查询
+        public Criteria andStorageDisplayLike(String value) {
+            addCriterion("temp_warehouse_display.warehouse_name like", value, "storageDisplay");
+            return (Criteria) this;
+        }
+        
         public Criteria andPurReturnIdIsNull() {
             addCriterion("temp_purchase_return.pur_return_id is null");
             return (Criteria) this;

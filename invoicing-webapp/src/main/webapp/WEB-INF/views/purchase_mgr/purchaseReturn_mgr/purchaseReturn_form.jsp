@@ -138,6 +138,7 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
    <td style="padding-left:10px;">附件：</td>
    <td colspan="7">
       <label style="float: left;margin-top: 10px;">
+          <input type="hidden" name="accessory" id="accessory" value="${purchaseReturnDate.accessory}">
    	      <a style="margin-right: 5px;" href="javascript:doUpload();" class="easyui-linkbutton" data-options="iconCls:'icon-hamburg-up'">上传</a>
       </label>
       <label id="fileText" style="float: left;height:50px;"></label>
@@ -186,7 +187,34 @@ glacier.purchase_mgr.purchaseReturn_mgr.purchaseReturn_form.param = {
 
 <script>
 
-//附件上传
+if('${purchaseReturnDate.accessory}'!=null&&'${purchaseReturnDate.accessory}'!=""){
+	 var AllImgExt=".jpg|.jpeg|.gif|.bmp|.png|"//全部图片格式类型 
+	 var filename='${purchaseReturnDate.accessory}'.substring('${purchaseReturnDate.accessory}'.lastIndexOf("/")+1,'${purchaseReturnDate.accessory}'.length);
+	 var FileExt='${purchaseReturnDate.accessory}'.substr('${purchaseReturnDate.accessory}'.lastIndexOf(".")).toLowerCase();
+	 if(AllImgExt.indexOf(FileExt+"|")!=-1){
+			$("<img src='${purchaseReturnDate.accessory}'  width='50' height='50'/>").appendTo("#fileText");
+		}else{
+			$("<a href='${purchaseReturnDate.accessory}' style='padding-top:15px;line-height:50px;'>"+filename+"</a>").appendTo("#fileText");
+	  }
+	 $("#fileButton").css({"display":"block"});
+ }
+
+
+var rootPath=getRootPath();
+
+//js获取项目根路径，如： http://localhost:8083/uimcardprj
+function getRootPath(){
+	//获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp
+	var curWwwPath=window.document.location.href;
+	//获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
+	var pathName=window.document.location.pathname;
+	var pos=curWwwPath.indexOf(pathName);
+	//获取主机地址，如： http://localhost:8083
+	var localhostPaht=curWwwPath.substring(0,pos);
+	return(localhostPaht);
+}
+
+
 function doUpload(){
 	$('#FileDialog').dialog({    
 	    title: '附件上传',    
@@ -224,12 +252,17 @@ function ajaxFileUpload()
 				var FileExt=$.parseJSON(data).name.substr($.parseJSON(data).name.lastIndexOf(".")).toLowerCase();
 				$("#FileDialog").dialog('close');
 				$.messager.alert('附件提示','上传成功！','info');
+				$("fax").attr("value",$.parseJSON(data).name);
+				$("#accessory").attr("value",rootPath+ctx+"/"+$.parseJSON(data).path);
 				if(AllImgExt.indexOf(FileExt+"|")!=-1){
 					$("<img src='"+ctx+"/"+$.parseJSON(data).path+"'  width='50' height='50'/>").appendTo("#fileText");
 				}else{
 					$("<a href='"+ctx+"/"+$.parseJSON(data).path+"' style='padding-top:15px;line-height:50px;'>"+$.parseJSON(data).name+"</a>").appendTo("#fileText");
 				}
 				$("#fileButton").css({"display":"block"});
+				
+				
+				
 			},
 			error: function (data, status, e)
 			{
@@ -242,6 +275,8 @@ function ajaxFileUpload()
 
 //附件取消
 function doFiledelete(){
+	$("#fax").val("");
+	$("#accessory").val("");
 	$("#fileText").html("");
 	$("#fileButton").css({"display":"none"});
 }
@@ -682,8 +717,6 @@ function goodsDetail(rowIndex){
 		}]
 	});
 };
-
-
 
 //乘法函数，用来得到精确的乘法结果 
 //说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。 
