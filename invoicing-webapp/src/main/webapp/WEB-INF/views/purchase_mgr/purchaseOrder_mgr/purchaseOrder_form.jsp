@@ -4,21 +4,26 @@
 <!-- 引入自定义权限标签 -->
 <%@ taglib prefix="glacierui"
 	uri="http://com.glacier.permissions.com.cn/tag/easyui"%> 
+<style type="text/css">
+	.file-box{ position:relative;width:340px}
+	.txt{ height:22px; border:1px solid #cdcdcd; width:180px;}
+	.btn{ background-color:#FFF; border:1px solid #CDCDCD;height:24px; width:70px;}
+	.file{ position:absolute; top:0; right:80px; height:24px; filter:alpha(opacity:0);opacity: 0;width:260px }
+</style>
 <form id="purchase_mgr_purchaseOrder_form" method="post" > 
  <table  class="formtable" >  
  <caption style="height:50px;color: blue;"><font size="4" style="padding-top: 30px;">采购订货合同</font></caption>
 	   <tr> 
 	        <td style="padding-left:10px;">采购日期：</td>
 			<td> 
-			<input type="hidden" id="purOrderId" name="purOrderId" value="${purchaseOrderData.purOrderId }">
-			    <input name="orderDate"  required="true" class="easyui-datebox" style="width:168px;height:20px"  value="<fmt:formatDate value="${purchaseOrderData.orderDate}" pattern="yyyy-MM-dd"/>" /> 
+				<input type="hidden" id="purOrderId" name="purOrderId" value="${purchaseOrderData.purOrderId }">
+			    <input class="easyui-datebox" style="width:168px;height:20px"  name="orderDate"  value="<fmt:formatDate value="${purchaseOrderData.orderDate}" pattern="yyyy-MM-dd"/>" required="true"/> 
 			</td>
 			<td style="padding-left:10px;">采购类型：</td>
 			<td><input id="purchaseOrder_mgr_purchaseOrder_form_purchaseTypeId" name="purchaseTypeId" value='${purchaseOrderData.purchaseTypeId}' /></td>
-	
 	        <td style="padding-left:10px;">合同编号：</td>
 			<td>
-				<input id="contractCode" name="contractCode"  class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseOrderData.contractCode }"   />
+				<input id="contractCode" name="contractCode"  class="easyui-validatebox spinner" style="width:168px;height:20px" value="${purchaseOrderData.contractCode }"   />
 			</td> 
 		    <td style="padding-left:10px;">仓库：</td>
 		  	<td ><input id="purchaseOrder_mgr_purchaseOrder_form_storage" name="storage" value="${purchaseOrderData.storage}" /></td>
@@ -26,37 +31,33 @@
 		<tr>
 			<td style="padding-left:10px;">交货期限：</td>
 			<td>
-			   <input name="deliveryDadlines"  required="true" class="easyui-datebox" style="width:168px;height:20px"  value="<fmt:formatDate value="${purchaseOrderData.deliveryDadlines}" pattern="yyyy-MM-dd"/>" /> 
+			   <input name="deliveryDadlines"  class="easyui-datebox" style="width:168px;height:20px"  value="<fmt:formatDate value="${purchaseOrderData.deliveryDadlines}" pattern="yyyy-MM-dd"/>" required="true"  /> 
 			<td style="padding-left:10px;">供应商：</td>
 			<td >
-			    <input id="supplierCode" type="hidden" required="true" value="${purchaseOrderData.supplierCode}"  name="supplierCode"/>
-			
-				<input id="suppliers_mgr_suppliers_form_supplierType" required="true" value="${purchaseOrderData.supplierId}" style="width: 168px;height:20px" name="supplierId"  class="easyui-combogrid"  />
+			    <input id="supplierCode" name="supplierCode" type="hidden"  value="${purchaseOrderData.supplierCode}" required="true" />
+			 	<input id="suppliers_mgr_suppliers_form_supplierType" class="easyui-combogrid"  name="supplierId" value="${purchaseOrderData.supplierId}" style="width: 168px;height:20px"  required="true"     />
 			</td>
 			<td style="padding-left:10px;">供应商地址：</td>
-			<td><input id="supplierAdd" class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseOrderData.supplierAdd}"  name="supplierAdd"/></td>
-			<%-- <td style="padding-left:10px;">联系电话：</td>
-			<td><input id="phone" name="phone" class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseOrderData.phone}"   /></td>
- --%>
-  <td style="padding-left:10px;">付款约定：</td>
+			<td><input id="supplierAdd" name="supplierAdd" class="easyui-validatebox spinner" style="width:168px;height:20px" value="${purchaseOrderData.supplierAdd}"  /></td>
+		 	<td style="padding-left:10px;">付款约定：</td>
 			<td>
-			<input id="paymentAgrId" name="paymentAgrId" class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseOrderData.paymentAgrId }"   />
+			<input id="paymentAgrId" name="paymentAgrId" class="easyui-validatebox spinner" style="width:168px;height:20px" value="${purchaseOrderData.paymentAgrId }"   />
 			</td>
 		</tr>
 		<tr>
 			<td style="padding-left:10px;">是否启用：</td>
 			<td> 
-				<input style="width:168px;height:20px" value="${purchaseOrderData.enabled}" name="enabled" class="easyui-combobox" 
+				<input name="enabled" class="easyui-combobox" style="width:168px;height:20px" value="${purchaseOrderData.enabled}"  
 			 data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data :fields.status"/> 
 			</td>
 			<td style="padding-left:10px;">联系人：</td>
 			<td>
-			  <input id="suppliers_mgr_suppliers_form_linkman"  required="true" value="${purchaseOrderData.linkman}" style="width: 168px;height:20px" name="linkman"  class="easyui-combogrid"  />
+			  <input id="suppliers_mgr_suppliers_form_linkman" name="linkman"  class="easyui-combogrid" value="${purchaseOrderData.linkman}" style="width: 168px;height:20px"  required="true"  />
 			</td>
 			<td style="padding-left:10px;">手机：</td>
-			<td><input id="moi" class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseOrderData.phone}"  name="phone" /></td>
+			<td><input id="moi"  name="phone" class="easyui-validatebox spinner" style="width:168px;height:20px" value="${purchaseOrderData.phone}" /></td>
 			<td style="padding-left:10px;">传真：</td>
-			<td><input class="easyui-validatebox spinner"style="width:168px;height:20px" name="fax" value="${purchaseOrderData.fax}"  /></td>
+			<td><input name="fax" class="easyui-validatebox spinner" style="width:168px;height:20px"  value="${purchaseOrderData.fax}"  /></td>
   		</tr>  
 		<tr> 
 			<td style="padding-left:10px;">约定支付方式：</td>
@@ -70,40 +71,49 @@
 			 </td>
 			<td style="padding-left:10px;">交货地址：</td>
 			<td >
-			    <input id="deliveryAdd" name="deliveryAdd" class="easyui-validatebox spinner"style="width:168px;;height:20px" value="${purchaseOrderData.deliveryAdd}"  />
+			    <input id="deliveryAdd" name="deliveryAdd" class="easyui-validatebox spinner" style="width:168px;;height:20px" value="${purchaseOrderData.deliveryAdd}"  />
 			</td>
 			 <td style="padding-left:10px;">共享人：</td>
 			<td >
-			    <input id="sharedPeopleId" name="sharedPeopleId" class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseOrderData.sharedPeopleId}"  />
+			    <input id="sharedPeopleId" name="sharedPeopleId" class="easyui-validatebox spinner" style="width:168px;height:20px" value="${purchaseOrderData.sharedPeopleId}"  />
 			</td> 
 		</tr>
 		<tr> 
 			<td style="padding-left:10px;">是否开发票：</td>
 			<td>
-			<input style="width:168px;height:20px" value="${purchaseOrderData.invoice}" name="invoice" class="easyui-combobox" 
+			<input name="invoice" class="easyui-combobox" style="width:168px;height:20px" value="${purchaseOrderData.invoice}"  
 			 	  data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.yesOrNo"/> 
 			</td>    
 			<td style="padding-left:10px;">发票类别：</td>
 			<td >
-			<input style="width:168px;height:20px" value="${purchaseOrderData.invoiceTypeId}" name="invoiceTypeId" class="easyui-combobox" 
+			<input name="invoiceTypeId" class="easyui-combobox"  style="width:168px;height:20px" value="${purchaseOrderData.invoiceTypeId}" 
 			 data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.invoiceTypeId"/> 
 			</td>
 			     <td style="padding-left:10px;">总金额：</td>
 			<td >
-			    <input id="totalAmount" readonly="readonly" name="totalAmount" class=" spinner" style="width:168px;height:20px;border-left-style: none;border-right-style: none;border-top-style: none;"   value="<fmt:formatNumber value='${purchaseOrderData.totalAmount}' pattern="#,#00.00元"/>" />
+			    <input id="totalAmount" name="totalAmount" class=" spinner" style="width:168px;height:20px;border-left-style: none;border-right-style: none;border-top-style: none;" readonly="readonly"    value="<fmt:formatNumber value='${purchaseOrderData.totalAmount}' pattern="#,#00.00元"/>" />
 			</td> 
 		</tr> 
 		<tr>  
 			<td style="padding-left:10px;">经办人：</td>
 			<td>
-			 	<input id="suppliers_mgr_suppliers_form_operators" value="${purchaseOrderData.operators}" style="width: 168px;height:20px" name="operators"  class="easyui-combogrid"  />
+			 	<input id="suppliers_mgr_suppliers_form_operators" name="operators"  class="easyui-combogrid"  value="${purchaseOrderData.operators}" style="width: 168px;height:20px" />
 			</td>
 			  <td style="padding-left:10px;">经办部门：</td>
 			<td><input id="operatorDep" name="operatorDep" class="easyui-validatebox spinner" readonly="readonly" style="width:168px;height:20px;border-left-style: none;border-right-style: none;border-top-style: none;"  value="${purchaseOrderData.operatorDep}"  /></td>
 			<td style="padding-left:10px;">附件：</td> 
-			<td style="padding-left:10px;"><input type="button" name="accessory" value="上传"></td>
-			  </tr>
-			  <tr> 
+			<td colspan="2" style="padding-left:10px;">
+			    <input id="accessory" type="hidden" name="accessory" ><!-- 存放上传的路径 -->
+				<label style="float: left;margin-top: 10px;">
+				<a style="margin-right: 5px;" href="javascript:doUpload();" class="easyui-linkbutton" data-options="iconCls:'icon-hamburg-up'">上传</a>
+				</label>
+				<label id="fileText" style="float: left;height:50px;"></label>
+				<label id="fileButton" style="display: none;float: left;">
+				<a style="margin-top: 10px;margin-left: 5px;" href="javascript:doFiledelete();" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" >取消</a>
+				</label>
+			</td>
+		</tr>
+		<tr> 
 			<td style="padding-left:10px;">备 注：</td>
 			<td colspan="7"> <textarea   name="remark" class="easyui-validatebox spinner"style="width:920px;height: 50px"   >${purchaseOrderData.remark}</textarea></td>
 		</tr>  
@@ -114,9 +124,13 @@
      </div> 
      <hr>        
      <!-- 所有列表面板和表格 -->  
-	<div id="purchaseOrderPanel" data-options="region:'center',border:true">
+	<div id="purchaseOrderPanel" data-options="region:'center',border:true"> 
 		<table id="goodsList" style="margin-bottom: 50px">  
-		</table>
+		</table> 
+		<hr>
+		<div align="left" style="margin-top: 20px;">
+		  <label style="color:blue;text-align: right;margin-top: 20px;margin-bottom: 10px">*温馨提示:数据输入不规范，将替换为默认数据</label>
+		</div>
 		<hr> 
 		<div style= "text-align:center ;margin-top: 30px;margin-bottom: 30px">
 	        <a id="saveOk" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">保存</a> 
@@ -125,7 +139,87 @@
 	</div>  
 
   </form> 
-<script type="text/javascript">   
+  
+  <!--附件上传  -->
+<div id="FileDialog" data-options="closed:true" class="easyui-dialog">
+    <div style="margin-top: 50px;">
+	<div class="file-box">
+	  <form action="" method="post" enctype="multipart/form-data">
+	 	
+	 	<input type='text' name='textfield' id='textfield' class='txt' />  
+	 	
+	 	<input type='button' class='btn' value='浏览...' />
+		
+	    <input type="file" name="fileToUpload" class="file"  id="fileToUpload"  size="45"   onchange="document.getElementById('textfield').value=this.value" >
+		
+		<input type="button" name="submit" class="btn" value="上传"  onclick="return ajaxFileUpload();"/> 
+		
+	  </form>
+	</div>
+	</div>
+</div>
+<script type="text/javascript"> 
+//附件上传
+function doUpload(){
+	$('#FileDialog').dialog({    
+	    title: '附件上传',    
+	    width: 360,    
+	    height: 200,    
+	    closed: false,    
+	    cache: false,    
+	    modal: true , 
+	    buttons:[
+			{
+			text:'取消',
+			iconCls:'icon-cancel',
+			handler:function(){
+			   $("#FileDialog").dialog('close'); 	
+			 }
+		}]
+	});  
+}
+
+//附件上传
+function ajaxFileUpload()
+{
+   $.ajaxFileUpload
+	(
+		{
+			url:ctx+'/do/purchaseReturn/uploadFile',
+			secureuri:false,
+			fileElementId:'fileToUpload',
+			data:{name:'logan', id:'id'},
+			dataType: 'json',
+			success: function (data, status)
+			{
+				$("#fileText").html("");
+				var AllImgExt=".jpg|.jpeg|.gif|.bmp|.png|"//全部图片格式类型 
+				var FileExt=$.parseJSON(data).name.substr($.parseJSON(data).name.lastIndexOf(".")).toLowerCase();
+				$("#FileDialog").dialog('close');
+				$.messager.alert('附件提示','上传成功！','info');
+				if(AllImgExt.indexOf(FileExt+"|")!=-1){
+					$("<img src='"+ctx+"/"+$.parseJSON(data).path+"'  width='50' height='50'/>").appendTo("#fileText");
+				}else{
+					$("<a href='"+ctx+"/"+$.parseJSON(data).path+"' style='padding-top:15px;line-height:50px;'>"+$.parseJSON(data).name+"</a>").appendTo("#fileText");
+				}
+				$("#accessory").attr("value","").attr("value",$.parseJSON(data).path);//将路径存放在隐藏域中
+				$("#fileButton").css({"display":"block"});
+			},
+			error: function (data, status, e)
+			{
+				$.messager.alert('上传提示','上传失败，请联系管理员！','info');
+			}
+		}
+	)
+	return false;
+}
+
+//附件取消
+function doFiledelete(){
+	$("#fileText").html("");
+	$("#fileButton").css({"display":"none"});
+}
+
 //------------------分割线-------------------------- 
 var $dg = $("#goodsList"); //全局变量
 var storageVal="";//保存仓库ID
@@ -202,8 +296,7 @@ $dg.datagrid({
           		}
           	});   
           }
-        }],  
-     
+        }],   
     rownumbers : true,//True 就会显示行号的列
     onDblClickRow:function(rowIndex, rowData){
     	stRows=rowIndex; 
@@ -244,8 +337,8 @@ function compute(){//计算函数
 	    			var moneyTarget = $dg.datagrid('getEditor', {index:i,field:'money'}).target;
 			    	moneyTotal += parseFloat(moneyTarget.val());
 			    	var quantityTarget = $dg.datagrid('getEditor', {index:i,field:'quantity'}).target;
-			    	if(parseInt(quantityTarget.val())>9999){ //数量不能超过9999
-			    		quantityTotal+=9999;
+			    	if(parseInt(quantityTarget.val())>9999||parseInt(quantityTarget.val())<=0){ //数量不能超过9999或者小于0,否则设置为0
+			    		quantityTotal+=0;
 			    	}else{
 			    		quantityTotal += parseInt(quantityTarget.val());
 			    	}  
@@ -421,6 +514,9 @@ function discountBlur(obj){
    //-----------------------------------自定义变量-----------------------------------
 	var discount = parseFloat(discountTarget.val()).toFixed(2);//折扣率 
 	var quantity = parseInt(quantityTarget.val());//数量  
+	if(discount<=0){ //如果折扣率小于1.默认折扣率为1
+		discount=1;
+	}
 	var price =accMul(yuanjia,discount);//单价=原价*折扣率  
 	var sun=accMul(price,quantity);//总额=单价*数量 
 	 $dg.datagrid('updateRow',{ //更新行数据
@@ -454,6 +550,9 @@ function priceBlur(obj){
 	var discount = parseFloat(discountTarget.val()).toFixed(2);//折扣率
 	var price = parseFloat(priceTarget.val()).toFixed(2);//单价
 	var quantity = parseInt(quantityTarget.val());//数量    
+	if(price<1){ //如果单价小于1.默认单价最少为10
+		price=10;
+	} 
 	var sun=accMul(price,quantity);//总额=单价*数量 
 	discount=price/yuanjia;//折扣率=单价/原价 
 	 $dg.datagrid('updateRow',{
@@ -485,8 +584,8 @@ function quantityBlur(obj){
 	var discount = parseFloat(discountTarget.val()).toFixed(2);//折扣率
 	var priceOne = parseFloat(priceTarget.val()).toFixed(2);
 	var quantity = parseInt(quantityTarget.val());//数量    
-	if(quantityTarget.val()>9999){//数量不能超过9999
-		quantity=9999;
+	if(quantityTarget.val()>9999||quantityTarget.val()<=0){//数量不能超过9999
+		quantity=0;
 	}
 	var sun=accMul(priceOne,quantity);//总额=单价*数量 
 	 $dg.datagrid('updateRow',{
@@ -521,7 +620,10 @@ function moneyBlur(obj){
 	var discount = parseFloat(discountTarget.val()).toFixed(2);//折扣率
 	var price = parseFloat(priceTarget.val()).toFixed(2);
 	var quantity = parseInt(quantityTarget.val());//数量  
-	var money=parseFloat(moneyTarget.val()).toFixed(2); //金额 
+	var money=parseFloat(moneyTarget.val()).toFixed(2); //金额  
+	if(money<1){ //如果金额小于1.默认金额最少为10
+		money=10;
+	} 
 	if(quantity>0){ 
 		price=money/quantity;//单价=金额/数量 
 		discount=price/yuanjia;//折扣率=单价/原价
@@ -536,7 +638,7 @@ function moneyBlur(obj){
 			deadline:deadlineTarget.datebox('getValue'),
 			remark:remarkTarget.val()
 		}
-	});   
+	});    
 	 $("#goodsList").datagrid('endEdit', indexRows).datagrid('refreshRow', indexRows).datagrid('beginEdit', indexRows); 
 	 againBinding(indexRows); //当前行再次绑定事件
 	 compute();//调用统计

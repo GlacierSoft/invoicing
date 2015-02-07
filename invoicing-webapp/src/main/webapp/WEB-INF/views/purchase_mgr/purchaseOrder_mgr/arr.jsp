@@ -9,47 +9,49 @@
     <td>到货日期：</td>
 	<td>
 	<input id="purchaseArrival_mgr_purchaseArrival_form_arrivalDate" name="arrivalDate" class="easyui-datebox" 
-	<%-- value="<fmt:formatDate value="${purchaseDate.arrivalDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"  --%> required="true" style="width:168px;height: 18px;" /></td>
+	<%-- value="<fmt:formatDate value="${purchaseDate.arrivalDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"  --%> required="true" style="width:168px;height: 20px;" /></td>
 	<td style="padding-left:10px;">采购类型：</td>
 	<td><input id="purchaseArrival_mgr_purchaseArrival_form_purchaseTypeId" name="purchaseTypeId" value='${purchaseDate.purchaseTypeId}' /></td>
 	<td style="padding-left:10px;">所属仓库：</td>
 	<td ><input id="purchaseArrival_mgr_purchaseArrival_form_storage" name="storage" value="${purchaseDate.storage}" /></td>
     <td style="padding-left:10px;">合同编号：</td>
 	<td><input id="purchaseArrival_mgr_purchaseArrival_form_contractCode" name="contractCode" value='${purchaseDate.contractCode}' 
-		class="easyui-validatebox spinner" style="width:168px;height: 18px;"/></td>
+		class="easyui-validatebox spinner" style="width:168px;height: 20px;"/></td>
   
 </tr>
 <tr>
 	<td>供应商：</td>
-	<td><input id="purchaseArrival_mgr_purchaseArrival_form_supplierId" name="supplierId" value="${purchaseDate.supplierId}" /></td>
+	<td> 
+	 <input id="supplierCode" type="hidden" required="true" value="${purchaseOrderData.supplierCode}"  name="supplierCode"/>
+	 <input id="suppliers_mgr_suppliers_form_supplierType" required="true" value="${purchaseDate.supplierId}" style="width: 168px;height:20px" name="supplierId"  class="easyui-combogrid"  />
+	</td>
     <td style="padding-left:10px;">供应商地址：</td>
-	<td><input id="purchaseArrival_mgr_purchaseArrival_form_supplierAdd" name="supplierAdd" value="${purchaseDate.supplierAdd}" 
-		class="easyui-validatebox spinner" style="width:168px;height: 18px;"/></td>
+	<td><input id="supplierAdd" class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseDate.supplierAdd}"  name="supplierAdd"/></td>
 	<td style="padding-left:10px;">联系人：</td>
-	<td><input id="purchaseArrival_mgr_purchaseArrival_form_linkman" name="linkman" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="${purchaseDate.linkman}" /></td>
+	<td> <input id="suppliers_mgr_suppliers_form_linkman"  required="true" value="${purchaseDate.linkman}" style="width: 168px;height:20px" name="linkman"  class="easyui-combogrid"  /></td>
     <td style="padding-left:10px;">联系电话：</td>
-    <td><input id="purchaseArrival_mgr_purchaseArrival_form_phone" name="phone" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="${purchaseDate.phone}" /></td>
+    <td><input id="moi" class="easyui-validatebox spinner"style="width:168px;height:20px" value="${purchaseDate.phone}"  name="phone" /></td>
 </tr>
 <tr>
 	<td>传真：</td>
-	<td><input id="purchaseArrival_mgr_purchaseArrival_form_fax" name="fax" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="${purchaseDate.fax}"  /></td>
+	<td><input id="purchaseArrival_mgr_purchaseArrival_form_fax" name="fax" class="easyui-validatebox spinner" style="width:168px;height: 20px;" value="${purchaseDate.fax}"  /></td>
 	<td style="padding-left:10px;">交货方式：</td>
 	<td><input id="purchaseArrival_mgr_purchaseArrival_form_deliveryType" name="deliveryType" value="${purchaseDate.deliveryType}" /></td>
 	<td style="padding-left:10px;">交货期限：</td>
 	<td><input id="purchaseArrival_mgr_purchaseArrival_form_deliveryDead" name="deliveryDead" class="easyui-datebox" value="<fmt:formatDate value="${purchaseDate.deliveryDadlines}" pattern="yyyy-MM-dd"/>" 
-	style="width:168px;height: 18px;" /></td>
+	style="width:168px;height: 20px;" /></td>
 	<td style="padding-left:10px;">交货地址：</td>
-	<td><input id="purchaseArrival_mgr_purchaseArrival_form_deliveryAdd" name="deliveryAdd" class="easyui-validatebox spinner" style="width:168px;height: 18px;" value="${purchaseDate.deliveryAdd}" /></td>
+	<td><input id="purchaseArrival_mgr_purchaseArrival_form_deliveryAdd" name="deliveryAdd" class="easyui-validatebox spinner" style="width:168px;height: 20px;" value="${purchaseDate.deliveryAdd}" /></td>
 </tr>
 <tr>
 	<td>验收人：</td>
 	<td><input id="purchaseArrival_mgr_purchaseArrival_form_acceptor" name="acceptor"  /></td>
    	<td style="padding-left:10px;">附件：</td>
-  	<td><input class="easyui-validatebox spinner" style="width:168px;height: 18px;" name="accessory"  value="${purchaseDate.accessory}" /></td>
+  	<td><input class="easyui-validatebox spinner" style="width:168px;height: 20px;" name="accessory"  value="${purchaseDate.accessory}" /></td>
 	<td style="padding-left:10px;">经办人：</td>
 	<td><input id="purchaseArrival_mgr_purchaseArrival_form_operators" name="operators"  value="${purchaseDate.operators}" /></td>
     <td style="padding-left:10px;">经办部门：</td>
-	<td><input id="operatorDep" class="easyui-validatebox spinner" style="width:168px;height: 18px;" name="operatorDep"  value="${purchaseDate.operatorDep}" disabled="disabled"/></td>
+	<td><input id="operatorDep" class="easyui-validatebox spinner" style="width:168px;height: 20px;" name="operatorDep"  value="${purchaseDate.operatorDep}" disabled="disabled"/></td>
 </tr>
 <tr>
 	<td>是否开票：</td>
@@ -69,21 +71,21 @@
 	<td><input id="purchaseArrival_mgr_purchaseArrival_form_logSettlementId" style="width:168px"  name="logSettlementId" class="easyui-combobox" 
   	  data-options="valueField:'value',textField : 'label',panelHeight : 'auto',editable : false,required:true,data : fields.logSettlementId"/></td>
     <td style="padding-left:10px;">运单号：</td>
-	<td><input name="logCode" class="spinner" style="width:168px;height: 18px;"   /></td>
+	<td><input name="logCode" class="spinner" style="width:168px;height: 20px;"   /></td>
 	<td style="padding-left:10px;">运费总额：</td>
-	<td><input  name="logTotalTmount" class="spinner" style="width:168px;height: 18px;"  /></td>
+	<td><input  name="logTotalTmount" class="spinner" style="width:168px;height: 20px;"  /></td>
     <td style="padding-left:10px;">物流公司：</td>
 	<td><input id="purchaseArrival_mgr_purchaseArrival_form_logCompany" name="logCompany"   /></td>
 </tr>
 <tr>
 	<td>物流联系人：</td>
-	<td><input  name="logLinkman" style="width:168px;height: 18px;" class="spinner" /></td>
+	<td><input  name="logLinkman" style="width:168px;height: 20px;" class="spinner" /></td>
     <td style="padding-left:10px;">物流电话：</td>
-	<td><input  name="logPhone" style="width:168px;height: 18px;" class="spinner"  /></td>
+	<td><input  name="logPhone" style="width:168px;height: 20px;" class="spinner"  /></td>
 	<td style="padding-left:10px;"> 备 注：</td>
-	<td><input  name="remark" style="width:168px;height: 18px;" class="spinner" value='${purchaseDate.remark}' /></td>
+	<td><input  name="remark" style="width:168px;height: 20px;" class="spinner" value='${purchaseDate.remark}' /></td>
 	<td style="padding-left:10px;">总金额：</td>
-	<td><input  name="totalAmount" class="spinner" style="width:168px;height: 18px;" value='${purchaseDate.totalAmount}' disabled="disabled" /></td>
+	<td><input id="totalAmount" name="totalAmount" class="spinner" style="width:168px;height: 20px;" value='${purchaseDate.totalAmount}' disabled="disabled"/></td>
 </tr>
 <tr>
 	<td>付款约定：</td>
@@ -409,7 +411,7 @@ var moneyTotal = 0,
 	    }
 }else{
 	 moneyTotal=parseFloat(rows[0]['money']);
-}
+} 
 $("#totalAmount").attr("value","").attr("value",moneyTotal); 
 }
 
@@ -837,18 +839,133 @@ $("#purchaseArrival_mgr_purchaseArrival_form_storage").combobox({
 	valueField: 'warehouseId'//这里为IduserDate
 });
 
-//初始化供应商下拉项
-$("#purchaseArrival_mgr_purchaseArrival_form_supplierId").combobox({
-	data : $.parseJSON('${suppliersDate}'),//controller传来的数据源
-	height:18,
-	width:170,
-  required:true,
-  editable : false,
-  missingMessage:'请选供应商',
-	textField : 'suppliersName',//这里为名称
-	valueField: 'supplierId'//这里为IduserDate
-});
 
+var suppid="";
+//用于combogrid的供应商信息绑定
+$('#suppliers_mgr_suppliers_form_supplierType').combogrid({
+	panelWidth:570,
+	fit:true,//控件自动resize占满窗口大小
+	//iconCls:'icon-save',//图标样式
+	editable:false,//定义用户是否可以直接输入文本到字段中。
+	border:true,//是否存在边框
+	fitColumns:true,//自动填充行
+	nowrap: true,//禁止单元格中的文字自动换行
+	autoRowHeight: false,//禁止设置自动行高以适应内容
+	striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
+	singleSelect:true,//限制单选
+	checkOnSelect:false,//选择复选框的时候选择该行
+	selectOnCheck:false,//选择的时候复选框打勾
+    idField:'supplierId',    
+    textField:'suppliersName',    
+    url: ctx + '/do/suppliers/list.json?enabled=enable',
+    sortName: 'createTime',//排序字段名称
+	sortOrder: 'desc',//升序还是降序
+	remoteSort: true,//开启远程排序，默认为false
+    columns : [ [{
+  				field:'supplierNumber',
+  				title:'编号',
+  				width:120,
+  				sortable:true
+  			},{
+  				field:'suppliersName',
+  				title:'名称',
+  				width:120,
+  				sortable:true
+  			},{
+  				field:'suppliersTypeName',
+  				title:'供应商类型',
+  				width:200,
+  				sortable:true
+  			},{
+  				field:'companyPhone',
+  				title:'联系电话',
+  				width:200,
+  				sortable:true
+  			},{
+  				field:'adress',
+  				title:'地址',
+  				width:200,
+  				sortable:true
+  			}
+		 ] ],
+		pagination : true,//True 就会在 datagrid 的底部显示分页栏
+		pageSize : 10,//注意，pageSize必须在pageList存在
+		pageList : [2,10,50,100],//从session中获取
+		rownumbers : true,//True 就会显示行号的列 
+ 		onSelect: function(rowIndex, rowData){   
+ 			$("#supplierAdd").attr("value",$(this).datagrid("getSelected").adress); 
+			$("#supplierCode").attr("value",$(this).datagrid("getSelected").supplierNumber); 
+			$('#suppliers_mgr_suppliers_form_linkman').combogrid("clear"); 
+			suppid=rowData.supplierId;  
+			$("#moi").attr("value","");
+			$('#suppliers_mgr_suppliers_form_linkman').combo('enable');
+			$('#suppliers_mgr_suppliers_form_linkman').combogrid('grid').datagrid('load',{"supplierId":suppid});
+		 
+		 } ,
+	loadMsg : '数据加载中....',  
+});  
+
+
+//用于combogrid的联系人信息绑定
+$('#suppliers_mgr_suppliers_form_linkman').combogrid({
+	panelWidth:570,
+	fit:true,//控件自动resize占满窗口大小 
+	editable:false,
+	border:false,//是否存在边框
+	fitColumns:true,//自动填充行
+	nowrap: true,//禁止单元格中的文字自动换行
+	autoRowHeight: false,//禁止设置自动行高以适应内容
+	striped: true,//true就是把行条纹化。（即奇偶行使用不同背景色）
+	singleSelect:true,//限制单选
+	disabled:true, //禁用字段
+	checkOnSelect:false,//选择复选框的时候选择该行
+	selectOnCheck:false,//选择的时候复选框打勾
+  idField:'supplierContactId',    
+  textField:'name',    
+  url: ctx + '/do/suppliersContact/list.json',
+  sortName: 'createTime',//排序字段名称
+	sortOrder: 'desc',//升序还是降序
+	remoteSort: true,//开启远程排序，默认为false
+  columns : [ [  
+          {
+				field:'name',
+				title:'姓名',
+				width:120,
+				sortable:true
+			},  {
+				field:'contactTypeName',
+				title:'联系人类型',
+				width:120,
+				sortable:true
+			},{
+				field:'sex',
+				title:'性别',
+				width:120,
+				sortable:true,
+				formatter: function(value,row,index){
+					return renderGridValue(value,fields.sex);
+				}
+			},{
+				field:'workPhone',
+				title:'工作电话',
+				width:200,
+				sortable:true
+			},{
+				field:'homeAdress',
+				title:'家庭住址',
+				width:200,
+				sortable:true
+			}
+		 ] ],
+		pagination : true,//True 就会在 datagrid 的底部显示分页栏
+		pageSize : 10,//注意，pageSize必须在pageList存在
+		pageList : [2,10,50,100],//从session中获取
+		rownumbers : true,//True 就会显示行号的列
+		onClickRow : function(rows) {  
+			$("#moi").attr("value",$(this).datagrid("getSelected").workPhone);   
+		},   
+	loadMsg : '数据加载中....',  
+});   
 //初始化交货方式下拉项
 $("#purchaseArrival_mgr_purchaseArrival_form_deliveryType").combobox({
 	data : $.parseJSON('${deliverTypeDate}'),//controller传来的数据源
