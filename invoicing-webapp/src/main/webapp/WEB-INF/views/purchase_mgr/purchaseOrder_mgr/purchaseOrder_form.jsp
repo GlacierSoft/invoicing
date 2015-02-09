@@ -136,24 +136,18 @@
 	        <a id="saveOk" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">保存</a> 
 	        <a style="margin-left: 30px" id="unbo" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-undo'">关闭</a> 
 	      </div> 
-	</div>  
-
+	</div>   
   </form> 
   
   <!--附件上传  -->
 <div id="FileDialog" data-options="closed:true" class="easyui-dialog">
     <div style="margin-top: 50px;">
 	<div class="file-box">
-	  <form action="" method="post" enctype="multipart/form-data">
-	 	
-	 	<input type='text' name='textfield' id='textfield' class='txt' />  
-	 	
-	 	<input type='button' class='btn' value='浏览...' />
-		
+	  <form action="" method="post" enctype="multipart/form-data"> 
+	 	<input type='text' name='textfield' id='textfield' class='txt' />   
+	 	<input type='button' class='btn' value='浏览...' /> 	
 	    <input type="file" name="fileToUpload" class="file"  id="fileToUpload"  size="45"   onchange="document.getElementById('textfield').value=this.value" >
-		
-		<input type="button" name="submit" class="btn" value="上传"  onclick="return ajaxFileUpload();"/> 
-		
+	 	<input type="button" name="submit" class="btn" value="上传"  onclick="return ajaxFileUpload();"/>  
 	  </form>
 	</div>
 	</div>
