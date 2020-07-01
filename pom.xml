@@ -54,7 +54,7 @@
 		<mybatis.core.version>3.1.1</mybatis.core.version>
 		<mybatis.spring.version>1.1.1</mybatis.spring.version>
 		<com.jolbox.version>0.7.1.RELEASE</com.jolbox.version>
-		<mysql.connector>5.1.9</mysql.connector>
+		<mysql.connector>8.0.16</mysql.connector>
 		<!-- dao end -->
 		<!-- shiro begin -->
 		<org.apache.shiro.version>1.2.2</org.apache.shiro.version>
