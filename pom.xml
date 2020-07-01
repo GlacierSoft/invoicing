@@ -17,7 +17,7 @@
 		<!-- 编译源时候默认的编码 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- quartz begin -->
-		<quartz.version>2.2.1</quartz.version>
+		<quartz.version>2.3.2</quartz.version>
 		<!-- quartz end -->
 		<!-- jackson begin -->
 		<jackson.core.asl.version>1.9.8</jackson.core.asl.version>
