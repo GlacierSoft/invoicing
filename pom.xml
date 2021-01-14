@@ -70,7 +70,7 @@
 		<javax.servlet.version>2.5</javax.servlet.version>
 		<javax.servlet.jsp.version>2.2</javax.servlet.jsp.version>
 		<!-- provided end -->
-		<org.apache.poi.version>3.10-FINAL</org.apache.poi.version>
+		<org.apache.poi.version>3.17</org.apache.poi.version>
 	</properties>
 
 	<!-- 管理jar的依赖，在此处相当于生命各种jar的版本和作用域，那么在子POM中就可以不用重复定义该jar的版本和作用,默认的scope为compile,默认的type为jar -->
