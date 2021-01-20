@@ -60,7 +60,7 @@
 		<org.apache.shiro.version>1.2.2</org.apache.shiro.version>
 		<!-- shiro end -->
 		<!-- compent begin -->
-		<com.fasterxml.jackson.core.version>2.3.0</com.fasterxml.jackson.core.version>
+		<com.fasterxml.jackson.core.version>2.9.10.7</com.fasterxml.jackson.core.version>
 		<com.alibaba.fastjson.version>1.1.36</com.alibaba.fastjson.version>
 		<com.google.code.kaptcha>2.3</com.google.code.kaptcha>
 		<!-- compent end -->
