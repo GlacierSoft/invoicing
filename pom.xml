@@ -57,7 +57,7 @@
 		<mysql.connector>5.1.9</mysql.connector>
 		<!-- dao end -->
 		<!-- shiro begin -->
-		<org.apache.shiro.version>1.2.2</org.apache.shiro.version>
+		<org.apache.shiro.version>1.8.0</org.apache.shiro.version>
 		<!-- shiro end -->
 		<!-- compent begin -->
 		<com.fasterxml.jackson.core.version>2.3.0</com.fasterxml.jackson.core.version>
