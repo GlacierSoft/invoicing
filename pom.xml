@@ -45,7 +45,7 @@
 		<ch.qos.logback.version>1.0.7</ch.qos.logback.version>
 		<!--log end -->
 		<!--Spring begin -->
-		<spring.version>3.2.0.RELEASE</spring.version>
+		<spring.version>3.2.4.RELEASE</spring.version>
 		<!--Spring end -->
 		<!-- dao begin -->
 		<hibernate.version>4.1.8.Final</hibernate.version>
